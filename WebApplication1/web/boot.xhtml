@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="cache-control" content="max-age=0" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="pragma" content="no-cache" />
+
+        <h:outputStylesheet name="css/bootstrap.min.css" />
+        <h:outputStylesheet name="css/blog-home.css" />
+        <h:outputStylesheet name="css/otros.css" />
+
+        <h:outputScript name="js/bootstrap.min.js" />
+        <h:outputScript name="js/spanishLocale.js" />
+        <h:outputScript name="js/funciones.js" />
+
+        <title>SIRPAM</title>
+
+    </h:head>
+    <h:body>
+
+
+
+
+        <nav class="navbar navbar-default navbar-inverse " >
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h:link outcome="index" value="SIRPAM" class="navbar-brand" />
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Usuario <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="Pantalla" value="Pantalla" /></li>
+                                <li><h:link outcome="TipoUsuario"   value="Tipo Usuario" /></li>
+
+                                <li class="divider"></li>
+                                <li><h:link outcome="Usuario"       value="Usuario" /></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Revista <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="Categoria"     value="Categoría" /></li>
+                                <li><h:link outcome="Titulo"     value="Titulo" /></li>
+                                <li><h:link outcome="PalabrasClave" value="Palabras Clave" /></li>
+                                <li><h:link outcome="Autor" value="Autor" /></li>
+
+
+                                <li class="divider"></li>
+                                <li><h:link outcome="Revistas"      value="Revistas" /></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Donaciones <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="Donantes"      value="Donante" /></li>
+                                <li><h:link outcome="Donaciones"    value="Donaciòn" /></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Importacion <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="Importar"      value="Importar Revistas" /></li>
+                                <li><h:link outcome="prueba"      value="prueba" /></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Gestion Evento <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="Evento"      value="Eventos" /></li>
+                                <li><h:link outcome="Inventario"      value="Inventario" /></li>
+                                <li><h:link outcome="Estado"      value="Estado" /></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Prestamos <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><h:link outcome="Prestamo" value="Prestamo" /></li>
+                                <li><h:link outcome="Devolucion" value="Devolucion" /></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <c:if test="#{inicioBean.inicioSesion}" >
+                            <li class="dropdown">
+
+
+
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> #{ inicioBean.logueado}  <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <li><h:link outcome="Perfil"   value="Ver Perfil" /></li>
+
+                                        <h:form >
+                                            <h:commandButton action="#{ inicioBean.Salir()}" value="Salir" class="salirBtn"></h:commandButton>
+                                        </h:form>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        </c:if>         
+                        <c:if test="#{ !inicioBean.inicioSesion}" >
+                            <li>
+                                <a onclick="PF('login_modal').show();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Iniciar Sesión </a>
+                            </li>
+                        </c:if> 
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+                <!-- Blog Entries Column -->
+                <div class="col-md-9 col-sm-12">
+
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+                <!-- Blog Sidebar Widgets Column -->
+                <div class="col-md-3 col-sm-12">
+                    <div class="row" id="contenedor_busquedas">
+                        <!-- Blog Search Well -->                    
+                        <h:form id="frm_busqueda">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        Búsqueda de Revistas
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="input-group">
+                                        <p:inputText id="busqueda" value="#{busquedaBean.studentId}" class="form-control" >
+
+                                        </p:inputText>
+                                        <span class="input-group-btn">
+                                            <p:commandButton class="btn btn-default" icon="ui-icon-search" action="#{busquedaBean.buscarSimple()}"  style="height: 34px" >
+
+                                            </p:commandButton> 
+
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox1" value="" onchange="ocultar_bsq_av();" /> Búsqueda Avanzada
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.input-group -->
+                        </h:form>
+                        <!-- Blog Categories Well -->
+                        <div class="well primary" id="bsq_avanzada">
+                            <h:form id="frm_avanzada">
+                                <h4>Búsqueda Avanzada</h4>
+
+                                <div class="form-group">
+                                    <p:outputLabel value="Titulo Articulo"  for="bsq_titulo" />
+                                    <p:inputText id="bsq_titulo" value="#{busquedaBean.busquedaTitulo}" class="form-control" placeholder="Título" />
+                                </div>
+                                <div class="form-group">
+                                    <p:outputLabel value="Autor"  for="bsq_autor" />
+                                    <p:inputText id="bsq_autor" value="#{busquedaBean.busquedaAutor}" class="form-control" placeholder="Autor" onkeypress="return soloLetras(event)"/>
+                                </div>
+                                <div class="form-group">
+                                    <p:outputLabel value="Resumen"  for="bsq_articulo" />
+                                    <p:inputText id="bsq_articulo" value="#{busquedaBean.busquedaArticulo}" class="form-control" placeholder="Articulo" />
+                                </div>
+                                <div class="form-group">
+                                    <p:outputLabel value="Categoría"  for="bsq_categoria" />
+                                    <p:selectOneMenu id="bsq_categoria"   
+                                                                         value="#{busquedaBean.busquedaCategoria}"  
+                                                                         panelStyle="width:180px"
+                                                                         effect="fade" 
+                                                                         style="width:100%" filter="true"
+                                                                         filterMatchMode="startsWith"  >
+                                        <f:selectItem noSelectionOption="true" itemLabel="" itemValue=""/>
+                                                            <f:selectItems value="#{categoriaBean.getir()}" 
+                                                                           var="themes" 
+                                                                           itemLabel="#{themes.nombrec}" 
+                                                                           itemValue="#{themes.nombrec}"  />
+                                                        </p:selectOneMenu>
+                                   </div>
+
+                                <div class="form-group">
+                                    <p:outputLabel value="Palabras Clave:" for="themes" />                              
+
+                                    <p:autoComplete id="themes" multiple="true"  value="#{busquedaBean.temPalabra}"  
+                                                    completeMethod="#{palabraClaveBean.completeTheme}"
+                                                    var="theme" itemLabel="#{theme}" itemValue="#{theme}"  
+                                                    forceSelection="true"  styleClass="ui-autocomplete"   >                                    
+                                    </p:autoComplete>
+
+
+                                </div>
+
+
+                                <p:commandButton class="btn btn-success" value="Buscar" 
+                                                 action="#{busquedaBean.buscar()}" process="@form, :frm_busqueda:busqueda"  >
+
+                                </p:commandButton> 
+
+
+                            </h:form>
+                        </div>
+                    </div>
+                    <!-- Side Widget Well -->
+                </div>
+            </div>
+            <p:dialog header="Iniciar Sesión" widgetVar="login_modal" minHeight="100" modal="true" resizable="false">
+                <h:form>
+
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Usuario"  for="txtUsuario" />
+                        <p:inputText value="#{inicioBean.usuarioNombre}" required="true"  id="txtUsuario"  requiredMessage="Ingrese un Usuario"/>
+
+                        <p:outputLabel value="Contraseña"  for="txtContra" />
+                        <p:password value="#{inicioBean.usuarioContra}" required="true"  id="txtContra"  requiredMessage="Ingrese una Contraseña"/>
+
+                        <h:column />
+                        <h:commandButton value="Iniciar Sesion" action="#{ inicioBean.login()}"/>
+
+                    </h:panelGrid>
+                    <p:separator />
+                    <h:link outcome="Registrarse" value="Regiistrarse..." />
+
+
+                </h:form>
+            </p:dialog>
+            <!-- /.row -->
+            <hr />
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+
+                    <div class="col-lg-5">
+                        <a href="http://www.cultura.gob.sv/muna">www.cultura.gob.sv/muna</a>
+                    </div>
+                    <div class="col-lg-3">
+                        <p:clock pattern="dd-MM-yyyy hh:mm:ss a" id="reloj_sistema"/>
+                    </div> 
+                    <div class="col-lg-4">
+                        <div class="pull-right"> 
+                            Copyright &copy; SEGI 2016
+                        </div>
+                    </div>
+
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </footer>
+        </div>
+        <!-- /.container -->
+    </h:body>
+</html>

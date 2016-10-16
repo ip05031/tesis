@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <div class="row" >
+
+
+                    <div class="col-md-12" >
+                        <p:growl id="msg" autoUpdate="true" />
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Inventario 
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <h:form>
+                                            <p:commandButton class="btn btn-success btn-xs" value="Ingresar Inventario" type="button" onclick="PF('ingresarInventario').show();" />    
+                                        </h:form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <div class="col-md-12" > 
+                                        <h4> Lista de Inventario  </h4>
+                                        <h:form id="frm_table">
+                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+
+                                            <p:dataTable value="#{inventarioBean.getir()}" var="inventario" id="detailTable" widgetVar="tabla_inventario" emptyMessage="No se encontraron registros." paginator="true" rows="6">
+
+
+                                                <!-- esta parte la agrege para poder hacer la busqueda -->
+                                                <f:facet name="header" >
+                                                    <p:outputPanel style="text-align:right">
+                                                        <h:outputText value="Buscar:" />
+                                                        <p:inputText id="globalFilter" onkeyup="PF('tabla_inventario').filter()" style="width:150px" placeholder="Busqueda" />
+                                                    </p:outputPanel>
+                                                </f:facet>   
+
+
+                                                <p:column headerText="Revista" filterBy="#{inventario.idRevista.titulor}" sortBy="#{inventario.idRevista.titulor}">
+                                                    <h:outputText value="#{inventario.idRevista.titulor}" />
+                                                </p:column>
+
+                                                <p:column headerText="Estado" filterBy="#{inventario.idEstado.nombreEstado}" sortBy="#{inventario.idEstado.nombreEstado}">
+                                                    <h:outputText value="#{inventario.idEstado.nombreEstado}" />
+                                                </p:column>
+                                                <p:column headerText="Editar" style="text-align:center" width="11%">
+                                                    <p:commandButton icon="ui-icon-pencil"  
+                                                                     oncomplete="PF('modificarInventario').show();" 
+                                                                     action="#{inventarioBean.asiganarModificacion(inventario)}" 
+                                                                     update=":newInventario2" process="@this"/>
+                                                </p:column>
+
+                                                <!-- Boton para Borrar elemento-->
+                                                <p:column headerText="Eliminar" style="text-align:center" width="11%">
+                                                    <p:commandButton icon="ui-icon-trash" 
+                                                                     actionListener="#{inventarioBean.eliminarinvent(inventario)}"
+                                                                     update="@form"  process="@this" class="btn btn-danger" >
+                                                        <p:confirm message="¿Desea eliminar el Elemento del Inventario?" header="Aviso" icon="ui-icon-alert"/>
+                                                    </p:commandButton>
+
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" type="button"
+                                                                         icon="ui-icon-check" 
+                                                                         styleClass="ui-confirmdialog-yes"/>
+                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                         class="ui-confirmdialog-no btn-danger pull-right" />
+                                                    </p:confirmDialog>
+
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:form>
+
+
+
+                                        <!-- / Bloque de codigo para insertar dato --> 
+                                        <p:dialog widgetVar="ingresarInventario" header="Inventario" minHeight="40" modal="true" resizable="false">
+                                            <h:form id="newInventario" >
+                                                <p:panel id="panel1" header="Ingresar Inventario" >
+                                                    <p:messages id="msgs" />
+
+                                                    <div class="form-group">
+                                                        <label for="revista">
+                                                            Revista
+                                                        </label>
+                                                        <!-- <p:outputLabel value="Nombre Palabra"/>  -->
+                                                        <p:selectOneMenu id="revista" value="#{inventarioBean.idRevista}" effect="fold" 
+                                                                         style="width:100%; vertical-align: 15px;" filter="true" filterMatchMode="startsWith" 
+                                                                         required="true" class=" col-md-6 ">
+                                                            <f:selectItems value="#{revistaBean.obtener() }" var="revista" itemLabel="#{revista.titulor}" itemValue="#{revista.idRevista}"/>
+                                                        </p:selectOneMenu>
+                                                        <p:message for="revista" display="icon"  />
+                                                    </div>
+
+                                                    <br/>
+                                                    <p:dataTable value="#{inventarioBean.listaTemporal()}" var="estados" id="detailEstados" widgetVar="tabla_Estados" emptyMessage="No se encontraron registros.">
+                                                        <p:column headerText="Estado" >
+                                                            <h:outputText value="#{estados.estado.nombreEstado}" />
+                                                        </p:column>
+                                                        <p:column headerText="Cantidad" >                                                            
+                                                            <p:inputText  value="#{estados.cantidad}" maxlength="9"   label="Volumenes en Mal estado" autocomplete="off" onkeypress="return soloNumeros(event)"> 
+                                                                <p:clientValidator event="keyup"/>
+                                                            </p:inputText>                                                           
+                                                        </p:column>
+
+                                                    </p:dataTable>
+
+
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{inventarioBean.guardando()  }"  update=":frm_table:detailTable,newInventario"/>
+                                                    <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarInventario').hide();" immediate="true"/>
+                                                </p:panel>
+                                            </h:form>    
+                                        </p:dialog>
+
+                                        <!-- / Bloque de codigo para Modificar dato --> 
+                                        <p:dialog widgetVar="modificarInventario" header="Inventario" minHeight="40" modal="true" resizable="false">
+                                            <h:form id="newInventario2" >
+                                                <p:panel id="panel122" header="Cambiar Estado" >
+                                                    <p:messages id="msgs23" />
+
+                                                    <div class="form-group">
+                                                        <label >
+                                                            Revista
+                                                        </label>
+                                                        <!-- <p:outputLabel value="Nombre Palabra"/>  -->
+                                                        <p:outputLabel value="#{inventarioBean.inventario.idRevista.titulor}"/>                                                        
+                                                    </div>
+
+                                                    <br/>
+                                                    <p:dataTable value="#{inventarioBean.listaTemporalEstados()}" var="estadoss" id="tablaEstados" emptyMessage="No se encontraron registros.">
+                                                        <p:column headerText="Estado" >
+                                                            <h:outputText value="#{estadoss.nombreEstado}" />
+                                                        </p:column>
+                                                        <p:column headerText="Cambiar a" >     
+                                                            <p:commandButton class="btn btn-success pull-right" id="modificar"
+                                                                             value="Seleccionar" 
+                                                                             action="#{inventarioBean.saveModificar(estadoss)  }"  
+                                                                             update=":frm_table:detailTable"/>
+
+                                                        </p:column>                                                  
+                                                    </p:dataTable>
+
+
+                                                    <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarInventario').hide();" immediate="true"/>
+                                                </p:panel>
+                                            </h:form>    
+                                        </p:dialog>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

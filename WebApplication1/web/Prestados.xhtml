@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+ 
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="pull-left">
+                            <h:link outcome="Resultado" value="Regresar a Resultados " class="btn btn-primary btn-block "/>
+                        </div> 
+                        <div class="pull-left">
+                            <h:link outcome="Prestamo" value="Regresar a Prestamo" class="btn btn-info btn-block " style="margin-left: 5px;"/>
+                        </div> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="pull-left">
+                            <h4> Listado de Revistas Prestadas </h4>
+                            <h:form id="frm_table">
+                                <p:growl id="msj" autoUpdate="true"></p:growl>
+                                <p:dataTable value="#{prestamoBean.ListaPrestamos() }" var="prestamo" paginator="true" id="detailTable" emptyMessage="No se encontraron registros" rows="10">
+                                    <p:column headerText="Nombre Revista" >
+                                        <h:outputText value="Anales :53" />
+                                    </p:column>
+                                    <p:column headerText="Prestador"  style="text-align: center" >
+                                        <h:outputText value="#{prestamo.idUsuario.nombreu} #{prestamo.idUsuario.apellidosu} - (#{prestamo.idUsuario.nickname})" />
+                                    </p:column>
+                                    <p:column headerText="Fecha Prestamo"  style="text-align: center" >
+                                        <h:outputText value="#{prestamo.fechap}" >
+                                            <f:convertDateTime pattern="dd-MM-YYYY" />
+                                        </h:outputText>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                        </div> 
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

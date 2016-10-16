@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="pull-left">
+                            <h4> Listado de Revistas Prestadas </h4>
+                            <h:form id="frm_table">
+                                <p:growl id="msj" autoUpdate="true"></p:growl>
+                                <p:dataTable value="#{prestamoBean.ListaPrestamos() }" widgetVar="tabla_devolucion" var="prestamo" paginator="true" id="detailTable" emptyMessage="No se encontraron registros" rows="10">
+                                    <f:facet name="header" >
+                                        <p:outputPanel style="text-align:right">
+                                            <h:outputText value="Buscar:" />
+                                            <p:inputText id="globalFilter" onkeyup="PF('tabla_devolucion').filter()" style="width:150px" placeholder="Busqueda" />
+                                        </p:outputPanel>
+                                    </f:facet>  
+                                    <p:column headerText="Nombre Revista" filterBy="#{prestamo.idInventario.idRevista.idTitulo.tituloRevista} #{prestamo.idInventario.idRevista.titulor}" >
+                                        <h:outputText value="#{prestamo.idInventario.idRevista.idTitulo.tituloRevista} #{prestamo.idInventario.idRevista.titulor}" />
+                                    </p:column>
+                                    <p:column headerText="Prestador"  style="text-align: center" filterBy="#{prestamo.idUsuario.nickname}" >
+                                        <h:outputText value="#{prestamo.idUsuario.nombreu} #{prestamo.idUsuario.apellidosu} - (#{prestamo.idUsuario.nickname})" />
+                                    </p:column>
+                                    <p:column headerText="Fecha Prestamo"  style="text-align: center" >
+                                        <h:outputText value="#{prestamo.fechap}" >
+                                            <f:convertDateTime pattern="dd-MM-YYYY" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Devolver"  style="text-align: center" width="11%">
+                                        <p:commandButton  icon="ui-icon-pencil" title="Prestar Revista"   actionListener="#{prestamoBean.selecDevolverRevista(prestamo)}"  oncomplete="PF('devolverRevista').show();" update=":devolverRevista" />
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+
+                            <p:dialog header="Devolver Revista" widgetVar="devolverRevista" minHeight="40" modal="true" resizable="false">
+                                <h:form id="devolverRevista">
+                                    <div class="form-group">
+                                        <p>
+                                            Se Devolverá el dia de #{prestamoBean.fechaMostrar} <br/> una copia de el libro  una copia de #{prestamoBean.devolucion.idInventario.idRevista.idTitulo.tituloRevista}:#{prestamoBean.devolucion.idInventario.idRevista.titulor} 
+                                        </p>
+                                        <p>
+                                            Se consultaron las siguientes páginas. 
+                                        </p>
+                                        <p:inputText placeholder="Paginas" title="Paginas" value="#{prestamoBean.pags}" />
+                                    </div>
+                                    <p:commandButton class="btn btn-success pull-right" value="Ok" 
+                                                     actionListener="#{prestamoBean.guardarDevolucion()  }"
+                                                     oncomplete="PF('devolverRevista').hide();"/>
+                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('devolverRevista').hide();"/>
+                                </h:form>
+                            </p:dialog>
+                        </div> 
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

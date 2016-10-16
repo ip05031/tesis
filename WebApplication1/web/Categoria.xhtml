@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <div class="row" >
+                    <div class="col-md-12" >
+
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Categorias
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <h:form>
+                                            <p:commandButton value="Nueva Categoría" class="btn btn-success btn-xs " type="button" onclick="PF('nuevaCategoria').show();"/>
+                                        </h:form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <div class="col-md-12" > 
+                                        <h4> Listado de categorias </h4>
+                                        <h:form id="frm_table">
+                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+
+
+
+
+                                            <p:dataTable value="#{categoriaBean.getir()}" var="categoria" paginator="true" id="detailTable" widgetVar="categoria" emptyMessage="No se encontraron registros" rows="8">
+
+                                                <f:facet name="header" >
+                                                    <p:outputPanel style="text-align:right">
+                                                        <h:outputText value="Buscar:" />
+                                                        <p:inputText id="globalFilter" onkeyup="PF('categoria').filter()" style="width:150px" placeholder="Busqueda" />
+                                                    </p:outputPanel>
+                                                </f:facet>  
+                                                
+                                                <p:column headerText="Nombre Categoria" sortBy="#{categoria.nombrec}" filterBy="#{categoria.nombrec}">
+                                                    <h:outputText value="#{categoria.nombrec}" />
+                                                </p:column>
+                                                <p:column headerText="Editar"  style="text-align: center" width="11%">
+                                                    <p:commandButton  icon="ui-icon-pencil" title="Editar Categorio"   actionListener="#{categoriaBean.LeerId(categoria)}" oncomplete="PF('modCategoria').show();"  update=":mCat"/>
+                                                </p:column>
+                                                <p:column headerText="Eliminar" style="text-align: center" width="11%">
+
+                                                    <p:commandButton icon="ui-icon-trash"  title="Eliminar Categoria" 
+                                                                     actionListener="#{categoriaBean.dltCategoria(categoria)}"
+                                                                     update="@form"  process="@this" class="btn btn-danger">
+                                                        <p:confirm message="¿Desea eliminar la categoria?" header="Aviso" icon="ui-icon-alert"/>
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                         styleClass="ui-confirmdialog-yes"/>
+                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                    </p:confirmDialog>
+
+                                                </p:column>
+
+
+                                            </p:dataTable>
+                                        </h:form>
+
+
+
+
+                                        <p:dialog header="ModificarCategoria" widgetVar="modCategoria" id="mCat" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
+                                            <legend>Modificar</legend>
+                                            <h:form id="cat">
+                                                <div class="form-group">
+
+                                                    <label for="exampleInputEmail1">
+                                                        Nombre de Categoria
+                                                    </label>
+                                                    <p:column headerText="Nombre Categoria"/>
+
+                                                    <p:inputText id="name_categoria"  class="form-control" value="#{categoriaBean.modCategoria.nombrec}" onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                <p:commandButton class="btn btn-success" value="Editar" actionListener="#{categoriaBean.updCategoria()}" oncomplete="PF('modCategoria').hide();" update=":frm_table:detailTable, cat" />
+                                                <p:commandButton  class="btn btn-danger pull-right" value="Cancelar" oncomplete="PF('modCategoria').hide();"/>
+                                            </h:form>
+
+                                        </p:dialog>
+
+
+                                        <!-- /.insertar categoria -->
+                                        <p:dialog header="Nueva Categoria" widgetVar="nuevaCategoria" minHeight="40" modal="true" resizable="false">
+                                            <h:form id="newCategoria">
+                                                <div class="form-group">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">
+                                                        Nombre de categoria
+                                                    </label>
+                                                    <p:inputText id="name_categoria_n"  value="#{categoriaBean.nombreCategoria}" class="form-control"  required="true" onkeypress="return soloLetras(event)"/>
+                                                </div>
+
+                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{categoriaBean.saveCategoria()}" 
+                                                                 oncomplete="PF('nuevaCategoria').hide();" update=":frm_table:detailTable, newCategoria" validateClient="true"/>
+                                                <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaCategoria').hide();" />
+                                            </h:form>
+                                        </p:dialog>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

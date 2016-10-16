@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+            <ui:define name="content">
+                <div class="row" >
+                    <div class="col-md-12" >
+                        <p:growl id="msg" autoUpdate="true" />
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Donantes
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <h:form>
+                                            <p:commandButton class="btn btn-success btn-xs" value="Ingresar Donante" type="button" onclick="PF('ingresarDonante').show();" />    
+                                        </h:form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <div class="col-md-12" > 
+                                        <h4> Listado de Donantes </h4>
+                                        <h:form id="frm_table">
+                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+
+                                            <p:dataTable value="#{donantesBean.Getir()}" var="donante" id="detailTable" widgetVar="tabla_donate" emptyMessage="No se encontraron registros." paginator="true"  rows="8">
+
+
+                                                <!-- esta parte la agrege para poder hacer la busqueda -->
+                                                <f:facet name="header" >
+                                                    <p:outputPanel style="text-align:right">
+                                                        <h:outputText value="Buscar:" />
+                                                        <p:inputText id="globalFilter" onkeyup="PF('tabla_donate').filter()" style="width:150px" placeholder="Busqueda" />
+                                                    </p:outputPanel>
+                                                </f:facet>   
+
+                                                <!-- / fin bloque de codigo de busqueda --> 
+
+                                               <!--  <p:column headerText="Id" filterBy="#{donante.idDonante}">
+                                                    <h:outputText value="#{donante.idDonante }" />
+                                                </p:column>--> 
+
+                                                <p:column headerText="Nombre" filterBy="#{donante.nombred}" sortBy="#{donante.nombred}">
+                                                    <h:outputText value="#{donante.nombred }" />
+                                                </p:column>
+                                                <p:column headerText="Direccion" >
+                                                    <h:outputText value="#{donante.direccion}" />
+                                                </p:column>
+                                                <p:column headerText="Telefono" >
+                                                    <h:outputText value="#{donante.telefono}" />
+                                                </p:column>
+                                                <p:column headerText="Correo_e" >
+                                                    <h:outputText value="#{donante.correodonate}" />
+                                                </p:column>
+
+
+                                                <!-- /Bloque de codigo para Editar  --> 
+
+                                                <p:column headerText="Editar" style="text-align:center" width="10%">
+
+                                                    <p:commandButton icon="ui-icon-pencil"  
+                                                                     oncomplete="PF('modificardonante').show();" 
+                                                                     actionListener="#{donantesBean.capturardonante(donante)}"  
+                                                                     update=":updatedon"
+                                                                     process="@this"/>
+                                                </p:column>
+
+                                                <!-- / Bloque de codigo para Eliminar 
+                                                    <p:column headerText="Eliminar" style="text-align:center">
+                                                        <p:commandButton icon="ui-icon-trash"  
+                                                                         actionListener="#{donantesBean.eliminardonante(donante)}"
+                                                                         update="@form"  process="@this">
+                                                            <p:confirm message="¿Desea eliminar el Donante?" header="Aviso" icon="ui-icon-alert"/>
+                                                        </p:commandButton>
+                                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                             styleClass="ui-confirmdialog-yes"/>
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                             styleClass="ui-confirmdialog-no"/>
+                                                        </p:confirmDialog>
+                                                    </p:column>-->
+                                            </p:dataTable>
+                                        </h:form>
+
+                                        <!-- / Bloque de codigo parainsertar dato --> 
+
+                                        <p:dialog widgetVar="ingresarDonante" header="Donantes" minHeight="40" modal="true" resizable="false">
+                                            <h:form >
+                                                <p:panel id="panel1" header="Registrar donante" >
+                                                    <p:messages id="msgs" />
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">  Nombre Donante </label>
+                                                        <!--  <p:outputLabel value="Nombre Donante"/> -->
+                                                        <p:inputText id="nombre" value="#{donantesBean.nombredonante}" class="form-control" required="true" 
+                                                                                          label="Nombre Donante" onkeypress="return soloLetras(event)">
+                                                            <f:validateRequired />
+                                                        </p:inputText>
+                                                        <p:message for="nombre" display="icon"  />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">
+                                                            Direccion
+                                                        </label>
+                                                        <p:inputText id="direcciond" value="#{donantesBean.dirdonante}" class="form-control" required="true" label="Direccion">
+                                                            <f:validateRequired />
+                                                        </p:inputText>
+                                                        <p:message for="direcciond" display="icon"  />
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">
+                                                            Telefono
+                                                        </label>
+                                                        <!--  <p:outputLabel value="Telefono"/>  -->
+                                                        <p:inputMask id="telefonod" value="#{donantesBean.teldonante}"  mask="9999-9999" class="form-control" 
+                                                                     required="true" maxlength="9"   label="Telefono">
+                                                            <f:validateRegex 
+                                                                pattern="[0-9]+\-[0-9]+" />
+                                                            
+                                                            <f:validateRequired />
+                                                        </p:inputMask>
+                                                        <!-- <p:inputText id="telefonod" value="#{donantesBean.teldonante}"  mask="9999-999" class="form-control" 
+                                                                     required="true" maxlength="9"   label="Telefono">
+                                                            <f:validateRegex 
+                                                                pattern="[0-9]+\-[0-9]+" />
+                                                            
+                                                            <f:validateRequired />
+                                                        </p:inputText> -->
+                                                        <p:message for="telefonod" display="icon"  />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">
+                                                            Correo Electronico
+                                                        </label>
+                                                        <!-- <p:outputLabel value="Correo electronico"/> -->
+                                                        <p:inputText id="correod" value="#{donantesBean.corrdonante}" class="form-control" required="true" 
+                                                                     label="Correo Electronico">
+                                                            <f:validateRegex 
+                                                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                            <!-- <f:validateRequired /> -->
+                                                        </p:inputText>
+                                                        <p:message for="correod" display="icon"  />
+                                                    </div>
+
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{donantesBean.guardardonante()}"  update="panel1" validateClient="true"/>
+                                                    <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarDonante').hide();" immediate="true"/>
+                                                </p:panel>
+                                            </h:form>    
+                                        </p:dialog>
+
+
+                                       <p:dialog id="editdonante" header="Modificar Donante" widgetVar="modificardonante" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
+                                            <legend>Modificar Donante</legend>
+                                            <h:form id="updatedon">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">
+                                                        Nombre de Donante
+                                                    </label>
+                                                    <p:inputText  value="#{donantesBean.editardon.nombred}" class="form-control" required="true" 
+                                                                  onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                
+                                                 <div class="form-group">
+                                                    <label for="exampleInputEmail1">
+                                                        Direccion
+                                                    </label>
+                                                     <p:inputText  value="#{donantesBean.editardon.direccion}" class="form-control" required="true"/>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">
+                                                        Telefono
+                                                    </label>
+                                                    <p:inputMask id="telefonod" value="#{donantesBean.editardon.telefono}"  mask="9999-9999" class="form-control" 
+                                                                     required="true" maxlength="9"   label="Telefono">
+                                                            <f:validateRegex 
+                                                                pattern="[0-9]+\-[0-9]+" />
+                                                            
+                                                            <f:validateRequired />
+                                                        </p:inputMask>
+                                                    <!--<p:inputText  value="#{donantesBean.editardon.telefono}" class="form-control" required="true" maxlength="9" label="Telefono">
+                                                    <f:validateRegex 
+                                                    pattern="[0-9]+\-[0-9]+" />
+                                                    </p:inputText>-->
+                                                    </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">
+                                                        Correo electronico
+                                                    </label>
+                                                    <p:inputText  value="#{donantesBean.editardon.correodonate}" class="form-control" required="true" label="Correo Electronico">
+                                                        <f:validateRegex 
+                                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                     <!-- <f:validateRequired /> -->
+                                                    </p:inputText>
+                                                   </div>
+                                               
+                                                <p:commandButton class="btn btn-success" process="@form" action="#{donantesBean.editardonante()}" value="Editar" update=":frm_table:detailTable,updatedon" onclick="PF('modificardonante').hide();"/>
+                                                <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modificardonante').hide();"/>
+                                            </h:form>
+                                        </p:dialog>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

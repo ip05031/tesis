@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./boot.xhtml">
+            <ui:define name="content">
+                <div class="row" >
+                    <div class="col-md-12" >
+                        <p:growl id="msg" autoUpdate="true" />
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Pantallas
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <h:form>
+                                            <p:commandButton class="btn btn-success btn-xs" value="Nueva Pantalla" type="button" onclick="PF('nuevaPantalla').show();" />
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <div class="col-md-12" > 
+                                        <h4> Listado de Pantallas </h4>
+                                        <h:form id="frm_table">
+                                            <p:dataTable id="detailTable" value="#{pantallaBean.getir()}" var="pantalla" rows="6" widgetVar="tabla_pantalla" emptyMessage="No se encontraron registros." paginator="true" >
+                                                <f:facet name="header" >
+                                                    <p:outputPanel style="text-align:right">
+                                                        <h:outputText value="Buscar:" />
+                                                        <p:inputText id="globalFilter" onkeyup="PF('tabla_pantalla').filter()" style="width:150px" placeholder="Busqueda" />
+                                                    </p:outputPanel>
+                                                </f:facet>  
+
+
+                                                <!--<p:column headerText="Id" filterBy="#{pantalla.idPantalla}">
+                                                    <h:outputText value="#{pantalla.idPantalla}" />
+                                                </p:column>   --> 
+                                                <p:column headerText="Nombre Pantalla"  filterBy="#{pantalla.nombrepa}">
+                                                    <h:outputText value="#{pantalla.nombrepa}" />
+                                                </p:column>
+                                                <p:column headerText="Url Pantalla"  filterBy="#{pantalla.accesopa}">
+                                                    <h:outputText value="#{pantalla.accesopa}" />
+                                                </p:column>
+                                                <p:column headerText="Editar" style="text-align:center" width="11%">
+
+                                                    <p:commandButton icon="ui-icon-pencil" 
+                                                                     actionListener="#{pantallaBean.leerId(pantalla)}" 
+                                                                     oncomplete="PF('modalPantallaUpdate').show();" update=":modalPantallaUpdate"/>
+
+                                                </p:column>
+                                                <p:column headerText="Eliminar" style="text-align:center" width="11%">
+                                                    <p:commandButton icon="ui-icon-trash"  
+                                                                     actionListener="#{pantallaBean.eliminarPantalla(pantalla)}"
+                                                                     update="@form"  process="@this" class="btn btn-danger">
+                                                        <p:confirm message="¿Desea eliminar la categoria?" header="Aviso" icon="ui-icon-alert"/>
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                         styleClass="ui-confirmdialog-yes"/>
+                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                    </p:confirmDialog>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:form>
+
+
+
+
+
+                                        <!-- MODAL PARA REGISTRAR UNA PANTALLA  -->
+                                        <p:dialog header="Nueva Pantalla" widgetVar="nuevaPantalla" minHeight="40" modal="true" resizable="false" draggable="false">
+                                            <h:form id="newPantalla" >
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">
+                                                        Nombre de pantalla
+                                                    </label>
+                                                    <p:inputText id="name_pantalla_n"  value="#{pantallaBean.nombrePantalla}" required="true"  class="form-control" autocomplete="off" onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <label for="exampleInputPassword1">
+                                                        Url de Pantalla
+                                                    </label>
+                                                    <p:inputText id="ulr_pantalla_n"  class="form-control" value="#{pantallaBean.urlPantalla}" required="true" requiredMessage="El url Es obligatorio" autocomplete="off"/>
+                                                </div>
+                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{pantallaBean.savePantalla()}"  update=":frm_table:detailTable,newPantalla"/>
+                                                <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaPantalla').hide();" immediate="true" />
+
+                                            </h:form>
+                                        </p:dialog>
+
+
+                                        <!-- MODAL PARA EDITAR LA PANTALLA  -->
+                                        <p:dialog header="Modificar Pantalla" widgetVar="modalPantallaUpdate" id="modalPantallaUpdate" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
+                                            <h:form id="updatePantalla">
+                                                <div class="form-group">
+                                                    <label >
+                                                        Nombre de pantalla
+                                                    </label>
+                                                    <p:inputText  class="form-control" value="#{pantallaBean.pantallaActualizar.nombrepa}" required="true" requiredMessage="El nombre es obligatorio" autocomplete="off" onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label >
+                                                        Url de Pantalla
+                                                    </label>
+                                                    <p:inputText  class="form-control" value="#{pantallaBean.pantallaActualizar.accesopa}" required="true" requiredMessage="EL url Es obligatorio" autocomplete="off"/>
+                                                </div>
+                                                <p:commandButton class="btn btn-success pull-right" value="Modificar" actionListener="#{pantallaBean.modificarPantalla()}"  update=":frm_table:detailTable,updatePantalla"/>
+                                                <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modalPantallaUpdate').hide();" immediate="true" />
+
+                                            </h:form>
+                                        </p:dialog>
+
+                                        <!-- MODAL PARA ELIMINAR LA PANTALLA  -->
+
+
+
+
+
+
+
+
+
+                                        <p:dialog header="Basic Dialog" widgetVar="dlg3" minHeight="40" modal="true" showEffect="explode" hideEffect="fade">
+                                            <h:outputText value="Resistance to PrimeFaces is futieeeeeeeeeeeeeeeeeeeeeeeeele!" />
+                                        </p:dialog>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
+                                             
+
+
+
+

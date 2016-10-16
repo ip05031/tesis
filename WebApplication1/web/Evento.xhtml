@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+            <ui:define name="content">
+                <div class="row" >
+                    <div class="col-md-12" >
+                        <p:growl id="msg" autoUpdate="true" />
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Eventos
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <h:form>
+                                            <p:commandButton class="btn btn-success btn-xs" value="Ingresar Evento" type="button" onclick="PF('ingresarEvento').show();" />    
+                                        </h:form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <div class="col-md-12" > 
+                                        <h4> Listado de Eventos </h4>
+                                        <h:form id="frm_table">
+                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+
+                                            <p:dataTable value="#{eventosBean.Getir()}" var="eventos" id="detailTable" widgetVar="tabla_eventos" emptyMessage="No se encontraron registros." paginator="true" rows="8">
+
+
+                                                <!-- esta parte la agrege para poder hacer la busqueda -->
+                                                <f:facet name="header" >
+                                                    <p:outputPanel style="text-align:right">
+                                                        <h:outputText value="Buscar:" />
+                                                        <p:inputText id="globalFilter" onkeyup="PF('tabla_eventos').filter()" style="width:150px" placeholder="Busqueda" />
+                                                    </p:outputPanel>
+                                                </f:facet>   
+
+                                                <!-- / fin bloque de codigo de busqueda --> 
+
+                                                <!--<p:column headerText="Id" filterBy="#{eventos.idEvento}" sortBy="#{eventos.idEvento}">
+                                                    <h:outputText value="#{eventos.idEvento }" />
+                                                </p:column>
+                                                <p:column headerText="Usuario" filterBy="#{eventos.idUsuario}" sortBy="#{eventos.idUsuario}">
+                                                    <h:outputText value="#{eventos.idUsuario.nombreu }" />
+                                                </p:column>   -->
+
+                                                <p:column headerText="Evento" filterBy="#{eventos.nombree}" sortBy="#{eventos.nombree}">
+                                                    <h:outputText value="#{eventos.nombree }" />
+                                                </p:column>
+                                                <p:column headerText="Lugar" width="10%">
+                                                    <h:outputText value="#{eventos.lugare}"/>
+                                                </p:column>
+
+                                                <p:column headerText="Fecha" filterBy="#{eventos.fechae}" sortBy="#{eventos.fechae}" >
+                                                    <h:outputText value="#{eventos.fechae}" >
+
+                                                        <f:convertDateTime pattern="dd-MM-YYYY" />
+                                                    </h:outputText>
+                                                    <f:facet name="filter" >
+                                                        <p:calendar mode="popup"  pattern="dd-MM-yyyy" widgetVar="calendarE" effect="fold" mindate="today + 1">
+
+                                                            <p:ajax event="dateSelect" oncomplete="PF('eventos').filter()" />
+                                                        </p:calendar>
+
+                                                    </f:facet>
+                                                </p:column>
+
+                                                <p:column headerText="Hora" style="text-align:center" width="8%" >
+                                                    <h:outputText value="#{eventos.horae}">
+                                                        <f:convertDateTime pattern="HH:mm"/> </h:outputText>
+
+                                                </p:column>
+
+                                                <p:column headerText="Imagen Evento" >
+                                                    <h:outputText value="#{eventos.imagene}" />
+                                                </p:column>
+
+                                                <!-- /Bloque de codigo para visualizar la imagen  --> 
+                                                <p:column headerText="Ver Imagen" style="text-align: center" width="10%">
+                                                    <p:commandButton icon="ui-icon-zoomin" 
+                                                                     actionListener="#{eventosBean.verPDF(eventos)}"  
+                                                                     title="Ver Imagen" oncomplete="PF('verPdf').show();"  update=":verPdf"/>
+                                                </p:column>
+                                                <!-- /Bloque de codigo para Editar  -->
+                                                <p:column headerText="Editar" style="text-align:center" width="10%">
+
+                                                    <p:commandButton icon="ui-icon-pencil"  
+                                                                     oncomplete="PF('editarevent').show();" 
+                                                                     actionListener="#{eventosBean.capturarevento(eventos)}"  
+                                                                     update=":updatedon"
+                                                                     process="@this"
+                                                                     />
+                                                </p:column>
+
+                                                <!-- / Bloque de codigo para Eliminar --> 
+                                                <p:column headerText="Eliminar" style="text-align:center" width="10%">
+                                                    <p:commandButton icon="ui-icon-trash"  
+                                                                     actionListener="#{eventosBean.eliminarevento(eventos)}"
+                                                                     update="@form"  process="@this" class="btn btn-danger">
+                                                        <p:confirm message="¿Desea eliminar el Evento?" header="Aviso" icon="ui-icon-alert"/>
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                         styleClass="ui-confirmdialog-yes"/>
+                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                    </p:confirmDialog>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:form>
+
+                                        <!-- / Bloque de codigo para insertar dato --> 
+
+                                        <p:dialog widgetVar="ingresarEvento" header="Evento" hideEffect="bounce" minHeight="40" modal="true" resizable="false">
+                                            <h:form enctype="multipart/form-data">
+                                                <p:scrollPanel id="scroll" mode="native" style="width:550px;height:500px">
+                                                    <p:panel id="panel2" header="Registrar Evento">
+                                                        <p:messages id="msgs" />
+                                                        <div class="form-group">
+
+                                                            <label for="exampleInputEmail1">
+                                                                Usuario
+                                                            </label>
+
+                                                            <div class="form-group">
+                                                                <p:selectOneMenu id="city" value="#{eventosBean.usuario}" effect="fold"  style="width:160px" filter="true" filterMatchMode="startsWith" required="true">
+                                                                    <f:selectItems value="#{usuarioBean.getir(2) }" var="todousuario" 
+                                                                                   itemLabel="#{todousuario.nombreu}" itemValue="#{todousuario.idUsuario}"/>
+                                                                </p:selectOneMenu>
+                                                            </div> 
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Evento
+                                                                </label>
+                                                                <p:inputText id="nombre" value="#{eventosBean.nombrevento}" class="form-control" required="true">
+                                                                    <f:validateRequired />
+                                                                </p:inputText>
+                                                                <p:message for="nombre" display="icon"  />
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Lugar
+                                                                </label>
+                                                                <p:inputText id="direccione" value="#{eventosBean.lugarevento}" class="form-control" required="true">
+                                                                    <f:validateRequired />
+                                                                </p:inputText>
+                                                                <p:message for="direccione" display="icon"  />
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Fecha
+                                                                </label>
+                                                                <p:calendar  id="popup" value="#{eventosBean.fechaevento}" locale="es" navigator="true" 
+                                                                             pattern="dd-MM-yyyy" mask="true" label="Fecha" widgetVar="calendarE" effect="fold" mindate="today + 1">
+                                                                    <f:validateRequired />
+                                                                    <p:message for="popup" display="icon"  />
+                                                                </p:calendar>
+
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Hora
+                                                                </label>
+                                                                <br/>
+                                                                <p:calendar id="horae" value="#{eventosBean.horaevento}" pattern="HH:mm" timeOnly="true"  required="true">
+                                                                    <f:validateRequired />
+                                                                    <p:message for="horae" display="icon"  />
+                                                                </p:calendar>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Imagen:
+                                                                </label>
+                                                                <p:fileUpload fileUploadListener="#{eventosBean.upload5}" 
+                                                                              mode="advanced"
+                                                                              auto="true"
+                                                                              update="ruta_portada"
+                                                                              allowTypes="/(\.|\/)(jpg)$/" 
+                                                                              sizeLimit="7000000"
+                                                                              label="Elegir"
+                                                                              cancelLabel="Cancelar"
+                                                                              uploadLabel="Subir"
+                                                                              />
+
+                                                                <p:inputText readonly="true" id="ruta_portada" value="#{eventosBean.ruta_archivo}"/>
+                                                            </div> 
+                                                        </div> 
+                                                        <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarEvento').hide();" immediate="true"/>
+                                                        <p:commandButton class="btn btn-success pull-right"  ajax="false" value="Guardar" action="#{eventosBean.guardarevento()}" update="panel2" validateClient="true"/>
+
+                                                    </p:panel>
+                                                </p:scrollPanel>
+                                            </h:form>    
+                                        </p:dialog>
+
+
+                                        <p:dialog id="editevento" header="Modificar Evento" widgetVar="editarevent" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
+                                            <legend>Modificar Evento</legend>
+                                            <h:form id="updatedon" enctype="multipart/form-data">
+                                                <p:scrollPanel id="scroll" mode="native" style="width:550px;height:500px">
+                                                    <p:panel id="panel3" header="Modificar Evento">
+                                                        <p:messages id="msgs" /> 
+                                                        <div class="form-group">
+
+                                                            <label for="exampleInputEmail1">
+                                                                Usuario
+                                                            </label>
+
+                                                            <div class="form-group">
+                                                                <p:selectOneMenu id="city" value="#{eventosBean.usuario}" effect="fold"  style="width:160px" filter="true" filterMatchMode="startsWith" required="true">
+                                                                    <f:selectItems value="#{usuarioBean.getir(2) }" var="todousuario" 
+                                                                                   itemLabel="#{todousuario.nombreu}" itemValue="#{todousuario.idUsuario}"/>
+                                                                </p:selectOneMenu>
+                                                            </div> 
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Evento
+                                                                </label>
+                                                                <p:inputText  id="nombre" value="#{eventosBean.editarevento.nombree}" class="form-control" required="true">
+                                                                    <f:validateRequired />
+                                                                </p:inputText>
+                                                                <p:message for="nombre" display="icon"  />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Lugar:
+                                                                </label>
+                                                                <p:inputText id="direccione" value="#{eventosBean.editarevento.lugare}" class="form-control" required="true">
+                                                                    <f:validateRequired />
+                                                                </p:inputText>
+                                                                <p:message for="direccione" display="icon"  />
+                                                            </div>
+
+                                                            <label for="exampleInputEmail1">
+                                                                Fecha:
+                                                            </label>
+                                                            <div class="form-group">
+
+                                                                <p:calendar   id="popup" value="#{eventosBean.editarevento.fechae}" locale="es" navigator="true" 
+                                                                              pattern="dd-MM-yyyy" mask="true" label="Fecha" widgetVar="calendarE" effect="fold" mindate="today + 1">
+                                                                    <f:validateRequired />
+                                                                    <p:message for="popup" display="icon"  />
+                                                                </p:calendar>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Hora
+                                                                </label>
+                                                                <br/>
+                                                                <p:calendar id="horae" value="#{eventosBean.editarevento.horae}" pattern="HH:mm" timeOnly="true"  required="true">
+                                                                    <f:validateRequired />
+                                                                    <p:message for="horae" display="icon"  />
+                                                                </p:calendar>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Imagen:
+                                                                </label>
+                                                                <p:fileUpload fileUploadListener="#{eventosBean.upload6}" 
+                                                                              mode="advanced"
+                                                                              auto="true"
+                                                                              update="ruta_portada"
+                                                                              allowTypes="/(\.|\/)(jpg)$/" 
+                                                                              sizeLimit="7000000"
+                                                                              label="Elegir"
+                                                                              cancelLabel="Cancelar"
+                                                                              uploadLabel="Subir"
+                                                                              />
+
+                                                                <p:inputText readonly="true" id="ruta_portada" value="#{eventosBean.editarevento.imagene}"/>
+                                                            </div> 
+                                                        </div>    
+
+                                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar" oncomplete="PF('editarevent').hide();"/>
+                                                        <p:commandButton class="btn btn-success btn-xs" ajax="false" action="#{eventosBean.editevento()}" value="Editar" update="panel3" 
+                                                                         process="@form" onclick="PF('editarevent').hide();"/>
+
+                                                    </p:panel>
+                                                </p:scrollPanel>
+                                            </h:form>
+                                        </p:dialog>
+
+                                        <p:dialog id="verPdf" header="IMAGEN" widgetVar="verPdf" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                            <h:form >
+                                                <img src="#{request.contextPath}/eventos/#{eventosBean.eventoPdf.imagene}" width="600" height="400" />
+
+                                            </h:form>
+                                        </p:dialog>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

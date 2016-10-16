@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body onload="foco(1);">
+        <f:metadata>
+            <f:viewParam name="productId" value="#{inicioBean.productId}"/>
+        </f:metadata>
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="pull-left">
+                                    <h:link outcome="index" value="Regresar" class="btn btn-danger btn-block "/>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <h1>
+                                    #{inicioBean.revistaAbrir.titulor}
+                                    <h:link outcome="VerRevista" value="Ver Revista Completa" class="btn btn-primary pull-right"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <p:separator />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <p> <strong>Descripción:</strong> #{inicioBean.revistaAbrir.descripcionr}</p>
+                            </div>
+                        </div>
+                        <p:separator />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
+                                <p> <strong>Contenido:</strong> </p>
+
+                                <ui:repeat value="#{inicioBean.listArticulo}" var="articulo"  varStatus="estado">  
+                                    <div class="row" style="padding: 5px;">
+                                        <p>
+                                            <a class="btn btn-primary btn-block" title="Clic para expandir/contraer" data-toggle="collapse" href="#collapseExample-#{estado.index}" aria-expanded="false" aria-controls="collapseExample">
+                                                #{articulo.tituloa}
+                                                <span class="caret pull-right" style="margin-top:-10px;"></span>
+                                            </a>
+                                        </p>
+
+                                        <div class="collapse" id="collapseExample-#{estado.index}" style="background: #c7ddef;">
+                                            <div class="card card-block" style="padding: 5px">
+                                                <div style="text-align:justyfied;">
+                                                    #{articulo.resumena}
+                                                </div>
+                                                <div style="padding: 10px" class="pull-right">
+                                                    <h:form>
+                                                        <h:commandButton value="Leer Artículo" 
+                                                                         action="#{inicioBean.setearArticuloRedirigir(articulo)}"  
+                                                                         class="btn btn-sm btn-info active "
+                                                                         />
+                                                    </h:form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <p> 
+                                    <strong>Portada</strong> 
+
+                                </p>
+                                <img src="#{request.contextPath}/portadas/#{inicioBean.revistaAbrir.imagenpr}" 
+                                     class="img-responsive" align="center"
+                                     onclick="#{inicioBean.listarArticulos()}"/>
+
+                                <hr/>
+                            </div>
+                        </div>
+                        <p:separator />
+
+
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div style="text-align: center;">
+                                    <a href="#{request.contextPath}/revistas/#{inicioBean.revistaAbrir.archivopr}" 
+                                       class="btn btn-success btn-block disabled" 
+                                       download="#{inicioBean.revistaAbrir.titulor}.pdf"> Descargar Revista Completa </a>                                    
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <p:dialog header="Iniciar Sesión" widgetVar="login_modal" minHeight="100" modal="true" resizable="false">
+                    <h:form>
+
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Usuario"  for="txtUsuario" />
+                            <p:inputText value="#{inicioBean.usuarioNombre}" required="true"  id="txtUsuario"  requiredMessage="Ingrese un Usuario"/>
+
+                            <p:outputLabel value="Contraseña"  for="txtContra" />
+                            <p:password value="#{inicioBean.usuarioContra}" required="true"  id="txtContra"  requiredMessage="Ingrese una Contraseña"/>
+
+                            <h:column />
+                            <h:commandButton value="Iniciar Sesion" action="#{ inicioBean.login()}"/>
+
+                        </h:panelGrid>
+                        <p:separator />
+                        <h:link outcome="Registrarse" value="Regiistrarse..." />
+
+
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

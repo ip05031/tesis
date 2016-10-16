@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <div class="row" >
+                    <div class="col-md-12" >
+
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Donaciones
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <h:form>
+                                            <p:commandButton value="Nueva Donacion" class="btn btn-success btn-xs " type="button" onclick="PF('nuevaDonacion').show();" update=":frm_table:detailTable, :newDonacion, :panel1, :nuevaDonacion;"/>
+                                        </h:form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <div class="col-md-12" > 
+                                        <h4> Listado de donaciones </h4>
+                                        <h:form id="frm_table">
+                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+
+
+
+
+                                            <p:dataTable value="#{donacionBean.getir()}" var="donacion" paginator="true" id="detailTable" widgetVar="donacion" emptyMessage="No se encontraron registros">
+
+                                                <f:facet name="header" >
+                                                    <p:outputPanel style="text-align:right">
+                                                        <h:outputText value="Buscar:" />
+                                                        <p:inputText id="globalFilter" onkeyup="PF('donacion').filter()" style="width:150px" placeholder="Busqueda" />
+                                                    </p:outputPanel>
+                                                </f:facet>  
+
+
+                                                <p:column headerText="Donante" sortBy="#{donacion.idDonante.nombred}" filterBy="#{donacion.idDonante.nombred}" filterMatchMode="contains">
+                                                    <h:outputText value="#{donacion.idDonante.nombred}" />
+                                                </p:column>
+                                                <p:column headerText="Fecha Donacion" sortBy="#{donacion.fechadonacion}" filterBy="#{donacion.fechadonacion}" >
+                                                    <h:outputText value="#{donacion.fechadonacion}" >
+
+                                                        <f:convertDateTime pattern="dd-MM-YYYY" />
+                                                    </h:outputText>
+                                                    <f:facet name="filter" >
+                                                        <p:calendar mode="popup"  pattern="dd-MM-yyyy" >
+
+                                                            <p:ajax event="dateSelect" oncomplete="PF('donacion').filter()" />
+                                                        </p:calendar>
+
+                                                    </f:facet>
+
+                                                </p:column>
+                                                <p:column headerText="Archivo" sortBy="#{donacion.archivod}" filterBy="#{donacion.archivod}" filterMatchMode="contains">
+                                                    <h:outputText value="#{donacion.archivod}" />
+                                                </p:column>
+                                                <p:column headerText="Editar" style="text-align: center" width="11%">
+                                                    <p:commandButton icon="ui-icon-pencil" actionListener="#{donacionBean.LeerId(donacion)}"  title="Editar Donación" oncomplete="PF('modDonacion').show();"  update=":mDon"/>
+                                                </p:column>
+                                                <p:column headerText="Ver PDF" style="text-align: center" width="11%">
+                                                    <p:commandButton icon="ui-icon-zoomin" actionListener="#{donacionBean.verPDF(donacion)}"  title="Ver PDF" oncomplete="PF('verPdf').show();"  update=":verPdf"/>
+                                                </p:column>
+                                                <p:column headerText="Eliminar" style="text-align: center" width="11%" >
+
+
+                                                    <p:commandButton class="btn btn-danger pull-right" icon="ui-icon-trash" title="Eliminar Donación"
+                                                                     actionListener="#{donacionBean.dltDonacion(donacion)}"
+                                                                     update="@form"  process="@this">
+                                                        <p:confirm message="¿Desea eliminar la donacion?" header="Aviso" icon="ui-icon-alert"/>
+                                                    </p:commandButton>
+                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                         styleClass="ui-confirmdialog-yes" />
+                                                             <p:commandButton  value="No" type="button" icon="ui-icon-close" 
+                                                                          class="ui-confirmdialog-no btn-danger pull-right" />
+
+                                                    </p:confirmDialog>
+
+                                                </p:column>
+
+
+                                            </p:dataTable>
+                                        </h:form>
+
+
+
+                                        <!-- /.modificar donacion -->
+                                        <p:dialog header="ModificarDonacion" widgetVar="modDonacion" id="mDon" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false"  closable="false" >
+                                            <legend>Modificar</legend>
+                                            <h:form id="don"  enctype="multipart/form-data">
+                                                <p:panel id="panel" header="ModificarDonacion">
+
+                                                    <p:messages id="msgs" />
+                                                    <div class="form-group">
+
+                                                        <label for="exampleInputEmail1">
+                                                            Donante
+                                                        </label>
+                                                        <div class="form-group">
+                                                            <p:selectOneMenu id="city" value="#{donacionBean.modDonaciones.idDonante.idDonante}" effect="fold" style="width:160px" filter="true" filterMatchMode="startsWith" required="true" >
+                                                                <f:selectItems value="#{donacionBean.listadoDonantes}" />
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                        <label for="exampleInputEmail1">
+                                                            Fecha donacion
+                                                        </label>
+                                                        <div class="form-group">
+
+                                                            <p:calendar   id="popup" value="#{donacionBean.modDonaciones.fechadonacion}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha">
+                                                                <f:validateRequired />
+                                                                <p:message for="popup" display="icon"  />
+                                                            </p:calendar>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">
+                                                                Archivo
+                                                            </label>
+
+                                                            <p:fileUpload fileUploadListener="#{donacionBean.upload6}" 
+                                                                          mode="advanced"
+                                                                          auto="true"
+                                                                          update="ruta_portada"
+                                                                          allowTypes="/(\.|\/)(pdf)$/" 
+                                                                          sizeLimit="7000000"
+                                                                          label="Elegir"
+                                                                          cancelLabel="Cancelar"
+                                                                          uploadLabel="Subir"
+                                                                          />
+
+                                                            <p:inputText readonly="true" id="ruta_portada" value="#{donacionBean.modDonaciones.archivod}"/>
+
+                                                        </div>
+                                                    </div>
+                                                    <p:commandButton class="btn btn-success" value="Editar" actionListener="#{donacionBean.updDonacion()}"  update=":frm_table:detailTable, don, panel" ajax="false"/>
+                                                    <p:commandButton  class="btn btn-danger pull-right" value="Cancelar" oncomplete="PF('modDonacion').hide();"/>
+                                                </p:panel>
+                                            </h:form>
+
+                                        </p:dialog>
+
+
+                                        <!-- /.insertar donacion -->
+                                        <p:dialog id="nuevaDonacion" header="Nueva Donacion" widgetVar="nuevaDonacion" minHeight="40" modal="true" resizable="false" hideEffect="fade">
+                                            <h:form id="newDonacion" enctype="multipart/form-data">
+                                                <p:messages id="msgs" />
+                                                <p:panel id="panel1" header="Registrar donacion">
+
+
+                                                    <div class="form-group">
+
+                                                        <label for="exampleInputEmail1">
+                                                            Donante
+                                                        </label>
+
+                                                        <div class="form-group">
+                                                            <p:selectOneMenu id="city" value="#{donacionBean.donante}" effect="fold" style="width:160px" filter="true" filterMatchMode="startsWith" required="true">
+                                                                <f:selectItems value="#{donacionBean.listadoDonantes}" />
+                                                                <p:ajax event="keyup" process="@this"></p:ajax>
+                                                            </p:selectOneMenu>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">
+                                                                Fecha donacion
+                                                            </label><br/>
+                                                            <p:calendar  id="popup" value="#{donacionBean.fechaDonacion}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha">
+                                                                <f:validateRequired />
+                                                                <p:message for="popup" display="icon" />
+                                                            </p:calendar>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">
+                                                                Archivo
+                                                            </label>
+                                                            <p:fileUpload fileUploadListener="#{donacionBean.upload5}" 
+                                                                          mode="advanced"
+                                                                          auto="true"
+                                                                          update="ruta_portada"
+                                                                          allowTypes="/(\.|\/)(pdf)$/" 
+                                                                          sizeLimit="7000000"
+                                                                          label="Elegir"
+                                                                          cancelLabel="Cancelar"
+                                                                          uploadLabel="Subir"
+                                                                          />
+
+                                                            <p:inputText readonly="true" id="ruta_portada" value="#{donacionBean.ruta_archivo}"/>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{donacionBean.saveDonaciones()}" update=":frm_table:detailTable, newDonacion, panel1, nuevaDonacion;"  validateClient="true" ajax="false"/>
+                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaDonacion').hide();" />
+                                                </p:panel>
+                                            </h:form>
+                                        </p:dialog>
+
+                                        <p:dialog id="verPdf" header="PDF" widgetVar="verPdf" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                            <h:form >
+                                            <iframe src="#{request.contextPath}/portadas/#{donacionBean.donacionPdf.archivod}" width="600" height="400" >your browser cannot display this document.</iframe>
+
+                                            </h:form>
+                                        </p:dialog>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

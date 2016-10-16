@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./boot.xhtml">
+
+    <ui:define name="content">
+        <h1> <h:outputText value="#{validarSubcriptorBean.texto}"/> </h1>
+        <h:outputText value="Un feliz día le desea El Museo Nacional de Antropología Dr. David J. Guzmán"/><br />
+        <p:link outcome="index" value="Regresar a paguina principal" >            
+          </p:link>
+    </ui:define>
+
+</ui:composition>

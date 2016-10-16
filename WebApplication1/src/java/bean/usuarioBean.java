@@ -1,0 +1,294 @@
+package bean;
+
+import controller.PantallaJPA;
+import controller.TipoUsuarioJPA;
+import controller.UsuarioJPA;
+import entity.Pantalla;
+import entity.TipoUsuario;
+import entity.Usuario;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import static javax.print.attribute.Size2DSyntax.MM;
+import org.apache.jasper.tagplugins.jstl.ForEach;
+import org.primefaces.context.RequestContext;
+
+@Named(value = "usuarioBean")
+@SessionScoped
+public class usuarioBean implements Serializable {
+
+    private List<Usuario> listadoUsuarios = new ArrayList<>();
+    private String nombreUsuario;
+    private String apellidoUsuario;
+    private String ocupacionUsuario;
+    private Date fechaNacUsuario;
+    private String correoUsuario;
+    private String nickUsuario;
+    private String contraUsuario;
+    private int estadoUsuario;
+    private Date fechaAltaUsuario;
+    private String paisUsuario;
+    private char sexoUsuario;
+    private int idUsuario;
+    private int idTipoUsuario;
+    private UsuarioJPA usuarioJPA;
+    private Usuario editUsuario = new Usuario();
+
+    public usuarioBean() {
+
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------------------*/
+    // para usar en xhtml
+    /*----------------------------------------------------------------------------------------------------------------------------*/
+    public List<Usuario> getir(int tipo) {
+        return new UsuarioJPA().getUsuarios(tipo);
+    }
+
+    public void usuarioEditar(Usuario editUsuario) {
+        this.idTipoUsuario = editUsuario.getIdTusuario().getIdTusuario();
+        this.setEditUsuario(editUsuario);
+
+    }
+
+    public void saveUsuario() {
+        usuarioJPA = new UsuarioJPA();
+        Usuario user = new Usuario();
+
+        TipoUsuario tu = new TipoUsuario();
+        tu.setIdTusuario(idTipoUsuario);
+
+        Calendar calendario = GregorianCalendar.getInstance();
+        Date fechaRegistro = calendario.getTime();
+
+        user.setIdUsuario(usuarioJPA.getClave());
+        user.setNombreu(this.nombreUsuario);
+        user.setApellidosu(this.apellidoUsuario);
+        user.setOcupacion(ocupacionUsuario);
+        user.setSexo(sexoUsuario);
+        user.setFechanacimientou(fechaNacUsuario);
+        user.setIdTusuario(tu);
+        user.setPaisu(paisUsuario);
+        user.setNickname(nickUsuario);
+        user.setCorreou(correoUsuario);
+        user.setPassword(contraUsuario);
+        user.setFechau(fechaRegistro);
+        user.setEstadoi(1);
+        
+        try {
+            usuarioJPA.saveUsuario(user);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('nuevoUsuario').show();");
+            limpiarDatosUsuario();
+
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Ha ocurrido un error!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
+    }
+
+    public void limpiarDatosUsuario() {
+        this.nombreUsuario = "";
+        this.apellidoUsuario = "";
+        this.ocupacionUsuario = "";
+        this.sexoUsuario = 'M';
+        this.fechaNacUsuario = null;
+        this.paisUsuario = "";
+        this.nickUsuario = "";
+        this.correoUsuario = "";
+        this.contraUsuario = "";
+    }
+
+    public void modificarUsuario() {
+        usuarioJPA = new UsuarioJPA();
+
+        System.out.println("-" + contraUsuario.compareTo(""));
+        if (contraUsuario.compareTo("") != 0) {
+            this.editUsuario.setPassword(contraUsuario);
+        }
+        if (paisUsuario.compareTo(paisUsuario) != 0) {
+            this.editUsuario.setPaisu(paisUsuario);
+        }
+        System.out.println("" + this.editUsuario.getEstadoi());
+
+        usuarioJPA.updateUsuario(this.editUsuario);
+        System.out.println("se envio...");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void limpiar() {
+        this.setApellidoUsuario("");
+        this.setContraUsuario("");
+        this.setCorreoUsuario("");
+        this.setEstadoUsuario(0);
+        this.setEditUsuario(null);
+        this.setFechaAltaUsuario(null);
+        this.setFechaNacUsuario(null);
+        this.setIdTipoUsuario(1);
+        this.setIdUsuario(1);
+        this.setNickUsuario("");
+        this.setNombreUsuario("");
+        this.setOcupacionUsuario("1");
+        this.setPaisUsuario("1");
+    }
+
+    public void eliminarUsuario(Usuario user) {
+        System.out.println("eliminar usuario");
+        try {
+            System.out.println("" + user.getNombreu());
+            System.out.println("" + user.getEstadoi());
+            user.setEstadoi(2);
+            usuarioJPA = new UsuarioJPA();
+            usuarioJPA.updateUsuario(user);
+        } catch (Exception e) {
+        }
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------------------*/
+    // SETTER & GETTER variables
+    /*----------------------------------------------------------------------------------------------------------------------------*/
+    public List<Usuario> getListadoUsuarios() {
+        return listadoUsuarios;
+    }
+
+    public void setListadoUsuarios(List<Usuario> listadoUsuarios) {
+        this.listadoUsuarios = listadoUsuarios;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getApellidoUsuario() {
+        return apellidoUsuario;
+    }
+
+    public void setApellidoUsuario(String apellidoUsuario) {
+        this.apellidoUsuario = apellidoUsuario;
+    }
+
+    public String getOcupacionUsuario() {
+        return ocupacionUsuario;
+    }
+
+    public void setOcupacionUsuario(String ocupacionUsuario) {
+        this.ocupacionUsuario = ocupacionUsuario;
+    }
+
+    public Date getFechaNacUsuario() {
+        return fechaNacUsuario;
+    }
+
+    public void setFechaNacUsuario(Date fechaNacUsuario) {
+        this.fechaNacUsuario = fechaNacUsuario;
+    }
+
+    public String getCorreoUsuario() {
+        return correoUsuario;
+    }
+
+    public void setCorreoUsuario(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
+    }
+
+    public String getNickUsuario() {
+        return nickUsuario;
+    }
+
+    public void setNickUsuario(String nickUsuario) {
+        this.nickUsuario = nickUsuario;
+    }
+
+    public String getContraUsuario() {
+        return contraUsuario;
+    }
+
+    public void setContraUsuario(String contraUsuario) {
+        this.contraUsuario = contraUsuario;
+    }
+
+    public int getEstadoUsuario() {
+        return estadoUsuario;
+    }
+
+    public void setEstadoUsuario(int estadoUsuario) {
+        this.estadoUsuario = estadoUsuario;
+    }
+
+    public Date getFechaAltaUsuario() {
+        return fechaAltaUsuario;
+    }
+
+    public void setFechaAltaUsuario(Date fechaAltaUsuario) {
+        this.fechaAltaUsuario = fechaAltaUsuario;
+    }
+
+    public String getPaisUsuario() {
+        return paisUsuario;
+    }
+
+    public void setPaisUsuario(String paisUsuario) {
+        this.paisUsuario = paisUsuario;
+    }
+
+    public char getSexoUsuario() {
+        return sexoUsuario;
+    }
+
+    public void setSexoUsuario(char sexoUsuario) {
+        this.sexoUsuario = sexoUsuario;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public int getIdTipoUsuario() {
+        return idTipoUsuario;
+    }
+
+    public void setIdTipoUsuario(int idTipoUsuario) {
+        this.idTipoUsuario = idTipoUsuario;
+    }
+
+    public UsuarioJPA getUsuarioJPA() {
+        return usuarioJPA;
+    }
+
+    public void setUsuarioJPA(UsuarioJPA usuarioJPA) {
+        this.usuarioJPA = usuarioJPA;
+    }
+
+    public Usuario getEditUsuario() {
+        return editUsuario;
+    }
+
+    public void setEditUsuario(Usuario editUsuario) {
+        this.editUsuario = editUsuario;
+    }
+
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<glassfish-web-app error-url="">
+    <class-loader delegate="true"/>
+    <jsp-config>
+        <property name="keepgenerated" value="true">
+            <description>Keep a copy of the generated servlet class' java code.</description>
+        </property>
+    </jsp-config>
+    <parameter-encoding default-charset="UTF-8" />
+    <property name="alternatedocroot_1" value="from=/media/* dir=C:\us\sistema" />
+    <property name="alternatedocroot_2" value="from=/eventos/* dir=C:\us\sistema" />
+    <property name="alternatedocroot_3" value="from=/portadas/* dir=C:\us\sistema" />
+    <property name="alternatedocroot_4" value="from=/revistas/* dir=C:\us\sistema" />
+    <property name="alternatedocroot_5" value="from=/articulos/* dir=C:\us\sistema" />
+    <property name="alternatedocroot_6" value="from=/donaciones/* dir=C:\us\sistema" />
+    <property name="alternatedocroot_7" value="from=/banner/* dir=C:\us\sistema" />
+</glassfish-web-app>

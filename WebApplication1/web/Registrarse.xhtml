@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <h:form id="newUsuarioExterno" >
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">
+                                            Nombre
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                <p:inputText  id="Nombre" value="#{registroBean.newUser.nombreu}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" />
+                                                <p:message for="Nombre" display="icon" />
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                <p:inputText  id="Apellido" value="#{registroBean.newUser.apellidosu}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido"/>
+                                                <p:message for="Apellido" display="icon" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Ocupación
+                                                </label><br/>
+                                                <p:selectOneMenu id="ocupacion" value="#{registroBean.newUser.ocupacion}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
+                                                    <f:selectItem   itemValue="Arqueologo"      itemLabel=" Arqueologo"  />
+                                                    <f:selectItem   itemValue="Paleontologo"    itemLabel=" Paleontologo"  />
+                                                    <f:selectItem   itemValue="Filosofo"        itemLabel=" Filosofo"  />
+                                                    <f:selectItem   itemValue="Estudiante"      itemLabel=" Estudiante" />
+                                                </p:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Sexo
+                                                </label>
+                                                <br/>
+
+                                                <p:selectOneMenu id="sexo" value="#{registroBean.newUser.sexo}" style="width:250px" >
+                                                    <f:selectItem   itemValue="M" itemLabel=" Masculino"  />
+                                                    <f:selectItem   itemValue="F" itemLabel=" Femenino"  />
+                                                    <f:selectItem   itemValue="O" itemLabel=" Otro"  />
+                                                </p:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Fecha de Nacimiento
+                                                </label><br/>
+                                                <p:calendar id="Fecha_Nacimiento" 
+                                                            value="#{registroBean.newUser.fechanacimientou}"
+                                                            locale="es" navigator="true" 
+                                                            pattern="dd-MM-yyyy" mask="true" 
+                                                            required="true" style="width:250px"
+                                                            maxdate="-10Y"
+                                                            widgetVar="calwidget"
+
+                                                            />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    País
+                                                </label><br/>
+                                                <p:selectOneMenu id="pais" value="#{registroBean.newUser.paisu}" filter="true" filterMatchMode="startsWith" required="false" >
+                                                    <f:selectItem   itemValue="Afganistan"      itemLabel="Afganistán"  />
+                                                    <f:selectItem   itemValue="Albania"         itemLabel=" Albania"  />
+                                                    <f:selectItem   itemValue="Samoa Americana" itemLabel=" Samoa Americana"  />
+                                                    <f:selectItem   itemValue="Andorra"         itemLabel=" Andorra"  />
+                                                    <f:selectItem   itemValue="Angola"          itemLabel=" Angola"  />
+                                                    <f:selectItem   itemValue="Anguilla"        itemLabel=" Anguilla"  />
+                                                    <f:selectItem   itemValue="Antártida"       itemLabel=" Antártida"  />
+                                                    <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
+                                                    <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
+                                                    <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
+                                                    <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
+
+                                                </p:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Nombre de Usuario
+                                                </label><br/>
+                                                <p:inputText  id="inputNick" value="#{registroBean.newUser.nickname}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
+
+                                                </p:inputText>
+                                                <p:message for="inputNick" id="msgLastname" display="icon" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Correo Electronico
+                                                </label>
+                                                <p:inputText  value="#{registroBean.newUser.correou}" class="form-control" placeholder="e-mail" required="true"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Contraseña
+                                                </label><br/>
+                                                <p:password id="pwd1" value="#{registroBean.newUser.password}" feedback="true" inline="true" class="form-control" placeholder="Contraseña" required="true" match="pwd2"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">
+                                                    Confirmar Contraseña
+                                                </label>
+                                                <p:password id="pwd2" feedback="true" inline="true" class="form-control" placeholder="Confirmar Contraseña" required="true" />
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <p:messages showDetail="true"/>
+                                                    <p:captcha label="Captcha" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{registroBean.nuevoVisitante()}" update="newUsuarioExterno" />
+
+                                                <p:commandButton class="btn btn-danger pull-right" value="Cancelar" immediate="true" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

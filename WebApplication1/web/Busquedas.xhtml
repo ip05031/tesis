@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+
+                <div class="row">
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-md-10">
+                       
+                        <br/><br/><br/>
+                        <h4> Revistas </h4>
+
+                        <p:dataList value="#{busquedaBean.revistasEncontradas}" var="buscarss" 
+                                    type="unordered" itemType="none" 
+                                    paginator="true" rows="10" styleClass="paginated" 
+                                    emptyMessage="No se encontrara revista con la busqueda realizada"
+                                    >
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 20px">
+                                    <p:commandLink  title="Ver Revista"   style="float:left;margin-right:10px" action="#{inicioBean.reDirrecion()}" >
+                                        <f:setPropertyActionListener value="#{buscarss}" target="#{inicioBean.revistaAbrir}" /> 
+                                        <img src="#{request.contextPath}/portadas/#{busquedaBean.imagen(buscarss.imagenpr)} " alt="" style="float:left;margin-right:10px; width: 100px;height: 150px; box-shadow:  5px 5px 5px #888888"/>
+                                    </p:commandLink>
+                                    <div class="caption" style="padding-top: 30px"> 
+                                        <p:commandLink  title="Ver Revista" value="Ver Revista"  style="float:left;margin-right:10px" action="#{inicioBean.reDirrecion()}">
+                                            <f:setPropertyActionListener value="#{buscarss}" target="#{inicioBean.revistaAbrir}" />                                            
+                                        </p:commandLink>                                       
+                                        <p:separator />                                        
+                                        <h:outputText value="Titulo: " /><h:outputText value="#{buscarss.idTitulo.tituloRevista}" style="display:inline-block;font-weight: bold "/><h:outputText value=": " style="display:inline-block;font-weight: bold "/><h:outputText value="#{buscarss.titulor}" style="display:inline-block;font-weight: bold "/><br />
+                                        <h:outputText value="Periodo de Publicación: Desde " /> <h:outputText value="#{buscarss.fechapr}" style="display:inline-block" ><f:convertDateTime pattern="dd-MM-YYYY"></f:convertDateTime></h:outputText> <h:outputText value=" hasta " /> <h:outputText value="#{buscarss.fechaprf}" style="display:inline-block" ><f:convertDateTime pattern="dd-MM-YYYY"></f:convertDateTime></h:outputText><br />
+                                        <h:outputText value="Categoria: " /><h:outputText value="#{busquedaBean.nombreCategori(buscarss)}" style="display:inline-block" /> <br />  <br />
+                                        <h:outputText value="Palabras Clave:" style="text-decoration: underline" /><br />
+                                        <ui:repeat value="#{busquedaBean.listaLickPalabra(buscarss.articuloList)}" var="nuevas">
+                                            <p:commandLink  title="Ver Revista" value="#{nuevas} "  style="float:left;margin-right:10px" action="#{busquedaBean.buscarLick()}" >
+                                                <f:setPropertyActionListener value="#{nuevas}" target="#{busquedaBean.busquedadPalabraClave}" />                                            
+                                            </p:commandLink> 
+
+                                        </ui:repeat>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:dataList>
+
+
+
+
+
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>    
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

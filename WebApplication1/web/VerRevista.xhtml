@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="pull-left">
+                            <h:link outcome="PortadaRevista" value="Regresar" class="btn btn-danger btn-block "/>
+                        </div> 
+                    </div>
+                </div>
+                <p:separator />
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        
+                        <h1>
+                            #{inicioBean.revistaAbrir.titulor}
+                        </h1>
+
+                        <iframe src="#{request.contextPath}/revistas/#{inicioBean.revistaAbrir.archivopr}" width="90%" style="min-height: 500px;" >your browser cannot display this document.</iframe> 
+
+
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,326 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body >
+        <f:ajax event="load" listener="#{inicioBean.iniciarListas}" />
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:remoteCommand name="onload"  actionListener="#{visitasBean.iterar()}"  />
+                </h:form>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-md-10">
+                        <h4> Eventos </h4>
+                        <div class="row carousel-holder">
+
+                            <div class="col-md-12">
+                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                        <ui:repeat value="#{inicioBean.miLista}" var="item"  varStatus="estado">  
+                                            <li data-target="#carousel-example-generic" data-slide-to="#{ (estado.index + 1) }" class=""></li>
+                                        </ui:repeat>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img class="slide-image" src="#{request.contextPath}/eventos/evento_0.PNG" width="800px" height="350px" alt="" />
+                                        </div>
+                                        <ui:repeat value="#{inicioBean.miLista}" var="item"  varStatus="estado">  
+                                            <div class="item">
+                                                <img class="slide-image" src="#{request.contextPath}/eventos/#{item}.jpg" width="800px" height="350px" alt="" />
+                                            </div>
+                                        </ui:repeat>
+                                    </div>
+                                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br/><br/><br/>
+                        <h4> Revistas </h4>
+                        <div role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-pills sameSize" role="tablist">
+                                <li role="presentation">
+                                    <a href="#nums"  aria-controls="nums" role="tab" data-toggle="tab" onclick="#{inicioBean.getListadoRevistas()}">#</a>
+                                </li>
+                                <li role="presentation" class="active">
+                                    <a href="#letraA" aria-controls="letraA" role="tab" data-toggle="tab">A</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraB" aria-controls="letraB" role="tab" data-toggle="tab">B</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraC" aria-controls="letraC" role="tab" data-toggle="tab">C</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraD" aria-controls="letraD" role="tab" data-toggle="tab">D</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraE" aria-controls="letraE" role="tab" data-toggle="tab">E</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraF" aria-controls="letraF" role="tab" data-toggle="tab">F</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraG" aria-controls="letraG" role="tab" data-toggle="tab">G</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraH" aria-controls="letraH" role="tab" data-toggle="tab">H</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraI" aria-controls="letraI" role="tab" data-toggle="tab">I</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraJ" aria-controls="letraJ" role="tab" data-toggle="tab">J</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraK" aria-controls="letraK" role="tab" data-toggle="tab">K</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraL" aria-controls="letraL" role="tab" data-toggle="tab">L</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraM" aria-controls="letraM" role="tab" data-toggle="tab">M</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraN" aria-controls="letraN" role="tab" data-toggle="tab">N</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraO" aria-controls="letraO" role="tab" data-toggle="tab">O</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraP" aria-controls="letraP" role="tab" data-toggle="tab">P</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraQ" aria-controls="letraQ" role="tab" data-toggle="tab">Q</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraR" aria-controls="letraR" role="tab" data-toggle="tab">R</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraS" aria-controls="letraS" role="tab" data-toggle="tab">S</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraT" aria-controls="letraT" role="tab" data-toggle="tab">T</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraU" aria-controls="letraU" role="tab" data-toggle="tab">U</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraV" aria-controls="letraV" role="tab" data-toggle="tab">V</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraW" aria-controls="letraW" role="tab" data-toggle="tab">W</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraX" aria-controls="letraX" role="tab" data-toggle="tab">X</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraY" aria-controls="letraY" role="tab" data-toggle="tab">Y</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#letraZ" aria-controls="letraZ" role="tab" data-toggle="tab">Z</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#todo" aria-controls="todo" role="tab" data-toggle="tab">Todo</a>
+                                </li>
+
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <br/>
+                                <div role="tabpanel" class="tab-pane active" id="letraA"> 
+
+
+
+                                    <div class="row">
+
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaRevista2}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4>#{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
+
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+
+
+                                <div role="tabpanel" class="tab-pane" id="letraB">
+                                    <div class="row">
+                                        B
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraC">
+                                    <div class="row">
+                                        C
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraD">
+                                    <div class="row">
+                                        D
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraE">
+                                    <div class="row">
+                                        E
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraF">
+                                    <div class="row">
+                                        F
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraG">
+                                    <div class="row">
+                                        G
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraH">
+                                    <div class="row">
+                                        H
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraI">
+                                    <div class="row">
+                                        I
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraJ">
+                                    <div class="row">
+                                        J
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraK">
+                                    <div class="row">
+                                        K
+                                    </div> 
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraL">
+                                    <div class="row">
+                                        L
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraM">
+                                    <div class="row">
+                                        M
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraN">
+                                    <div class="row">
+                                        N
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraO">
+                                    <div class="row">
+                                        O
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraP">
+                                    <div class="row">
+                                        P
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraQ">
+                                    <div class="row">
+                                        Q
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraR">
+                                    <div class="row">
+                                        R
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraS">
+                                    <div class="row">
+                                        S
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraT">
+                                    <div class="row">
+                                        T
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraU">
+                                    <div class="row">
+                                        U
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraV">
+                                    <div class="row">
+                                        V
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraW">
+                                    <div class="row">
+                                        W
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraX">
+                                    <div class="row">
+                                        X
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraY">
+                                    <div class="row">
+                                        Y
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="letraZ">
+                                    <div class="row">
+                                        Z
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1"></div>
+                </div>    
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
