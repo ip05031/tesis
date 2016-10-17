@@ -172,21 +172,6 @@ public class usuarioBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Válido"));
             }
         }
-        
-        /*
-        if ( nickname.compareToIgnoreCase("") != 0){
-            if ( usuarioJPA.searchNickname(nickname) ){
-                System.out.println("usuario existe");
-                FacesContext.getCurrentInstance().addMessage("Message1", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Usuario Existe"));
-            }
-            else{
-                System.out.println("usuario no existe");
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Hello 2"));
-                //FacesContext.getCurrentInstance().addMessage("Message1", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ok!", "Usuario Valido"));
-                System.out.println("algo mas");
-            }
-        }
-        */
     }
     
     

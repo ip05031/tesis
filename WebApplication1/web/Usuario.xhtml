@@ -238,23 +238,21 @@
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputEmail1">
-                                                                            País
-                                                                        </label><br/>
-                                                                        <p:selectOneMenu id="pais" value="#{usuarioBean.paisUsuario}" filter="true" filterMatchMode="startsWith" required="false" >
-                                                                            <f:selectItem   itemValue="Afganistan"      itemLabel="Afganistán"  />
-                                                                            <f:selectItem   itemValue="Albania"         itemLabel=" Albania"  />
-                                                                            <f:selectItem   itemValue="Samoa Americana" itemLabel=" Samoa Americana"  />
-                                                                            <f:selectItem   itemValue="Andorra"         itemLabel=" Andorra"  />
-                                                                            <f:selectItem   itemValue="Angola"          itemLabel=" Angola"  />
-                                                                            <f:selectItem   itemValue="Anguilla"        itemLabel=" Anguilla"  />
-                                                                            <f:selectItem   itemValue="Antártida"       itemLabel=" Antártida"  />
-                                                                            <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
-                                                                            <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
-                                                                            <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
-                                                                            <f:selectItem   itemValue="Argelia"         itemLabel=" Argelia"  />
-
-                                                                        </p:selectOneMenu>
+                                                                        <label for="pais">
+                                                                            Pais: 
+                                                                        </label>
+                                                                        <p:selectOneMenu id="pais" 
+                                                                                         value="#{usuarioBean.paisUsuario}"  
+                                                                                         panelStyle="width:180px"
+                                                                                         effect="fade" 
+                                                                                         style="width:100%" filter="true" required="true" 
+                                                                                         filterMatchMode="startsWith"  >
+                                                                            <f:selectItems value="#{revistaBean.listaPaises()}" 
+                                                                                           var="themes2" 
+                                                                                           itemLabel="#{themes2}" 
+                                                                                           itemValue="#{themes2}"  />
+                                                                        </p:selectOneMenu>                                                    
+                                                                        <p:message for="pais" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
@@ -281,7 +279,7 @@
                                                                             <f:ajax event="keyup" listener="#{usuarioBean.validarUsuarioExiste()}" /> 
                                                                         </p:inputText>
                                                                         <p:messages for="inputNick" id="msgLastname" />
-                                                                        
+
                                                                         <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                                                     </div>
                                                                 </div>
@@ -305,7 +303,10 @@
                                                                         <label for="pwd1">
                                                                             Contraseña
                                                                         </label><br/>
-                                                                        <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" class="form-control" placeholder="Contraseña" required="true" match="pwd2" requiredMessage="Ingrese Contraseña"/>
+                                                                        <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" 
+                                                                                    class="form-control" placeholder="Contraseña" required="true" match="pwd2" 
+                                                                                    requiredMessage="Ingrese Contraseña"
+                                                                                    label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
                                                                         <p:messages for="pwd1"  />
                                                                     </div>
                                                                 </div>
@@ -314,7 +315,10 @@
                                                                         <label for="pwd2">
                                                                             Confirmar Contraseña
                                                                         </label>
-                                                                        <p:password id="pwd2" feedback="true" inline="true" class="form-control" placeholder="Confirmar Contraseña" required="true" requiredMessage="Confirme Contraseña"/>
+                                                                        <p:password id="pwd2" feedback="true" inline="true" 
+                                                                                    class="form-control" placeholder="Confirmar Contraseña" 
+                                                                                    required="true" requiredMessage="Confirme Contraseña"
+                                                                                    label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
                                                                         <p:messages for="pwd2"  />
                                                                     </div>
                                                                 </div>
@@ -407,23 +411,21 @@
                                                             </div>
                                                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        País
-                                                                    </label><br/>
-                                                                    <p:selectOneMenu id="pais" value="#{usuarioBean.paisUsuario}" filter="true" filterMatchMode="startsWith" required="false" >
-                                                                        <f:selectItem   itemValue="	Afganistán" itemLabel="Afganistán"  />
-                                                                        <f:selectItem   itemValue="Albania" itemLabel=" Albania"  />
-                                                                        <f:selectItem   itemValue="Samoa Americana" itemLabel=" Samoa Americana"  />
-                                                                        <f:selectItem   itemValue="Andorra" itemLabel=" Andorra"  />
-                                                                        <f:selectItem   itemValue="Angola" itemLabel=" Angola"  />
-                                                                        <f:selectItem   itemValue="Anguilla" itemLabel=" Anguilla"  />
-                                                                        <f:selectItem   itemValue="Antártida" itemLabel=" Antártida"  />
-                                                                        <f:selectItem   itemValue="Argelia" itemLabel=" Argelia"  />
-                                                                        <f:selectItem   itemValue="Argelia" itemLabel=" Argelia"  />
-                                                                        <f:selectItem   itemValue="Argelia" itemLabel=" Argelia"  />
-                                                                        <f:selectItem   itemValue="Argelia" itemLabel=" Argelia"  />
-
-                                                                    </p:selectOneMenu>
+                                                                    <label for="pais">
+                                                                        Pais: 
+                                                                    </label>
+                                                                    <p:selectOneMenu id="pais" 
+                                                                                     value="#{usuarioBean.paisUsuario}"  
+                                                                                     panelStyle="width:180px"
+                                                                                     effect="fade" 
+                                                                                     style="width:100%" filter="true" required="true" 
+                                                                                     filterMatchMode="startsWith"  >
+                                                                        <f:selectItems value="#{revistaBean.listaPaises()}" 
+                                                                                       var="themes2" 
+                                                                                       itemLabel="#{themes2}" 
+                                                                                       itemValue="#{themes2}"  />
+                                                                    </p:selectOneMenu>                                                    
+                                                                    <p:message for="pais" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -432,12 +434,9 @@
                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                 <div class="form-group">
                                                                     <label for="exampleInputEmail1">
-                                                                        Nombre de Usuario
-                                                                    </label><br/>
-                                                                    <p:inputText  id="inputNick" value="#{usuarioBean.editUsuario.nickname}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
-
-                                                                    </p:inputText>
-                                                                    <p:message for="inputNick" id="msgLastname" display="icon" />
+                                                                        Correo Electronico
+                                                                    </label>
+                                                                    <p:inputText  value="#{usuarioBean.editUsuario.nickname}" readonly="true" class="form-control" required="false"/>
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
@@ -459,7 +458,9 @@
                                                                     <label for="exampleInputEmail1">
                                                                         Contraseña
                                                                     </label><br/>
-                                                                    <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" class="form-control" placeholder="Contraseña" required="false" match="pwd2"/>
+                                                                    <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" 
+                                                                                class="form-control" placeholder="Contraseña" required="false" match="pwd2" 
+                                                                                label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
@@ -467,7 +468,9 @@
                                                                     <label for="exampleInputEmail1">
                                                                         Confirmar Contraseña
                                                                     </label>
-                                                                    <p:password id="pwd2" feedback="true" inline="true" class="form-control" placeholder="Confirmar Contraseña" required="false" />
+                                                                    <p:password id="pwd2" feedback="true" inline="true" class="form-control" 
+                                                                                placeholder="Confirmar Contraseña" required="false"
+                                                                                label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
                                                                 </div>
                                                             </div>
                                                         </div>  
