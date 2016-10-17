@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "usuario")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Usuario.findNickname", query = "SELECT u FROM Usuario u where u.nickname like :nickname "),
     @NamedQuery(name = "Usuario.findEmployee", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario != :idTusuario"),
     @NamedQuery(name = "Usuario.findVisitor", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario = :idTusuario "),    
     @NamedQuery(name = "Usuario.findMaxId", query = "SELECT MAX(u.idUsuario) FROM Usuario u"),
