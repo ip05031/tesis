@@ -148,7 +148,7 @@
                                                         </label>
                                                         <!-- <p:outputLabel value="Correo electronico"/> -->
                                                         <p:inputText id="correod" value="#{donantesBean.corrdonante}" class="form-control" required="true" 
-                                                                     label="Correo Electronico">
+                                                                     label="Correo Electronico" validatorMessage = "Ingrese Correo válido">
                                                             <f:validateRegex 
                                                                 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                             <!-- <f:validateRequired /> -->
@@ -202,7 +202,8 @@
                                                     <label for="exampleInputEmail1">
                                                         Correo electronico
                                                     </label>
-                                                    <p:inputText  value="#{donantesBean.editardon.correodonate}" class="form-control" required="true" label="Correo Electronico">
+                                                    <p:inputText  value="#{donantesBean.editardon.correodonate}" class="form-control" 
+                                                                  required="true" label="Correo Electronico" validatorMessage = "Ingrese Correo válido">
                                                         <f:validateRegex 
                                                     pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                      <!-- <f:validateRequired /> -->

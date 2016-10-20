@@ -26,7 +26,7 @@ public class palabraClaveBean implements Serializable {
     private String nombrepalabra;
     private PalabraClave pc;
     private PalabraClave editarpc;
-
+    
     public PalabraClave getEditarpc() {
         return editarpc;
     }
@@ -56,6 +56,11 @@ public class palabraClaveBean implements Serializable {
         pc.setNombrep(nombrepalabra);
         palabraJPA = new PalabrasClavesJPA();
         pc.setIdPalabra(palabraJPA.aumentarIdpalabra()+1);
+       
+       // String accion = "Se inserto Palabra Clave" ;
+       // String tabla = "Palabra Clave" ;
+        //new bitacoraBean().guardarbitacora(tabla, accion);
+        
         palabraJPA.guardarpcJPA(pc);
         nombrepalabra = "";
         
@@ -68,7 +73,7 @@ public class palabraClaveBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
          
     }
-
+        
 
     public List<PalabraClave> Getir() {
         palabraJPA = new PalabrasClavesJPA();

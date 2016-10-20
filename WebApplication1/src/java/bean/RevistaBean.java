@@ -204,6 +204,11 @@ public class RevistaBean implements Serializable {
         this.idDonacion = -1;
         this.idTitulo.setIdTitulo(1);
         revista = revis;
+        
+        String accion = "Modificacion de datos de Revista" ;
+        String tabla = "Revista" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
+        
         this.categoria = revis.getCategoriaList().get(0);
         this.listaArticulos = revis.getArticuloList();
         try {
@@ -272,6 +277,11 @@ public class RevistaBean implements Serializable {
         }
 
         revista.setArticuloList(listaArticulos);
+        
+        String accion = "Registro de nueva Revista" ;
+        String tabla = "Revista" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
+
         jpaRevista.savePantalla(revista);
 
         this.revista = new Revista();
@@ -430,6 +440,9 @@ public class RevistaBean implements Serializable {
 
     public void eliminar(Revista revis) {
         jpaRevista = new RevistasJPA();
+        String accion = "Datos de Revista Borrados" ;
+        String tabla = "Revista" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
         jpaRevista.deleteTipoUsuario(revis);
 
     }

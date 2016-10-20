@@ -106,6 +106,11 @@ public class donantesBean implements Serializable {
         nomd.setCorreodonate(corrdonante);
         donantesJPA = new DonantesJPA();
         nomd.setIdDonante(donantesJPA.aumentarIddonante()+1);
+        
+        String accion = "Registro de nuevo Donante" ;
+        String tabla = "Donante" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
+        
         donantesJPA.guardardonanteJPA(nomd);
         
         
@@ -126,6 +131,9 @@ public class donantesBean implements Serializable {
     public void editardonante(){
         
         donantesJPA = new DonantesJPA();
+        String accion = "Modificacion de datos en Donante" ;
+        String tabla = "Donante" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
         donantesJPA.editdonanteJPA(editardon);
     }
     

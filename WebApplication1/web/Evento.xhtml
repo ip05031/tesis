@@ -48,13 +48,6 @@
 
                                                 <!-- / fin bloque de codigo de busqueda --> 
 
-                                                <!--<p:column headerText="Id" filterBy="#{eventos.idEvento}" sortBy="#{eventos.idEvento}">
-                                                    <h:outputText value="#{eventos.idEvento }" />
-                                                </p:column>
-                                                <p:column headerText="Usuario" filterBy="#{eventos.idUsuario}" sortBy="#{eventos.idUsuario}">
-                                                    <h:outputText value="#{eventos.idUsuario.nombreu }" />
-                                                </p:column>   -->
-
                                                 <p:column headerText="Evento" filterBy="#{eventos.nombree}" sortBy="#{eventos.nombree}">
                                                     <h:outputText value="#{eventos.nombree }" />
                                                 </p:column>
@@ -68,7 +61,7 @@
                                                         <f:convertDateTime pattern="dd-MM-YYYY" />
                                                     </h:outputText>
                                                     <f:facet name="filter" >
-                                                        <p:calendar mode="popup"  pattern="dd-MM-yyyy" widgetVar="calendarE" effect="fold" mindate="today + 1">
+                                                        <p:calendar mode="popup"  pattern="dd-MM-yyyy" widgetVar="calendarE" effect="fold" >
 
                                                             <p:ajax event="dateSelect" oncomplete="PF('eventos').filter()" />
                                                         </p:calendar>

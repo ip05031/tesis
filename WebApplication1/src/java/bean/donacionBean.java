@@ -241,6 +241,9 @@ public class donacionBean implements Serializable {
         donaciones.setFechadonacion(fechaDonacion);
         donaciones.setArchivod(ruta_archivo);
         
+        String accion = "Registro de nueva Donacion" ;
+        String tabla = "Donaciones" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
         
         donacionJPA.saveDonaciones(donaciones);
         this.getir();
@@ -268,7 +271,11 @@ public class donacionBean implements Serializable {
     public void updDonacion() {
         
         donacionJPA = new DonacionJPA();
-
+        
+        String accion = "Modificacion de datos en Donacion" ;
+        String tabla = "Donaciones" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
+        
         donacionJPA.updateDonaciones(modDonaciones);
         copyFile(this.ruta_archivo, streamArchivo);
         System.out.println(this.ruta_archivo);
@@ -285,6 +292,11 @@ public class donacionBean implements Serializable {
 
     public void dltDonacion(Donaciones don) {
         donacionJPA = new DonacionJPA();
+        
+        String accion = "Datos de Donacion Borrados" ;
+        String tabla = "Donaciones" ;
+        new bitacoraBean().guardarbitacora(tabla, accion);
+        
         donacionJPA.deleteDonaciones(don);
 
         this.setIdDonacion(0);
