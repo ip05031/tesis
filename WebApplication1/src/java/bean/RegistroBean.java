@@ -66,8 +66,8 @@ public class RegistroBean implements Serializable {
             }
             String corta = newUser.getApellidosu().substring(cantidad - 1, cantidad);
             int it = (int) (Math.random() * 99 + 1);
-            String uno = newUser.getIdUsuario()+"";
-            uno=uno.substring(0, 1);
+            String uno = newUser.getIdUsuario() + "";
+            uno = uno.substring(0, 1);
             String codigo = inicio + uno + it + corta;
             this.newUser.setClaveValidar(codigo);
 
@@ -89,9 +89,9 @@ public class RegistroBean implements Serializable {
             msj.setRemitente(cuentaMail);
             msj.getDestinatarios().add(newUser.getCorreou());
             msj.setAsunto("Envio de Codigo de confirmacion sobre Subscripcion al Portal de (MUNA)");
-            String cuerpo = "Muchas Gracias por subcribirse al  portal del  Museo Nacional de Antropología Dr. David J. Guzmán (MUNA) solo queda un paso:\n"                    
-                    +"Este correo es autogenerado seleccion el lick para poder a la activacion de su cuenta: \n" + claveEnviar
-                    +"\n\n"
+            String cuerpo = "Muchas Gracias por subcribirse al  portal del  Museo Nacional de Antropología Dr. David J. Guzmán (MUNA) solo queda un paso:\n"
+                    + "Este correo es autogenerado seleccion el lick para poder a la activacion de su cuenta: \n" + claveEnviar
+                    + "\n\n"
                     + "Atentamente \n"
                     + "Museo Nacional de Antropología Dr. David J. Guzmán \n"
                     + "Dirreción MUNA";;
@@ -135,5 +135,18 @@ public class RegistroBean implements Serializable {
             }
         }
         return cadenaAleatoria;
+    }
+
+    public void validarUsuarioExiste() {
+        usuarioJPA = new UsuarioJPA();
+        String nickname = this.newUser.getNickname();
+        if (nickname.length() > 3) {
+            System.out.println("comineza la validacion");
+            if (usuarioJPA.searchNickname(nickname)) {
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Válido"));
+            }
+        }
     }
 }

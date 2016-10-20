@@ -9,13 +9,9 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body >
-        <f:ajax event="load" listener="#{inicioBean.iniciarListas}" />
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-                <h:form>
-                    <p:remoteCommand name="onload"  actionListener="#{visitasBean.iterar()}"  />
-                </h:form>
                 <div class="row">
                     <div class="col-lg-1"></div>
 

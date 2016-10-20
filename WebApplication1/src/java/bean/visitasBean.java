@@ -155,8 +155,8 @@ public class visitasBean implements Serializable {
     
     public visitasBean() {
         
-        createBarModels();
-        opcionesVisitas();
+        //createBarModels();
+        //opcionesVisitas();
         
 
     }

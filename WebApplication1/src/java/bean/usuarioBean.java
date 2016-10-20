@@ -160,6 +160,23 @@ public class usuarioBean implements Serializable {
         }
     }
 
+    public void validarUsuarioExiste(){
+        usuarioJPA = new UsuarioJPA();
+        String nickname = this.nickUsuario;
+        if ( nickUsuario.length() > 3  ){
+            System.out.println("comineza la validacion");
+            if ( usuarioJPA.searchNickname(nickname) ){
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+            }
+            else{
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Válido"));
+            }
+        }
+    }
+    
+    
+    
+    
     /*----------------------------------------------------------------------------------------------------------------------------*/
     // SETTER & GETTER variables
     /*----------------------------------------------------------------------------------------------------------------------------*/

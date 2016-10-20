@@ -43,7 +43,8 @@ public class UsuarioJPA {
         try {
             if (tipo == 1 || tipo == 2) {
                 Integer i = 5;
-                listaUsuario = em.createNamedQuery(namedquery, Usuario.class).setParameter("idTusuario", i)
+                listaUsuario = em.createNamedQuery(namedquery, Usuario.class)
+                        .setParameter("idTusuario", i)
                         .getResultList();
             } else {
                 listaUsuario = em.createNamedQuery(namedquery, Usuario.class)
@@ -98,5 +99,22 @@ public class UsuarioJPA {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public boolean searchNickname(String nickname) {
+        boolean existe = false;
+
+        try {
+            listaUsuario = em.createNamedQuery("Usuario.findNickname", Usuario.class)
+                    .setParameter("nickname", nickname)
+                    .getResultList();
+            existe = listaUsuario.size() > 0;
+            return existe;
+        } catch (Exception e) {
+            System.out.println("Error en UsuarioJPA");
+            System.out.println(e.getMessage());
+            return existe;
+        }
+
     }
 }
