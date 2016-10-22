@@ -48,7 +48,7 @@ public class BitacoraJPA {
             System.out.println(e.getMessage());
             return bitacora;
         }
-    }
+    } 
 
     public void insertarbitacoraJPA(Bitacora bitacoras) {
         try {
