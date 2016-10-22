@@ -35,7 +35,7 @@ public class BitacoraJPA {
             return bitacora;
         }
     }
-
+  // lee la bitacora
     public Bitacora LeerIdBitacora(Bitacora bita) {
         Bitacora bitacora = new Bitacora();
         try {
