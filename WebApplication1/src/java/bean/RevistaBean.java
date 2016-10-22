@@ -1,6 +1,5 @@
 package bean;
 
-
 import controller.ArticulosJPA;
 import controller.PalabrasClavesJPA;
 import controller.RevistasJPA;
