@@ -9,6 +9,9 @@ import entity.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,6 +76,8 @@ public class usuarioBean implements Serializable {
         Calendar calendario = GregorianCalendar.getInstance();
         Date fechaRegistro = calendario.getTime();
 
+        String contra1 = sha256(contraUsuario);
+        
         user.setIdUsuario(usuarioJPA.getClave());
         user.setNombreu(this.nombreUsuario);
         user.setApellidosu(this.apellidoUsuario);
@@ -83,10 +88,10 @@ public class usuarioBean implements Serializable {
         user.setPaisu(paisUsuario);
         user.setNickname(nickUsuario);
         user.setCorreou(correoUsuario);
-        user.setPassword(contraUsuario);
+        user.setPassword(contra1);
         user.setFechau(fechaRegistro);
         user.setEstadoi(1);
-        
+
         try {
             usuarioJPA.saveUsuario(user);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado exitosamente!", null);
@@ -94,6 +99,7 @@ public class usuarioBean implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('nuevoUsuario').show();");
             limpiarDatosUsuario();
+            FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Registrado Correctamente"));
 
         } catch (Exception e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Ha ocurrido un error!", null);
@@ -160,23 +166,59 @@ public class usuarioBean implements Serializable {
         }
     }
 
-    public void validarUsuarioExiste(){
+    public void validarUsuarioExiste() {
         usuarioJPA = new UsuarioJPA();
         String nickname = this.nickUsuario;
-        if ( nickUsuario.length() > 3  ){
+        if (nickUsuario.length() > 3) {
             System.out.println("comineza la validacion");
-            if ( usuarioJPA.searchNickname(nickname) ){
+            if (usuarioJPA.searchNickname(nickname)) {
                 FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
-            }
-            else{
+            } else {
                 FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Válido"));
             }
         }
     }
+
+    public void biginteger() {
+        BigInteger A = new BigInteger("1");
+        BigInteger I = new BigInteger("10542516131213232");
+        A = A.add(I);
+        System.out.println(A);
+
+    }
+
+    public void probandoSha256(){
+        String test1 = sha256("admin123");
+        String test2 = sha256("visitante123");
+        String test3 = sha256("123456789");
+        String test4 = sha256("contraseña");
+        System.out.println(test1);
+        System.out.println(test2);
+        System.out.println(test3);
+        System.out.println(test4);
+    }
     
     
-    
-    
+    public String sha256(String base) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     /*----------------------------------------------------------------------------------------------------------------------------*/
     // SETTER & GETTER variables
     /*----------------------------------------------------------------------------------------------------------------------------*/

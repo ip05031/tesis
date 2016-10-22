@@ -334,7 +334,6 @@ public class importacionBean implements Serializable {
         this.articulo.setResumena(this.resumen);
         this.articulo.setArchivoa(nombreArticulo);
         new ArticulosJPA().mergeTipoUsuario(this.articulo);
-        
         limpiar2();        
     }
 

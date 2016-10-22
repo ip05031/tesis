@@ -7,7 +7,7 @@
 
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="cache-control" content="max-age=0" />
@@ -47,76 +47,87 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        <c:if test="#{inicioBean.inicioSesion}" >
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Usuario <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="Pantalla"      value="Pantalla" /></li>
+                                    <li><h:link outcome="TipoUsuario"   value="Tipo Usuario" /></li>
+
+                                    <li class="divider"></li>
+                                    <li><h:link outcome="Usuario"       value="Usuario" /></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Revista <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="Categoria"     value="Categoría" /></li>
+                                    <li><h:link outcome="Titulo"        value="Titulo" /></li>
+                                    <li><h:link outcome="PalabrasClave" value="Palabras Clave" /></li>
+                                    <li><h:link outcome="Autor"         value="Autor" /></li>
 
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Usuario <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><h:link outcome="Pantalla" value="Pantalla" /></li>
-                                <li><h:link outcome="TipoUsuario"   value="Tipo Usuario" /></li>
+                                    <li class="divider"></li>
+                                    <li><h:link outcome="Revistas"      value="Revistas" /></li>
+                                </ul>
+                            </li>
 
-                                <li class="divider"></li>
-                                <li><h:link outcome="Usuario"       value="Usuario" /></li>
-                            </ul>
-                        </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Donaciones <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="Donantes"      value="Donante" /></li>
+                                    <li><h:link outcome="Donaciones"    value="Donaciòn" /></li>
+                                </ul>
+                            </li>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Revista <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><h:link outcome="Categoria"     value="Categoría" /></li>
-                                <li><h:link outcome="Titulo"     value="Titulo" /></li>
-                                <li><h:link outcome="PalabrasClave" value="Palabras Clave" /></li>
-                                <li><h:link outcome="Autor" value="Autor" /></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Importacion <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="Importar"      value="Importar Revistas" /></li>
+                                    <li><h:link outcome="prueba"        value="prueba" /></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Gestion Evento <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="Evento"        value="Eventos" /></li>
+                                    <li><h:link outcome="Banner"        value="Banner" /></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Inventario <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="Inventario"    value="Inventario" /></li>
+                                    <li><h:link outcome="Estado"        value="Estado" /></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Prestamos <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><h:link outcome="Prestamo"      value="Prestamo" /></li>
+                                    <li><h:link outcome="Devolucion"    value="Devolucion" /></li>
+
+                                </ul>
+                            </li>
+                        </c:if>
 
 
-                                <li class="divider"></li>
-                                <li><h:link outcome="Revistas"      value="Revistas" /></li>
-                            </ul>
-                        </li>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Donaciones <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><h:link outcome="Donantes"      value="Donante" /></li>
-                                <li><h:link outcome="Donaciones"    value="Donaciòn" /></li>
-                            </ul>
-                        </li>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Importacion <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><h:link outcome="Importar"      value="Importar Revistas" /></li>
-                                <li><h:link outcome="prueba"      value="prueba" /></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Gestion Evento <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><h:link outcome="Evento"      value="Eventos" /></li>
-                                <li><h:link outcome="Inventario"      value="Inventario" /></li>
-                                <li><h:link outcome="Estado"      value="Estado" /></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Prestamos <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><h:link outcome="Prestamo" value="Prestamo" /></li>
-                                <li><h:link outcome="Devolucion" value="Devolucion" /></li>
-                                
-                            </ul>
-                        </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -208,18 +219,18 @@
                                 <div class="form-group">
                                     <p:outputLabel value="Categoría"  for="bsq_categoria" />
                                     <p:selectOneMenu id="bsq_categoria"   
-                                                                         value="#{busquedaBean.busquedaCategoria}"  
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade" 
-                                                                         style="width:100%" filter="true"
-                                                                         filterMatchMode="startsWith"  >
+                                                     value="#{busquedaBean.busquedaCategoria}"  
+                                                     panelStyle="width:180px"
+                                                     effect="fade" 
+                                                     style="width:100%" filter="true"
+                                                     filterMatchMode="startsWith"  >
                                         <f:selectItem noSelectionOption="true" itemLabel="" itemValue=""/>
-                                                            <f:selectItems value="#{categoriaBean.getir()}" 
-                                                                           var="themes" 
-                                                                           itemLabel="#{themes.nombrec}" 
-                                                                           itemValue="#{themes.nombrec}"  />
-                                                        </p:selectOneMenu>
-                                   </div>
+                                        <f:selectItems value="#{categoriaBean.getir()}" 
+                                                       var="themes" 
+                                                       itemLabel="#{themes.nombrec}" 
+                                                       itemValue="#{themes.nombrec}"  />
+                                    </p:selectOneMenu>
+                                </div>
 
                                 <div class="form-group">
                                     <p:outputLabel value="Palabras Clave:" for="themes" />                              
@@ -261,7 +272,8 @@
 
                     </h:panelGrid>
                     <p:separator />
-                    <h:link outcome="Registrarse" value="Regiistrarse..." />
+
+                    <h:link outcome="Registrarse" value="Registrarse" class="btn registroBtn"/>
 
 
                 </h:form>

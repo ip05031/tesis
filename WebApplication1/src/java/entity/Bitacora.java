@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "bitacora")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Bitacora.findMaxId", query = "SELECT MAX(b.idBitacora) FROM Bitacora b"),
     @NamedQuery(name = "Bitacora.findAll", query = "SELECT b FROM Bitacora b"),
     @NamedQuery(name = "Bitacora.findByIdBitacora", query = "SELECT b FROM Bitacora b WHERE b.idBitacora = :idBitacora"),
     @NamedQuery(name = "Bitacora.findByTabla", query = "SELECT b FROM Bitacora b WHERE b.tabla = :tabla"),

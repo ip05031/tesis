@@ -73,7 +73,7 @@ public class RegistroBean implements Serializable {
 
             new UsuarioJPA().saveUsuario(newUser);
             //Codigo de Creacion de envio de mensaje 
-            String claveEnviar = "http://localhost:8083/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=" + codigo;
+            String claveEnviar = "http://localhost:8080/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=" + codigo;
             //Mensajeria de confirmacion
             Mailer cartero = new Mailer();
             String cuentaMail = "museomuna2016@gmail.com";
@@ -88,9 +88,9 @@ public class RegistroBean implements Serializable {
             EMail msj = new EMail();
             msj.setRemitente(cuentaMail);
             msj.getDestinatarios().add(newUser.getCorreou());
-            msj.setAsunto("Envio de Codigo de confirmacion sobre Subscripcion al Portal de (MUNA)");
+            msj.setAsunto("Envio de Código de confirmación sobre Subscripción al Portal de (MUNA)");
             String cuerpo = "Muchas Gracias por subcribirse al  portal del  Museo Nacional de Antropología Dr. David J. Guzmán (MUNA) solo queda un paso:\n"
-                    + "Este correo es autogenerado seleccion el lick para poder a la activacion de su cuenta: \n" + claveEnviar
+                    + "Este correo es autogenerado; de clic sobre el link para poder su activar de su cuenta: \n" + claveEnviar
                     + "\n\n"
                     + "Atentamente \n"
                     + "Museo Nacional de Antropología Dr. David J. Guzmán \n"
@@ -99,8 +99,9 @@ public class RegistroBean implements Serializable {
             cartero.enviarCorreo(msj, null);
 
             this.newUser = new Usuario();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado!", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Revise su correo para continuar con el registro."));
+            //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado!", null);
+            //FacesContext.getCurrentInstance().addMessage(null, message);
 
         } catch (Exception e) {
             System.out.println("Error nuevo visitante");

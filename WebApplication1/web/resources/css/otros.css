@@ -1,4 +1,4 @@
-.fileUpload {
+.fileUpload { 
     position: relative;
     overflow: hidden;
     margin: 10px;
@@ -25,13 +25,13 @@
 }
 
 .ui-autocomplete .ui-inputfield  {
-clear: left;
-cursor: text;
-list-style-type: none;
-margin: 0;
-min-height: 1px;
-overflow: hidden;
-width: 225px;
+    clear: left;
+    cursor: text;
+    list-style-type: none;
+    margin: 0;
+    min-height: 1px;
+    overflow: hidden;
+    width: 225px;
 }
 
 label {
@@ -57,4 +57,16 @@ label {
     background-color: #f5f5f5;
     color: #262626;
     text-decoration: none;
+}
+
+.registroBtn{
+    
+    font-weight: bold;
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; 
+    font-size:18px;
+    display: block;
+    width: 100%;
+    background-color: #fff;
+    border-color: #ccc;
+    color:#036fab !important;
 }

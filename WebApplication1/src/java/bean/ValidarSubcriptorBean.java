@@ -61,8 +61,7 @@ public class ValidarSubcriptorBean implements Serializable {
         }
 
         if (us.getNombreu() != null) {
-
-            texto = "Su cuenta ha sido activada con éxito." + us.getNombreu();
+            texto = ""+ us.getNombreu()+ ", Su cuenta ha sido activada con éxito." ;
             UsuarioJPA uJpa = new UsuarioJPA();
             us.setEstadoi(2);
             uJpa.updateUsuario(us);

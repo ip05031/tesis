@@ -4,175 +4,343 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-                <div class="row" >
-                    <div class="col-md-12" >
-                        <p:growl id="msg"  />
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i> Usuarios
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <h:form>
-                                            <p:commandButton class="btn btn-success btn-xs" 
-                                                             value="Nuevo Usuario" 
-                                                             type="button" 
-                                                             onclick="PF('nuevoUsuario').show();" />
-                                        </h:form>
+
+                <c:if test="#{inicioBean.correcto()}"> 
+                    <div class="row" >
+                        <div class="col-md-12" >
+                            <p:growl id="msg"  />
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Usuarios
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <h:form>
+                                                <p:commandButton class="btn btn-success btn-xs" 
+                                                                 value="Nuevo Usuario" 
+                                                                 type="button" 
+                                                                 onclick="PF('nuevoUsuario').show();" />
+                                            </h:form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div class="row" >
-                                    <div class="col-md-12" > 
-                                        <h4> Listado de Usuarios </h4>
-                                        <br/>
-                                        <div role="tabpanel">
-                                            <!-- Nav tabs -->
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <div class="col-md-12" > 
+                                            <h4> Listado de Usuarios </h4>
+                                            <br/>
+                                            <div role="tabpanel">
+                                                <!-- Nav tabs -->
 
-                                            <ul class="nav nav-pills nav-justified nav-divider">
-                                                <li role="presentation" class="active">
-                                                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Visitantes</a>
-                                                </li>
-                                                <li role="presentation">
-                                                    <a href="#tab" aria-controls="tab" role="tab" data-toggle="tab">Empleados</a>
-                                                </li>
-                                            </ul>
+                                                <ul class="nav nav-pills nav-justified nav-divider">
+                                                    <li role="presentation" class="active">
+                                                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Visitantes</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a href="#tab" aria-controls="tab" role="tab" data-toggle="tab">Empleados</a>
+                                                    </li>
+                                                </ul>
 
-                                            <!-- Tab panes -->
-                                            <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active" id="home">
-                                                    <h:form id="frm_table_visitantes">
-                                                        <p:dataTable id="detailTable" 
-                                                                     value="#{usuarioBean.getir(1)}" var="usuario" 
-                                                                     rows="6" 
-                                                                     widgetVar="tabla_usuario_visitante" 
-                                                                     emptyMessage="No se encontraron registros." 
-                                                                     paginator="true" >
-                                                            <f:facet name="header" >
-                                                                <p:outputPanel style="text-align:right">
-                                                                    <h:outputText value="Buscar:" />
-                                                                    <p:inputText id="globalFilter" 
-                                                                                 onkeyup="PF('tabla_usuario_visitante').filter()" 
-                                                                                 style="width:150px" placeholder="Busqueda" />
-                                                                </p:outputPanel>
-                                                            </f:facet>  
-                                                            <p:column headerText="Nombre" filterBy="#{usuario.nombreu}">
-                                                                <h:outputText value="#{usuario.nombreu}" />
-                                                            </p:column>  
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane active" id="home">
+                                                        <h:form id="frm_table_visitantes">
+                                                            <p:dataTable id="detailTable" 
+                                                                         value="#{usuarioBean.getir(1)}" var="usuario" 
+                                                                         rows="6" 
+                                                                         widgetVar="tabla_usuario_visitante" 
+                                                                         emptyMessage="No se encontraron registros." 
+                                                                         paginator="true" >
+                                                                <f:facet name="header" >
+                                                                    <p:outputPanel style="text-align:right">
+                                                                        <h:outputText value="Buscar:" />
+                                                                        <p:inputText id="globalFilter" 
+                                                                                     onkeyup="PF('tabla_usuario_visitante').filter()" 
+                                                                                     style="width:150px" placeholder="Busqueda" />
+                                                                    </p:outputPanel>
+                                                                </f:facet>  
+                                                                <p:column headerText="Nombre" filterBy="#{usuario.nombreu}">
+                                                                    <h:outputText value="#{usuario.nombreu}" />
+                                                                </p:column>  
 
-                                                            <p:column headerText="Apellido" filterBy="#{usuario.apellidosu}">
-                                                                <h:outputText value="#{usuario.apellidosu}" />
-                                                            </p:column>  
+                                                                <p:column headerText="Apellido" filterBy="#{usuario.apellidosu}">
+                                                                    <h:outputText value="#{usuario.apellidosu}" />
+                                                                </p:column>  
 
-                                                            <p:column headerText="País" filterBy="#{usuario.paisu}">
-                                                                <h:outputText value="#{usuario.paisu}" />
-                                                            </p:column>  
+                                                                <p:column headerText="País" filterBy="#{usuario.paisu}">
+                                                                    <h:outputText value="#{usuario.paisu}" />
+                                                                </p:column>  
 
-                                                            <p:column headerText="Correo" filterBy="#{usuario.correou}">
-                                                                <h:outputText value="#{usuario.correou}" />
-                                                            </p:column>  
-                                                            <p:column headerText="Editar"    style="width:10%; text-align:center;">
-                                                                <p:commandButton icon="ui-icon-pencil"
-                                                                                 actionListener="#{usuarioBean.usuarioEditar(usuario)}" 
-                                                                                 oncomplete="PF('modalPantallaUpdate').show();" update=":modalPantallaUpdate">
-                                                                </p:commandButton>
+                                                                <p:column headerText="Correo" filterBy="#{usuario.correou}">
+                                                                    <h:outputText value="#{usuario.correou}" />
+                                                                </p:column>  
+                                                                <p:column headerText="Editar"    style="width:10%; text-align:center;">
+                                                                    <p:commandButton icon="ui-icon-pencil"
+                                                                                     actionListener="#{usuarioBean.usuarioEditar(usuario)}" 
+                                                                                     oncomplete="PF('modalPantallaUpdate').show();" update=":modalPantallaUpdate">
+                                                                    </p:commandButton>
 
-                                                            </p:column>
-                                                            <p:column headerText="Eliminar"  style="width:10%; text-align:center;">
-                                                                <p:commandButton icon="ui-icon-trash"  
-                                                                                 actionListener="#{usuarioBean.eliminarUsuario(usuario)}"
-                                                                                 update="@form"  process="@this">
-                                                                    <p:confirm message="¿Desea dar de baja al usuario #{usuario.nombreu} ?" header="Aviso" icon="ui-icon-alert"/>
-                                                                </p:commandButton>
-                                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                    <p:commandButton value="Si" type="button" icon="ui-icon-check" 
-                                                                                     styleClass="ui-confirmdialog-yes"/>
-                                                                    <p:commandButton value="No" type="button" icon="ui-icon-close" 
-                                                                                     styleClass="ui-confirmdialog-no"/>
-                                                                </p:confirmDialog>
-                                                            </p:column>
-                                                        </p:dataTable>
-                                                    </h:form>
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane" id="tab">
-                                                    <h:form id="frm_table_empleados">
-                                                        <p:dataTable id="detailTable" 
-                                                                     value="#{usuarioBean.getir(2)}" var="usuario" 
-                                                                     rows="6" 
-                                                                     widgetVar="tabla_usuario" 
-                                                                     emptyMessage="No se encontraron registros." 
-                                                                     paginator="true" >
-                                                            <f:facet name="header" >
-                                                                <p:outputPanel style="text-align:right">
-                                                                    <h:outputText value="Buscar:" />
-                                                                    <p:inputText id="globalFilter" onkeyup="PF('tabla_pantalla').filter()" style="width:150px" placeholder="Busqueda" />
-                                                                </p:outputPanel>
-                                                            </f:facet>  
-                                                            <p:column headerText="Nombre" filterBy="#{usuario.nombreu}">
-                                                                <h:outputText value="#{usuario.nombreu}" />
-                                                            </p:column>  
+                                                                </p:column>
+                                                                <p:column headerText="Eliminar"  style="width:10%; text-align:center;">
+                                                                    <p:commandButton icon="ui-icon-trash"  
+                                                                                     actionListener="#{usuarioBean.eliminarUsuario(usuario)}"
+                                                                                     update="@form"  process="@this">
+                                                                        <p:confirm message="¿Desea dar de baja al usuario #{usuario.nombreu} ?" header="Aviso" icon="ui-icon-alert"/>
+                                                                    </p:commandButton>
+                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                                         styleClass="ui-confirmdialog-yes"/>
+                                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                                         styleClass="ui-confirmdialog-no"/>
+                                                                    </p:confirmDialog>
+                                                                </p:column>
+                                                            </p:dataTable>
+                                                        </h:form>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane" id="tab">
+                                                        <h:form id="frm_table_empleados">
+                                                            <p:dataTable id="detailTable" 
+                                                                         value="#{usuarioBean.getir(2)}" var="usuario" 
+                                                                         rows="6" 
+                                                                         widgetVar="tabla_usuario" 
+                                                                         emptyMessage="No se encontraron registros." 
+                                                                         paginator="true" >
+                                                                <f:facet name="header" >
+                                                                    <p:outputPanel style="text-align:right">
+                                                                        <h:outputText value="Buscar:" />
+                                                                        <p:inputText id="globalFilter" onkeyup="PF('tabla_pantalla').filter()" style="width:150px" placeholder="Busqueda" />
+                                                                    </p:outputPanel>
+                                                                </f:facet>  
+                                                                <p:column headerText="Nombre" filterBy="#{usuario.nombreu}">
+                                                                    <h:outputText value="#{usuario.nombreu}" />
+                                                                </p:column>  
 
-                                                            <p:column headerText="Apellido" filterBy="#{usuario.apellidosu}">
-                                                                <h:outputText value="#{usuario.apellidosu}" />
-                                                            </p:column>  
+                                                                <p:column headerText="Apellido" filterBy="#{usuario.apellidosu}">
+                                                                    <h:outputText value="#{usuario.apellidosu}" />
+                                                                </p:column>  
 
-                                                            <p:column headerText="Correo" filterBy="#{usuario.correou}">
-                                                                <h:outputText value="#{usuario.correou}" />
-                                                            </p:column>  
+                                                                <p:column headerText="Correo" filterBy="#{usuario.correou}">
+                                                                    <h:outputText value="#{usuario.correou}" />
+                                                                </p:column>  
 
-                                                            <p:column headerText="Tipo de Usuario" filterBy="#{usuario.idTusuario.nombretp}">
-                                                                <h:outputText value="#{usuario.idTusuario.nombretp}" />
-                                                            </p:column>  
-                                                            <p:column headerText="Editar"    style="width:10%; text-align:center;">
-                                                                <p:commandButton icon="ui-icon-pencil"
-                                                                                 actionListener="#{usuarioBean.usuarioEditar(usuario)}" 
-                                                                                 oncomplete="PF('modalPantallaUpdate').show();" update=":modalPantallaUpdate">
-                                                                </p:commandButton>
+                                                                <p:column headerText="Tipo de Usuario" filterBy="#{usuario.idTusuario.nombretp}">
+                                                                    <h:outputText value="#{usuario.idTusuario.nombretp}" />
+                                                                </p:column>  
+                                                                <p:column headerText="Editar"    style="width:10%; text-align:center;">
+                                                                    <p:commandButton icon="ui-icon-pencil"
+                                                                                     actionListener="#{usuarioBean.usuarioEditar(usuario)}" 
+                                                                                     oncomplete="PF('modalPantallaUpdate').show();" update=":modalPantallaUpdate">
+                                                                    </p:commandButton>
 
-                                                            </p:column>
-                                                            <p:column headerText="Eliminar"  style="width:10%; text-align:center;">
-                                                                <p:commandButton icon="ui-icon-trash"  
-                                                                                 actionListener="#{usuarioBean.eliminarUsuario(usuario)}"
-                                                                                 update="@form"  process="@this" class="btn btn-danger">
-                                                                    <p:confirm message="¿Desea dar de baja al usuario #{usuario.nombreu} ?"  header="Aviso" icon="ui-icon-alert"/>
-                                                                </p:commandButton>
-                                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                                                                    <p:commandButton value="Si" type="button" icon="ui-icon-check" 
-                                                                                     styleClass="ui-confirmdialog-yes"/>
-                                                                    <p:commandButton value="No" type="button" icon="ui-icon-close" 
-                                                                                     class="ui-confirmdialog-no btn-danger pull-right"/>
-                                                                </p:confirmDialog>
-                                                            </p:column>
-                                                        </p:dataTable>
-                                                    </h:form>
+                                                                </p:column>
+                                                                <p:column headerText="Eliminar"  style="width:10%; text-align:center;">
+                                                                    <p:commandButton icon="ui-icon-trash"  
+                                                                                     actionListener="#{usuarioBean.eliminarUsuario(usuario)}"
+                                                                                     update="@form"  process="@this" class="btn btn-danger">
+                                                                        <p:confirm message="¿Desea dar de baja al usuario #{usuario.nombreu} ?"  header="Aviso" icon="ui-icon-alert"/>
+                                                                    </p:commandButton>
+                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                                         styleClass="ui-confirmdialog-yes"/>
+                                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                                    </p:confirmDialog>
+                                                                </p:column>
+                                                            </p:dataTable>
+                                                        </h:form>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <br/>
+                                            <br/>
+                                            <h:form >
+                                                <p:commandButton action="#{usuarioBean.probandoSha256()}" value="probando SHA 256 "/>
+                                            </h:form>
+                                            <!-- MODAL PARA REGISTRAR UNA PANTALLA  -->
+                                            <p:dialog header="Nuevo Usuario" widgetVar="nuevoUsuario" 
+                                                      minHeight="40" width="50%" modal="true" resizable="false" 
+                                                      draggable="false"
+                                                      closeOnEscape="true">
+                                                <p:scrollPanel mode="native" style="height: 460px; border: none;">
+                                                    <h:form id="newUsuario" >
+                                                        <p:messages for ="Message4" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">
+                                                                        Nombre
+                                                                    </label>
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                                            <p:inputText  id="Nombre" value="#{usuarioBean.nombreUsuario}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
+                                                                            <p:messages for="Nombre" />
+                                                                        </div>
+                                                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                                            <p:inputText  id="Apellido" value="#{usuarioBean.apellidoUsuario}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
+                                                                            <p:messages for="Apellido" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">
+                                                                                Ocupación
+                                                                            </label><br/>
+                                                                            <p:selectOneMenu id="ocupacion" value="#{usuarioBean.ocupacionUsuario}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
+                                                                                <f:selectItem   itemValue="Arqueologo"      itemLabel=" Arqueologo"  />
+                                                                                <f:selectItem   itemValue="Paleontologo"    itemLabel=" Paleontologo"  />
+                                                                                <f:selectItem   itemValue="Filosofo"        itemLabel=" Filosofo"  />
+                                                                                <f:selectItem   itemValue="Estudiante"      itemLabel=" Estudiante" />
+                                                                            </p:selectOneMenu>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">
+                                                                                Sexo
+                                                                            </label>
+                                                                            <br/>
+
+                                                                            <p:selectOneMenu id="sexo" value="#{usuarioBean.sexoUsuario}" style="width:250px" >
+                                                                                <f:selectItem   itemValue="M" itemLabel=" Masculino"  />
+                                                                                <f:selectItem   itemValue="F" itemLabel=" Femenino"  />
+                                                                                <f:selectItem   itemValue="O" itemLabel=" Otro"  />
+                                                                            </p:selectOneMenu>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">
+                                                                                Fecha de Nacimiento
+                                                                            </label><br/>
+                                                                            <p:calendar id="Fecha_Nacimiento" 
+                                                                                        value="#{usuarioBean.fechaNacUsuario}"
+                                                                                        locale="es" navigator="true" 
+                                                                                        pattern="dd-MM-yyyy" mask="true" 
+                                                                                        required="true" style="width:250px"
+                                                                                        maxdate="-10Y"
+                                                                                        widgetVar="calwidget"
+                                                                                        readonly="true"
+                                                                                        />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
+                                                                        <div class="form-group">
+                                                                            <label for="pais">
+                                                                                Pais: 
+                                                                            </label>
+                                                                            <p:selectOneMenu id="pais" 
+                                                                                             value="#{usuarioBean.paisUsuario}"  
+                                                                                             panelStyle="width:180px"
+                                                                                             effect="fade" 
+                                                                                             style="width:100%" filter="true" required="true" 
+                                                                                             filterMatchMode="startsWith"  >
+                                                                                <f:selectItems value="#{revistaBean.listaPaises()}" 
+                                                                                               var="themes2" 
+                                                                                               itemLabel="#{themes2}" 
+                                                                                               itemValue="#{themes2}"  />
+                                                                            </p:selectOneMenu>                                                    
+                                                                            <p:message for="pais" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">
+                                                                                Tipo de Usuario
+                                                                            </label>
+                                                                            <p:selectOneMenu id="city" value="#{usuarioBean.idTipoUsuario}" effect="fold" filter="true" filterMatchMode="startsWith" required="true">
+                                                                                <f:selectItems value="#{tipoUsuarioBean.getir() }" var="tipoUsuario" itemLabel="#{tipoUsuario.nombretp}" itemValue="#{tipoUsuario.idTusuario}"/>
+                                                                            </p:selectOneMenu>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputEmail1">
+                                                                                Nombre de Usuario
+                                                                            </label><br/>
+                                                                            <p:inputText  id="inputNick" value="#{usuarioBean.nickUsuario}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
+                                                                                <f:ajax event="keyup" listener="#{usuarioBean.validarUsuarioExiste()}" /> 
+                                                                            </p:inputText>
+                                                                            <p:messages for="inputNick" id="msgLastname" />
+
+                                                                            <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                                        <div class="form-group">
+                                                                            <label for="emailUsuario">
+                                                                                Correo Electronico
+                                                                            </label>
+                                                                            <p:inputText  id="emailUsuario" value="#{usuarioBean.correoUsuario}" class="form-control" placeholder="e-mail" required="true" requiredMessage="Ingrese su correo electrónico" validatorMessage="Formato de correo inválido">
+                                                                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                                            </p:inputText>
+                                                                            <p:messages for="emailUsuario"  />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                                        <div class="form-group">
+                                                                            <label for="pwd1">
+                                                                                Contraseña
+                                                                            </label><br/>
+                                                                            <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" 
+                                                                                        class="form-control" placeholder="Contraseña" required="true" match="pwd2" 
+                                                                                        requiredMessage="Ingrese Contraseña"
+                                                                                        label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
+                                                                            <p:messages for="pwd1"  />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
+                                                                        <div class="form-group">
+                                                                            <label for="pwd2">
+                                                                                Confirmar Contraseña
+                                                                            </label>
+                                                                            <p:password id="pwd2" feedback="true" inline="true" 
+                                                                                        class="form-control" placeholder="Confirmar Contraseña" 
+                                                                                        required="true" requiredMessage="Confirme Contraseña"
+                                                                                        label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
+                                                                            <p:messages for="pwd2"  />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>  
+                                                                <div class="row">
+                                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                        <div class="form-group">
+                                                                            <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{usuarioBean.saveUsuario()}"  update=":frm_table_visitantes:detailTable,:frm_table_empleados:detailTable,newUsuario"/>
+                                                                            <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevoUsuario').hide();" immediate="true" />
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </h:form>
+                                                </p:scrollPanel>
+                                            </p:dialog>
 
 
-
-
-
-
-
-
-                                        <!-- MODAL PARA REGISTRAR UNA PANTALLA  -->
-                                        <p:dialog header="Nuevo Usuario" widgetVar="nuevoUsuario" 
-                                                  minHeight="40" width="50%" modal="true" resizable="false" 
-                                                  draggable="false"
-                                                  closeOnEscape="true">
-                                            <p:scrollPanel mode="native" style="height: 460px; border: none;">
-                                                <h:form id="newUsuario" >
+                                            <p:dialog header="Modificar Usuario" widgetVar="modalPantallaUpdate" id="modalPantallaUpdate"
+                                                      minHeight="40" width="50%" modal="true" resizable="false" 
+                                                      draggable="false"
+                                                      closeOnEscape="true">
+                                                <h:form id="updateUsuario" >
                                                     <div class="row">
                                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                             <div class="form-group">
@@ -181,12 +349,12 @@
                                                                 </label>
                                                                 <div class="row">
                                                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                        <p:inputText  id="Nombre" value="#{usuarioBean.nombreUsuario}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
-                                                                        <p:messages for="Nombre" />
+                                                                        <p:inputText  id="Nombre" value="#{usuarioBean.editUsuario.nombreu}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
+                                                                        <p:message for="Nombre" display="icon" />
                                                                     </div>
                                                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                        <p:inputText  id="Apellido" value="#{usuarioBean.apellidoUsuario}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
-                                                                        <p:messages for="Apellido" />
+                                                                        <p:inputText  id="Apellido" value="#{usuarioBean.editUsuario.apellidosu}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
+                                                                        <p:message for="Apellido" display="icon" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -196,11 +364,11 @@
                                                                         <label for="exampleInputEmail1">
                                                                             Ocupación
                                                                         </label><br/>
-                                                                        <p:selectOneMenu id="ocupacion" value="#{usuarioBean.ocupacionUsuario}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
-                                                                            <f:selectItem   itemValue="Arqueologo"      itemLabel=" Arqueologo"  />
-                                                                            <f:selectItem   itemValue="Paleontologo"    itemLabel=" Paleontologo"  />
-                                                                            <f:selectItem   itemValue="Filosofo"        itemLabel=" Filosofo"  />
-                                                                            <f:selectItem   itemValue="Estudiante"      itemLabel=" Estudiante" />
+                                                                        <p:selectOneMenu   id="ocupacion" value="#{usuarioBean.editUsuario.ocupacion}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
+                                                                            <f:selectItem  itemValue="Arqueologo" itemLabel=" Arqueologo"  />
+                                                                            <f:selectItem  itemValue="Paleontologo" itemLabel=" Paleontologo"  />
+                                                                            <f:selectItem  itemValue="Filosofo" itemLabel=" Filosofo"  />
+                                                                            <f:selectItem  itemValue="Estudiante" itemLabel=" Estudiante" />
                                                                         </p:selectOneMenu>
                                                                     </div>
                                                                 </div>
@@ -210,8 +378,7 @@
                                                                             Sexo
                                                                         </label>
                                                                         <br/>
-
-                                                                        <p:selectOneMenu id="sexo" value="#{usuarioBean.sexoUsuario}" style="width:250px" >
+                                                                        <p:selectOneMenu id="sexo" value="#{usuarioBean.editUsuario.sexo}" style="width:250px" >
                                                                             <f:selectItem   itemValue="M" itemLabel=" Masculino"  />
                                                                             <f:selectItem   itemValue="F" itemLabel=" Femenino"  />
                                                                             <f:selectItem   itemValue="O" itemLabel=" Otro"  />
@@ -225,15 +392,18 @@
                                                                         <label for="exampleInputEmail1">
                                                                             Fecha de Nacimiento
                                                                         </label><br/>
-                                                                        <p:calendar id="Fecha_Nacimiento" 
-                                                                                    value="#{usuarioBean.fechaNacUsuario}"
-                                                                                    locale="es" navigator="true" 
-                                                                                    pattern="dd-MM-yyyy" mask="true" 
-                                                                                    required="true" style="width:250px"
-                                                                                    maxdate="-10Y"
-                                                                                    widgetVar="calwidget"
-                                                                                    readonly="true"
-                                                                                    />
+                                                                        <p:calendar id="Fecha_Nacimiento" maxdate="-10Y" readonly="true" value="#{usuarioBean.editUsuario.fechanacimientou}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" required="false" style="width:250px"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">
+                                                                            Tipo de Usuario
+                                                                        </label>
+                                                                        <p:selectOneMenu id="city" value="#{usuarioBean.idTipoUsuario}" effect="fold" filter="true" filterMatchMode="startsWith" required="false">
+                                                                            <f:selectItems value="#{tipoUsuarioBean.getir() }" var="tipoUsuario" itemLabel="#{tipoUsuario.nombretp}" itemValue="#{tipoUsuario.idTusuario}"/>
+                                                                        </p:selectOneMenu>
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
@@ -255,79 +425,57 @@
                                                                         <p:message for="pais" />
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputEmail1">
-                                                                            Tipo de Usuario
-                                                                        </label>
-                                                                        <p:selectOneMenu id="city" value="#{usuarioBean.idTipoUsuario}" effect="fold" filter="true" filterMatchMode="startsWith" required="true">
-                                                                            <f:selectItems value="#{tipoUsuarioBean.getir() }" var="tipoUsuario" itemLabel="#{tipoUsuario.nombretp}" itemValue="#{tipoUsuario.idTusuario}"/>
-                                                                        </p:selectOneMenu>
-
-                                                                    </div>
-                                                                </div>
-
                                                             </div>
 
                                                             <div class="row">
                                                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                     <div class="form-group">
                                                                         <label for="exampleInputEmail1">
-                                                                            Nombre de Usuario
-                                                                        </label><br/>
-                                                                        <p:inputText  id="inputNick" value="#{usuarioBean.nickUsuario}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
-                                                                            <f:ajax event="keyup" listener="#{usuarioBean.validarUsuarioExiste()}" /> 
-                                                                        </p:inputText>
-                                                                        <p:messages for="inputNick" id="msgLastname" />
-
-                                                                        <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
+                                                                            Correo Electronico
+                                                                        </label>
+                                                                        <p:inputText  value="#{usuarioBean.editUsuario.nickname}" readonly="true" class="form-control" required="false"/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                     <div class="form-group">
-                                                                        <label for="emailUsuario">
+                                                                        <label for="exampleInputEmail1">
                                                                             Correo Electronico
                                                                         </label>
-                                                                        <p:inputText  id="emailUsuario" value="#{usuarioBean.correoUsuario}" class="form-control" placeholder="e-mail" required="true" requiredMessage="Ingrese su correo electrónico" validatorMessage="Formato de correo inválido">
+                                                                        <p:inputText  value="#{usuarioBean.editUsuario.correou}" class="form-control" placeholder="e-mail" required="false">
                                                                             <f:validateRegex 
                                                                                 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 
                                                                         </p:inputText>
-                                                                        <p:messages for="emailUsuario"  />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                     <div class="form-group">
-                                                                        <label for="pwd1">
+                                                                        <label for="exampleInputEmail1">
                                                                             Contraseña
                                                                         </label><br/>
                                                                         <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" 
-                                                                                    class="form-control" placeholder="Contraseña" required="true" match="pwd2" 
-                                                                                    requiredMessage="Ingrese Contraseña"
+                                                                                    class="form-control" placeholder="Contraseña" required="false" match="pwd2" 
                                                                                     label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
-                                                                        <p:messages for="pwd1"  />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                     <div class="form-group">
-                                                                        <label for="pwd2">
+                                                                        <label for="exampleInputEmail1">
                                                                             Confirmar Contraseña
                                                                         </label>
-                                                                        <p:password id="pwd2" feedback="true" inline="true" 
-                                                                                    class="form-control" placeholder="Confirmar Contraseña" 
-                                                                                    required="true" requiredMessage="Confirme Contraseña"
+                                                                        <p:password id="pwd2" feedback="true" inline="true" class="form-control" 
+                                                                                    placeholder="Confirmar Contraseña" required="false"
                                                                                     label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
-                                                                        <p:messages for="pwd2"  />
                                                                     </div>
                                                                 </div>
                                                             </div>  
                                                             <div class="row">
                                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                     <div class="form-group">
-                                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{usuarioBean.saveUsuario()}"  update=":frm_table_visitantes:detailTable,:frm_table_empleados:detailTable,newUsuario"/>
-                                                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevoUsuario').hide();" immediate="true" />
+                                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{usuarioBean.modificarUsuario()}"  oncomplete="PF('modalPantallaUpdate').hide();" update=":frm_table_visitantes:detailTable,:frm_table_empleados:detailTable,updateUsuario"/>
+                                                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modalPantallaUpdate').hide();" immediate="true" />
 
                                                                     </div>
                                                                 </div>
@@ -335,178 +483,34 @@
                                                         </div>
                                                     </div>
                                                 </h:form>
-                                            </p:scrollPanel>
-                                        </p:dialog>
-
-
-                                        <p:dialog header="Modificar Usuario" widgetVar="modalPantallaUpdate" id="modalPantallaUpdate"
-                                                  minHeight="40" width="50%" modal="true" resizable="false" 
-                                                  draggable="false"
-                                                  closeOnEscape="true">
-                                            <h:form id="updateUsuario" >
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">
-                                                                Nombre
-                                                            </label>
-                                                            <div class="row">
-                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                    <p:inputText  id="Nombre" value="#{usuarioBean.editUsuario.nombreu}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
-                                                                    <p:message for="Nombre" display="icon" />
-                                                                </div>
-                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                    <p:inputText  id="Apellido" value="#{usuarioBean.editUsuario.apellidosu}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
-                                                                    <p:message for="Apellido" display="icon" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Ocupación
-                                                                    </label><br/>
-                                                                    <p:selectOneMenu   id="ocupacion" value="#{usuarioBean.editUsuario.ocupacion}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
-                                                                        <f:selectItem  itemValue="Arqueologo" itemLabel=" Arqueologo"  />
-                                                                        <f:selectItem  itemValue="Paleontologo" itemLabel=" Paleontologo"  />
-                                                                        <f:selectItem  itemValue="Filosofo" itemLabel=" Filosofo"  />
-                                                                        <f:selectItem  itemValue="Estudiante" itemLabel=" Estudiante" />
-                                                                    </p:selectOneMenu>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Sexo
-                                                                    </label>
-                                                                    <br/>
-                                                                    <p:selectOneMenu id="sexo" value="#{usuarioBean.editUsuario.sexo}" style="width:250px" >
-                                                                        <f:selectItem   itemValue="M" itemLabel=" Masculino"  />
-                                                                        <f:selectItem   itemValue="F" itemLabel=" Femenino"  />
-                                                                        <f:selectItem   itemValue="O" itemLabel=" Otro"  />
-                                                                    </p:selectOneMenu>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Fecha de Nacimiento
-                                                                    </label><br/>
-                                                                    <p:calendar id="Fecha_Nacimiento" maxdate="-10Y" readonly="true" value="#{usuarioBean.editUsuario.fechanacimientou}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" required="false" style="width:250px"/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Tipo de Usuario
-                                                                    </label>
-                                                                    <p:selectOneMenu id="city" value="#{usuarioBean.idTipoUsuario}" effect="fold" filter="true" filterMatchMode="startsWith" required="false">
-                                                                        <f:selectItems value="#{tipoUsuarioBean.getir() }" var="tipoUsuario" itemLabel="#{tipoUsuario.nombretp}" itemValue="#{tipoUsuario.idTusuario}"/>
-                                                                    </p:selectOneMenu>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
-                                                                <div class="form-group">
-                                                                    <label for="pais">
-                                                                        Pais: 
-                                                                    </label>
-                                                                    <p:selectOneMenu id="pais" 
-                                                                                     value="#{usuarioBean.paisUsuario}"  
-                                                                                     panelStyle="width:180px"
-                                                                                     effect="fade" 
-                                                                                     style="width:100%" filter="true" required="true" 
-                                                                                     filterMatchMode="startsWith"  >
-                                                                        <f:selectItems value="#{revistaBean.listaPaises()}" 
-                                                                                       var="themes2" 
-                                                                                       itemLabel="#{themes2}" 
-                                                                                       itemValue="#{themes2}"  />
-                                                                    </p:selectOneMenu>                                                    
-                                                                    <p:message for="pais" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Correo Electronico
-                                                                    </label>
-                                                                    <p:inputText  value="#{usuarioBean.editUsuario.nickname}" readonly="true" class="form-control" required="false"/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Correo Electronico
-                                                                    </label>
-                                                                    <p:inputText  value="#{usuarioBean.editUsuario.correou}" class="form-control" placeholder="e-mail" required="false">
-                                                                        <f:validateRegex 
-                                                                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-
-                                                                    </p:inputText>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Contraseña
-                                                                    </label><br/>
-                                                                    <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" 
-                                                                                class="form-control" placeholder="Contraseña" required="false" match="pwd2" 
-                                                                                label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
-                                                                        Confirmar Contraseña
-                                                                    </label>
-                                                                    <p:password id="pwd2" feedback="true" inline="true" class="form-control" 
-                                                                                placeholder="Confirmar Contraseña" required="false"
-                                                                                label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
-                                                                </div>
-                                                            </div>
-                                                        </div>  
-                                                        <div class="row">
-                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                                <div class="form-group">
-                                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{usuarioBean.modificarUsuario()}"  oncomplete="PF('modalPantallaUpdate').hide();" update=":frm_table_visitantes:detailTable,:frm_table_empleados:detailTable,updateUsuario"/>
-                                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modalPantallaUpdate').hide();" immediate="true" />
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </h:form>
-                                        </p:dialog>
+                                            </p:dialog>
 
 
 
 
 
 
-                                        <!-- MODAL PARA EDITAR LA PANTALLA  -->
+                                            <!-- MODAL PARA EDITAR LA PANTALLA  -->
 
 
 
 
 
 
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- /.panel-body -->
                             </div>
-                            <!-- /.panel-body -->
                         </div>
+                    </div> 
+                </c:if> 
+                <div class="row" >
+                    <div class="col-md-12" >
+                        <h5> Inicie Sesion </h5> 
                     </div>
-                </div> 
+                </div>
+
             </ui:define>
 
         </ui:composition>

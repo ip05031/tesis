@@ -18,17 +18,21 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">
-                                            Nombre
+                                        <h5>Los campos con <span style="color:red;">*</span> son obligatorios.</h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:messages for ="Message4" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
+                                        <label >
+                                            Nombre <span style="color:red;">*</span> :
                                         </label>
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                 <p:inputText  id="Nombre" value="#{registroBean.newUser.nombreu}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" />
-                                                <p:message for="Nombre" display="icon" />
+                                                <p:messages for="Nombre"  />
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                 <p:inputText  id="Apellido" value="#{registroBean.newUser.apellidosu}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido"/>
-                                                <p:message for="Apellido" display="icon" />
+                                                <p:messages for="Apellido"  />
                                             </div>
                                         </div>
                                     </div>
@@ -74,8 +78,9 @@
                                                             required="true" style="width:250px"
                                                             maxdate="-10Y"
                                                             widgetVar="calwidget"
-
+                                                            requiredMessage="Ingrese Fecha de Nacimiento"
                                                             />
+                                                <p:messages for="Fecha_Nacimiento"  />
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
@@ -94,7 +99,7 @@
                                                                    itemLabel="#{themes2}" 
                                                                    itemValue="#{themes2}"  />
                                                 </p:selectOneMenu>                                                    
-                                                <p:message for="pais" />
+                                                <p:messages for="pais" />
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +110,7 @@
                                                 <label for="exampleInputEmail1">
                                                     Nombre de Usuario
                                                 </label><br/>
-                                                <p:inputText  id="inputNick" value="#{registroBean.newUser.nickname}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
+                                                <p:inputText  id="inputNick" value="#{registroBean.newUser.nickname}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" requiredMessage="Ingrese Nombre de usuario"> 
                                                     <f:ajax event="keyup" listener="#{registroBean.validarUsuarioExiste()}" /> 
                                                 </p:inputText>
                                                 <p:message for="inputNick" id="msgLastname" display="icon" />
@@ -117,17 +122,21 @@
                                                 <label for="exampleInputEmail1">
                                                     Correo Electronico
                                                 </label>
-                                                <p:inputText  value="#{registroBean.newUser.correou}" class="form-control" placeholder="e-mail" required="true"/>
+                                                <p:inputText  id="email" value="#{registroBean.newUser.correou}" class="form-control" placeholder="e-mail" required="true" requiredMessage="Ingrese Correo Electrónico" validatorMessage="Formato de email incorrecto.">
+                                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                </p:inputText>
+                                                <p:messages for="email" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">
+                                                <label for="pwd1">
                                                     Contraseña
                                                 </label><br/>
-                                                <p:password id="pwd1" value="#{registroBean.newUser.password}" feedback="true" inline="true" class="form-control" placeholder="Contraseña" required="true" match="pwd2"/>
+                                                <p:password id="pwd1" value="#{registroBean.newUser.password}" feedback="true" inline="true" class="form-control" placeholder="Contraseña" required="true" match="pwd2" requiredMessage="Ingrese Contraseña" label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
+                                                <p:messages for="pwd1" />
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
@@ -135,7 +144,8 @@
                                                 <label for="exampleInputEmail1">
                                                     Confirmar Contraseña
                                                 </label>
-                                                <p:password id="pwd2" feedback="true" inline="true" class="form-control" placeholder="Confirmar Contraseña" required="true" />
+                                                <p:password id="pwd2" feedback="true" inline="true" class="form-control" placeholder="Confirmar Contraseña" required="true" requiredMessage="Confirme Contraseña" label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Confirme Contraseña" />
+                                                <p:messages for="pwd2" />
                                             </div>
                                         </div>
                                     </div>  

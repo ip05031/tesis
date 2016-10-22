@@ -100,8 +100,11 @@ public class InicioBean implements Serializable {
         List<Usuario> user = new ArrayList<>();
         List<Pantalla> listaDePantallas = new ArrayList<>();
         Usuario userLogged = new Usuario();
-
-        user = inicioJPA.existeUsuario(this.usuarioNombre, this.usuarioContra);
+        String hashPass = new usuarioBean().sha256(this.usuarioContra);
+        System.out.println("Contra:");
+        System.out.println(hashPass);
+        System.out.println("ok");
+        user = inicioJPA.existeUsuario(this.usuarioNombre,hashPass );
         if (!user.isEmpty()) {
             this.setInicioSesion(true);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("logueado", user.get(0));
@@ -110,7 +113,7 @@ public class InicioBean implements Serializable {
             userLogged = user.get(0);
             System.out.println("this is the nick: ----------------------");
             System.out.println(userLogged.getNickname());
-            this.setLogueado( "" + userLogged.getNombreu() +" "+userLogged.getApellidosu());
+            this.setLogueado("" + userLogged.getNombreu() + " " + userLogged.getApellidosu());
             listaDePantallas = userLogged.getIdTusuario().getPantallaList();
             definirMenu(userLogged);
             return "index?facesRedirect=true";
@@ -123,24 +126,44 @@ public class InicioBean implements Serializable {
         //return "index?faces-redirect=true";
     }
 
-    public String reDirrecion(){
-    listArticulo = new ImportarJPA().getListaUnArticulo(revistaAbrir.getIdRevista());
-    return "PortadaRevista";
+    public String reDirrecion() {
+        listArticulo = new ImportarJPA().getListaUnArticulo(revistaAbrir.getIdRevista());
+        return "PortadaRevista";
     }
-    
-    public void definirMenu(Usuario user){
-        System.out.println("usuario:"+user.getNombreu());
+
+    public void definirMenu(Usuario user) {
+        System.out.println("usuario:" + user.getNombreu());
         int idUsuario = user.getIdUsuario();
         this.setListaPantallas(user.getIdTusuario().getPantallaList());
     }
- 
-    
+
     public String Salir() {
         this.setInicioSesion(false);
-        
+
         return "index?facesRedirect=true";
     }
 
+    public String verificarUsuario() {
+        System.out.println("verificarusuario");
+        String a = "a";
+        if (a.compareToIgnoreCase("a") == 0) {
+            System.out.println("si");
+            return "Evento?facesRedirect=true";
+        } else {
+            System.out.println("no");
+            return "Estado?facesRedirect=true";
+        }
+    }
+
+    public boolean correcto() {
+        boolean valor = true;
+
+        return valor;
+    }
+
+    
+    
+    
     /*---------------------------------------------------------- Setter & Getter -------------------------------------------------------------------*/
     public String getUsuarioNombre() {
         return usuarioNombre;
