@@ -1,7 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package entity;
 
@@ -31,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Bitacora.findMaxId", query = "SELECT MAX(b.idBitacora) FROM Bitacora b"),
     @NamedQuery(name = "Bitacora.findAll", query = "SELECT b FROM Bitacora b"),
+    @NamedQuery(name = "Bitacora.findMaxId", query = "SELECT MAX(b.idBitacora) FROM Bitacora b"),
     @NamedQuery(name = "Bitacora.findByIdBitacora", query = "SELECT b FROM Bitacora b WHERE b.idBitacora = :idBitacora"),
     @NamedQuery(name = "Bitacora.findByTabla", query = "SELECT b FROM Bitacora b WHERE b.tabla = :tabla"),
     @NamedQuery(name = "Bitacora.findByFechabitacora", query = "SELECT b FROM Bitacora b WHERE b.fechabitacora = :fechabitacora"),

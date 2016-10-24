@@ -5,12 +5,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./boot.xhtml">
             <ui:define name="content">
+                 <c:set var="nombre" value="Donantes" />
+                 <c:if test="#{inicioBean.verificarPagina(nombre)}">
                 <div class="row" >
                     <div class="col-md-12" >
                         <p:growl id="msg" autoUpdate="true" />
@@ -121,6 +124,7 @@
                                                         <p:message for="direcciond" display="icon"  />
                                                     </div>
 
+                                                    
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">
                                                             Telefono
@@ -148,7 +152,7 @@
                                                         </label>
                                                         <!-- <p:outputLabel value="Correo electronico"/> -->
                                                         <p:inputText id="correod" value="#{donantesBean.corrdonante}" class="form-control" required="true" 
-                                                                     label="Correo Electronico">
+                                                                     label="Correo Electronico" validatorMessage = "Ingrese Correo válido">
                                                             <f:validateRegex 
                                                                 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                             <!-- <f:validateRequired /> -->
@@ -202,7 +206,8 @@
                                                     <label for="exampleInputEmail1">
                                                         Correo electronico
                                                     </label>
-                                                    <p:inputText  value="#{donantesBean.editardon.correodonate}" class="form-control" required="true" label="Correo Electronico">
+                                                    <p:inputText  value="#{donantesBean.editardon.correodonate}" class="form-control" 
+                                                                  required="true" label="Correo Electronico" validatorMessage = "Ingrese Correo válido">
                                                         <f:validateRegex 
                                                     pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                      <!-- <f:validateRequired /> -->
@@ -222,9 +227,8 @@
                         </div>
                     </div>
                 </div>
+                     </c:if>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

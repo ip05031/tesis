@@ -3,20 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-                
-                 <h:form>
-                    <p:remoteCommand name="onload"  actionListener="#{bannerBean.leerDirectorio()}"  />
-                </h:form>
-                
-                
-               
+                <c:set var="nombre" value="Banner" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <h:form>
+                        <p:remoteCommand name="onload"  actionListener="#{bannerBean.leerDirectorio()}"  />
+                    </h:form>
+
+                </c:if>
+
             </ui:define>
 
         </ui:composition>

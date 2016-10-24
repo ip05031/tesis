@@ -13,15 +13,20 @@ import entity.Articulo;
 import entity.Pantalla;
 import entity.Revista;
 import entity.Usuario;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -48,23 +53,18 @@ public class InicioBean implements Serializable {
     private String logueado;
     private String menu;
     private List<Pantalla> listaPantallas = new ArrayList<>();
+    private Usuario userLogueado = new Usuario();
+     FacesContext context;
 
-    /**
-     * Creates a new instance of InicioBean
-     */
     /*---------------------------------------------------------- Constructor -----------------------------------------------------------------------*/
     public InicioBean() {
         System.out.println("Iniciando el construnctor Inicio-Bean");
         listaRevista2 = getListadoRevistas();
         this.setArchivoDownload(false);
-        //this.definirMenu();
+
     }
 
     /*---------------------------------------------------------- Funciones Propias -----------------------------------------------------------------*/
-    public String Redirigir() {
-        return "Pantalla";
-    }
-
     public void descargaArchivo() {
         this.setArchivoDownload(true);
     }
@@ -104,23 +104,29 @@ public class InicioBean implements Serializable {
         System.out.println("Contra:");
         System.out.println(hashPass);
         System.out.println("ok");
-        user = inicioJPA.existeUsuario(this.usuarioNombre,hashPass );
+        user = inicioJPA.existeUsuario(this.usuarioNombre, hashPass);
         if (!user.isEmpty()) {
             this.setInicioSesion(true);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("logueado", user.get(0));
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Inició Sesión!!!!!", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            context = FacesContext.getCurrentInstance();
+            context.getExternalContext().getSessionMap().put("logueado", user.get(0));
+            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("logueado", user.get(0));
             userLogged = user.get(0);
+            this.setUserLogueado(user.get(0));
             System.out.println("this is the nick: ----------------------");
             System.out.println(userLogged.getNickname());
             this.setLogueado("" + userLogged.getNombreu() + " " + userLogged.getApellidosu());
             listaDePantallas = userLogged.getIdTusuario().getPantallaList();
             definirMenu(userLogged);
+            this.setUsuarioContra("");
+            this.setUsuarioNombre("");
+            RequestContext.getCurrentInstance().update("form-login");
+            redirigir();
             return "index?facesRedirect=true";
         } else {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario y/o Contraseña Incorrectos!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             this.setInicioSesion(false);
+            //redirigir();
             return "inicio?facesRedirect=true";
         }
         //return "index?faces-redirect=true";
@@ -139,19 +145,39 @@ public class InicioBean implements Serializable {
 
     public String Salir() {
         this.setInicioSesion(false);
-
+        context = FacesContext.getCurrentInstance(); 
+        context.getExternalContext().getSessionMap().remove("logueado");
+        redirigir();
         return "index?facesRedirect=true";
     }
 
-    public String verificarUsuario() {
+    public boolean verificarPagina(String nombre) {
+        System.out.println(nombre);
         System.out.println("verificarusuario");
         String a = "a";
-        if (a.compareToIgnoreCase("a") == 0) {
-            System.out.println("si");
-            return "Evento?facesRedirect=true";
+        if (this.inicioSesion) {
+            Usuario user = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("logueado");
+            List<Pantalla> pantallaList = user.getIdTusuario().getPantallaList();
+            int contador = 0;
+            for (Pantalla pantalla : pantallaList) {
+                if (pantalla.getNombrepa().compareToIgnoreCase(nombre) == 0) {
+                    contador++;
+                }
+            }
+            if (contador > 0) {
+                System.out.println("si");
+                return true;
+            } else {
+                System.out.println("no");
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+                } catch (IOException ex) {
+                    Logger.getLogger(InicioBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return false;
+            }
         } else {
-            System.out.println("no");
-            return "Estado?facesRedirect=true";
+            return false;
         }
     }
 
@@ -161,9 +187,42 @@ public class InicioBean implements Serializable {
         return valor;
     }
 
-    
-    
-    
+    public void urls() {
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String url = request.getRequestURL().toString();
+        String uri = request.getRequestURI();
+        System.out.println("url");
+        System.out.println(url);
+        System.out.println("uri");
+        System.out.println(uri);
+    }
+
+    public void redirigir() {
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String url = request.getRequestURL().toString();
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect("" + url);
+        } catch (Exception e) {
+            System.out.println("error en /iniciobean/redirigir ");
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+        }
+
+    }
+
+    public void redirigir2() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(InicioBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("error redirigir 2");
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+        }
+    }
+
     /*---------------------------------------------------------- Setter & Getter -------------------------------------------------------------------*/
     public String getUsuarioNombre() {
         return usuarioNombre;
@@ -275,5 +334,13 @@ public class InicioBean implements Serializable {
 
     public void setListaPantallas(List<Pantalla> listaPantallas) {
         this.listaPantallas = listaPantallas;
+    }
+
+    public Usuario getUserLogueado() {
+        return userLogueado;
+    }
+
+    public void setUserLogueado(Usuario userLogueado) {
+        this.userLogueado = userLogueado;
     }
 }

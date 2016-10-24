@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <c:set var="nombre" value="Bitacora" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <div class="row" >
+                        <div class="col-md-1" ></div>  
+
+                        <div class="col-md-10" >
+                            <p:growl id="msg" autoUpdate="true" />
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Bitacora
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <div class="col-md-12" > 
+                                            <h4> Listado de Acciones Realizadas </h4>
+                                            <h:form id="frm_table">
+                                                <p:growl id="msj" autoUpdate="true"></p:growl>
+
+                                                <p:dataTable value="#{bitacoraBean.Getir()}" var="bitacora" id="detailTable" widgetVar="tabla_bitacora" emptyMessage="No se encontraron registros." paginator="true" rows="8">
+
+
+                                                    <!-- esta parte la agrege para poder hacer la busqueda -->
+                                                    <f:facet name="header" >
+                                                        <p:outputPanel style="text-align:right">
+                                                            <h:outputText value="Buscar:" />
+                                                            <p:inputText id="globalFilter" onkeyup="PF('tabla_bitacora').filter()" style="width:150px" placeholder="Busqueda" />
+                                                        </p:outputPanel>
+                                                    </f:facet>   
+
+                                                    <!-- / fin bloque de codigo de busqueda --> 
+
+                                                    <p:column headerText="Tabla Afectada" filterBy="#{bitacora.tabla}" sortBy="#{bitacora.tabla}">
+                                                        <h:outputText value="#{bitacora.tabla}" />
+                                                    </p:column>
+
+                                                    <p:column headerText="Accion Realizada" filterBy="#{bitacora.accion}" sortBy="#{bitacora.accion}">
+                                                        <h:outputText value="#{bitacora.accion }"/>
+
+
+
+                                                    </p:column>
+
+                                                    <p:column headerText="Fecha" filterBy="#{bitacora.fechabitacora}" sortBy="#{bitacora.fechabitacora}">
+                                                        <h:outputText value="#{bitacora.fechabitacora}">
+                                                            <f:convertDateTime pattern="dd-MM-YYYY" />
+                                                        </h:outputText>
+
+                                                        <f:facet name="filter" >
+                                                            <p:calendar mode="popup"  pattern="dd-MM-yyyy" widgetVar="calendarB" effect="fold" >
+
+                                                                <p:ajax event="dateSelect" oncomplete="PF('bitacora').filter()" />
+                                                            </p:calendar>
+
+                                                        </f:facet>
+                                                    </p:column>
+
+
+                                                </p:dataTable>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1" ></div>
+                    </div>
+                </c:if>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

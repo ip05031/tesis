@@ -12,8 +12,8 @@
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-
-                <c:if test="#{inicioBean.correcto()}"> 
+                <c:set var="nombrePag" value="Usuario" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
                     <div class="row" >
                         <div class="col-md-12" >
                             <p:growl id="msg"  />
@@ -161,9 +161,7 @@
                                                 </div>
                                             </div>
                                             <br/>
-                                            <h:form >
-                                                <p:commandButton action="#{usuarioBean.probandoSha256()}" value="probando SHA 256 "/>
-                                            </h:form>
+
                                             <!-- MODAL PARA REGISTRAR UNA PANTALLA  -->
                                             <p:dialog header="Nuevo Usuario" widgetVar="nuevoUsuario" 
                                                       minHeight="40" width="50%" modal="true" resizable="false" 
@@ -504,13 +502,7 @@
                             </div>
                         </div>
                     </div> 
-                </c:if> 
-                <div class="row" >
-                    <div class="col-md-12" >
-                        <h5> Inicie Sesion </h5> 
-                    </div>
-                </div>
-
+                </c:if>
             </ui:define>
 
         </ui:composition>

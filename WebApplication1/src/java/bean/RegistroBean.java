@@ -56,7 +56,7 @@ public class RegistroBean implements Serializable {
 
             this.newUser.setIdTusuario(tu);
             this.newUser.setFechau(fechaRegistro);
-            this.newUser.setIdUsuario(usuarioJPA.getClave() + 1);
+            this.newUser.setIdUsuario(usuarioJPA.getClave());
             this.newUser.setEstadoi(1);
             //Codigo de aletorio de ingreso al usuario
             String inicio = getCadenaAlfanumAleatoria(8);

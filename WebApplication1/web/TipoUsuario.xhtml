@@ -4,261 +4,264 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./boot.xhtml">
             <ui:define name="content">
-                <div class="row" >
-                    <div class="col-md-12" >
-                        
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i> Tipo de Usuario
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <h:form id="nuevo">
-                                            <p:growl id="msg" autoUpdate="true"  />
-                                            <p:commandButton class="btn btn-success btn-xs" value="Nuevo Tipo Usuario" oncomplete="PF('nuevaPantalla').show();" action="#{tipoUsuarioBean.nuevoDato()}" process="@this" update=":newPantalla2" />
+                <c:set var="nombre" value="TipoUsuario" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <div class="row" >
+                        <div class="col-md-12" >
 
-                                        </h:form>    
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Tipo de Usuario
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <h:form id="nuevo">
+                                                <p:growl id="msg" autoUpdate="true"  />
+                                                <p:commandButton class="btn btn-success btn-xs" value="Nuevo Tipo Usuario" oncomplete="PF('nuevaPantalla').show();" action="#{tipoUsuarioBean.nuevoDato()}" process="@this" update=":newPantalla2" />
+
+                                            </h:form>    
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div class="row" >
-                                    <h:form id="tablasLista" >
-                                        <div class="col-md-12" > 
-                                            <h4> Tipos de Usuario </h4>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <h:form id="tablasLista" >
+                                            <div class="col-md-12" > 
+                                                <h4> Tipos de Usuario </h4>
 
-                                            <p:dataTable id="listaTabla" value="#{tipoUsuarioBean.getir()}" 
-                                                         var="tipousuario" paginator="true" widgetVar="tablaTipoUsuario" 
-                                                         emptyMessage="No se encontraron datos">
-                                                <f:facet name="header" >
-                                                    <p:outputPanel style="text-align:right">
-                                                        <h:outputText value="Buscar:" />
-                                                        <p:inputText id="globalFilter" onkeyup="PF('tablaTipoUsuario').filter()" style="width:150px" placeholder="Busqueda" />
-                                                    </p:outputPanel>
-                                                </f:facet>  
-                                                <p:column headerText="Nombre Tipo Usuario" sortBy="#{tipousuario.nombretp}" filterBy="#{tipousuario.nombretp}">
-                                                    <h:outputText value="#{tipousuario.nombretp}" />
-                                                </p:column>
-                                                <p:column headerText="Descripción" sortBy="#{tipousuario.descripciontp}" >
-                                                    <h:outputText value="#{tipousuario.descripciontp}" />
-                                                </p:column>
-                                                <p:column headerText="Editar" style="text-align: center" width="11%"  >
-                                                    <p:commandButton title="Editar Tipo de Usuario"   oncomplete="PF('dlg2').show();" icon="ui-icon-pencil"  action="#{tipoUsuarioBean.adaptarTipoUsuario(tipousuario)}" process="@this" update=":formulario_mo" />
-                                                </p:column>
-                                                <p:column headerText="Eliminar" style="text-align: center" width="11%" >
-                                                     
-                                                    <p:commandButton icon="ui-icon-trash" title="Eliminar Tipo de Usuario"
+                                                <p:dataTable id="listaTabla" value="#{tipoUsuarioBean.getir()}" 
+                                                             var="tipousuario" paginator="true" widgetVar="tablaTipoUsuario" 
+                                                             emptyMessage="No se encontraron datos">
+                                                    <f:facet name="header" >
+                                                        <p:outputPanel style="text-align:right">
+                                                            <h:outputText value="Buscar:" />
+                                                            <p:inputText id="globalFilter" onkeyup="PF('tablaTipoUsuario').filter()" style="width:150px" placeholder="Busqueda" />
+                                                        </p:outputPanel>
+                                                    </f:facet>  
+                                                    <p:column headerText="Nombre Tipo Usuario" sortBy="#{tipousuario.nombretp}" filterBy="#{tipousuario.nombretp}">
+                                                        <h:outputText value="#{tipousuario.nombretp}" />
+                                                    </p:column>
+                                                    <p:column headerText="Descripción" sortBy="#{tipousuario.descripciontp}" >
+                                                        <h:outputText value="#{tipousuario.descripciontp}" />
+                                                    </p:column>
+                                                    <p:column headerText="Editar" style="text-align: center" width="11%"  >
+                                                        <p:commandButton title="Editar Tipo de Usuario"   oncomplete="PF('dlg2').show();" icon="ui-icon-pencil"  action="#{tipoUsuarioBean.adaptarTipoUsuario(tipousuario)}" process="@this" update=":formulario_mo" />
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="text-align: center" width="11%" >
+
+                                                        <p:commandButton icon="ui-icon-trash" title="Eliminar Tipo de Usuario"
                                                                          actionListener="#{tipoUsuarioBean.eliminar(tipousuario)}"
                                                                          update="@form"  process="@this" class="btn btn-danger">
                                                             <p:confirm message="¿Desea Eliminar el Tipo de Usuario?" header="Aviso" icon="ui-icon-alert"/>
                                                         </p:commandButton>
-                                                    
-                                                    <p:confirmDialog global="true">
-                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
-                                                                         styleClass="ui-confirmdialog-yes"/>
-                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
-                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
-                                                    </p:confirmDialog>
-                                                </p:column>
-                                            </p:dataTable>
 
-                                        </div>
-                                    </h:form>
+                                                        <p:confirmDialog global="true">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                             styleClass="ui-confirmdialog-yes"/>
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                             class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                        </p:confirmDialog>
+                                                    </p:column>
+                                                </p:dataTable>
 
-                                    <p:dialog header="Modificar Tipo Usuario" widgetVar="dlg2" 
-                                              minHeight="40" modal="true" showEffect="explode" hideEffect="fade"
-                                              resizable="false" width="75%">
-                                        <legend>Modificar </legend>
-                                        <h:form id="formulario_mo">
-                                            <div class="form-group">
-
-                                                <label for="nameTipoUsuarioM">
-                                                    Nombre Tipo de Usuario
-                                                </label>
-                                                <p:inputText id="nameTipoUsuarioM" value="#{tipoUsuarioBean.tipo.nombretp}" required="true" requiredMessage="Es obligatorio"  class="form-control" onkeypress="return soloLetras(event)"/>
-                                            </div>
-                                            <div class="form-group">
-
-                                                <label for="desTipoUsurioM">
-                                                    Descripción Tipo de Usuario
-                                                </label>
-                                                <p:inputText id="desTipoUsurioM" value="#{tipoUsuarioBean.tipo.descripciontp}" required="true" requiredMessage="Es obligatorio"  class="form-control" onkeypress="return soloLetras(event)"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    <div class="col-lg-6">
-                                                        <label for="exampleInputPassword1">
-                                                            Selección Pantalla
-                                                        </label>
-
-
-                                                        <p:dataTable id="tblSelMuestras4"
-                                                                     var="mues"
-                                                                     value="#{tipoUsuarioBean.origenPantallas}"
-                                                                     selection="#{tipoUsuarioBean.tempLista}"
-                                                                     rowKey="#{mues.idPantalla}"
-                                                                     rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
-                                                                     paginator="true"
-                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                     rowsPerPageTemplate="5,10,15">                                                                
-
-                                                            <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
-
-                                                            <p:column headerText="Nombre de la pantalla">
-                                                                <h:outputText value="#{mues.nombrepa}" />
-                                                            </p:column>                                                   
-
-                                                            <f:facet name="footer">
-                                                                <p:commandButton action="#{tipoUsuarioBean.trasferirLista()}"
-                                                                                 process="tblSelMuestras4" 
-                                                                                 update="@form:tblSelMuestras3, @form:tblSelMuestras4" 
-                                                                                 value="Seleccionar" />
-                                                            </f:facet>                        
-                                                        </p:dataTable> 
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <label for="exampleInputPassword1">
-                                                            Seleccionado
-                                                        </label>
-                                                        <p:dataTable id="tblSelMuestras3"
-                                                                     var="mues2"
-                                                                     value="#{tipoUsuarioBean.destinoPantallas}"
-                                                                     selection="#{tipoUsuarioBean.tempLista}"
-                                                                     rowKey="#{mues2.idPantalla}"
-                                                                     rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
-                                                                     paginator="true"
-                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                     rowsPerPageTemplate="5,10,15">                                                                
-
-                                                            <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
-
-                                                            <p:column headerText="Nombre de la pantalla">
-                                                                <h:outputText value="#{mues2.nombrepa}" />
-                                                            </p:column>                                                   
-
-                                                            <f:facet name="footer">
-                                                                <p:commandButton action="#{tipoUsuarioBean.trasferirEliminar()}"
-                                                                                 process="tblSelMuestras3" 
-
-                                                                                 update="@form:tblSelMuestras3, @form:tblSelMuestras4" 
-                                                                                 value="Quitar de Listado" class="btn btn-danger"/>
-                                                            </f:facet>                        
-                                                        </p:dataTable> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    <br />
-                                                </div>
-                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{tipoUsuarioBean.mergeTipoUsuario()}" process="@this, @form"  update=":tablasLista:listaTabla,formulario_mo"/>
-                                                <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('dlg2').hide();" process="@this" action="#{tipoUsuarioBean.cancelarTodo()}"/>
                                             </div>
                                         </h:form>
 
-                                    </p:dialog>
+                                        <p:dialog header="Modificar Tipo Usuario" widgetVar="dlg2" 
+                                                  minHeight="40" modal="true" showEffect="explode" hideEffect="fade"
+                                                  resizable="false" width="75%">
+                                            <legend>Modificar </legend>
+                                            <h:form id="formulario_mo">
+                                                <div class="form-group">
+
+                                                    <label for="nameTipoUsuarioM">
+                                                        Nombre Tipo de Usuario
+                                                    </label>
+                                                    <p:inputText id="nameTipoUsuarioM" value="#{tipoUsuarioBean.tipo.nombretp}" required="true" requiredMessage="Es obligatorio"  class="form-control" onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <label for="desTipoUsurioM">
+                                                        Descripción Tipo de Usuario
+                                                    </label>
+                                                    <p:inputText id="desTipoUsurioM" value="#{tipoUsuarioBean.tipo.descripciontp}" required="true" requiredMessage="Es obligatorio"  class="form-control" onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-lg-6">
+                                                            <label for="exampleInputPassword1">
+                                                                Selección Pantalla
+                                                            </label>
 
 
-                                    <p:dialog header="Agregar Tipo de Usuario" widgetVar="nuevaPantalla" 
-                                              minHeight="40" modal="true" resizable="false" width="75%">
-                                        <h:form id="newPantalla2" >
-                                            <div class="form-group">
-                                                <label for="nombreI">
-                                                    Nombre de tipo Usuario
-                                                </label>
-                                                <p:inputText id="nombreI"  value="#{tipoUsuarioBean.tipo.nombretp}" class="form-control" required="true" requiredMessage="obligatoio" onkeypress="return soloLetras(event)"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="descripT">
-                                                    Descripcion del Tipo de Usuario
-                                                </label>
-                                                <p:inputText id="descripT"  value="#{tipoUsuarioBean.tipo.descripciontp}" class="form-control" required="true" requiredMessage="obligatorio" onkeypress="return soloLetras(event)"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    <div class="col-lg-6">
-                                                        <label for="exampleInputPassword1">
-                                                            Selección Pantalla
-                                                        </label>
+                                                            <p:dataTable id="tblSelMuestras4"
+                                                                         var="mues"
+                                                                         value="#{tipoUsuarioBean.origenPantallas}"
+                                                                         selection="#{tipoUsuarioBean.tempLista}"
+                                                                         rowKey="#{mues.idPantalla}"
+                                                                         rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
+                                                                         paginator="true"
+                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                         rowsPerPageTemplate="5,10,15">                                                                
 
+                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
 
-                                                        <p:dataTable id="tblSelMuestras"
-                                                                     var="mues"
-                                                                     value="#{tipoUsuarioBean.origenPantallas}"
-                                                                     selection="#{tipoUsuarioBean.tempLista}"
-                                                                     rowKey="#{mues.idPantalla}"
-                                                                     rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
-                                                                     paginator="true"
-                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                     rowsPerPageTemplate="5,10,15">                                                                
+                                                                <p:column headerText="Nombre de la pantalla">
+                                                                    <h:outputText value="#{mues.nombrepa}" />
+                                                                </p:column>                                                   
 
-                                                            <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                                                                <f:facet name="footer">
+                                                                    <p:commandButton action="#{tipoUsuarioBean.trasferirLista()}"
+                                                                                     process="tblSelMuestras4" 
+                                                                                     update="@form:tblSelMuestras3, @form:tblSelMuestras4" 
+                                                                                     value="Seleccionar" />
+                                                                </f:facet>                        
+                                                            </p:dataTable> 
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label for="exampleInputPassword1">
+                                                                Seleccionado
+                                                            </label>
+                                                            <p:dataTable id="tblSelMuestras3"
+                                                                         var="mues2"
+                                                                         value="#{tipoUsuarioBean.destinoPantallas}"
+                                                                         selection="#{tipoUsuarioBean.tempLista}"
+                                                                         rowKey="#{mues2.idPantalla}"
+                                                                         rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
+                                                                         paginator="true"
+                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                         rowsPerPageTemplate="5,10,15">                                                                
 
-                                                            <p:column headerText="Nombre de la pantalla">
-                                                                <h:outputText value="#{mues.nombrepa}" />
-                                                            </p:column>                                                   
+                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
 
-                                                            <f:facet name="footer">
-                                                                <p:commandButton action="#{tipoUsuarioBean.trasferirLista()}"
-                                                                                 process="tblSelMuestras" 
-                                                                                 update="@form:tblSelMuestras, @form:tblSelMuestras2" 
-                                                                                 value="Seleccionar" />
-                                                            </f:facet>                        
-                                                        </p:dataTable> 
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <label for="exampleInputPassword1">
-                                                            Seleccionado
-                                                        </label>
-                                                        <p:dataTable id="tblSelMuestras2"
-                                                                     var="mues2"
-                                                                     value="#{tipoUsuarioBean.destinoPantallas}"
-                                                                     selection="#{tipoUsuarioBean.tempLista}"
-                                                                     rowKey="#{mues2.idPantalla}"
-                                                                     rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
-                                                                     paginator="true"
-                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                     rowsPerPageTemplate="5,10,15">                                                                
+                                                                <p:column headerText="Nombre de la pantalla">
+                                                                    <h:outputText value="#{mues2.nombrepa}" />
+                                                                </p:column>                                                   
 
-                                                            <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+                                                                <f:facet name="footer">
+                                                                    <p:commandButton action="#{tipoUsuarioBean.trasferirEliminar()}"
+                                                                                     process="tblSelMuestras3" 
 
-                                                            <p:column headerText="Nombre de la pantalla">
-                                                                <h:outputText value="#{mues2.nombrepa}" />
-                                                            </p:column>                                                   
-
-                                                            <f:facet name="footer">
-                                                                <p:commandButton action="#{tipoUsuarioBean.trasferirEliminar()}"
-                                                                                 process="tblSelMuestras2" 
-                                                                                 update="@form:tblSelMuestras, @form:tblSelMuestras2 " 
-                                                                                 value="Quitar del listado" class="btn btn-danger"/>
-                                                            </f:facet>                        
-                                                        </p:dataTable> 
+                                                                                     update="@form:tblSelMuestras3, @form:tblSelMuestras4" 
+                                                                                     value="Quitar de Listado" class="btn btn-danger"/>
+                                                                </f:facet>                        
+                                                            </p:dataTable> 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    <br />
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <br />
+                                                    </div>
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{tipoUsuarioBean.mergeTipoUsuario()}" process="@this, @form"  update=":tablasLista:listaTabla,formulario_mo"/>
+                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('dlg2').hide();" process="@this" action="#{tipoUsuarioBean.cancelarTodo()}"/>
                                                 </div>
-                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{tipoUsuarioBean.saveTipo()}" process="@this, @form" update=":tablasLista:listaTabla,newPantalla2"/>
-                                                <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('nuevaPantalla').hide();" process="@this" action="#{tipoUsuarioBean.cancelarTodo()}"/>
-                                                
-                                            </div>
-                                        </h:form>
-                                    </p:dialog>
+                                            </h:form>
+
+                                        </p:dialog>
+
+
+                                        <p:dialog header="Agregar Tipo de Usuario" widgetVar="nuevaPantalla" 
+                                                  minHeight="40" modal="true" resizable="false" width="75%">
+                                            <h:form id="newPantalla2" >
+                                                <div class="form-group">
+                                                    <label for="nombreI">
+                                                        Nombre de tipo Usuario
+                                                    </label>
+                                                    <p:inputText id="nombreI"  value="#{tipoUsuarioBean.tipo.nombretp}" class="form-control" required="true" requiredMessage="obligatoio" onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="descripT">
+                                                        Descripcion del Tipo de Usuario
+                                                    </label>
+                                                    <p:inputText id="descripT"  value="#{tipoUsuarioBean.tipo.descripciontp}" class="form-control" required="true" requiredMessage="obligatorio" onkeypress="return soloLetras(event)"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-lg-6">
+                                                            <label for="exampleInputPassword1">
+                                                                Selección Pantalla
+                                                            </label>
+
+
+                                                            <p:dataTable id="tblSelMuestras"
+                                                                         var="mues"
+                                                                         value="#{tipoUsuarioBean.origenPantallas}"
+                                                                         selection="#{tipoUsuarioBean.tempLista}"
+                                                                         rowKey="#{mues.idPantalla}"
+                                                                         rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
+                                                                         paginator="true"
+                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                         rowsPerPageTemplate="5,10,15">                                                                
+
+                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+
+                                                                <p:column headerText="Nombre de la pantalla">
+                                                                    <h:outputText value="#{mues.nombrepa}" />
+                                                                </p:column>                                                   
+
+                                                                <f:facet name="footer">
+                                                                    <p:commandButton action="#{tipoUsuarioBean.trasferirLista()}"
+                                                                                     process="tblSelMuestras" 
+                                                                                     update="@form:tblSelMuestras, @form:tblSelMuestras2" 
+                                                                                     value="Seleccionar" />
+                                                                </f:facet>                        
+                                                            </p:dataTable> 
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label for="exampleInputPassword1">
+                                                                Seleccionado
+                                                            </label>
+                                                            <p:dataTable id="tblSelMuestras2"
+                                                                         var="mues2"
+                                                                         value="#{tipoUsuarioBean.destinoPantallas}"
+                                                                         selection="#{tipoUsuarioBean.tempLista}"
+                                                                         rowKey="#{mues2.idPantalla}"
+                                                                         rows="5" emptyMessage="No se encontraron Pantallas en el sistema para ser asiganadas"
+                                                                         paginator="true"
+                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                         rowsPerPageTemplate="5,10,15">                                                                
+
+                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+
+                                                                <p:column headerText="Nombre de la pantalla">
+                                                                    <h:outputText value="#{mues2.nombrepa}" />
+                                                                </p:column>                                                   
+
+                                                                <f:facet name="footer">
+                                                                    <p:commandButton action="#{tipoUsuarioBean.trasferirEliminar()}"
+                                                                                     process="tblSelMuestras2" 
+                                                                                     update="@form:tblSelMuestras, @form:tblSelMuestras2 " 
+                                                                                     value="Quitar del listado" class="btn btn-danger"/>
+                                                                </f:facet>                        
+                                                            </p:dataTable> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <br />
+                                                    </div>
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{tipoUsuarioBean.saveTipo()}" process="@this, @form" update=":tablasLista:listaTabla,newPantalla2"/>
+                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('nuevaPantalla').hide();" process="@this" action="#{tipoUsuarioBean.cancelarTodo()}"/>
+
+                                                </div>
+                                            </h:form>
+                                        </p:dialog>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel-body -->
                     </div>
-                </div>
-                
+                </c:if>
             </ui:define>
         </ui:composition>
 

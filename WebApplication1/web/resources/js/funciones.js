@@ -134,3 +134,9 @@ function ocultar_buqueda() {
 function ocultar_buqueda_2() {
     $('#contenedor_busquedas').hide();
 }
+
+function redireccionar(url){
+  console.log("redirigiendo...");
+  window.location=""+url;
+} 
+

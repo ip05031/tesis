@@ -12,13 +12,14 @@
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-              
-                <script>
-                    $(document).ready(function () {
-                        ocultar_buqueda_2();
-                    });
-                </script>
-                
+                <c:set var="nombre" value="Prestamo" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <script>
+                        $(document).ready(function () {
+                            ocultar_buqueda_2();
+                        });
+                    </script>
+
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
@@ -85,10 +86,7 @@
                             </div>
                         </div>
                     </div>
-              
-
-
-
+                </c:if>
             </ui:define>
 
         </ui:composition>

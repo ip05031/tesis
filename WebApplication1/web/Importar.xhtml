@@ -4,192 +4,195 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-
-                <div class="row">
-                    <div class="col-lg-12 col-md-12" >
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Importación de Revistas</h3>
-                            </div>
-                            <div class="panel-body">
-
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                         <h4>Importacion de Revista :</h4>
-                                        <br/>
-                                        <div class="row">
-                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
-                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                <h:form enctype="multipart/form-data" id="frm_upload_new_revista">
-                                                    <p:outputLabel value="Nombre de Revista:" /><br/>
-                                                    <p:selectOneMenu id="revista" value="#{importacionBean.idRevista}" effect="fold" 
-                                                                     style="width:100%; vertical-align: 15px;" filter="true" filterMatchMode="startsWith" 
-                                                                     required="true" class=" col-md-6 ">
-                                                        <p:ajax event="valueChange" update="frm_upload_new_revista, :form_articulos_table:articulosUploadTable" />
-                                                        <f:selectItems value="#{revistaBean.obtener() }" var="revista" itemLabel="#{revista.idTitulo.tituloRevista} #{revista.titulor}" itemValue="#{revista.idRevista}"/>
-                                                    </p:selectOneMenu>
-                                                    <p:outputLabel value="Descripcion de Revista:" /><br/>
-                                                    <p:inputTextarea id="descripcion"
-                                                                     value="#{importacionBean.descripcion }" 
-                                                                     cols="35" 
-                                                                     required="true"
-                                                                     requiredMessage="Ingrese una descripciòn" />
-                                                    <p:messages id="error_descripcion" for="descripcion"/>
-                                                    <p:outputLabel value="Portada de Revista:" /><br/>
-                                                    <p:fileUpload id="uploadPortada"
-                                                                  fileUploadListener="#{importacionBean.upload5}" 
-                                                                  mode="advanced"
-                                                                  auto="true"
-                                                                  update="infoMessages1,ruta_portada"
-                                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
-                                                                  label="Elegir"
-                                                                  sizeLimit="1000000"   
-                                                                  fileLimit="1"
-                                                                  fileLimitMessage="Solo 1 Archivo"
-                                                                  required="true"
-                                                                  requiredMessage="Seleccione un Archivo de Tipo Imagen"
-                                                                  dragDropSupport="true"
-                                                                  />
-                                                    <p:messages id="infoMessages1" for="uploadRevista" />
-                                                    <p:inputText readonly="true" id="ruta_portada" value="#{importacionBean.ruta_portada}" required="true"/><br/>
-                                                    <p:outputLabel value="Archivo de Revista:" /><br/>
-                                                    <p:fileUpload id="uploadRevista"
-                                                                  fileUploadListener="#{importacionBean.upload6}" 
-                                                                  mode="advanced"
-                                                                  auto="true"
-                                                                  update="infoMessages,ruta_revista"
-                                                                  allowTypes="/(\.|\/)(pdf)$/" 
-                                                                  label="Elegir"
-                                                                  cancelLabel="Cancelar"
-                                                                  uploadLabel="Subir"
-                                                                  sizeLimit="10000000"   
-                                                                  fileLimit="1"
-                                                                  fileLimitMessage="Solo 1 Archivo"
-                                                                  required="true"
-                                                                  requiredMessage="Seleccione un Archivo de tipo PDF"
-                                                                  invalidFileMessage="Tipo de archivo no vàlido, solo se acepta PDF"
-                                                                  invalidSizeMessage="Tamaño no vàlido"
-                                                                  dragDropSupport="true"
-                                                                  />
-                                                    <p:inputText readonly="true" id="ruta_revista" value="#{importacionBean.ruta_revista}" required="true" requiredMessage="Seleccione un Archivo"/>
-
-                                                    <br/>
+                <c:set var="nombre" value="Importar" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12" >
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Importación de Revistas</h3>
+                                </div>
+                                <div class="panel-body">
 
 
-                                                    <!--<p:graphicImage id="imagenPortada" name="D:\\tmp\\portadas\\1092510.jpg"/>-->
-                                                    <p:messages id="infoMessages" for="uploadRevista" />
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <h4>Importacion de Revista :</h4>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <h:form enctype="multipart/form-data" id="frm_upload_new_revista">
+                                                        <p:outputLabel value="Nombre de Revista:" /><br/>
+                                                        <p:selectOneMenu id="revista" value="#{importacionBean.idRevista}" effect="fold" 
+                                                                         style="width:100%; vertical-align: 15px;" filter="true" filterMatchMode="startsWith" 
+                                                                         required="true" class=" col-md-6 ">
+                                                            <p:ajax event="valueChange" update="frm_upload_new_revista, :form_articulos_table:articulosUploadTable" />
+                                                            <f:selectItems value="#{revistaBean.obtener() }" var="revista" itemLabel="#{revista.idTitulo.tituloRevista} #{revista.titulor}" itemValue="#{revista.idRevista}"/>
+                                                        </p:selectOneMenu>
+                                                        <p:outputLabel value="Descripcion de Revista:" /><br/>
+                                                        <p:inputTextarea id="descripcion"
+                                                                         value="#{importacionBean.descripcion }" 
+                                                                         cols="35" 
+                                                                         required="true"
+                                                                         requiredMessage="Ingrese una descripciòn" />
+                                                        <p:messages id="error_descripcion" for="descripcion"/>
+                                                        <p:outputLabel value="Portada de Revista:" /><br/>
+                                                        <p:fileUpload id="uploadPortada"
+                                                                      fileUploadListener="#{importacionBean.upload5}" 
+                                                                      mode="advanced"
+                                                                      auto="true"
+                                                                      update="infoMessages1,ruta_portada"
+                                                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                                                                      label="Elegir"
+                                                                      sizeLimit="1000000"   
+                                                                      fileLimit="1"
+                                                                      fileLimitMessage="Solo 1 Archivo"
+                                                                      required="true"
+                                                                      requiredMessage="Seleccione un Archivo de Tipo Imagen"
+                                                                      dragDropSupport="true"
+                                                                      />
+                                                        <p:messages id="infoMessages1" for="uploadRevista" />
+                                                        <p:inputText readonly="true" id="ruta_portada" value="#{importacionBean.ruta_portada}" required="true"/><br/>
+                                                        <p:outputLabel value="Archivo de Revista:" /><br/>
+                                                        <p:fileUpload id="uploadRevista"
+                                                                      fileUploadListener="#{importacionBean.upload6}" 
+                                                                      mode="advanced"
+                                                                      auto="true"
+                                                                      update="infoMessages,ruta_revista"
+                                                                      allowTypes="/(\.|\/)(pdf)$/" 
+                                                                      label="Elegir"
+                                                                      cancelLabel="Cancelar"
+                                                                      uploadLabel="Subir"
+                                                                      sizeLimit="10000000"   
+                                                                      fileLimit="1"
+                                                                      fileLimitMessage="Solo 1 Archivo"
+                                                                      required="true"
+                                                                      requiredMessage="Seleccione un Archivo de tipo PDF"
+                                                                      invalidFileMessage="Tipo de archivo no vàlido, solo se acepta PDF"
+                                                                      invalidSizeMessage="Tamaño no vàlido"
+                                                                      dragDropSupport="true"
+                                                                      />
+                                                        <p:inputText readonly="true" id="ruta_revista" value="#{importacionBean.ruta_revista}" required="true" requiredMessage="Seleccione un Archivo"/>
 
-                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{importacionBean.guardarYenviar()}" ajax="false" validateClient="true"/>
-                                                </h:form>
+                                                        <br/>
+
+
+                                                        <!--<p:graphicImage id="imagenPortada" name="D:\\tmp\\portadas\\1092510.jpg"/>-->
+                                                        <p:messages id="infoMessages" for="uploadRevista" />
+
+                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{importacionBean.guardarYenviar()}" ajax="false" validateClient="true"/>
+                                                    </h:form>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
                                             </div>
-                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
-                                                <h:form id="form_articulos_table">
-                                                    <h4>Importación de Artículos :</h4>
-                                                    <p:dataTable id="articulosUploadTable" value="#{importacionBean.getir()}" var="articulo"  widgetVar="tabla_pantalla" emptyMessage="No se encontraron registros." >
-                                                        <p:column headerText="Titulo del Articulo" >
-                                                            <h:outputText value="#{articulo.tituloa}" />
-                                                        </p:column>  
-                                                        <p:column headerText="Archivo PDF" >
-                                                            <h:outputText value="#{articulo.archivoa}" />
-                                                        </p:column>  
-                                                        <p:column headerText="Subir Archivo" style="width:10%;">
-                                                            <p:commandButton icon="ui-icon-pencil" 
-                                                                             actionListener="#{importacionBean.setArticulo(articulo) }" 
-                                                                             oncomplete="PF('dlg2').show();" 
-                                                                             update=":form_articulos_modal:uploadArticulo"
-                                                                             />
-                                                        </p:column>  
-                                                    </p:dataTable>
-                                                </h:form>
-                                                <h:form id="form_articulos_modal" enctype="multipart/form-data">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                            <p:dialog 
-                                                                header="Subir Archivo de Artìculo" 
-                                                                widgetVar="dlg2" 
-                                                                modal="true" 
-                                                                minHeight="100" 
-                                                                resizable="false" 
-                                                                draggable="false"
-                                                                height="400"
-                                                                width="600"
-                                                                > 
-
-                                                                <div class="row">
-                                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                                        <p:messages id="error_resumen" for="resumen"/>
-                                                                        <p:outputLabel value="Archivo del Artículo:" />
-
-                                                                        <p:fileUpload id="uploadArticulo"
-                                                                                      fileUploadListener="#{importacionBean.upload7}" 
-                                                                                      mode="advanced"
-                                                                                      auto="true"
-                                                                                      update="ruta_articulo"
-                                                                                      allowTypes="/(\.|\/)(pdf)$/" 
-                                                                                      label="Elegir"
-                                                                                      cancelLabel="Cancelar"
-                                                                                      uploadLabel="Subir"
-                                                                                      sizeLimit="10000000"   
-                                                                                      fileLimit="1"
-                                                                                      fileLimitMessage="Solo 1 Archivo"
-                                                                                      required="true"
-                                                                                      requiredMessage="Seleccione un Archivo de tipo PDF"
-                                                                                      invalidFileMessage="Tipo de archivo no vàlido, solo se acepta PDF"
-                                                                                      invalidSizeMessage="Tamaño no vàlido"
-                                                                                      dragDropSupport="true"
-                                                                                      />
-                                                                        <p:inputText  readonly="true" id="ruta_articulo" value="#{importacionBean.ruta_articulo}" 
-                                                                                      required="true" requiredMessage="Seleccione un Archivo" 
-                                                                                      style="width: 100%; text-align: center;background: #c4e3f3;" />                                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                <br />
-                                                                <div class="row">
-                                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                                        <p:outputLabel value="Resumen del Artículo:" /><br/>
-                                                                        <p:inputTextarea rows="6"
-                                                                                         cols="68" 
-                                                                                         id="resumen"
-                                                                                         value="#{importacionBean.resumen }" 
-                                                                                         style="resize: none;" 
-                                                                                         required="true"
-                                                                                         requiredMessage="Ingrese el resumen del Artículo"
-
-                                                                                         />
-                                                                    </div>
-                                                                </div>
-
-                                                                <br/>
-                                                                <p:commandButton value="Guardar" 
-                                                                                 actionListener="#{importacionBean.guardarArticulo()}" 
-                                                                                 ajax="false" 
-                                                                                 validateClient="true"
-                                                                                 class="btn btn-success"
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+                                                    <h:form id="form_articulos_table">
+                                                        <h4>Importación de Artículos :</h4>
+                                                        <p:dataTable id="articulosUploadTable" value="#{importacionBean.getir()}" var="articulo"  widgetVar="tabla_pantalla" emptyMessage="No se encontraron registros." >
+                                                            <p:column headerText="Titulo del Articulo" >
+                                                                <h:outputText value="#{articulo.tituloa}" />
+                                                            </p:column>  
+                                                            <p:column headerText="Archivo PDF" >
+                                                                <h:outputText value="#{articulo.archivoa}" />
+                                                            </p:column>  
+                                                            <p:column headerText="Subir Archivo" style="width:10%;">
+                                                                <p:commandButton icon="ui-icon-pencil" 
+                                                                                 actionListener="#{importacionBean.setArticulo(articulo) }" 
+                                                                                 oncomplete="PF('dlg2').show();" 
+                                                                                 update=":form_articulos_modal:uploadArticulo"
                                                                                  />
-                                                            </p:dialog> 
+                                                            </p:column>  
+                                                        </p:dataTable>
+                                                    </h:form>
+                                                    <h:form id="form_articulos_modal" enctype="multipart/form-data">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                <p:dialog 
+                                                                    header="Subir Archivo de Artìculo" 
+                                                                    widgetVar="dlg2" 
+                                                                    modal="true" 
+                                                                    minHeight="100" 
+                                                                    resizable="false" 
+                                                                    draggable="false"
+                                                                    height="400"
+                                                                    width="600"
+                                                                    > 
+
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                            <p:messages id="error_resumen" for="resumen"/>
+                                                                            <p:outputLabel value="Archivo del Artículo:" />
+
+                                                                            <p:fileUpload id="uploadArticulo"
+                                                                                          fileUploadListener="#{importacionBean.upload7}" 
+                                                                                          mode="advanced"
+                                                                                          auto="true"
+                                                                                          update="ruta_articulo"
+                                                                                          allowTypes="/(\.|\/)(pdf)$/" 
+                                                                                          label="Elegir"
+                                                                                          cancelLabel="Cancelar"
+                                                                                          uploadLabel="Subir"
+                                                                                          sizeLimit="10000000"   
+                                                                                          fileLimit="1"
+                                                                                          fileLimitMessage="Solo 1 Archivo"
+                                                                                          required="true"
+                                                                                          requiredMessage="Seleccione un Archivo de tipo PDF"
+                                                                                          invalidFileMessage="Tipo de archivo no vàlido, solo se acepta PDF"
+                                                                                          invalidSizeMessage="Tamaño no vàlido"
+                                                                                          dragDropSupport="true"
+                                                                                          />
+                                                                            <p:inputText  readonly="true" id="ruta_articulo" value="#{importacionBean.ruta_articulo}" 
+                                                                                          required="true" requiredMessage="Seleccione un Archivo" 
+                                                                                          style="width: 100%; text-align: center;background: #c4e3f3;" />                                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <br />
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                                            <p:outputLabel value="Resumen del Artículo:" /><br/>
+                                                                            <p:inputTextarea rows="6"
+                                                                                             cols="68" 
+                                                                                             id="resumen"
+                                                                                             value="#{importacionBean.resumen }" 
+                                                                                             style="resize: none;" 
+                                                                                             required="true"
+                                                                                             requiredMessage="Ingrese el resumen del Artículo"
+
+                                                                                             />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <br/>
+                                                                    <p:commandButton value="Guardar" 
+                                                                                     actionListener="#{importacionBean.guardarArticulo()}" 
+                                                                                     ajax="false" 
+                                                                                     validateClient="true"
+                                                                                     class="btn btn-success"
+                                                                                     />
+                                                                </p:dialog> 
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </h:form>
+                                                    </h:form>
+                                                </div>
                                             </div>
+                                            <br/>
                                         </div>
-                                        <br/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>    
+                </c:if>
             </ui:define>
         </ui:composition>
     </body>

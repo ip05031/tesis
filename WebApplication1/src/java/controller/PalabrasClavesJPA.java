@@ -97,6 +97,10 @@ public class PalabrasClavesJPA {
             return temp;
         }
     }  
+
+    public void insertarBitacora(String tabla, String motivo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
    
 }

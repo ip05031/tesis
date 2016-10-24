@@ -4,761 +4,764 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./boot.xhtml">
             <ui:define name="content">
-                <div class="row" >
-                    <div class="col-md-12" >
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i>Revista
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <h:form id="nuevo">
-                                            <p:growl id="msg" autoUpdate="true"  />
-                                            <p:commandButton class="btn btn-success btn-xs" value="Registar Revista" oncomplete="PF('nuevaPantalla').show();" action="#{revistaBean.limpiar()}" process="@this" update=":newPantalla2" />
+                <c:set var="nombre" value="Revistas" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <div class="row" >
+                        <div class="col-md-12" >
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i>Revista
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <h:form id="nuevo">
+                                                <p:growl id="msg" autoUpdate="true"  />
+                                                <p:commandButton class="btn btn-success btn-xs" value="Registar Revista" oncomplete="PF('nuevaPantalla').show();" action="#{revistaBean.limpiar()}" process="@this" update=":newPantalla2" />
 
-                                        </h:form>    
+                                            </h:form>    
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <h:form id="tablasLista" >
+                                            <div class="col-md-12" > 
+                                                <h4> Listado de Revistas Registradas </h4>
+                                                <p:dataTable id="listaTabla" value="#{revistaBean.obtener()}" 
+                                                             var="regi" paginator="true" widgetVar="tablaTipoUsuario" 
+                                                             emptyMessage="No se encontraron datos" rows="8">
+                                                    <f:facet name="header" >
+                                                        <p:outputPanel style="text-align:right">
+                                                            <h:outputText value="Buscar:" />
+                                                            <p:inputText id="globalFilter" onkeyup="PF('tablaTipoUsuario').filter()" style="width:150px" placeholder="Busqueda" />
+                                                        </p:outputPanel>
+                                                    </f:facet>  
+                                                    <p:column headerText="titulo" sortBy="#{regi.idTitulo.tituloRevista}"  filterBy="#{regi.idTitulo.tituloRevista}">
+                                                        <h:outputText value="#{regi.idTitulo.tituloRevista}" />
+                                                    </p:column>
+                                                    <p:column headerText="Volumen" sortBy="#{regi.titulor}"  filterBy="#{regi.titulor}">
+                                                        <h:outputText value="#{regi.titulor}" />
+                                                    </p:column>
+                                                    <p:column headerText="Fecha inicio " sortBy="#{regi.fechapr}" filterBy="#{regi.fechapr}" filterMatchMode="contains" >
+                                                        <h:outputText value="#{regi.fechapr}"  >
+                                                            <f:convertDateTime pattern="dd-MM-YYYY"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column headerText="Fecha Fin" sortBy="#{regi.fechapr}" filterBy="#{regi.fechapr}" filterMatchMode="contains" >
+                                                        <h:outputText value="#{regi.fechaprf}"  >
+                                                            <f:convertDateTime pattern="dd-MM-YYYY"/>
+                                                        </h:outputText>
+                                                    </p:column>
+
+
+                                                    <p:column headerText="Editar" style="text-align: center"  width="11%">
+                                                        <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlg2').show();"  action="#{revistaBean.modificar(regi)}" process="@this" update=":formulario_mo" title="Editar Revista" />
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="text-align: center" width="11%" >
+
+                                                        <p:commandButton icon="ui-icon-trash" title="Eliminar Revista"
+                                                                         actionListener="#{revistaBean.eliminar(regi)}"
+                                                                         update="@form"  process="@this" class="btn btn-danger">
+                                                            <p:confirm message="¿Desea Eliminar el Revista?" header="Aviso" icon="ui-icon-alert"/>
+                                                        </p:commandButton>
+
+                                                        <p:confirmDialog global="true">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                             styleClass="ui-confirmdialog-yes"/>
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                             class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                        </p:confirmDialog>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </h:form>
+
+                                        <p:dialog header="Modificar Revista" widgetVar="dlg2" 
+                                                  minHeight="40" modal="true" showEffect="explode" hideEffect="fade"
+                                                  resizable="false" width="40%">
+                                            <legend>Modificar </legend>
+                                            <p:scrollPanel mode="native" style="height:400px">
+                                                <h:form id="formulario_mo">
+                                                    <p:panel id="panel5" >
+                                                        <p:messages id="msgs5" />
+                                                        <div class="form-group">
+                                                            <label for="tituloRevist">
+                                                                Titulo de revista 
+                                                            </label>
+                                                            <p:selectOneMenu id="tituloRevist" 
+                                                                             value="#{revistaBean.idTitulo.idTitulo}"  
+                                                                             panelStyle="width:150px"
+                                                                             effect="fade" 
+                                                                             style="width:90%" filter="true" required="true" 
+                                                                             filterMatchMode="startsWith"  >
+                                                                <f:selectItems value="#{revistaBean.listaTitulos()}" 
+                                                                               var="themesas" 
+                                                                               itemLabel="#{themesas.tituloRevista}" 
+                                                                               itemValue="#{themesas.idTitulo}"  />
+
+                                                            </p:selectOneMenu>
+                                                            <p:commandButton icon="ui-icon-plus" title="Agregar Titulo"  immediate="true"                                                                     
+                                                                             class="btn btn-danger"  onclick="PF('ingresarTitulos').show();" 
+                                                                             style="margin-bottom: 20px">                                                        
+                                                            </p:commandButton>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nombreIt">
+                                                                Volumen de Revista:
+                                                            </label>
+                                                            <p:inputText id="nombreIt"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="Volumen es Requerido" />
+                                                            <p:message for="nombreIt" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="popup">
+                                                                Periodo de puplicación: 
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="popup">
+                                                                Inicio: 
+                                                            </label>
+                                                            <p:calendar  style="width: 100%"   id="popup" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de inicio" requiredMessage="La Fecha es obligatoria">
+                                                                <f:validateRequired />
+                                                                <p:message for="popup" display="icon"  />
+                                                            </p:calendar>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="popup2">
+                                                                fin: 
+                                                            </label>
+                                                            <p:calendar  style="width: 100%"   id="popup2" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de fin" requiredMessage="La Fecha es obligatoria">
+                                                                <f:validateRequired />
+                                                                <p:message for="popup2" display="icon"  />
+                                                            </p:calendar>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="categoriaTt">
+                                                                Categoria: 
+                                                            </label>
+                                                            <p:selectOneMenu id="categoriaTt" 
+                                                                             value="#{revistaBean.categoria.idCategoria}"  
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade" 
+                                                                             style="width:100%" filter="true" required="true" 
+                                                                             filterMatchMode="startsWith"  >
+                                                                <f:selectItems value="#{categoriaBean.getir()}" 
+                                                                               var="themes" 
+                                                                               itemLabel="#{themes.nombrec}" 
+                                                                               itemValue="#{themes.idCategoria}"  />
+
+
+
+
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="issnCt">
+                                                                ISSN: 
+                                                            </label>
+                                                            <p:inputMask id="issnCt"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true"/>
+                                                            <p:message for="issnCt" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="paisSelectModi">
+                                                                Pais: 
+                                                            </label>
+                                                            <p:selectOneMenu id="paisSelectModi" 
+                                                                             value="#{revistaBean.revista.paisr}"  
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade" 
+                                                                             style="width:100%" filter="true" required="true" 
+                                                                             filterMatchMode="startsWith"  >
+                                                                <f:selectItems value="#{revistaBean.listaPaises()}" 
+                                                                               var="themes2" 
+                                                                               itemLabel="#{themes2}" 
+                                                                               itemValue="#{themes2}"  />
+
+
+
+
+                                                            </p:selectOneMenu>                                                    
+                                                            <p:message for="paisSelectModi" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="donateCt">
+                                                                Dontate: 
+                                                            </label>
+                                                            <p:selectOneMenu id="donateCt"
+                                                                             value="#{revistaBean.idDonacion}"
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade"
+                                                                             style="width:100%"
+                                                                             filter="true" 
+                                                                             filterMatchMode="startsWith" >
+                                                                <f:selectItem itemLabel="#{revistaBean.donanteFecha}" itemValue="#{revistaBean.idDonante}"/>
+                                                                <f:selectItems value="#{donacionBean.getir()}" 
+                                                                               var="themea" 
+                                                                               itemLabel="#{themea.idDonante.nombred.concat(' Fecha donación ').concat(themea.fechadonacion.day).concat('-').concat(themea.fechadonacion.month).concat('-').concat(themea.fechadonacion.year) }" 
+                                                                               itemValue="#{themea.idDonacion}" />
+
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">                                                    
+                                                                <label for="exampleInputPassword1">
+                                                                    Articulos:
+                                                                </label>
+                                                                <div class="col-lg-4"></div>
+                                                                <div class="col-lg-2"><p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
+                                                                                                       value="Agregar Articulo" onclick="PF('articuloCrear').show();"   >
+                                                                        <f:ajax execute="@this" listener="#{revistaBean.crearArticuloBoton()}" render=":articuloCr" />
+                                                                    </p:commandButton>
+
+                                                                </div>
+
+                                                                <p:separator />
+
+                                                                <p:dataTable id="tblSelMuestrast"
+                                                                             var="mues"
+                                                                             value="#{revistaBean.listaArticulos}"                                                                     
+                                                                             rowKey="#{mues.idArticulo}"
+                                                                             rows="7" 
+                                                                             emptyMessage="Agrege Articulos"
+                                                                             paginator="true"
+                                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                             >      
+                                                                    <p:column headerText="Titulo de articulo">
+                                                                        <h:outputText value="#{mues.tituloa}" />
+                                                                    </p:column> 
+                                                                    <p:column headerText="Editar" style="text-align: center" width="15%" >
+                                                                        <p:commandButton icon="ui-icon-pencil" title="Editar Articulo" oncomplete="PF('articuloModificar').show();"  
+                                                                                         action="#{revistaBean.articuloaModificar(mues)}" process="@this" update=":articuloCrMod" />
+                                                                    </p:column>
+                                                                    <p:column headerText="Eliminar" style="text-align: center" width="18%" >
+
+                                                                        <p:commandButton icon="ui-icon-trash" title="Eliminar Articulo"
+                                                                                         actionListener="#{revistaBean.eliminarArticulo(mues)}"
+                                                                                         update="tblSelMuestrast"  process="@this" class="btn btn-danger">
+                                                                            <p:confirm message="¿Desea Eliminar el articulo:"  header="Aviso" icon="ui-icon-alert"/>
+                                                                        </p:commandButton>
+
+                                                                        <p:confirmDialog global="true">
+                                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                                             styleClass="ui-confirmdialog-yes"/>
+                                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                                             class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                                        </p:confirmDialog>
+                                                                    </p:column>
+
+                                                                </p:dataTable> 
+
+
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="form-group">
+                                                            <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.modificarRevista()}" process="@this, @form"  update=":tablasLista:listaTabla,formulario_mo" validateClient="true"/>
+                                                            <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('dlg2').hide();" process="@this" />
+                                                        </div>
+                                                    </p:panel>
+                                                </h:form>
+                                            </p:scrollPanel>
+
+                                        </p:dialog>
+
+                                        <p:dialog header="Agregar Articulo" widgetVar="articuloCrear" id="dialogAgregarAticulo"
+                                                  minHeight="40" modal="true" resizable="false" width="40%" >
+                                            <p:scrollPanel mode="native" style="height:400px">
+                                                <h:form id="articuloCr" >
+                                                    <p:panel id="panel4"  >
+                                                        <p:messages id="msgs4" />
+                                                        <div class="form-group">
+                                                            <label for="TituloArticulo">
+                                                                Titulo de articulo:
+                                                            </label>
+                                                            <p:inputText id="TituloArticulo"  value="#{revistaBean.articulo.tituloa}" class="form-control" required="true" requiredMessage="Titulo es Obligatorio" />
+                                                            <p:message for="TituloArticulo" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="AutorA">
+                                                                Autor:
+                                                            </label>
+                                                            <p:selectOneMenu id="autorId"
+                                                                             value="#{revistaBean.idAutor}"
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade"
+                                                                             style="width:100%"
+                                                                             filter="true" 
+                                                                             filterMatchMode="startsWith" >                                                            
+                                                                <f:selectItems value="#{autorBean.getir()}" 
+                                                                               var="themeas" 
+                                                                               itemLabel="#{themeas.nombreAutor }" 
+                                                                               itemValue="#{themeas.idAutor}" />
+
+                                                            </p:selectOneMenu>                                                        
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="Palabralave">
+                                                                Palabra Clave:                                                    
+
+                                                            </label>
+                                                            <p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
+                                                                             value="Agregar Palabra Clave" onclick="PF('ingresarPalabra').show();"   >
+
+                                                            </p:commandButton>
+                                                        </div>
+                                                        <div class="form-group">
+
+
+                                                            <div class="col-lg-6">
+                                                                <label for="tblSelMuestrasDato">
+                                                                    Lista:
+                                                                </label>
+                                                                <p:dataTable id="tblSelMuestrasDato"
+                                                                             var="muestrass"
+                                                                             value="#{revistaBean.listaPalabraClave}"
+                                                                             selection="#{revistaBean.listaPalabraClaveModificar}"
+                                                                             rowKey="#{muestrass.idPalabra}"
+                                                                             rows="5" emptyMessage="No se encontraron Palabras claves en el sistema para ser asignadas"
+                                                                             paginator="true"
+                                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                             >                                                                
+
+                                                                    <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+
+                                                                    <p:column headerText="Palabra Clave" filterBy="#{muestrass.nombrep}">
+                                                                        <h:outputText value="#{muestrass.nombrep}" />
+                                                                    </p:column>                                                   
+
+                                                                    <f:facet name="footer">
+                                                                        <p:commandButton action="#{revistaBean.trasferirLista()}"
+                                                                                         process="tblSelMuestrasDato" 
+                                                                                         update="@form:tblSelMuestrasDato, @form:tblSelMuestrasDato2" 
+                                                                                         value="Seleccionar" />
+                                                                    </f:facet>                        
+                                                                </p:dataTable> 
+
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label for="tblSelMuestrasDato2">
+                                                                    Asignadas:
+                                                                </label>
+                                                                <p:dataTable id="tblSelMuestrasDato2"
+                                                                             var="muestra2"
+                                                                             value="#{revistaBean.listaPalabraClaveDestino}"
+                                                                             selection="#{revistaBean.listaPalabraClaveModificar}"
+                                                                             rowKey="#{muestra2.idPalabra}"
+                                                                             rows="5" emptyMessage="No hay palabras claves asignadas para este articulo"
+                                                                             paginator="true"
+                                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                             >                                                                
+
+                                                                    <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+
+                                                                    <p:column headerText="Palabra Clave" filterBy="#{muestra2.nombrep}">
+                                                                        <h:outputText value="#{muestra2.nombrep}" />
+                                                                    </p:column>                                                   
+
+                                                                    <f:facet name="footer">
+                                                                        <p:commandButton action="#{revistaBean.trasferirEliminar()}"
+                                                                                         process="tblSelMuestrasDato2" 
+                                                                                         update="@form:tblSelMuestrasDato, @form:tblSelMuestrasDato2" 
+                                                                                         value="Remover del Listado" class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                                    </f:facet>                        
+                                                                </p:dataTable> 
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-group">                                              
+                                                            <div class="col-md-12">
+                                                                <label for="resumen">
+                                                                    Resumen:
+                                                                </label>
+                                                                <p:inputTextarea id="resumen" class="form-control" addLine="4" maxlength="250" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <br />
+                                                            </div>
+                                                            <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.crearArticulo()}" process="@this, @form"  update=":newPantalla2:tblSelMuestras, :formulario_mo:tblSelMuestrast , @form" validateClient="true"/>
+                                                            <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloCrear').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
+
+                                                        </div>
+                                                    </p:panel>
+                                                </h:form>  
+                                            </p:scrollPanel>
+
+
+                                        </p:dialog>
+
+                                        <p:dialog header="Modificar Articulo" widgetVar="articuloModificar" id="dialogModificarAticulo"
+                                                  minHeight="40" modal="true" resizable="false" width="40%" >
+                                            <p:scrollPanel mode="native" style="height:400px">
+                                                <h:form id="articuloCrMod" >
+                                                    <p:panel id="panel3"  >
+                                                        <p:messages id="msgs3" />
+                                                        <div class="form-group">
+                                                            <label for="TituloArticuloM">
+                                                                Titulo de articulo:
+                                                            </label>
+                                                            <p:inputText id="TituloArticuloM"  value="#{revistaBean.articulo.tituloa}" class="form-control" required="true" requiredMessage="Titulo es Obligatorio" />
+                                                            <p:message for="TituloArticuloM" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="AutorAM">
+                                                                Autor:
+                                                            </label>
+                                                            <p:selectOneMenu id="autorIdMo"
+                                                                             value="#{revistaBean.idAutor}"
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade"
+                                                                             style="width:100%"
+                                                                             filter="true" 
+                                                                             filterMatchMode="startsWith" >                                                            
+                                                                <f:selectItems value="#{autorBean.getir()}" 
+                                                                               var="themeass" 
+                                                                               itemLabel="#{themeass.nombreAutor }" 
+                                                                               itemValue="#{themeass.idAutor}" />
+
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="Palabralave">
+                                                                Palabra Clave:                                                    
+
+                                                            </label>
+                                                            <p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
+                                                                             value="Agregar Palabra Clave" onclick="PF('ingresarPalabra').show();"   >
+
+                                                            </p:commandButton>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-lg-6">
+                                                                <label for="tblSelMuestrasDato3">
+                                                                    Lista:
+                                                                </label>
+                                                                <p:dataTable id="tblSelMuestrasDato3"
+                                                                             var="muestrass2"
+                                                                             value="#{revistaBean.listaPalabraClave}"
+                                                                             selection="#{revistaBean.listaPalabraClaveModificar}"
+                                                                             rowKey="#{muestrass2.idPalabra}"
+                                                                             rows="5" emptyMessage="No se encontraron Palabras claves en el sistema para ser asignadas"
+                                                                             paginator="true"
+                                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                             >                                                                
+
+                                                                    <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+
+                                                                    <p:column headerText="Palabra Clave" filterBy="#{muestrass2.nombrep}">
+                                                                        <h:outputText value="#{muestrass2.nombrep}" />
+                                                                    </p:column>                                                   
+
+                                                                    <f:facet name="footer">
+                                                                        <p:commandButton action="#{revistaBean.trasferirLista()}"
+                                                                                         process="tblSelMuestrasDato3" 
+                                                                                         update="@form:tblSelMuestrasDato3, @form:tblSelMuestrasDato4" 
+                                                                                         value="Seleccionar" />
+                                                                    </f:facet>                        
+                                                                </p:dataTable> 
+
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label for="tblSelMuestrasDato4">
+                                                                    Asignadas:
+                                                                </label>
+                                                                <p:dataTable id="tblSelMuestrasDato4"
+                                                                             var="muestra22"
+                                                                             value="#{revistaBean.listaPalabraClaveDestino}"
+                                                                             selection="#{revistaBean.listaPalabraClaveModificar}"
+                                                                             rowKey="#{muestra22.idPalabra}"
+                                                                             rows="5" emptyMessage="No hay palabras claves asignadas para este articulo"
+                                                                             paginator="true"
+                                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                             >                                                                
+
+                                                                    <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
+
+                                                                    <p:column headerText="Palabra Clave" filterBy="#{muestra22.nombrep}">
+                                                                        <h:outputText value="#{muestra22.nombrep}" />
+                                                                    </p:column>                                                   
+
+                                                                    <f:facet name="footer">
+                                                                        <p:commandButton action="#{revistaBean.trasferirEliminar()}"
+                                                                                         process="tblSelMuestrasDato4" 
+                                                                                         update="@form:tblSelMuestrasDato3, @form:tblSelMuestrasDato4" 
+                                                                                         value="Remover del Listado" 
+                                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                                    </f:facet>                        
+                                                                </p:dataTable> 
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-group">                                              
+                                                            <div class="col-md-12">
+                                                                <label for="resumen2">
+                                                                    Resumen:
+                                                                </label>
+                                                                <p:inputTextarea id="resumen2" class="form-control" addLine="4" maxlength="250" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <br />
+                                                            </div>
+                                                            <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.modificarArticulo()}" process="@this, @form"  update=":newPantalla2:tblSelMuestras , @form" validateClient="true"/>
+                                                            <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloCrear').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
+
+                                                        </div>
+                                                    </p:panel>
+                                                </h:form>   
+                                            </p:scrollPanel>
+
+
+                                        </p:dialog>
+
+                                        <p:dialog header="Registrar Revista" widgetVar="nuevaPantalla"  id="dialogRegistraRevista"
+                                                  minHeight="40" modal="true" resizable="false" width="40%"  >
+                                            <p:scrollPanel mode="native" style="height:400px">
+                                                <h:form id="newPantalla2" >
+                                                    <p:panel id="panel1"  >
+                                                        <p:messages id="msgs1" />
+                                                        <div class="form-group">
+                                                            <label for="tituloRevist2">
+                                                                Titulo de revista 
+                                                            </label>
+                                                            <p:selectOneMenu id="tituloRevist2" 
+                                                                             value="#{revistaBean.idTitulo.idTitulo}"  
+                                                                             panelStyle="width:150px"
+                                                                             effect="fade" 
+                                                                             style="width:90%" filter="true" required="true" 
+                                                                             filterMatchMode="startsWith"  >
+                                                                <f:selectItems value="#{revistaBean.listaTitulos()}" 
+                                                                               var="themesas" 
+                                                                               itemLabel="#{themesas.tituloRevista}" 
+                                                                               itemValue="#{themesas.idTitulo}"  />
+
+                                                            </p:selectOneMenu>
+                                                            <p:commandButton icon="ui-icon-plus" title="Agregar Titulo"   immediate="true"                                                                  
+                                                                             class="btn btn-success" onclick="PF('ingresarTitulos').show();" 
+                                                                             style="margin-bottom: 20px">                                                        
+                                                            </p:commandButton>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nombreI">
+                                                                Volumen de la Revista:
+                                                            </label>
+                                                            <p:inputText id="nombreI"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="El titulo es Obligatorio" />
+                                                            <p:message for="nombreI" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label >
+                                                                Periodo de Publicacion: 
+                                                            </label></div>
+                                                        <div class="form-group">
+                                                            <label for="descripT">
+                                                                Inicio: 
+                                                            </label>
+                                                            <p:calendar    id="descripT" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de inicio">
+                                                                <f:validateRequired />
+                                                                <p:message for="descripT" display="icon"  />
+                                                            </p:calendar>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="descripT2">
+                                                                Fin: 
+                                                            </label>
+                                                            <p:calendar     id="descripT2" value="#{revistaBean.revista.fechaprf}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de fin">
+                                                                <f:validateRequired />
+                                                                <p:message for="descripT2" display="icon"  />
+                                                            </p:calendar>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <label for="categoriaT">
+                                                                Categoria: 
+                                                            </label>
+                                                            <p:selectOneMenu id="categoriaT" 
+                                                                             value="#{revistaBean.categoria.idCategoria}"  
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade" 
+                                                                             style="width:100%" filter="true" required="true" 
+                                                                             filterMatchMode="startsWith"  >
+                                                                <f:selectItems value="#{categoriaBean.getir()}" 
+                                                                               var="theme" 
+                                                                               itemLabel="#{theme.nombrec}" 
+                                                                               itemValue="#{theme.idCategoria}" />
+
+
+
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="issnC">
+                                                                ISSN: 
+                                                            </label>
+                                                            <p:inputMask id="issnC"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true" requiredMessage="El ISSN es Obligatorio"/> 
+                                                            <p:message for="issnC" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="paisSelect">
+                                                                Pais: 
+                                                            </label>
+                                                            <p:selectOneMenu id="paisSelect" 
+                                                                             value="#{revistaBean.revista.paisr}"  
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade" 
+                                                                             style="width:100%" filter="true" required="true" 
+                                                                             filterMatchMode="startsWith"  >
+                                                                <f:selectItems value="#{revistaBean.listaPaises()}" 
+                                                                               var="themes5" 
+                                                                               itemLabel="#{themes5}" 
+                                                                               itemValue="#{themes5}"  />
+
+
+
+
+                                                            </p:selectOneMenu>                                                    
+                                                            <p:message for="paisSelect" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="donateC">
+                                                                Dontate: 
+                                                            </label>
+                                                            <p:selectOneMenu id="donateC"
+                                                                             value="#{revistaBean.idDonacion}"
+                                                                             panelStyle="width:180px"
+                                                                             effect="fade"
+                                                                             style="width:100%"
+                                                                             filter="true" 
+                                                                             filterMatchMode="startsWith" >
+                                                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="false" />
+                                                                <f:selectItems value="#{donacionBean.getir()}" 
+                                                                               var="themea" 
+                                                                               itemLabel="#{themea.idDonante.nombred.concat(' Fecha donación ').concat(themea.fechadonacion.day).concat('-').concat(themea.fechadonacion.month).concat('-').concat(themea.fechadonacion.year) }" 
+                                                                               itemValue="#{themea.idDonacion}" />
+
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">                                                    
+                                                                <label for="exampleInputPassword1">
+                                                                    Articulos:
+                                                                </label>
+                                                                <div class="col-lg-4"></div>
+                                                                <div class="col-lg-2"><p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
+                                                                                                       value="Agregar Articulo" onclick="PF('articuloCrear').show();"   >
+                                                                        <f:ajax execute="@this" listener="#{revistaBean.crearArticuloBoton()}" render=":articuloCr" />
+                                                                    </p:commandButton>
+
+                                                                </div>
+
+                                                                <p:separator />
+
+                                                                <p:dataTable id="tblSelMuestras"
+                                                                             var="mues"
+                                                                             value="#{revistaBean.listaArticulos}"                                                                     
+                                                                             rowKey="#{mues.idArticulo}"
+                                                                             rows="7" 
+                                                                             emptyMessage="Agrege Articulos"
+                                                                             paginator="true"
+                                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                                             >      
+                                                                    <p:column headerText="Titulo de articulo">
+                                                                        <h:outputText value="#{mues.tituloa}" />
+                                                                    </p:column> 
+                                                                    <p:column headerText="Editar" style="text-align: center" width="15%" >
+                                                                        <p:commandButton icon="ui-icon-pencil" title="Editar Articulo" oncomplete="PF('articuloModificar').show();"  
+                                                                                         action="#{revistaBean.articuloaModificar(mues)}" process="@this" update=":articuloCrMod" />
+                                                                    </p:column>
+                                                                    <p:column headerText="Eliminar" style="text-align: center" width="18%" >
+
+                                                                        <p:commandButton icon="ui-icon-trash" title="Eliminar Articulo"
+                                                                                         actionListener="#{revistaBean.eliminarArticulo(mues)}"
+                                                                                         update="@form"  process="@this" class="btn btn-danger">
+                                                                            <p:confirm message="¿Desea Eliminar el articulo:"  header="Aviso" icon="ui-icon-alert"/>
+                                                                        </p:commandButton>
+
+                                                                        <p:confirmDialog global="true">
+                                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                                             styleClass="ui-confirmdialog-yes"/>
+                                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                                             class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                                        </p:confirmDialog>
+                                                                    </p:column>
+
+                                                                </p:dataTable> 
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <br />
+                                                            </div>
+                                                            <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.crear()}" process="@this, @form"  update=":tablasLista:listaTabla,newPantalla2" validateClient="true"/>
+                                                            <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('nuevaPantalla').hide();" process="@this" />
+
+                                                        </div>
+                                                    </p:panel>
+                                                </h:form>
+                                            </p:scrollPanel>
+                                        </p:dialog>
+
+                                        <p:dialog widgetVar="ingresarPalabra" header="Ingresar Palabra Clave"
+                                                  minHeight="40" modal="true"   resizable="false" >
+                                            <h:form id="newpantpal" > 
+                                                <p:panel id="panel2"  >
+                                                    <p:messages id="msgs2" />
+                                                    <div class="form-group">
+                                                        <p:outputLabel value="Nombre Palabra"/>
+                                                        <p:inputText id="nombre" value="#{revistaBean.nombrepalabra}" class="form-control" required="true"/>
+                                                        <p:message for="nombre" />
+                                                    </div>
+
+                                                    <p:commandButton class="btn btn-success btn-xs" value="Guardar"  action="#{revistaBean.guardarpc()}" 
+
+                                                                     update=":articuloCr:tblSelMuestrasDato  , @form , :articuloCrMod:tblSelMuestrasDato3"   validateClient="true">
+                                                    </p:commandButton>
+                                                    <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarPalabra').hide();" immediate="true"/>
+                                                </p:panel>
+                                            </h:form>    
+                                        </p:dialog>
+
+                                        <p:dialog widgetVar="ingresarTitulos" header="Ingresar Titulo"
+                                                  minHeight="40" modal="true"   resizable="false" >
+                                            <h:form id="newpantpal4" > 
+                                                <p:panel id="panel24"  >                                               
+                                                    <div class="form-group">
+                                                        <p:outputLabel value="Titulo"/>                                                    
+                                                        <p:inputText id="nombreTitulossa" value="#{revistaBean.idTitulo.tituloRevista}" class="form-control" required="true"/>
+                                                        <p:message for="nombreTitulossa" />
+                                                    </div>
+                                                    <p:commandButton class="btn btn-success btn-xs" value="Guardar"  action="#{revistaBean.guardarpc2()}" 
+                                                                     update="@form , :newPantalla2:tituloRevist2 , :formulario_mo:tituloRevist"   validateClient="true">
+                                                    </p:commandButton>
+                                                    <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarTitulos').hide();" immediate="true"/>
+                                                </p:panel>
+                                            </h:form>    
+                                        </p:dialog>
+
                                     </div>
                                 </div>
                             </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div class="row" >
-                                    <h:form id="tablasLista" >
-                                        <div class="col-md-12" > 
-                                            <h4> Listado de Revistas Registradas </h4>
-                                            <p:dataTable id="listaTabla" value="#{revistaBean.obtener()}" 
-                                                         var="regi" paginator="true" widgetVar="tablaTipoUsuario" 
-                                                         emptyMessage="No se encontraron datos" rows="8">
-                                                <f:facet name="header" >
-                                                    <p:outputPanel style="text-align:right">
-                                                        <h:outputText value="Buscar:" />
-                                                        <p:inputText id="globalFilter" onkeyup="PF('tablaTipoUsuario').filter()" style="width:150px" placeholder="Busqueda" />
-                                                    </p:outputPanel>
-                                                </f:facet>  
-                                                <p:column headerText="titulo" sortBy="#{regi.idTitulo.tituloRevista}"  filterBy="#{regi.idTitulo.tituloRevista}">
-                                                    <h:outputText value="#{regi.idTitulo.tituloRevista}" />
-                                                </p:column>
-                                                <p:column headerText="Volumen" sortBy="#{regi.titulor}"  filterBy="#{regi.titulor}">
-                                                    <h:outputText value="#{regi.titulor}" />
-                                                </p:column>
-                                                <p:column headerText="Fecha inicio " sortBy="#{regi.fechapr}" filterBy="#{regi.fechapr}" filterMatchMode="contains" >
-                                                    <h:outputText value="#{regi.fechapr}"  >
-                                                        <f:convertDateTime pattern="dd-MM-YYYY"/>
-                                                    </h:outputText>
-                                                </p:column>
-                                                 <p:column headerText="Fecha Fin" sortBy="#{regi.fechapr}" filterBy="#{regi.fechapr}" filterMatchMode="contains" >
-                                                     <h:outputText value="#{regi.fechaprf}"  >
-                                                        <f:convertDateTime pattern="dd-MM-YYYY"/>
-                                                    </h:outputText>
-                                                </p:column>
-                                                
-                                                
-                                                <p:column headerText="Editar" style="text-align: center"  width="11%">
-                                                    <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlg2').show();"  action="#{revistaBean.modificar(regi)}" process="@this" update=":formulario_mo" title="Editar Revista" />
-                                                </p:column>
-                                                <p:column headerText="Eliminar" style="text-align: center" width="11%" >
-
-                                                    <p:commandButton icon="ui-icon-trash" title="Eliminar Revista"
-                                                                     actionListener="#{revistaBean.eliminar(regi)}"
-                                                                     update="@form"  process="@this" class="btn btn-danger">
-                                                        <p:confirm message="¿Desea Eliminar el Revista?" header="Aviso" icon="ui-icon-alert"/>
-                                                    </p:commandButton>
-
-                                                    <p:confirmDialog global="true">
-                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
-                                                                         styleClass="ui-confirmdialog-yes"/>
-                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
-                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
-                                                    </p:confirmDialog>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </div>
-                                    </h:form>
-
-                                    <p:dialog header="Modificar Revista" widgetVar="dlg2" 
-                                              minHeight="40" modal="true" showEffect="explode" hideEffect="fade"
-                                              resizable="false" width="40%">
-                                        <legend>Modificar </legend>
-                                        <p:scrollPanel mode="native" style="height:400px">
-                                            <h:form id="formulario_mo">
-                                                <p:panel id="panel5" >
-                                                    <p:messages id="msgs5" />
-                                                    <div class="form-group">
-                                                        <label for="tituloRevist">
-                                                            Titulo de revista 
-                                                        </label>
-                                                        <p:selectOneMenu id="tituloRevist" 
-                                                                         value="#{revistaBean.idTitulo.idTitulo}"  
-                                                                         panelStyle="width:150px"
-                                                                         effect="fade" 
-                                                                         style="width:90%" filter="true" required="true" 
-                                                                         filterMatchMode="startsWith"  >
-                                                            <f:selectItems value="#{revistaBean.listaTitulos()}" 
-                                                                           var="themesas" 
-                                                                           itemLabel="#{themesas.tituloRevista}" 
-                                                                           itemValue="#{themesas.idTitulo}"  />
-
-                                                        </p:selectOneMenu>
-                                                         <p:commandButton icon="ui-icon-plus" title="Agregar Titulo"  immediate="true"                                                                     
-                                                                          class="btn btn-danger"  onclick="PF('ingresarTitulos').show();" 
-                                                                          style="margin-bottom: 20px">                                                        
-                                                         </p:commandButton>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="nombreIt">
-                                                            Volumen de Revista:
-                                                        </label>
-                                                        <p:inputText id="nombreIt"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="Volumen es Requerido" />
-                                                        <p:message for="nombreIt" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="popup">
-                                                            Periodo de puplicación: 
-                                                        </label>
-                                                    </div>
-                                                        <div class="form-group">
-                                                        <label for="popup">
-                                                            Inicio: 
-                                                        </label>
-                                                        <p:calendar  style="width: 100%"   id="popup" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de inicio" requiredMessage="La Fecha es obligatoria">
-                                                            <f:validateRequired />
-                                                            <p:message for="popup" display="icon"  />
-                                                        </p:calendar>
-                                                        </div>
-                                                            <div class="form-group">
-                                                        <label for="popup2">
-                                                            fin: 
-                                                        </label>
-                                                        <p:calendar  style="width: 100%"   id="popup2" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de fin" requiredMessage="La Fecha es obligatoria">
-                                                            <f:validateRequired />
-                                                            <p:message for="popup2" display="icon"  />
-                                                        </p:calendar>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="categoriaTt">
-                                                            Categoria: 
-                                                        </label>
-                                                        <p:selectOneMenu id="categoriaTt" 
-                                                                         value="#{revistaBean.categoria.idCategoria}"  
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade" 
-                                                                         style="width:100%" filter="true" required="true" 
-                                                                         filterMatchMode="startsWith"  >
-                                                            <f:selectItems value="#{categoriaBean.getir()}" 
-                                                                           var="themes" 
-                                                                           itemLabel="#{themes.nombrec}" 
-                                                                           itemValue="#{themes.idCategoria}"  />
-
-
-
-
-                                                        </p:selectOneMenu>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="issnCt">
-                                                            ISSN: 
-                                                        </label>
-                                                        <p:inputMask id="issnCt"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true"/>
-                                                        <p:message for="issnCt" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="paisSelectModi">
-                                                            Pais: 
-                                                        </label>
-                                                        <p:selectOneMenu id="paisSelectModi" 
-                                                                         value="#{revistaBean.revista.paisr}"  
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade" 
-                                                                         style="width:100%" filter="true" required="true" 
-                                                                         filterMatchMode="startsWith"  >
-                                                            <f:selectItems value="#{revistaBean.listaPaises()}" 
-                                                                           var="themes2" 
-                                                                           itemLabel="#{themes2}" 
-                                                                           itemValue="#{themes2}"  />
-
-
-
-
-                                                        </p:selectOneMenu>                                                    
-                                                        <p:message for="paisSelectModi" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="donateCt">
-                                                            Dontate: 
-                                                        </label>
-                                                        <p:selectOneMenu id="donateCt"
-                                                                         value="#{revistaBean.idDonacion}"
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade"
-                                                                         style="width:100%"
-                                                                         filter="true" 
-                                                                         filterMatchMode="startsWith" >
-                                                            <f:selectItem itemLabel="#{revistaBean.donanteFecha}" itemValue="#{revistaBean.idDonante}"/>
-                                                            <f:selectItems value="#{donacionBean.getir()}" 
-                                                                           var="themea" 
-                                                                           itemLabel="#{themea.idDonante.nombred.concat(' Fecha donación ').concat(themea.fechadonacion.day).concat('-').concat(themea.fechadonacion.month).concat('-').concat(themea.fechadonacion.year) }" 
-                                                                           itemValue="#{themea.idDonacion}" />
-
-                                                        </p:selectOneMenu>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">                                                    
-                                                            <label for="exampleInputPassword1">
-                                                                Articulos:
-                                                            </label>
-                                                            <div class="col-lg-4"></div>
-                                                            <div class="col-lg-2"><p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
-                                                                                                   value="Agregar Articulo" onclick="PF('articuloCrear').show();"   >
-                                                                    <f:ajax execute="@this" listener="#{revistaBean.crearArticuloBoton()}" render=":articuloCr" />
-                                                                </p:commandButton>
-
-                                                            </div>
-
-                                                            <p:separator />
-
-                                                            <p:dataTable id="tblSelMuestrast"
-                                                                         var="mues"
-                                                                         value="#{revistaBean.listaArticulos}"                                                                     
-                                                                         rowKey="#{mues.idArticulo}"
-                                                                         rows="7" 
-                                                                         emptyMessage="Agrege Articulos"
-                                                                         paginator="true"
-                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                         >      
-                                                                <p:column headerText="Titulo de articulo">
-                                                                    <h:outputText value="#{mues.tituloa}" />
-                                                                </p:column> 
-                                                                <p:column headerText="Editar" style="text-align: center" width="15%" >
-                                                                    <p:commandButton icon="ui-icon-pencil" title="Editar Articulo" oncomplete="PF('articuloModificar').show();"  
-                                                                                     action="#{revistaBean.articuloaModificar(mues)}" process="@this" update=":articuloCrMod" />
-                                                                </p:column>
-                                                                <p:column headerText="Eliminar" style="text-align: center" width="18%" >
-
-                                                                    <p:commandButton icon="ui-icon-trash" title="Eliminar Articulo"
-                                                                                     actionListener="#{revistaBean.eliminarArticulo(mues)}"
-                                                                                     update="tblSelMuestrast"  process="@this" class="btn btn-danger">
-                                                                        <p:confirm message="¿Desea Eliminar el articulo:"  header="Aviso" icon="ui-icon-alert"/>
-                                                                    </p:commandButton>
-
-                                                                    <p:confirmDialog global="true">
-                                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
-                                                                                         styleClass="ui-confirmdialog-yes"/>
-                                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
-                                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
-                                                                    </p:confirmDialog>
-                                                                </p:column>
-
-                                                            </p:dataTable> 
-
-
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="form-group">
-                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.modificarRevista()}" process="@this, @form"  update=":tablasLista:listaTabla,formulario_mo" validateClient="true"/>
-                                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('dlg2').hide();" process="@this" />
-                                                    </div>
-                                                </p:panel>
-                                            </h:form>
-                                        </p:scrollPanel>
-
-                                    </p:dialog>
-
-                                    <p:dialog header="Agregar Articulo" widgetVar="articuloCrear" id="dialogAgregarAticulo"
-                                              minHeight="40" modal="true" resizable="false" width="40%" >
-                                        <p:scrollPanel mode="native" style="height:400px">
-                                            <h:form id="articuloCr" >
-                                                <p:panel id="panel4"  >
-                                                    <p:messages id="msgs4" />
-                                                    <div class="form-group">
-                                                        <label for="TituloArticulo">
-                                                            Titulo de articulo:
-                                                        </label>
-                                                        <p:inputText id="TituloArticulo"  value="#{revistaBean.articulo.tituloa}" class="form-control" required="true" requiredMessage="Titulo es Obligatorio" />
-                                                        <p:message for="TituloArticulo" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="AutorA">
-                                                            Autor:
-                                                        </label>
-                                                        <p:selectOneMenu id="autorId"
-                                                                         value="#{revistaBean.idAutor}"
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade"
-                                                                         style="width:100%"
-                                                                         filter="true" 
-                                                                         filterMatchMode="startsWith" >                                                            
-                                                            <f:selectItems value="#{autorBean.getir()}" 
-                                                                           var="themeas" 
-                                                                           itemLabel="#{themeas.nombreAutor }" 
-                                                                           itemValue="#{themeas.idAutor}" />
-
-                                                        </p:selectOneMenu>                                                        
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="Palabralave">
-                                                            Palabra Clave:                                                    
-
-                                                        </label>
-                                                        <p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
-                                                                         value="Agregar Palabra Clave" onclick="PF('ingresarPalabra').show();"   >
-
-                                                        </p:commandButton>
-                                                    </div>
-                                                    <div class="form-group">
-
-
-                                                        <div class="col-lg-6">
-                                                            <label for="tblSelMuestrasDato">
-                                                                Lista:
-                                                            </label>
-                                                            <p:dataTable id="tblSelMuestrasDato"
-                                                                         var="muestrass"
-                                                                         value="#{revistaBean.listaPalabraClave}"
-                                                                         selection="#{revistaBean.listaPalabraClaveModificar}"
-                                                                         rowKey="#{muestrass.idPalabra}"
-                                                                         rows="5" emptyMessage="No se encontraron Palabras claves en el sistema para ser asignadas"
-                                                                         paginator="true"
-                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                         >                                                                
-
-                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
-
-                                                                <p:column headerText="Palabra Clave" filterBy="#{muestrass.nombrep}">
-                                                                    <h:outputText value="#{muestrass.nombrep}" />
-                                                                </p:column>                                                   
-
-                                                                <f:facet name="footer">
-                                                                    <p:commandButton action="#{revistaBean.trasferirLista()}"
-                                                                                     process="tblSelMuestrasDato" 
-                                                                                     update="@form:tblSelMuestrasDato, @form:tblSelMuestrasDato2" 
-                                                                                     value="Seleccionar" />
-                                                                </f:facet>                        
-                                                            </p:dataTable> 
-
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <label for="tblSelMuestrasDato2">
-                                                                Asignadas:
-                                                            </label>
-                                                            <p:dataTable id="tblSelMuestrasDato2"
-                                                                         var="muestra2"
-                                                                         value="#{revistaBean.listaPalabraClaveDestino}"
-                                                                         selection="#{revistaBean.listaPalabraClaveModificar}"
-                                                                         rowKey="#{muestra2.idPalabra}"
-                                                                         rows="5" emptyMessage="No hay palabras claves asignadas para este articulo"
-                                                                         paginator="true"
-                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                         >                                                                
-
-                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
-
-                                                                <p:column headerText="Palabra Clave" filterBy="#{muestra2.nombrep}">
-                                                                    <h:outputText value="#{muestra2.nombrep}" />
-                                                                </p:column>                                                   
-
-                                                                <f:facet name="footer">
-                                                                    <p:commandButton action="#{revistaBean.trasferirEliminar()}"
-                                                                                     process="tblSelMuestrasDato2" 
-                                                                                     update="@form:tblSelMuestrasDato, @form:tblSelMuestrasDato2" 
-                                                                                     value="Remover del Listado" class="ui-confirmdialog-no btn-danger pull-right"/>
-                                                                </f:facet>                        
-                                                            </p:dataTable> 
-
-
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="form-group">                                              
-                                                        <div class="col-md-12">
-                                                            <label for="resumen">
-                                                                Resumen:
-                                                            </label>
-                                                            <p:inputTextarea id="resumen" class="form-control" addLine="4" maxlength="250" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <br />
-                                                        </div>
-                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.crearArticulo()}" process="@this, @form"  update=":newPantalla2:tblSelMuestras, :formulario_mo:tblSelMuestrast , @form" validateClient="true"/>
-                                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloCrear').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
-
-                                                    </div>
-                                                </p:panel>
-                                            </h:form>  
-                                        </p:scrollPanel>
-
-
-                                    </p:dialog>
-
-                                    <p:dialog header="Modificar Articulo" widgetVar="articuloModificar" id="dialogModificarAticulo"
-                                              minHeight="40" modal="true" resizable="false" width="40%" >
-                                        <p:scrollPanel mode="native" style="height:400px">
-                                            <h:form id="articuloCrMod" >
-                                                <p:panel id="panel3"  >
-                                                    <p:messages id="msgs3" />
-                                                    <div class="form-group">
-                                                        <label for="TituloArticuloM">
-                                                            Titulo de articulo:
-                                                        </label>
-                                                        <p:inputText id="TituloArticuloM"  value="#{revistaBean.articulo.tituloa}" class="form-control" required="true" requiredMessage="Titulo es Obligatorio" />
-                                                        <p:message for="TituloArticuloM" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="AutorAM">
-                                                            Autor:
-                                                        </label>
-                                                        <p:selectOneMenu id="autorIdMo"
-                                                                         value="#{revistaBean.idAutor}"
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade"
-                                                                         style="width:100%"
-                                                                         filter="true" 
-                                                                         filterMatchMode="startsWith" >                                                            
-                                                            <f:selectItems value="#{autorBean.getir()}" 
-                                                                           var="themeass" 
-                                                                           itemLabel="#{themeass.nombreAutor }" 
-                                                                           itemValue="#{themeass.idAutor}" />
-
-                                                        </p:selectOneMenu>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="Palabralave">
-                                                            Palabra Clave:                                                    
-
-                                                        </label>
-                                                        <p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
-                                                                         value="Agregar Palabra Clave" onclick="PF('ingresarPalabra').show();"   >
-
-                                                        </p:commandButton>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-lg-6">
-                                                            <label for="tblSelMuestrasDato3">
-                                                                Lista:
-                                                            </label>
-                                                            <p:dataTable id="tblSelMuestrasDato3"
-                                                                         var="muestrass2"
-                                                                         value="#{revistaBean.listaPalabraClave}"
-                                                                         selection="#{revistaBean.listaPalabraClaveModificar}"
-                                                                         rowKey="#{muestrass2.idPalabra}"
-                                                                         rows="5" emptyMessage="No se encontraron Palabras claves en el sistema para ser asignadas"
-                                                                         paginator="true"
-                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                         >                                                                
-
-                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
-
-                                                                <p:column headerText="Palabra Clave" filterBy="#{muestrass2.nombrep}">
-                                                                    <h:outputText value="#{muestrass2.nombrep}" />
-                                                                </p:column>                                                   
-
-                                                                <f:facet name="footer">
-                                                                    <p:commandButton action="#{revistaBean.trasferirLista()}"
-                                                                                     process="tblSelMuestrasDato3" 
-                                                                                     update="@form:tblSelMuestrasDato3, @form:tblSelMuestrasDato4" 
-                                                                                     value="Seleccionar" />
-                                                                </f:facet>                        
-                                                            </p:dataTable> 
-
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <label for="tblSelMuestrasDato4">
-                                                                Asignadas:
-                                                            </label>
-                                                            <p:dataTable id="tblSelMuestrasDato4"
-                                                                         var="muestra22"
-                                                                         value="#{revistaBean.listaPalabraClaveDestino}"
-                                                                         selection="#{revistaBean.listaPalabraClaveModificar}"
-                                                                         rowKey="#{muestra22.idPalabra}"
-                                                                         rows="5" emptyMessage="No hay palabras claves asignadas para este articulo"
-                                                                         paginator="true"
-                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                         >                                                                
-
-                                                                <p:column selectionMode="multiple" style="width:35px;text-align:center"/>
-
-                                                                <p:column headerText="Palabra Clave" filterBy="#{muestra22.nombrep}">
-                                                                    <h:outputText value="#{muestra22.nombrep}" />
-                                                                </p:column>                                                   
-
-                                                                <f:facet name="footer">
-                                                                    <p:commandButton action="#{revistaBean.trasferirEliminar()}"
-                                                                                     process="tblSelMuestrasDato4" 
-                                                                                     update="@form:tblSelMuestrasDato3, @form:tblSelMuestrasDato4" 
-                                                                                     value="Remover del Listado" 
-                                                                                     class="ui-confirmdialog-no btn-danger pull-right"/>
-                                                                </f:facet>                        
-                                                            </p:dataTable> 
-
-
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="form-group">                                              
-                                                        <div class="col-md-12">
-                                                            <label for="resumen2">
-                                                                Resumen:
-                                                            </label>
-                                                            <p:inputTextarea id="resumen2" class="form-control" addLine="4" maxlength="250" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <br />
-                                                        </div>
-                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.modificarArticulo()}" process="@this, @form"  update=":newPantalla2:tblSelMuestras , @form" validateClient="true"/>
-                                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloCrear').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
-
-                                                    </div>
-                                                </p:panel>
-                                            </h:form>   
-                                        </p:scrollPanel>
-
-
-                                    </p:dialog>
-
-                                    <p:dialog header="Registrar Revista" widgetVar="nuevaPantalla"  id="dialogRegistraRevista"
-                                              minHeight="40" modal="true" resizable="false" width="40%"  >
-                                        <p:scrollPanel mode="native" style="height:400px">
-                                            <h:form id="newPantalla2" >
-                                                <p:panel id="panel1"  >
-                                                    <p:messages id="msgs1" />
-                                                    <div class="form-group">
-                                                        <label for="tituloRevist2">
-                                                            Titulo de revista 
-                                                        </label>
-                                                        <p:selectOneMenu id="tituloRevist2" 
-                                                                         value="#{revistaBean.idTitulo.idTitulo}"  
-                                                                         panelStyle="width:150px"
-                                                                         effect="fade" 
-                                                                         style="width:90%" filter="true" required="true" 
-                                                                         filterMatchMode="startsWith"  >
-                                                            <f:selectItems value="#{revistaBean.listaTitulos()}" 
-                                                                           var="themesas" 
-                                                                           itemLabel="#{themesas.tituloRevista}" 
-                                                                           itemValue="#{themesas.idTitulo}"  />
-
-                                                        </p:selectOneMenu>
-                                                        <p:commandButton icon="ui-icon-plus" title="Agregar Titulo"   immediate="true"                                                                  
-                                                                          class="btn btn-success" onclick="PF('ingresarTitulos').show();" 
-                                                                          style="margin-bottom: 20px">                                                        
-                                                         </p:commandButton>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="nombreI">
-                                                            Volumen de la Revista:
-                                                        </label>
-                                                        <p:inputText id="nombreI"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="El titulo es Obligatorio" />
-                                                        <p:message for="nombreI" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label >
-                                                            Periodo de Publicacion: 
-                                                        </label></div>
-                                                    <div class="form-group">
-                                                        <label for="descripT">
-                                                            Inicio: 
-                                                        </label>
-                                                        <p:calendar    id="descripT" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de inicio">
-                                                            <f:validateRequired />
-                                                            <p:message for="descripT" display="icon"  />
-                                                        </p:calendar>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="descripT2">
-                                                            Fin: 
-                                                        </label>
-                                                        <p:calendar     id="descripT2" value="#{revistaBean.revista.fechaprf}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de fin">
-                                                            <f:validateRequired />
-                                                            <p:message for="descripT2" display="icon"  />
-                                                        </p:calendar>
-                                                    </div>
-
-
-                                                    <div class="form-group">
-                                                        <label for="categoriaT">
-                                                            Categoria: 
-                                                        </label>
-                                                        <p:selectOneMenu id="categoriaT" 
-                                                                         value="#{revistaBean.categoria.idCategoria}"  
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade" 
-                                                                         style="width:100%" filter="true" required="true" 
-                                                                         filterMatchMode="startsWith"  >
-                                                            <f:selectItems value="#{categoriaBean.getir()}" 
-                                                                           var="theme" 
-                                                                           itemLabel="#{theme.nombrec}" 
-                                                                           itemValue="#{theme.idCategoria}" />
-
-
-
-                                                        </p:selectOneMenu>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="issnC">
-                                                            ISSN: 
-                                                        </label>
-                                                        <p:inputMask id="issnC"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true" requiredMessage="El ISSN es Obligatorio"/> 
-                                                        <p:message for="issnC" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="paisSelect">
-                                                            Pais: 
-                                                        </label>
-                                                        <p:selectOneMenu id="paisSelect" 
-                                                                         value="#{revistaBean.revista.paisr}"  
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade" 
-                                                                         style="width:100%" filter="true" required="true" 
-                                                                         filterMatchMode="startsWith"  >
-                                                            <f:selectItems value="#{revistaBean.listaPaises()}" 
-                                                                           var="themes5" 
-                                                                           itemLabel="#{themes5}" 
-                                                                           itemValue="#{themes5}"  />
-
-
-
-
-                                                        </p:selectOneMenu>                                                    
-                                                        <p:message for="paisSelect" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="donateC">
-                                                            Dontate: 
-                                                        </label>
-                                                        <p:selectOneMenu id="donateC"
-                                                                         value="#{revistaBean.idDonacion}"
-                                                                         panelStyle="width:180px"
-                                                                         effect="fade"
-                                                                         style="width:100%"
-                                                                         filter="true" 
-                                                                         filterMatchMode="startsWith" >
-                                                            <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="false" />
-                                                            <f:selectItems value="#{donacionBean.getir()}" 
-                                                                           var="themea" 
-                                                                           itemLabel="#{themea.idDonante.nombred.concat(' Fecha donación ').concat(themea.fechadonacion.day).concat('-').concat(themea.fechadonacion.month).concat('-').concat(themea.fechadonacion.year) }" 
-                                                                           itemValue="#{themea.idDonacion}" />
-
-                                                        </p:selectOneMenu>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">                                                    
-                                                            <label for="exampleInputPassword1">
-                                                                Articulos:
-                                                            </label>
-                                                            <div class="col-lg-4"></div>
-                                                            <div class="col-lg-2"><p:commandButton class="btn btn-success btn-xs" process="@this" type="button" 
-                                                                                                   value="Agregar Articulo" onclick="PF('articuloCrear').show();"   >
-                                                                    <f:ajax execute="@this" listener="#{revistaBean.crearArticuloBoton()}" render=":articuloCr" />
-                                                                </p:commandButton>
-
-                                                            </div>
-
-                                                            <p:separator />
-
-                                                            <p:dataTable id="tblSelMuestras"
-                                                                         var="mues"
-                                                                         value="#{revistaBean.listaArticulos}"                                                                     
-                                                                         rowKey="#{mues.idArticulo}"
-                                                                         rows="7" 
-                                                                         emptyMessage="Agrege Articulos"
-                                                                         paginator="true"
-                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                                         >      
-                                                                <p:column headerText="Titulo de articulo">
-                                                                    <h:outputText value="#{mues.tituloa}" />
-                                                                </p:column> 
-                                                                <p:column headerText="Editar" style="text-align: center" width="15%" >
-                                                                    <p:commandButton icon="ui-icon-pencil" title="Editar Articulo" oncomplete="PF('articuloModificar').show();"  
-                                                                                     action="#{revistaBean.articuloaModificar(mues)}" process="@this" update=":articuloCrMod" />
-                                                                </p:column>
-                                                                <p:column headerText="Eliminar" style="text-align: center" width="18%" >
-
-                                                                    <p:commandButton icon="ui-icon-trash" title="Eliminar Articulo"
-                                                                                     actionListener="#{revistaBean.eliminarArticulo(mues)}"
-                                                                                     update="@form"  process="@this" class="btn btn-danger">
-                                                                        <p:confirm message="¿Desea Eliminar el articulo:"  header="Aviso" icon="ui-icon-alert"/>
-                                                                    </p:commandButton>
-
-                                                                    <p:confirmDialog global="true">
-                                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
-                                                                                         styleClass="ui-confirmdialog-yes"/>
-                                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
-                                                                                         class="ui-confirmdialog-no btn-danger pull-right"/>
-                                                                    </p:confirmDialog>
-                                                                </p:column>
-
-                                                            </p:dataTable> 
-
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <br />
-                                                        </div>
-                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.crear()}" process="@this, @form"  update=":tablasLista:listaTabla,newPantalla2" validateClient="true"/>
-                                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('nuevaPantalla').hide();" process="@this" />
-
-                                                    </div>
-                                                </p:panel>
-                                            </h:form>
-                                        </p:scrollPanel>
-                                    </p:dialog>
-
-                                    <p:dialog widgetVar="ingresarPalabra" header="Ingresar Palabra Clave"
-                                              minHeight="40" modal="true"   resizable="false" >
-                                        <h:form id="newpantpal" > 
-                                            <p:panel id="panel2"  >
-                                                <p:messages id="msgs2" />
-                                                <div class="form-group">
-                                                    <p:outputLabel value="Nombre Palabra"/>
-                                                    <p:inputText id="nombre" value="#{revistaBean.nombrepalabra}" class="form-control" required="true"/>
-                                                    <p:message for="nombre" />
-                                                </div>
-
-                                                <p:commandButton class="btn btn-success btn-xs" value="Guardar"  action="#{revistaBean.guardarpc()}" 
-
-                                                                 update=":articuloCr:tblSelMuestrasDato  , @form , :articuloCrMod:tblSelMuestrasDato3"   validateClient="true">
-                                                </p:commandButton>
-                                                <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarPalabra').hide();" immediate="true"/>
-                                            </p:panel>
-                                        </h:form>    
-                                    </p:dialog>
-
-                                    <p:dialog widgetVar="ingresarTitulos" header="Ingresar Titulo"
-                                              minHeight="40" modal="true"   resizable="false" >
-                                        <h:form id="newpantpal4" > 
-                                            <p:panel id="panel24"  >                                               
-                                                <div class="form-group">
-                                                    <p:outputLabel value="Titulo"/>                                                    
-                                                    <p:inputText id="nombreTitulossa" value="#{revistaBean.idTitulo.tituloRevista}" class="form-control" required="true"/>
-                                                    <p:message for="nombreTitulossa" />
-                                                </div>
-                                                <p:commandButton class="btn btn-success btn-xs" value="Guardar"  action="#{revistaBean.guardarpc2()}" 
-                                                                 update="@form , :newPantalla2:tituloRevist2 , :formulario_mo:tituloRevist"   validateClient="true">
-                                                </p:commandButton>
-                                                <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarTitulos').hide();" immediate="true"/>
-                                            </p:panel>
-                                        </h:form>    
-                                    </p:dialog>
-
-                                </div>
-                            </div>
+                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel-body -->
                     </div>
-                </div>
-
+                </c:if>
             </ui:define>
         </ui:composition>
 
