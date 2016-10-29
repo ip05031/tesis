@@ -54,7 +54,7 @@ public class InicioBean implements Serializable {
     private String menu;
     private List<Pantalla> listaPantallas = new ArrayList<>();
     private Usuario userLogueado = new Usuario();
-     FacesContext context;
+    FacesContext context;
 
     /*---------------------------------------------------------- Constructor -----------------------------------------------------------------------*/
     public InicioBean() {
@@ -91,7 +91,7 @@ public class InicioBean implements Serializable {
 
     public List<Revista> getListadoRevistas() {
         inicioJPA = new InicioJPA();
-        listaRevista = inicioJPA.obtnerRevistas();
+        listaRevista = inicioJPA.obtnerRevistas2();
         return listaRevista;
     }
 
@@ -145,7 +145,7 @@ public class InicioBean implements Serializable {
 
     public String Salir() {
         this.setInicioSesion(false);
-        context = FacesContext.getCurrentInstance(); 
+        context = FacesContext.getCurrentInstance();
         context.getExternalContext().getSessionMap().remove("logueado");
         redirigir();
         return "index?facesRedirect=true";
@@ -177,6 +177,11 @@ public class InicioBean implements Serializable {
                 return false;
             }
         } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(InicioBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return false;
         }
     }
@@ -221,6 +226,20 @@ public class InicioBean implements Serializable {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
         }
+    }
+
+    public boolean pantallasMenu(int tipo) {
+        boolean value = false;
+
+        if (this.listaPantallas.size() > 9) {
+            value = true;
+        } else {
+            value = false;
+        }
+        if (tipo == 1) {
+            value = !value;
+        }
+        return value;
     }
 
     /*---------------------------------------------------------- Setter & Getter -------------------------------------------------------------------*/

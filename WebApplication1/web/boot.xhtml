@@ -46,9 +46,28 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <c:if test="#{inicioBean.inicioSesion}" >
-                            <ui:repeat value="#{inicioBean.listaPantallas}" var="item"  varStatus="estado"  rendered="true">  
-                                <li><h:link outcome="#{item.accesopa}"      value="#{item.nombrepa}" /></li>
-                            </ui:repeat>
+
+                            <c:if test="#{inicioBean.pantallasMenu(1)}" >
+                                <ui:repeat value="#{inicioBean.listaPantallas}" var="item"  varStatus="estado"  rendered="true" >  
+                                    <li><h:link outcome="#{item.accesopa}"      value="#{item.nombrepa}" /></li>
+                                </ui:repeat>
+                            </c:if>
+                            <c:if test="#{inicioBean.pantallasMenu(2)}" >
+                                <c:forEach begin="0" end="9" items="#{inicioBean.listaPantallas}" var="i" >
+                                    <li><h:link outcome="#{i.accesopa}"      value="#{i.nombrepa}" /></li>
+                                </c:forEach>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Más... <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <c:forEach begin="10" end="#{inicioBean.listaPantallas.size()}" items="#{inicioBean.listaPantallas}" var="i" >
+                                                <li><h:link outcome="#{i.accesopa}"      value="#{i.nombrepa}" /></li>
+                                            </c:forEach>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            </c:if>
                         </c:if>
                     </ul>
 

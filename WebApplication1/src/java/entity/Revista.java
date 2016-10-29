@@ -37,8 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "revista")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Revista.findByLetterA", query = "SELECT r from Revista r where r.titulor like 'A%' order by r.idRevista"),
-    @NamedQuery(name = "Revista.findByLetter", query = "SELECT r FROM Revista r where r.titulor like ':letra' ORDER BY r.idRevista"),
+    @NamedQuery(name = "Revista.findByLetterA", query = "SELECT r from Revista r where r.idTitulo.tituloRevista like 'A%' order by r.idRevista"),
+    @NamedQuery(name = "Revista.findByLetter", query =  "SELECT r from Revista r where r.idTitulo.tituloRevista like :letra order by r.idRevista"),
     @NamedQuery(name = "Revista.findAll", query = "SELECT r FROM Revista r ORDER BY r.idRevista"),
     @NamedQuery(name = "Revista.clave", query = "SELECT MAX(a.idRevista) FROM Revista a"),
     @NamedQuery(name = "Revista.findByIdRevista", query = "SELECT r FROM Revista r WHERE r.idRevista = :idRevista"),

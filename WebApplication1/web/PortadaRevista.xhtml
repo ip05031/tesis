@@ -28,7 +28,12 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <h1>
                                     #{inicioBean.revistaAbrir.titulor}
-                                    <h:link outcome="VerRevista" value="Ver Revista Completa" class="btn btn-primary pull-right"/>
+                                    <c:if test="#{ !inicioBean.inicioSesion}" >
+                                        <a onclick="PF('login_modal').show();" class="btn btn-primary pull-right" > Iniciar Sesión para ver Revista </a>
+                                    </c:if> 
+                                    <c:if test="#{ inicioBean.inicioSesion}" >
+                                        <h:link outcome="VerRevista" value="Ver Revista Completa" class="btn btn-primary pull-right"/>
+                                    </c:if>
                                 </h1>
                             </div>
                         </div>
