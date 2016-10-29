@@ -131,7 +131,9 @@ public class donantesBean implements Serializable {
         String tabla = "Donante" ;
         new bitacoraBean().guardarbitacora(tabla, accion);
         donantesJPA.editdonanteJPA(editardon);
-    }
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Donante modificado exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+       }
     
 public void capturardonante(Donate capturardon){
     this.editardon=capturardon;

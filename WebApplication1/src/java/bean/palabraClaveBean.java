@@ -119,6 +119,9 @@ public class palabraClaveBean implements Serializable {
         
         palabraJPA = new PalabrasClavesJPA();
         palabraJPA.editpcJPA(editarpc);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Palabra Clave Modificada Exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+         
     }
 public void capturarpalabra(PalabraClave capturapal){
     this.editarpc=capturapal;
@@ -129,5 +132,7 @@ public void eliminarpc(PalabraClave epc){
         
         palabraJPA = new PalabrasClavesJPA();
         palabraJPA.eliminarpcJPA(epc);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Palabra Clave Eliminada Exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }

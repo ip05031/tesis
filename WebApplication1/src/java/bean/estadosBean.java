@@ -95,6 +95,8 @@ public class estadosBean implements Serializable {
         
         estadoJPA = new EstadoJPA();
         estadoJPA.editestadoJPA(editarestado);
+         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Modificado exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
         RequestContext.getCurrentInstance().execute("PF('modificarestado').hide();");
     }
      
@@ -107,6 +109,8 @@ public void eliminarestado(Estado deletestado){
         
         estadoJPA = new EstadoJPA();
         estadoJPA.eliminarestadoJPA(deletestado);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Eliminado exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

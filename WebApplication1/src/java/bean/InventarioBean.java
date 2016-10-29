@@ -137,6 +137,8 @@ public class InventarioBean implements Serializable {
 
         inventarioJPA = new InventarioJPA();
         inventarioJPA.eliminarinventJPA(einv);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Inventario Eliminado exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     public List<Estado> listaTemporalEstados() {

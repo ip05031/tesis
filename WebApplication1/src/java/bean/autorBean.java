@@ -98,6 +98,8 @@ public class autorBean implements Serializable {
         
         autorJPA = new AutorJPA();
         autorJPA.editautorJPA(editarautor);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor modificado Exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 public void capturarautor(Autor capturautor){
     this.editarautor=capturautor;
@@ -108,5 +110,7 @@ public void eliminarautor(Autor autorr){
         
         autorJPA = new AutorJPA();
         autorJPA.eliminarautorJPA(autorr);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Eliminado Exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 }
