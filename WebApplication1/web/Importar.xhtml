@@ -61,7 +61,10 @@
                                                                       dragDropSupport="true"
                                                                       />
                                                         <p:messages id="infoMessages1" for="uploadRevista" />
-                                                        <p:inputText readonly="true" id="ruta_portada" value="#{importacionBean.ruta_portada}" required="true"/><br/>
+                                                        <p:inputText id="ruta_portada" value="#{importacionBean.ruta_portada}" 
+                                                                     required="true" requiredMessage="Seleccione un Archivo"
+                                                                     style="width: 100%; text-align: center;background: #c4e3f3;" /><br/>   
+                                                        <p:messages id="infoMessages2" for="ruta_portada" />
                                                         <p:outputLabel value="Archivo de Revista:" /><br/>
                                                         <p:fileUpload id="uploadRevista"
                                                                       fileUploadListener="#{importacionBean.upload6}" 
@@ -81,8 +84,10 @@
                                                                       invalidSizeMessage="Tamaño no vàlido"
                                                                       dragDropSupport="true"
                                                                       />
-                                                        <p:inputText readonly="true" id="ruta_revista" value="#{importacionBean.ruta_revista}" required="true" requiredMessage="Seleccione un Archivo"/>
-
+                                                        <p:inputText id="ruta_revista" value="#{importacionBean.ruta_revista}" 
+                                                                     required="true" requiredMessage="Seleccione un Archivo"
+                                                                     style="width: 100%; text-align: center;background: #c4e3f3;" /><br/>   
+                                                        <p:messages id="infoMessages3" for="ruta_revista" />
                                                         <br/>
 
 

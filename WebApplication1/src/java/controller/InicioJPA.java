@@ -42,6 +42,21 @@ public class InicioJPA {
         }
     }
     
+    public List<Revista> obtnerRevistas2(){
+        try {
+            String filtroLetra = "A%";
+            listadoRevista = em.createNamedQuery("Revista.findByLetter", Revista.class)
+                    .setParameter("letra",filtroLetra)
+                    .getResultList();
+            return listadoRevista;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+            return listadoRevista;
+        }
+    }
+    
+    
     public List<Pantalla> obtenerPantallas(){
         List<Pantalla> listado = null ;
         return listado;
