@@ -177,6 +177,11 @@ public class InicioBean implements Serializable {
                 return false;
             }
         } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(InicioBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return false;
         }
     }
