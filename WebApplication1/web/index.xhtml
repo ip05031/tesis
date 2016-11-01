@@ -12,6 +12,9 @@
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
+                <h:form>
+                    <p:remoteCommand name="onload"  actionListener="#{inicioBean.getListadoRevistas()}"  />
+                </h:form>
                 <div class="row">
                     <div class="col-lg-1"></div>
 
@@ -55,7 +58,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-pills sameSize" role="tablist">
                                 <li role="presentation">
-                                    <a href="#nums"  aria-controls="nums" role="tab" data-toggle="tab" onclick="#{inicioBean.getListadoRevistas()}">#</a>
+                                    <a href="#nums"  aria-controls="nums" role="tab" data-toggle="tab">#</a>
                                 </li>
                                 <li role="presentation" class="active">
                                     <a href="#letraA" aria-controls="letraA" role="tab" data-toggle="tab">A</a>
@@ -154,7 +157,7 @@
                                             <ui:repeat value="#{inicioBean.listaRevista2}" var="item"  varStatus="estado"  rendered="true">  
                                                 <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
                                                     <div class="caption" style="text-align: center;">
-                                                        <h4>#{item.titulor}</h4>
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
                                                         <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
                                                         <br/>
 

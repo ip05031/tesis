@@ -42,7 +42,7 @@
                                                         <p:inputTextarea id="descripcion"
                                                                          value="#{importacionBean.descripcion }" 
                                                                          cols="35" 
-                                                                         required="true"
+                                                                         required="false"
                                                                          requiredMessage="Ingrese una descripciòn" />
                                                         <p:messages id="error_descripcion" for="descripcion"/>
                                                         <p:outputLabel value="Portada de Revista:" /><br/>
@@ -75,7 +75,7 @@
                                                                       label="Elegir"
                                                                       cancelLabel="Cancelar"
                                                                       uploadLabel="Subir"
-                                                                      sizeLimit="10000000"   
+                                                                      sizeLimit="20000000"   
                                                                       fileLimit="1"
                                                                       fileLimitMessage="Solo 1 Archivo"
                                                                       required="true"
@@ -129,7 +129,7 @@
                                                                     minHeight="100" 
                                                                     resizable="false" 
                                                                     draggable="false"
-                                                                    height="400"
+                                                                    height="auto"
                                                                     width="600"
                                                                     > 
 
@@ -156,33 +156,17 @@
                                                                                           invalidSizeMessage="Tamaño no vàlido"
                                                                                           dragDropSupport="true"
                                                                                           />
-                                                                            <p:inputText  readonly="true" id="ruta_articulo" value="#{importacionBean.ruta_articulo}" 
+                                                                            <p:inputText  id="ruta_articulo" value="#{importacionBean.ruta_articulo}" 
                                                                                           required="true" requiredMessage="Seleccione un Archivo" 
-                                                                                          style="width: 100%; text-align: center;background: #c4e3f3;" />                                                                                        
+                                                                                          style="width: 100%; text-align: center;background: #c4e3f3;" />
+                                                                             <p:messages id="infoMessages4" for="ruta_articulo" />
                                                                         </div>
                                                                     </div>
-                                                                    <br />
-                                                                    <div class="row">
-                                                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                                            <p:outputLabel value="Resumen del Artículo:" /><br/>
-                                                                            <p:inputTextarea rows="6"
-                                                                                             cols="68" 
-                                                                                             id="resumen"
-                                                                                             value="#{importacionBean.resumen }" 
-                                                                                             style="resize: none;" 
-                                                                                             required="true"
-                                                                                             requiredMessage="Ingrese el resumen del Artículo"
-
-                                                                                             />
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br/>
-                                                                    <p:commandButton value="Guardar" 
+                                                                    <p:commandButton value="Guardawwdddr" 
                                                                                      actionListener="#{importacionBean.guardarArticulo()}" 
-                                                                                     ajax="false" 
                                                                                      validateClient="true"
                                                                                      class="btn btn-success"
+                                                                                     ajax="false"
                                                                                      />
                                                                 </p:dialog> 
                                                             </div>

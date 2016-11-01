@@ -79,10 +79,10 @@
 
                                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> #{ inicioBean.logueado}  <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li role="separator" class="divider"></li>
+
                                     <li>
                                         <li><h:link outcome="Perfil"   value="Ver Perfil" /></li>
-
+                                        <li role="separator" class="divider"></li>
                                         <h:form >
                                             <h:commandButton action="#{ inicioBean.Salir()}" value="Salir" class="salirBtn"></h:commandButton>
                                         </h:form>
@@ -198,7 +198,7 @@
                     <!-- Side Widget Well -->
                 </div>
             </div>
-            <p:dialog header="Iniciar Sesión" widgetVar="login_modal" minHeight="100" modal="true" resizable="false">
+            <p:dialog header="Iniciar Sesión" widgetVar="login_modal" minHeight="100" modal="true" resizable="false" closeOnEscape="true">
                 <h:form id="form-login">
 
                     <h:panelGrid columns="2">

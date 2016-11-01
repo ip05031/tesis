@@ -55,7 +55,7 @@
 
 
                                                     <p:column headerText="Revista" filterBy="#{inventario.idRevista.titulor}" sortBy="#{inventario.idRevista.titulor}">
-                                                        <h:outputText value="#{inventario.idRevista.titulor}" />
+                                                        <h:outputText value="#{inventario.idRevista.idTitulo.tituloRevista} #{inventario.idRevista.titulor}" />
                                                     </p:column>
 
                                                     <p:column headerText="Estado" filterBy="#{inventario.idEstado.nombreEstado}" sortBy="#{inventario.idEstado.nombreEstado}">

@@ -299,10 +299,14 @@ public class importacionBean implements Serializable {
         String nombreInventado = "Manual.pdf";
         obtenerRevista(this.idRevista);
         String corte[];
+        if (streamPortada.equals(null) || streamRevista.equals(null)) {
+            System.out.println("stream portada null");
+            return;
+        }
         corte = ruta_portada.split(".");
-        String nombrePortadaRevista="Revista-"+this.idRevista+".jpg";
-        String nombreRevista="Revista-"+this.idRevista+".pdf";
-        
+        String nombrePortadaRevista = "Revista-" + this.idRevista + ".jpg";
+        String nombreRevista = "Revista-" + this.idRevista + ".pdf";
+
         copyFile(nombrePortadaRevista, streamPortada, 1);
 
         copyFile(nombreRevista, streamRevista, 2);
@@ -314,8 +318,10 @@ public class importacionBean implements Serializable {
         System.out.println(this.ruta_portada);
         System.out.println(this.ruta_revista);
 
-        
-        revista.setDescripcionr(this.descripcion);
+        if (this.descripcion.compareToIgnoreCase("") != 0) {
+            revista.setDescripcionr(this.descripcion);
+        }
+
         revista.setImagenpr(nombrePortadaRevista);
         revista.setArchivopr(nombreRevista);
         new RevistasJPA().mergeTipoUsuario(revista);
@@ -326,15 +332,22 @@ public class importacionBean implements Serializable {
     public void guardarArticulo() {
         String nombreArticulo = "";
         System.out.println("Ejemplo");
-        String numeroArticulo  = ""+this.articulo.getIdArticulo();
-        String numeroRevista = ""+this.articulo.getIdRevista().getIdRevista();
-        nombreArticulo = "Articulo-"+numeroRevista+"-"+numeroArticulo+".pdf";
-        System.out.println("nombre:"+nombreArticulo);
+        
+        if( this.ruta_articulo.compareTo("") == 0 ){
+            return;
+        }
+        String numeroArticulo = "" + this.articulo.getIdArticulo();
+        String numeroRevista = "" + this.articulo.getIdRevista().getIdRevista();
+        nombreArticulo = "Articulo-" + numeroRevista + "-" + numeroArticulo + ".pdf";
+        System.out.println("nombre:" + nombreArticulo);
         copyFile(nombreArticulo, streamArticulo, 3);
-        this.articulo.setResumena(this.resumen);
+        if (this.resumen.compareToIgnoreCase("") != 0) {
+            this.articulo.setResumena(this.resumen);
+        }
+        
         this.articulo.setArchivoa(nombreArticulo);
         new ArticulosJPA().mergeTipoUsuario(this.articulo);
-        limpiar2();        
+        limpiar2();
     }
 
     public void copyFile(String fileName, InputStream in, int tipo) {
@@ -533,18 +546,18 @@ public class importacionBean implements Serializable {
         limpiarTodo();
 
     }
- 
+
     public void limpiarTodo() {
         this.descripcion = "";
         this.idRevista = 1;
         this.ruta_portada = "";
         this.ruta_revista = "";
     }
-    
-    public void limpiar2(){
+
+    public void limpiar2() {
         this.setRuta_articulo("");
         this.setResumen("");
-        
+
     }
 
 }

@@ -47,6 +47,9 @@ public class RegistroBean implements Serializable {
 
         try {
             System.out.println("si llegó");
+            String contra1 = newUser.getPassword();
+            String nuevaContra = new usuarioBean().sha256(contra1);
+            newUser.setPassword(nuevaContra);
             usuarioJPA = new UsuarioJPA();
             TipoUsuario tu = new TipoUsuario();
             tu.setIdTusuario(5);
@@ -57,6 +60,7 @@ public class RegistroBean implements Serializable {
             this.newUser.setIdTusuario(tu);
             this.newUser.setFechau(fechaRegistro);
             this.newUser.setIdUsuario(usuarioJPA.getClave());
+            
             this.newUser.setEstadoi(1);
             //Codigo de aletorio de ingreso al usuario
             String inicio = getCadenaAlfanumAleatoria(8);

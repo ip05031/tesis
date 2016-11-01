@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Descarga.findAll", query = "SELECT d FROM Descarga d"),
+    @NamedQuery(name = "Descarga.findMaxId", query = "SELECT MAX(d.idDescarga) FROM Descarga d"),
     @NamedQuery(name = "Descarga.findByIdDescarga", query = "SELECT d FROM Descarga d WHERE d.idDescarga = :idDescarga"),
     @NamedQuery(name = "Descarga.findByFechad", query = "SELECT d FROM Descarga d WHERE d.fechad = :fechad"),
     @NamedQuery(name = "Descarga.findByHorad", query = "SELECT d FROM Descarga d WHERE d.horad = :horad")})
@@ -45,7 +46,7 @@ public class Descarga implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechad;
     @Column(name = "horad")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIME)  
     private Date horad;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne

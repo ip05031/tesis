@@ -54,7 +54,9 @@ public class InicioBean implements Serializable {
     private String menu;
     private List<Pantalla> listaPantallas = new ArrayList<>();
     private Usuario userLogueado = new Usuario();
+    private Usuario perfilUsuario = new Usuario();
     FacesContext context;
+
 
     /*---------------------------------------------------------- Constructor -----------------------------------------------------------------------*/
     public InicioBean() {
@@ -66,7 +68,22 @@ public class InicioBean implements Serializable {
 
     /*---------------------------------------------------------- Funciones Propias -----------------------------------------------------------------*/
     public void descargaArchivo() {
+        Revista rev = new Revista();
+        rev = this.revistaAbrir;
+        
+        // id revista
+        // id articulo
+        // id usuario
+        // fecha
+        // hora
+        
+        
         this.setArchivoDownload(true);
+    }
+
+    public void habilitar() {
+        System.out.println("Algo ............");
+        this.setArchivoDownload(false);
     }
 
     public String setearRedirigir(Revista revista) {
@@ -90,6 +107,7 @@ public class InicioBean implements Serializable {
     }
 
     public List<Revista> getListadoRevistas() {
+        System.out.println("getlistadoRevistas");
         inicioJPA = new InicioJPA();
         listaRevista = inicioJPA.obtnerRevistas2();
         return listaRevista;
@@ -114,7 +132,7 @@ public class InicioBean implements Serializable {
             this.setUserLogueado(user.get(0));
             System.out.println("this is the nick: ----------------------");
             System.out.println(userLogged.getNickname());
-            this.setLogueado("" + userLogged.getNombreu() + " " + userLogged.getApellidosu());
+            this.setLogueado("" + userLogged.getNickname());
             listaDePantallas = userLogged.getIdTusuario().getPantallaList();
             definirMenu(userLogged);
             this.setUsuarioContra("");
@@ -361,5 +379,13 @@ public class InicioBean implements Serializable {
 
     public void setUserLogueado(Usuario userLogueado) {
         this.userLogueado = userLogueado;
+    }
+
+    public Usuario getPerfilUsuario() {
+        return perfilUsuario;
+    }
+
+    public void setPerfilUsuario(Usuario perfilUsuario) {
+        this.perfilUsuario = perfilUsuario;
     }
 }
