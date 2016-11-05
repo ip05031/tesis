@@ -19,7 +19,7 @@
                         <div class="pull-right">
                             <c:if test="#{ !inicioBean.archivoDownload}" >
                                 <h:form >
-                                    <h:commandButton value="Solicitar Descarga.." action="#{inicioBean.descargaArchivo() }"  class="btn btn-info"/>
+                                    <h:commandButton value="Solicitar Descarga.." action="#{inicioBean.descargaArchivo(2) }"  class="btn btn-info"/>
                                 </h:form>
                             </c:if> 
                             <c:if test="#{ inicioBean.archivoDownload}" >

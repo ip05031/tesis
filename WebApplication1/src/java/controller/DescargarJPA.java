@@ -38,7 +38,7 @@ public class DescargarJPA {
         } catch (Exception e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Ha ocurrido un error!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
-            System.out.println("Error en SaveUsuario JPA");
+            System.out.println("Error en save descarga JPA");
             System.out.println(e.getMessage());
         } finally {
 
@@ -48,7 +48,7 @@ public class DescargarJPA {
     public Integer getClave() {
         Integer claveId = 0;
         try {
-            claveId = (Integer) em.createNamedQuery("Descargar.findMaxId").getSingleResult();
+            claveId = (Integer) em.createNamedQuery("Descarga.findMaxId").getSingleResult();
             if (claveId != null) {
                 return claveId + 1;
             } else {

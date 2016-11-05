@@ -46,7 +46,7 @@ public class Descarga implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechad;
     @Column(name = "horad")
-    @Temporal(TemporalType.TIME)  
+    @Temporal(TemporalType.TIME)
     private Date horad;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne
@@ -55,7 +55,7 @@ public class Descarga implements Serializable {
     @ManyToOne(optional = false)
     private Revista idRevista;
     @JoinColumn(name = "id_articulo", referencedColumnName = "id_articulo")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Articulo idArticulo;
 
     public Descarga() {

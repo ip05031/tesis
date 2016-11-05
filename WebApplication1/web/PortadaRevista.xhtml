@@ -91,7 +91,7 @@
                                     <c:if test="#{ inicioBean.inicioSesion}" >
                                         <c:if test="#{!inicioBean.archivoDownload}" >
                                             <h:form >
-                                                <h:commandButton value="Solicitar Descarga" action="#{inicioBean.descargaArchivo() }"  class="btn btn-info"/>
+                                                <h:commandButton value="Solicitar Descarga" action="#{inicioBean.descargaArchivo(1) }"  class="btn btn-info"/>
                                             </h:form>
 
                                         </c:if> 

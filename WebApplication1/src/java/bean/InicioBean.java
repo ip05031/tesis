@@ -6,10 +6,12 @@
 package bean;
 
 import controller.ArticuloJPA;
+import controller.DescargarJPA;
 import controller.ImportarJPA;
 import controller.InicioJPA;
 import controller.RevistaJPA;
 import entity.Articulo;
+import entity.Descarga;
 import entity.Pantalla;
 import entity.Revista;
 import entity.Usuario;
@@ -19,6 +21,9 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +61,7 @@ public class InicioBean implements Serializable {
     private Usuario userLogueado = new Usuario();
     private Usuario perfilUsuario = new Usuario();
     FacesContext context;
+    private DescargarJPA descargarJPA;
 
 
     /*---------------------------------------------------------- Constructor -----------------------------------------------------------------------*/
@@ -67,33 +73,69 @@ public class InicioBean implements Serializable {
     }
 
     /*---------------------------------------------------------- Funciones Propias -----------------------------------------------------------------*/
-    public void descargaArchivo() {
+    public void descargaArchivo(int tipo) {
+
+        Descarga desc = new Descarga();
         Revista rev = new Revista();
+        Articulo art = new Articulo();
+        Usuario user = new Usuario();
+        Date fecha = null;
+        Date hora = null;
+        int idDescarga = 0;
+        descargarJPA = new DescargarJPA();
+
         rev = this.revistaAbrir;
-        
+        context = FacesContext.getCurrentInstance();
+        user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
+
+        idDescarga = descargarJPA.getClave();
+        Calendar calendario = GregorianCalendar.getInstance();
+        fecha = calendario.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, calendario.HOUR_OF_DAY);
+        cal.set(Calendar.MINUTE, calendario.MINUTE);
+        cal.set(Calendar.SECOND, calendario.SECOND);
+        cal.set(Calendar.MILLISECOND, calendario.MILLISECOND);
+        hora = calendario.getTime();
+
+        desc.setIdDescarga(idDescarga);
+        desc.setIdRevista(rev);
+        desc.setIdUsuario(user);
+        desc.setFechad(fecha);
+        desc.setHorad(hora);
+
+        if (tipo == 2) {
+            art = this.articuloAbrir;
+            desc.setIdArticulo(art);
+        }
+        try {
+            descargarJPA.saveDescarga(desc);
+            this.setArchivoDownload(true);
+        } catch (Exception e) {
+            System.out.println("solicitar descarga");
+        }
+
         // id revista
         // id articulo
         // id usuario
         // fecha
         // hora
-        
-        
-        this.setArchivoDownload(true);
     }
 
-    public void habilitar() {
-        System.out.println("Algo ............");
+    public void inhabilitar() {
         this.setArchivoDownload(false);
     }
 
     public String setearRedirigir(Revista revista) {
         this.revistaAbrir = revista;
+        inhabilitar();
         listArticulo = new ImportarJPA().getListaUnArticulo(revista.getIdRevista());
         return "PortadaRevista?faces-redirect=true";
     }
 
     public String setearArticuloRedirigir(Articulo art) {
         System.out.println("se va para ver Articulo");
+        inhabilitar();
         this.articuloAbrir = art;
         return "VerArticulo?faces-redirect=true";
     }
@@ -163,6 +205,7 @@ public class InicioBean implements Serializable {
 
     public String Salir() {
         this.setInicioSesion(false);
+        inhabilitar();
         context = FacesContext.getCurrentInstance();
         context.getExternalContext().getSessionMap().remove("logueado");
         redirigir();

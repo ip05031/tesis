@@ -50,7 +50,7 @@ public class Prestamo implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechap;
     @Column(name = "horap")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIME)
     private Date horap;
     @Column(name = "tipop")
     private Integer tipop;
