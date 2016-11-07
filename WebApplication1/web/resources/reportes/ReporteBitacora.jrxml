@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteBitacora" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43d1814c-a058-4cb8-a4f1-e46c3b140ca4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="date_desde" class="java.util.Date"/>
+	<parameter name="date_hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     bitacora."tabla" AS bitacora_tabla,
+     bitacora."fechabitacora" AS bitacora_fechabitacora,
+     bitacora."accion" AS bitacora_accion,
+     tipo_usuario."nombretp" AS tipo_usuario_nombretp
+FROM
+     "public"."bitacora" bitacora,
+     "public"."tipo_usuario" tipo_usuario]]>
+	</queryString>
+	<field name="bitacora_tabla" class="java.lang.String"/>
+	<field name="bitacora_fechabitacora" class="java.sql.Date"/>
+	<field name="bitacora_accion" class="java.lang.String"/>
+	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="3" y="24" width="125" height="46" uuid="da1465a9-e7bf-47dd-8e04-0be0ceccc921"/>
+				<imageExpression><![CDATA["C:\\Users\\Mario Sanchez\\Desktop\\imagenes banner\\muna-antropologia.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="342" y="53" width="36" height="20" uuid="3e5ea625-cd23-4319-bcba-cfe0a1f233df"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="29" width="273" height="20" uuid="47928cbc-c3fa-4da3-8ac6-c12ff31e0923"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Acciones Realizadas por el Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="4" width="425" height="20" uuid="aee3a6d1-aac4-4ed3-a74c-d5872ada1bdb"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="53" width="43" height="20" uuid="72d85a0c-3510-4cca-a45a-152345de6cca"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="239" y="53" width="100" height="20" uuid="6f416b02-7fd8-4d22-9fc9-28cdc3055906"/>
+				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="53" width="100" height="20" uuid="6165096f-7033-4744-9271-10390d9ec9f2"/>
+				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="55" y="2" width="100" height="20" uuid="e9f05d9e-4a63-443c-865a-9d96bb150bcb"/>
+				<text><![CDATA[Tabla Afectada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="2" width="100" height="20" uuid="778327f9-cbc9-4493-aa79-81893d9b6c4e"/>
+				<text><![CDATA[Accion Realizada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="2" width="100" height="20" uuid="0fd62786-f9b6-48e5-aff0-00096f2113ef"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="55" y="0" width="100" height="20" uuid="5269311b-5deb-45e6-8cf9-8ad3ea95eeb9"/>
+				<textFieldExpression><![CDATA[$F{bitacora_tabla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="0" width="100" height="20" uuid="48e9e979-fab5-4592-975e-2f6ed5942dbd"/>
+				<textFieldExpression><![CDATA[$F{bitacora_accion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="100" height="20" uuid="d14034c5-3c4c-4289-98a1-ec4bde76a49d"/>
+				<textFieldExpression><![CDATA[$F{bitacora_fechabitacora}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="h.mm.ss a">
+				<reportElement x="10" y="10" width="100" height="20" uuid="5a5157d4-57f9-406a-b9f7-4442535c540b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="10" y="31" width="100" height="20" uuid="279d17eb-35bd-4cc9-bcc7-6d92e16774b3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="499" y="29" width="40" height="20" uuid="0ac7c17e-622c-4566-8faa-ad8e75fe385b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="29" width="80" height="20" uuid="68a0369f-a636-4aa4-b10f-01c18af61c2f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="5" width="48" height="20" uuid="61732bf0-498b-47c0-bbb5-4b38abca80b7"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="452" y="5" width="100" height="20" uuid="8075e8e6-ef0d-4d31-8f0a-6317486a69de"/>
+				<textFieldExpression><![CDATA[$F{tipo_usuario_nombretp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

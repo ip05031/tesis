@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteDescargas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="841f839a-0cb4-42bc-b38f-9c544993aaab">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="date_desde" class="java.util.Date"/>
+	<parameter name="date_hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     descarga."fechad" AS descarga_fechad,
+     categoria."nombrec" AS categoria_nombrec,
+     revista."titulor" AS revista_titulor,
+     titulo."titulo_revista" AS titulo_titulo_revista,
+     tipo_usuario."nombretp" AS tipo_usuario_nombretp
+FROM
+     "public"."revista" revista INNER JOIN "public"."descarga" descarga ON revista."id_revista" = descarga."id_revista"
+     INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo",
+     "public"."categoria" categoria,
+     "public"."tipo_usuario" tipo_usuario]]>
+	</queryString>
+	<field name="descarga_fechad" class="java.sql.Date"/>
+	<field name="categoria_nombrec" class="java.lang.String"/>
+	<field name="revista_titulor" class="java.lang.String"/>
+	<field name="titulo_titulo_revista" class="java.lang.String"/>
+	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="183" y="57" width="37" height="20" uuid="7124f08c-498a-4836-9ae3-e7de9753e95f"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="14" width="119" height="43" uuid="798d68c2-da7c-476f-99a2-f6cdc5c799f7"/>
+				<imageExpression><![CDATA["C:\\Users\\Mario Sanchez\\Desktop\\imagenes banner\\muna-antropologia.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="219" y="34" width="204" height="20" uuid="d0c165b4-6390-4d50-868c-7f9a7e4b14eb"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Descargas de Revista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="57" width="31" height="20" uuid="f201cb75-172c-489b-b4ec-3aaf0a085a14"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="14" width="431" height="20" uuid="c1268262-4ab2-492b-bdb1-8ec7c8b96998"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="221" y="57" width="100" height="20" uuid="f2595e2e-fc0e-4355-863c-4a43d0686f1e"/>
+				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="57" width="100" height="20" uuid="ad80a192-6086-4c25-a44c-a4ec09f1e155"/>
+				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="2" width="100" height="20" uuid="553e0807-78d5-4c78-8971-684cb6583447"/>
+				<text><![CDATA[Nombre de Revista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="2" width="100" height="20" uuid="6e9b6d80-1475-4025-8624-24b2dd1393cb"/>
+				<text><![CDATA[Volumen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="2" width="100" height="20" uuid="2299b616-dffc-4010-bc98-643da9766ffa"/>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="2" width="100" height="20" uuid="c9b86ca4-52e0-42fe-bb9e-e3f94a4d3ed5"/>
+				<text><![CDATA[Fecha Descarga]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="19" y="0" width="100" height="20" uuid="19cbc30a-0a58-4782-a670-7cfa99d67c3d"/>
+				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="0" width="100" height="20" uuid="e2a38abf-e26f-4c32-9cbf-0e2b8acf4c54"/>
+				<textFieldExpression><![CDATA[$F{revista_titulor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="0" width="100" height="20" uuid="b65f68ab-e4d3-45ed-bed3-73f3ca9333dc"/>
+				<textFieldExpression><![CDATA[$F{categoria_nombrec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="20" uuid="07318d69-c78c-49c5-9eff-13e54d606255"/>
+				<textFieldExpression><![CDATA[$F{descarga_fechad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="422" y="29" width="80" height="20" uuid="0118b5e1-0197-4616-86c2-817ec03734f0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="502" y="29" width="40" height="20" uuid="f75dc980-5c0e-4e92-b330-c214fd24a76c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="423" y="6" width="42" height="20" uuid="a3c6901d-fee0-427d-81a1-b93445d2dbc6"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="4" y="9" width="100" height="20" uuid="36988da2-a263-45c6-b68f-caf749226958"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="7" y="29" width="100" height="20" uuid="137543ca-484e-4ddf-96f4-1d71b5fdbb15"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="6" width="87" height="20" uuid="952791a6-23f4-44b2-81e1-fecf5880a7fe"/>
+				<textFieldExpression><![CDATA[$F{tipo_usuario_nombretp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

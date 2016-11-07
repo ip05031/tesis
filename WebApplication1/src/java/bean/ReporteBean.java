@@ -71,7 +71,7 @@ public class ReporteBean implements Serializable {
         parametros.put("date_hasta", hasta);
         parametros.put("usuario", usuario);
 
-        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReportPrueba.jasper");
+        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteDescargas.jasper");
         System.out.println("realpath");
         System.out.println(realPath);
         archivo = new File(realPath);
@@ -84,7 +84,7 @@ public class ReporteBean implements Serializable {
                     conect
             );
             HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            response.addHeader("Content-disposition", "attachment; filename=jsfReporte.pdf");
+            response.addHeader("Content-disposition", "attachment; filename=ReporteDescargas.pdf");
             ServletOutputStream stream = response.getOutputStream();
 
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
@@ -101,9 +101,275 @@ public class ReporteBean implements Serializable {
         }
 
     }
+    
+    /*--------------------------REPORTE DE PUBLICACIONES-----------------------------------------------------*/
+    
+    public void reportPublicaciones() {
+        System.out.println("exportar PDF");
+        String realPath = "";
+        File archivo;
+        Connection conect;
 
-    /*----------------------------------------------------------------------------*/
-    public Date getDesde() {
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        Calendar calendario = GregorianCalendar.getInstance();
+
+        Date desde = calendario.getTime();
+        Date hasta = calendario.getTime();
+        String usuario = "Nombre Usuario";
+
+        parametros.put("date_desde", desde);
+        parametros.put("date_hasta", hasta);
+        parametros.put("usuario", usuario);
+
+        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/RevistaPMensual.jasper");
+        System.out.println("realpath");
+        System.out.println(realPath);
+        archivo = new File(realPath);
+
+        try {
+            conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    archivo.getPath(),
+                    parametros,
+                    conect
+            );
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=RevistaPMensual.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception ex) {
+            System.out.println("Error : 1");
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("fin error 1");
+        }
+
+    }
+    
+    /*-------------------------------------------------------------------------------------------------------*/
+    
+    /*-------------------------Reporte de Estado Revista-----------------------------------------------------*/
+    
+     public void reportEstadoRevista() {
+        System.out.println("exportar PDF");
+        String realPath = "";
+        File archivo;
+        Connection conect;
+
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        Calendar calendario = GregorianCalendar.getInstance();
+
+        Date desde = calendario.getTime();
+        Date hasta = calendario.getTime();
+        String usuario = "Nombre Usuario";
+
+        parametros.put("date_desde", desde);
+        parametros.put("date_hasta", hasta);
+        parametros.put("usuario", usuario);
+
+        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstado.jasper");
+        System.out.println("realpath");
+        System.out.println(realPath);
+        archivo = new File(realPath);
+
+        try {
+            conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    archivo.getPath(),
+                    parametros,
+                    conect
+            );
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=EstadoRevista.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception ex) {
+            System.out.println("Error : 1");
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("fin error 1");
+        }
+
+    }
+    
+    /*------------------------------------------------------------------------------------------------------*/
+    
+     /*-------------------------Reporte de Bitacora-----------------------------------------------------*/
+    
+     public void reportBitacora() {
+        System.out.println("exportar PDF");
+        String realPath = "";
+        File archivo;
+        Connection conect;
+
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        Calendar calendario = GregorianCalendar.getInstance();
+
+        Date desde = calendario.getTime();
+        Date hasta = calendario.getTime();
+        String usuario = "Nombre Usuario";
+
+        parametros.put("date_desde", desde);
+        parametros.put("date_hasta", hasta);
+        parametros.put("usuario", usuario);
+
+        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteBitacora.jasper");
+        System.out.println("realpath");
+        System.out.println(realPath);
+        archivo = new File(realPath);
+
+        try {
+            conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    archivo.getPath(),
+                    parametros,
+                    conect
+            );
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=ReporteBitacora.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception ex) {
+            System.out.println("Error : 1");
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("fin error 1");
+        }
+
+    }
+    
+    /*------------------------------------------------------------------------------------------------------*/
+     
+     
+     /*-------------------------Reporte de Adquisiciones-----------------------------------------------------*/
+    
+     public void reportAdquisiciones() {
+        System.out.println("exportar PDF");
+        String realPath = "";
+        File archivo;
+        Connection conect;
+
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        Calendar calendario = GregorianCalendar.getInstance();
+
+        Date desde = calendario.getTime();
+        Date hasta = calendario.getTime();
+        String usuario = "Nombre Usuario";
+
+        parametros.put("date_desde", desde);
+        parametros.put("date_hasta", hasta);
+        parametros.put("usuario", usuario);
+
+        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReportAdquisiciones.jasper");
+        System.out.println("realpath");
+        System.out.println(realPath);
+        archivo = new File(realPath);
+
+        try {
+            conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    archivo.getPath(),
+                    parametros,
+                    conect
+            );
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=ReporteAdquisiciones.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception ex) {
+            System.out.println("Error : 1");
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("fin error 1");
+        }
+
+    }
+    
+    /*------------------------------------------------------------------------------------------------------*/
+     
+    /*-------------------------Reporte de Prestamos-----------------------------------------------------*/
+    
+     public void reportPrestamos() {
+        System.out.println("exportar PDF");
+        String realPath = "";
+        File archivo;
+        Connection conect;
+
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        Calendar calendario = GregorianCalendar.getInstance();
+
+        Date desde = calendario.getTime();
+        Date hasta = calendario.getTime();
+        String usuario = "Nombre Usuario";
+
+        parametros.put("date_desde", desde);
+        parametros.put("date_hasta", hasta);
+        parametros.put("usuario", usuario);
+
+        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReportePrestamos.jasper");
+        System.out.println("realpath");
+        System.out.println(realPath);
+        archivo = new File(realPath);
+
+        try {
+            conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    archivo.getPath(),
+                    parametros,
+                    conect
+            );
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=ReportePrestamos.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception ex) {
+            System.out.println("Error : 1");
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("fin error 1");
+        }
+
+    }
+    
+    /*------------------------------------------------------------------------------------------------------*/
+      
+     
+     
+     
+     
+     
+     
+     public Date getDesde() {
         return desde;
     }
 

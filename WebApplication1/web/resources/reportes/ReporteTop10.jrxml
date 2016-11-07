@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteTop10" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0a9f8d28-ca7c-4e5b-a7bd-26290185bd14">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="date_desde" class="java.util.Date"/>
+	<parameter name="date_hasta" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="122" y="6" width="425" height="20" uuid="e183535d-a8b3-4e49-9a0c-9a4165569aae"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="55" width="43" height="20" uuid="eefff271-8886-4855-ab75-6b51a9568154"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="31" width="273" height="20" uuid="6c0a48f7-27f4-4f1a-931d-5dd856f01fb1"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de las 10 Revistas mas descargadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="55" width="36" height="20" uuid="a56322f8-c3d8-4f38-aa03-eedd21854655"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="8" y="27" width="125" height="46" uuid="1426d5e2-0861-47de-902f-08db2d108087"/>
+				<imageExpression><![CDATA["C:\\Users\\Mario Sanchez\\Desktop\\imagenes banner\\muna-antropologia.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="236" y="55" width="100" height="20" uuid="9673549a-4c92-4fcb-a022-e7b55b870ebb"/>
+				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="55" width="100" height="20" uuid="b4192fd2-1cd2-4bd9-aedf-5b637fa59e72"/>
+				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="49" splitType="Stretch">
+			<textField pattern="h.mm.ss a">
+				<reportElement x="10" y="7" width="100" height="20" uuid="190531d7-04f6-4ba7-be2d-17d80b53287f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="10" y="28" width="100" height="20" uuid="b66361bb-844a-4f61-ae7e-dbbf58e90756"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="401" y="5" width="48" height="20" uuid="4cda28ac-7d25-4a1e-8606-4dd37202a94c"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="401" y="28" width="80" height="20" uuid="942d6628-a114-41a0-9a60-afc9008da937"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="483" y="28" width="40" height="20" uuid="4590d06d-938a-47d8-9435-8bd390806de1"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

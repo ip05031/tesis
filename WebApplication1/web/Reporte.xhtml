@@ -22,7 +22,7 @@
                             <div class="panel panel-primary">
 
                                 <div class="panel-heading">
-                                    <i class="fa fa-bar-chart-o fa-fw"></i> Palabras Claves
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Reportes
                                     <div class="pull-right">
                                         <div class="btn-group">
                                             <h:form>
@@ -36,7 +36,27 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <h:form >
-                                        <h:commandButton value="Exportar PDF" actionListener="#{reporteBean.exportarPDF()}" />
+                                        <h:commandButton value="Exportar PDF1" actionListener="#{reporteBean.exportarPDF()}" />
+                                    </h:form>
+                                    
+                                    <h:form >
+                                        <h:commandButton value="Exportar PDF2" actionListener="#{reporteBean.reportPublicaciones()}" />
+                                    </h:form>
+                                    
+                                    <h:form >
+                                        <h:commandButton value="Exportar PDF3" actionListener="#{reporteBean.reportEstadoRevista()}" />
+                                    </h:form>
+                                    
+                                     <h:form >
+                                         <h:commandButton value="Exportar PDF4" actionListener="#{reporteBean.reportBitacora()}" />
+                                    </h:form>
+                                    
+                                    <h:form >
+                                        <h:commandButton value="Exportar PDF5" actionListener="#{reporteBean.reportAdquisiciones()}" />
+                                    </h:form>
+                                    
+                                    <h:form >
+                                        <h:commandButton value="Exportar PDF6" actionListener="#{reporteBean.reportPrestamos()}" />
                                     </h:form>
                                 </div>
                                 <!-- /.panel-body -->
