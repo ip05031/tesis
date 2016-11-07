@@ -9,7 +9,7 @@
     <body>
 
         <ui:composition template="./boot.xhtml">
- 
+
             <ui:define name="content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -31,12 +31,20 @@
                                     <p:column headerText="Nombre Revista" >
                                         <h:outputText value="Anales :53" />
                                     </p:column>
-                                    <p:column headerText="Prestador"  style="text-align: center" >
-                                        <h:outputText value="#{prestamo.idUsuario.nombreu} #{prestamo.idUsuario.apellidosu} - (#{prestamo.idUsuario.nickname})" />
+                                    <p:column headerText="Nombre"  style="text-align: center" >
+                                        <h:outputText value="#{prestamo.idUsuario.nombreu} #{prestamo.idUsuario.apellidosu} " />
+                                    </p:column>
+                                    <p:column headerText="Nombre Usuario"  style="text-align: center" >
+                                        <h:outputText value="#{prestamo.idUsuario.nickname}" />
                                     </p:column>
                                     <p:column headerText="Fecha Prestamo"  style="text-align: center" >
                                         <h:outputText value="#{prestamo.fechap}" >
                                             <f:convertDateTime pattern="dd-MM-YYYY" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="Hora Prestamo"  style="text-align: center" >
+                                        <h:outputText value="#{prestamo.horap}" >
+                                            <f:convertDateTime pattern="HH:mm:ss" />
                                         </h:outputText>
                                     </p:column>
                                 </p:dataTable>
