@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Donaciones.findAll", query = "SELECT d FROM Donaciones d"),
+    @NamedQuery(name = "Donaciones.reporte", query = "SELECT d FROM Donaciones d inner join d.revistaList r inner join d.idDonante.donacionesList do"),
     @NamedQuery(name = "Donaciones.aumentarId", query = "SELECT MAX(d.idDonacion) FROM Donaciones d"),
     @NamedQuery(name = "Donaciones.findByIdDonacion", query = "SELECT d FROM Donaciones d WHERE d.idDonacion = :idDonacion"),
     @NamedQuery(name = "Donaciones.findByFechadonacion", query = "SELECT d FROM Donaciones d WHERE d.fechadonacion = :fechadonacion"),

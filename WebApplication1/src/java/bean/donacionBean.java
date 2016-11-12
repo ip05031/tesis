@@ -143,6 +143,12 @@ public class donacionBean implements Serializable {
         this.iterar();
         return ldonaciones;
     }
+    
+    public List<Donaciones> donacionesReporte(){
+        ldonaciones = donacionJPA.getDonacionReporte();
+        this.iterar();
+        return ldonaciones; 
+    }
 
     public Map<String, String> getListadoDonantes() {
         return listadoDonantes;

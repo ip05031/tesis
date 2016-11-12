@@ -8,23 +8,25 @@
 	<parameter name="date_hasta" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[SELECT
-     titulo."titulo_revista" AS titulo_titulo_revista,
-     revista."titulor" AS revista_titulor,
+     titulo."titulo_revista"||' '||revista."titulor" AS titulo_titulo_revista,
      prestamo."fechap" AS prestamo_fechap,
-     prestamo."tipop" AS prestamo_tipop,
+     prestamo."horap" AS prestamo_horap,
      prestamo."paginasp" AS prestamo_paginasp,
-     tipo_usuario."nombretp" AS tipo_usuario_nombretp
+usuario."nombreu" || ' ' ||  usuario."apellidosu"  AS usuario_nombreu,
+     usuario."nickname" AS usuario_nickname
 FROM
-     "public"."titulo" titulo INNER JOIN "public"."revista" revista ON titulo."id_titulo" = revista."id_titulo",
-     "public"."prestamo" prestamo,
-     "public"."tipo_usuario" tipo_usuario]]>
+     "public"."titulo" titulo INNER JOIN "public"."revista" revista ON titulo."id_titulo" = revista."id_titulo"
+     INNER JOIN "public"."inventario" inventario ON revista."id_revista" = inventario."id_revista"
+     INNER JOIN "public"."prestamo" prestamo ON inventario."id_inventario" = prestamo."id_inventario"
+     INNER JOIN "public"."usuario" usuario ON prestamo."id_usuario" = usuario."id_usuario"
+     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"]]>
 	</queryString>
 	<field name="titulo_titulo_revista" class="java.lang.String"/>
-	<field name="revista_titulor" class="java.lang.String"/>
 	<field name="prestamo_fechap" class="java.sql.Date"/>
-	<field name="prestamo_tipop" class="java.lang.Integer"/>
+	<field name="prestamo_horap" class="java.sql.Time"/>
 	<field name="prestamo_paginasp" class="java.lang.Integer"/>
-	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
+	<field name="usuario_nombreu" class="java.lang.String"/>
+	<field name="usuario_nickname" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -69,48 +71,40 @@ FROM
 	<columnHeader>
 		<band height="24" splitType="Stretch">
 			<staticText>
-				<reportElement x="117" y="1" width="100" height="20" uuid="7e102432-52c7-4788-91e8-5748b0bbc3fd"/>
-				<text><![CDATA[revista_titulor]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="9" y="1" width="100" height="20" uuid="bd9a0818-5a7b-4677-9564-d879c3034926"/>
-				<text><![CDATA[titulo_titulo_revista]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="227" y="1" width="100" height="20" uuid="bd2a2928-28e2-4b8f-a2b2-6bd2c2e41e46"/>
-				<text><![CDATA[prestamo_tipop]]></text>
+				<text><![CDATA[Titulo Revista]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="446" y="1" width="100" height="20" uuid="3ac0539b-ab50-4762-8259-7828cc613401"/>
 				<text><![CDATA[prestamo_fechap]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="337" y="1" width="100" height="20" uuid="b4fc9dae-1e70-4cfc-915f-1f2450373d4d"/>
-				<text><![CDATA[prestamo_paginasp]]></text>
+				<reportElement x="303" y="1" width="100" height="20" uuid="b4fc9dae-1e70-4cfc-915f-1f2450373d4d"/>
+				<text><![CDATA[Paginas Consultadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="157" y="2" width="100" height="20" uuid="3777d835-54b3-46b8-becd-9e76de46d73e"/>
+				<text><![CDATA[Usuario ]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement x="117" y="0" width="100" height="20" uuid="216b4851-5d4e-402c-ad2f-000872ad0ba8"/>
-				<textFieldExpression><![CDATA[$F{revista_titulor}]]></textFieldExpression>
-			</textField>
+		<band height="24" splitType="Stretch">
 			<textField>
 				<reportElement x="9" y="0" width="100" height="20" uuid="f3c60c37-d804-46a1-bdea-b34bda958742"/>
 				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="227" y="0" width="100" height="20" uuid="d524accd-1ad0-420d-92db-ef1752afe624"/>
-				<textFieldExpression><![CDATA[$F{prestamo_tipop}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="446" y="0" width="100" height="20" uuid="f0879794-f8b1-40d1-b4a3-ff5dcb56e649"/>
 				<textFieldExpression><![CDATA[$F{prestamo_fechap}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="337" y="0" width="100" height="20" uuid="73aa6864-98d1-4c89-9e30-0bd8d1851b95"/>
+				<reportElement x="303" y="0" width="100" height="20" uuid="73aa6864-98d1-4c89-9e30-0bd8d1851b95"/>
 				<textFieldExpression><![CDATA[$F{prestamo_paginasp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="1" width="100" height="20" uuid="916f8a75-a0d0-49a1-a23c-fe23cf8a196d"/>
+				<textFieldExpression><![CDATA[$F{usuario_nombreu}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -136,10 +130,6 @@ FROM
 			<textField pattern="dd MMMMM yyyy">
 				<reportElement x="5" y="29" width="100" height="20" uuid="4fa85500-a05d-4b55-a0b4-f37f793bb0bf"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="451" y="6" width="100" height="20" uuid="027f4ef0-2b84-4050-ae72-a1955ec74579"/>
-				<textFieldExpression><![CDATA[$F{tipo_usuario_nombretp}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

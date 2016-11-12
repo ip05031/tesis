@@ -31,20 +31,15 @@
 		<![CDATA[SELECT
      donate."nombred" AS donate_nombred,
      donaciones."fechadonacion" AS donaciones_fechadonacion,
-     titulo."titulo_revista" AS titulo_titulo_revista,
-     revista."titulor" AS revista_titulor,
-     tipo_usuario."nombretp" AS tipo_usuario_nombretp
+     titulo."titulo_revista"|| ' '|| revista."titulor" AS titulo_titulo_revista
 FROM
      "public"."donate" donate INNER JOIN "public"."donaciones" donaciones ON donate."id_donante" = donaciones."id_donante"
      INNER JOIN "public"."revista" revista ON donaciones."id_donacion" = revista."id_donacion"
-     INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo",
-     "public"."tipo_usuario" tipo_usuario]]>
+     INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo"]]>
 	</queryString>
 	<field name="donate_nombred" class="java.lang.String"/>
 	<field name="donaciones_fechadonacion" class="java.sql.Date"/>
 	<field name="titulo_titulo_revista" class="java.lang.String"/>
-	<field name="revista_titulor" class="java.lang.String"/>
-	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -93,12 +88,8 @@ FROM
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="158" y="0" width="100" height="20" uuid="1e3842c2-019f-4c6f-a516-f30752dfb8c4"/>
+				<reportElement x="232" y="0" width="100" height="20" uuid="1e3842c2-019f-4c6f-a516-f30752dfb8c4"/>
 				<text><![CDATA[Nombre Revista]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="296" y="2" width="100" height="20" uuid="2441ec85-ac57-4a5f-87d1-49a6e2b2c9a9"/>
-				<text><![CDATA[Volumen]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="440" y="2" width="100" height="20" uuid="188505d4-d83c-47a0-bf83-0f4c8485359a"/>
@@ -113,12 +104,8 @@ FROM
 				<textFieldExpression><![CDATA[$F{donate_nombred}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="158" y="0" width="100" height="20" uuid="0ad9b4cc-2425-43f4-a13b-4dc4dd7dc7e1"/>
+				<reportElement x="232" y="0" width="100" height="20" uuid="0ad9b4cc-2425-43f4-a13b-4dc4dd7dc7e1"/>
 				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="296" y="0" width="100" height="20" uuid="498758df-572e-46c5-b0b9-ee2637956ce4"/>
-				<textFieldExpression><![CDATA[$F{revista_titulor}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="439" y="0" width="100" height="20" uuid="8d0020b2-cfe3-41c6-847a-628b52f7be9a"/>
@@ -148,10 +135,6 @@ FROM
 			<textField pattern="h.mm.ss a">
 				<reportElement x="14" y="6" width="100" height="20" uuid="0faaedc5-2a93-48ea-8e01-de9efc8cf2b8"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="456" y="5" width="95" height="20" uuid="b16d3fdf-4b19-4308-bc8e-ea1594d1c793"/>
-				<textFieldExpression><![CDATA[$F{tipo_usuario_nombretp}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

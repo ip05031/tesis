@@ -8,27 +8,28 @@
 	<parameter name="date_hasta" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[SELECT
-     estado."id_estado" AS estado_id_estado,
      estado."nombre_estado" AS estado_nombre_estado,
-     revista."id_revista" AS revista_id_revista,
      revista."titulor" AS revista_titulor,
-     tipo_usuario."id_tusuario" AS tipo_usuario_id_tusuario,
      tipo_usuario."nombretp" AS tipo_usuario_nombretp,
-     titulo."id_titulo" AS titulo_id_titulo,
-     titulo."titulo_revista" AS titulo_titulo_revista
+     titulo."titulo_revista" AS titulo_titulo_revista,
+     usuario."nombreu" AS usuario_nombreu,
+     usuario."apellidosu" AS usuario_apellidosu,
+     inventario."existenciai" AS inventario_existenciai
 FROM
-     "public"."titulo" titulo INNER JOIN "public"."revista" revista ON titulo."id_titulo" = revista."id_titulo",
-     "public"."estado" estado,
-     "public"."tipo_usuario" tipo_usuario]]>
+     "public"."titulo" titulo INNER JOIN "public"."revista" revista ON titulo."id_titulo" = revista."id_titulo"
+     INNER JOIN "public"."descarga" descarga ON revista."id_revista" = descarga."id_revista"
+     INNER JOIN "public"."inventario" inventario ON revista."id_revista" = inventario."id_revista"
+     INNER JOIN "public"."estado" estado ON inventario."id_estado" = estado."id_estado"
+     INNER JOIN "public"."usuario" usuario ON descarga."id_usuario" = usuario."id_usuario"
+     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"]]>
 	</queryString>
-	<field name="estado_id_estado" class="java.lang.Integer"/>
 	<field name="estado_nombre_estado" class="java.lang.String"/>
-	<field name="revista_id_revista" class="java.lang.Integer"/>
 	<field name="revista_titulor" class="java.lang.String"/>
-	<field name="tipo_usuario_id_tusuario" class="java.lang.Integer"/>
 	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
-	<field name="titulo_id_titulo" class="java.lang.Integer"/>
 	<field name="titulo_titulo_revista" class="java.lang.String"/>
+	<field name="usuario_nombreu" class="java.lang.String"/>
+	<field name="usuario_apellidosu" class="java.lang.String"/>
+	<field name="inventario_existenciai" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

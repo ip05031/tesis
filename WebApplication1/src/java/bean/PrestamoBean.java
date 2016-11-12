@@ -96,6 +96,12 @@ public class PrestamoBean implements Serializable {
         categorias = prestamoJPA.getCategorias();
         return categorias;
     }
+    
+    public List<Prestamo> prestamoReporte(){
+       prestamoJPA = new PrestamoJPA();
+      // prestamos = PrestamoJPA.getPrestamoReporte();
+       return prestamos; 
+    }
 
     public List<Titulo> listaTitulos() {
         prestamoJPA = new PrestamoJPA();
