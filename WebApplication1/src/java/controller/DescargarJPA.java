@@ -7,6 +7,7 @@ package controller;
 
 import entity.Descarga;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -22,6 +23,7 @@ public class DescargarJPA {
 
     EntityManager em;
     EntityManagerFactory emf;
+    private List<Descarga> horas_descargas = new ArrayList<>();
 
     public DescargarJPA() {
         emf = Persistence.createEntityManagerFactory("WebApplication1PU");
@@ -29,7 +31,7 @@ public class DescargarJPA {
         em.getTransaction().begin();
     }
 
-       public void saveDescarga(Descarga descarga) {
+    public void saveDescarga(Descarga descarga) {
         try {
 
             em.persist(descarga);
@@ -58,6 +60,24 @@ public class DescargarJPA {
             System.out.println(e);
             return claveId + 1;
         }
+    }
+
+    public List<Descarga> getHoras() {
+        try {
+            horas_descargas = em.createNamedQuery("Descarga.findhoras", Descarga.class).getResultList();
+            return horas_descargas;
+        } catch (Exception e) {
+            System.out.println("Error en JPA horas_descargas");
+            return horas_descargas;
+        }
+    }
+
+    public List<Descarga> getHoras_descargas() {
+        return horas_descargas;
+    }
+
+    public void setHoras_descargas(List<Descarga> horas_descargas) {
+        this.horas_descargas = horas_descargas;
     }
 
 }

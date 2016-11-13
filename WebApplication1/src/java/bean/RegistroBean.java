@@ -75,7 +75,7 @@ public class RegistroBean implements Serializable {
             String codigo = inicio + uno + it + corta;
             this.newUser.setClaveValidar(codigo);
 
-            new UsuarioJPA().saveUsuario(newUser);
+            
             //Codigo de Creacion de envio de mensaje 
             String claveEnviar = "http://localhost:8080/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=" + codigo;
             //Mensajeria de confirmacion
@@ -101,7 +101,7 @@ public class RegistroBean implements Serializable {
                     + "Dirreción MUNA";;
             msj.setMensaje(cuerpo);
             cartero.enviarCorreo(msj, null);
-
+            new UsuarioJPA().saveUsuario(newUser);
             this.newUser = new Usuario();
             FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Revise su correo para continuar con el registro."));
             //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado!", null);

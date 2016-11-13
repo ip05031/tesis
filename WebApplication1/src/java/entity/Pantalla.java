@@ -47,6 +47,8 @@ public class Pantalla implements Serializable {
     @Size(max = 250)
     @Column(name = "accesopa")
     private String accesopa;
+    @Column(name = "permiso")
+    private Boolean permiso;
     @ManyToMany(mappedBy = "pantallaList")
     private List<TipoUsuario> tipoUsuarioList;
 
@@ -79,6 +81,14 @@ public class Pantalla implements Serializable {
 
     public void setAccesopa(String accesopa) {
         this.accesopa = accesopa;
+    }
+    
+    public Boolean getPermiso() {
+        return permiso;
+    }
+
+    public void setPermiso(Boolean permiso) {
+        this.permiso = permiso;
     }
 
     @XmlTransient

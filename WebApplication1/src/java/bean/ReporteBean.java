@@ -96,7 +96,7 @@ public class ReporteBean implements Serializable {
             System.out.println("Error : 1");
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("fin error 1");
         }
 

@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,8 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Prestamo.findAll", query = "SELECT p FROM Prestamo p"),
-    @NamedQuery(name = "Prestamo.findPrestamos", query = "SELECT p FROM Prestamo p where p.tipop = '1'"),
-    @NamedQuery(name = "Prestamo.findDevolucion", query = "SELECT p FROM Prestamo p where p.tipop = '2' "),
+    @NamedQuery(name = "Prestamo.findPrestamos", query = "SELECT p FROM Prestamo p where p.tipop = '1' and p.fechap = CURRENT_DATE"),
+    @NamedQuery(name = "Prestamo.findDevolucion", query = "SELECT p FROM Prestamo p where p.tipop = '2' and p.fechap = CURRENT_DATE"),
     @NamedQuery(name = "Prestamo.findMaxId", query = "SELECT MAX(p.idPrestamo) FROM Prestamo p"),
     @NamedQuery(name = "Prestamo.findByIdPrestamo", query = "SELECT p FROM Prestamo p WHERE p.idPrestamo = :idPrestamo"),
     @NamedQuery(name = "Prestamo.findByFechap", query = "SELECT p FROM Prestamo p WHERE p.fechap = :fechap"),
@@ -54,8 +55,9 @@ public class Prestamo implements Serializable {
     private Date horap;
     @Column(name = "tipop")
     private Integer tipop;
+    @Size(max = 150)
     @Column(name = "paginasp")
-    private Integer paginasp;
+    private String paginasp;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
@@ -102,11 +104,11 @@ public class Prestamo implements Serializable {
         this.tipop = tipop;
     }
 
-    public Integer getPaginasp() {
+    public String getPaginasp() {
         return paginasp;
     }
 
-    public void setPaginasp(Integer paginasp) {
+    public void setPaginasp(String paginasp) {
         this.paginasp = paginasp;
     }
 

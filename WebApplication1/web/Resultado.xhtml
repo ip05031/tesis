@@ -36,15 +36,15 @@
                         <div class="col-md-12" > 
                             <h4> Listado de Revistas </h4>
                             <h:form id="frm_table">
-                                <p:growl id="msj" autoUpdate="true"></p:growl>
+                                <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                 <p:dataTable value="#{prestamoBean.obtenerRevistas()}" var="revista" paginator="true" id="detailTable" emptyMessage="No hay revistas disponibles para su prestamo." rows="6">
                                     <p:column headerText="Nombre Revista" >
                                         <h:outputText value="#{revista.idTitulo.tituloRevista} #{revista.titulor}" />
                                     </p:column>
                                     <p:column headerText="Prestar"  style="text-align: center" width="auto">
-                                        <c:if test="#{revista.inventarioList.size() gt 0}" > 
-                                            <p:commandButton  icon="ui-icon-pencil" title="Prestar Revista"   actionListener="#{prestamoBean.seleccionarRevista(revista)}"  oncomplete="PF('prestarRevista').show();" update=":prestarRevista" />
-                                        </c:if>
+
+                                        <p:commandButton  icon="ui-icon-pencil" title="Prestar Revista"   actionListener="#{prestamoBean.seleccionarRevista(revista)}"  oncomplete="PF('prestarRevista').show();" update=":prestarRevista" />
+
                                     </p:column>
                                 </p:dataTable>
                             </h:form>

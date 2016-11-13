@@ -29,7 +29,7 @@
                                 <p:growl id="msj" autoUpdate="true"></p:growl>
                                 <p:dataTable value="#{prestamoBean.ListaPrestamos() }" var="prestamo" paginator="true" id="detailTable" emptyMessage="No se encontraron registros" rows="10">
                                     <p:column headerText="Nombre Revista" >
-                                        <h:outputText value="Anales :53" />
+                                        <h:outputText value="#{prestamo.idInventario.idRevista.idTitulo.tituloRevista}-#{prestamo.idInventario.idRevista.titulor}" />
                                     </p:column>
                                     <p:column headerText="Nombre"  style="text-align: center" >
                                         <h:outputText value="#{prestamo.idUsuario.nombreu} #{prestamo.idUsuario.apellidosu} " />

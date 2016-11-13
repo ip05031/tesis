@@ -26,6 +26,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.validator.internal.util.logging.Log_$logger;
 
 /**
@@ -72,6 +74,7 @@ public class PrestamoBean implements Serializable {
     private int idUltimoInventario;
 
     private Revista revistaSel = new Revista();
+    private String numpags;
 
     /**
      * Creates a new instance of PrestamoBean
@@ -176,6 +179,7 @@ public class PrestamoBean implements Serializable {
             prestamoJPA.savePrestamo(prest);
             inv.setExistenciai(0);
             new InventarioJPA().updateInventario(inv);
+            FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Se registró un prestamo"));
         } catch (Exception e) {
             System.out.println("Error en guardarPrestamo");
             System.out.println(e.getMessage());
@@ -206,16 +210,20 @@ public class PrestamoBean implements Serializable {
             Usuario user = new Usuario();
             user.setIdUsuario(idUsuario);
 
+            devolucion.setTipop(3);
+            prestamoJPA.updatePrestamo(devolucion);
+
+            prestamoJPA = new PrestamoJPA();
+
             prest.setIdPrestamo(idPrestamo);
             prest.setIdInventario(inv);
             prest.setIdUsuario(user);
             prest.setFechap(devFecha);
             prest.setTipop(tipoPrestamo);
             prest.setHorap(devFecha);
+            prest.setPaginasp(numpags);
 
             prestamoJPA.savePrestamo(prest);
-            devolucion.setTipop(3);
-            prestamoJPA.updatePrestamo(devolucion);
 
             inv.setExistenciai(1);
             new InventarioJPA().updateInventario(inv);
@@ -227,7 +235,17 @@ public class PrestamoBean implements Serializable {
     }
 
     public List<Prestamo> ListaPrestamos() {
-        return new PrestamoJPA().listaPrestamos();
+        List<Prestamo> listaPrestamos = new PrestamoJPA().listaPrestamos();
+        for (int i = 0; i < listaPrestamos.size(); i++) {
+            String nombrerev = "";
+            String titulorev = "";
+            nombrerev = listaPrestamos.get(i).getIdInventario().getIdRevista().getTitulor();
+            titulorev = listaPrestamos.get(i).getIdInventario().getIdRevista().getIdTitulo().getTituloRevista();
+            //System.out.println(nombrerev);
+            //System.out.println(titulorev);
+            
+        }
+        return listaPrestamos;
     }
 
     public List<Revista> obtenerRevistas() {
@@ -424,6 +442,14 @@ public class PrestamoBean implements Serializable {
 
     public void setRevistasFiltradas(List<Revista> revistasFiltradas) {
         this.revistasFiltradas = revistasFiltradas;
+    }
+
+    public String getNumpags() {
+        return numpags;
+    }
+
+    public void setNumpags(String numpags) {
+        this.numpags = numpags;
     }
 
 }

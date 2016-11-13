@@ -121,6 +121,10 @@ public class InicioBean implements Serializable {
         // fecha
         // hora
     }
+    
+    public List<Descarga> obtenerHoras(){
+        return new DescargarJPA().getHoras();
+    }
 
     public void inhabilitar() {
         this.setArchivoDownload(false);
