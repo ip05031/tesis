@@ -10,16 +10,13 @@
 		<![CDATA[SELECT
      bitacora."tabla" AS bitacora_tabla,
      bitacora."fechabitacora" AS bitacora_fechabitacora,
-     bitacora."accion" AS bitacora_accion,
-     tipo_usuario."nombretp" AS tipo_usuario_nombretp
+     bitacora."accion" AS bitacora_accion
 FROM
-     "public"."bitacora" bitacora,
-     "public"."tipo_usuario" tipo_usuario]]>
+     "public"."bitacora" bitacora]]>
 	</queryString>
 	<field name="bitacora_tabla" class="java.lang.String"/>
 	<field name="bitacora_fechabitacora" class="java.sql.Date"/>
 	<field name="bitacora_accion" class="java.lang.String"/>
-	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -116,10 +113,6 @@ FROM
 				<reportElement x="403" y="5" width="48" height="20" uuid="61732bf0-498b-47c0-bbb5-4b38abca80b7"/>
 				<text><![CDATA[Usuario:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="452" y="5" width="100" height="20" uuid="8075e8e6-ef0d-4d31-8f0a-6317486a69de"/>
-				<textFieldExpression><![CDATA[$F{tipo_usuario_nombretp}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>

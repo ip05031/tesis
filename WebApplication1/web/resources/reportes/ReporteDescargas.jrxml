@@ -12,18 +12,24 @@
      categoria."nombrec" AS categoria_nombrec,
      revista."titulor" AS revista_titulor,
      titulo."titulo_revista" AS titulo_titulo_revista,
-     tipo_usuario."nombretp" AS tipo_usuario_nombretp
+     tipo_usuario."nombretp" AS tipo_usuario_nombretp,
+     usuario."nombreu" AS usuario_nombreu,
+     usuario."apellidosu" AS usuario_apellidosu
 FROM
      "public"."revista" revista INNER JOIN "public"."descarga" descarga ON revista."id_revista" = descarga."id_revista"
-     INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo",
-     "public"."categoria" categoria,
-     "public"."tipo_usuario" tipo_usuario]]>
+     INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo"
+     INNER JOIN "public"."posee" posee ON revista."id_revista" = posee."id_revista"
+     INNER JOIN "public"."categoria" categoria ON posee."id_categoria" = categoria."id_categoria"
+     INNER JOIN "public"."usuario" usuario ON descarga."id_usuario" = usuario."id_usuario"
+     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"]]>
 	</queryString>
 	<field name="descarga_fechad" class="java.sql.Date"/>
 	<field name="categoria_nombrec" class="java.lang.String"/>
 	<field name="revista_titulor" class="java.lang.String"/>
 	<field name="titulo_titulo_revista" class="java.lang.String"/>
 	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
+	<field name="usuario_nombreu" class="java.lang.String"/>
+	<field name="usuario_apellidosu" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

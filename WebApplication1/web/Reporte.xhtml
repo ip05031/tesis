@@ -25,9 +25,7 @@
                                     <i class="fa fa-bar-chart-o fa-fw"></i> Reportes
                                     <div class="pull-right">
                                         <div class="btn-group">
-                                            <h:form>
-                                                <h:commandButton class="btn btn-success btn-xs" value="Generar Reporte" actionListener="#{reporteBean.exportarPDF()}" />    
-                                            </h:form>
+                                           
 
 
                                         </div>
@@ -35,31 +33,52 @@
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
-                                    <h:form >
-                                        <h:commandButton value="Exportar PDF1" actionListener="#{reporteBean.exportarPDF()}" />
-                                    </h:form>
-                                    
-                                    <h:form >
-                                        <h:commandButton value="Exportar PDF2" actionListener="#{reporteBean.reportPublicaciones()}" />
-                                    </h:form>
-                                    
-                                    <h:form >
-                                        <h:commandButton value="Exportar PDF3" actionListener="#{reporteBean.reportEstadoRevista()}" />
-                                    </h:form>
-                                    
-                                     <h:form >
-                                         <h:commandButton value="Exportar PDF4" actionListener="#{reporteBean.reportBitacora()}" />
-                                    </h:form>
-                                    
-                                    <h:form >
-                                        <h:commandButton value="Exportar PDF5" actionListener="#{reporteBean.reportAdquisiciones()}" />
-                                    </h:form>
-                                    
-                                    <h:form >
-                                        <h:commandButton value="Exportar PDF6" actionListener="#{reporteBean.reportPrestamos()}" />
-                                    </h:form>
+                                                                        
+  <table align="center">
+  
+  <tr>
+    <td align="center">
+      <img src="resources/img/r2.jpg" align="center"/>
+      <br/>      
+      <h:link outcome="ReporteDescarga" value="Descargas" class="btn btn-success btn-xs"/>
+    </td>
+      <td align="center">
+        <img src="resources/img/r3.jpg" align="center" />
+      <br/>      
+      <h:link outcome="ReporteBitacora" value="Bitacora" class="btn btn-success btn-xs" />
+    </td>
+    <td align="center">
+      <img src="resources/img/r5.jpg" align="center"/>
+      <br/>      
+      <h:link outcome="ReporteAdquisiciones" value="Adquisiciones" class="btn btn-success btn-xs"/>
+    </td>
+  </tr>
+  
+  <tr>
+  <br/> 
+  <br/>     
+  </tr>
+  
+  <tr>
+    <td align="center">
+      <img src="resources/img/r7.jpg" align="center" />
+      <br/>      
+      <h:link outcome="ReportePublicacionMensual" value="Revistas Publicadas" class="btn btn-success btn-xs"/>
+    </td>
+   <td align="center">
+      <img src="resources/img/r8.jpg" align="center"/>
+      <br/>      
+      <h:link outcome="ReporteEstado" value="Estado de Revistas" class="btn btn-success btn-xs"/>
+    </td>
+    <td align="center">
+     <img src="resources/img/r6.jpg" align="center" />
+      <br/>      
+      <h:link outcome="ReportePrestamos" value="Prestamos" class="btn btn-success btn-xs"/>
+    </td>
+  </tr>
+  </table>
                                 </div>
-                                <!-- /.panel-body -->
+                               <!--   /.panel-body -->
                             </div>
                         </div>
                         <div class="col-md-1" ></div>

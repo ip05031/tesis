@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Revista.findByLetter", query =  "SELECT r from Revista r where r.idTitulo.tituloRevista like :letra order by r.idRevista"),
     @NamedQuery(name = "Revista.findAll", query = "SELECT r FROM Revista r ORDER BY r.idRevista"),
     @NamedQuery(name = "Revista.clave", query = "SELECT MAX(a.idRevista) FROM Revista a"),
+    @NamedQuery(name = "Revista.reporteDonacion", query = "SELECT r FROM Revista r Where r.idDonacion is not null  "),
     @NamedQuery(name = "Revista.findByIdRevista", query = "SELECT r FROM Revista r WHERE r.idRevista = :idRevista"),
     @NamedQuery(name = "Revista.findByTitulor", query = "SELECT r FROM Revista r WHERE r.titulor = :titulor"),
     @NamedQuery(name = "Revista.findByFechapr", query = "SELECT r FROM Revista r WHERE r.fechapr = :fechapr"),

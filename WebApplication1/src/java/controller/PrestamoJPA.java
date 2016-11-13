@@ -121,6 +121,17 @@ public class PrestamoJPA {
             return listPrestamo;
         }
     }
+    //////falta cambiar////
+    public List<Prestamo> getPrestamoReporte() {
+        try {
+            listPrestamo = em.createNamedQuery("Prestamo.findPrestamos", Prestamo.class).getResultList();
+            return listPrestamo;
+        } catch (Exception e) {
+            return listPrestamo;
+        }
+    }
+    
+    
     public List<Prestamo> listaDevolucion() {
         try {
             listPrestamo = em.createNamedQuery("Prestamo.findDevolucion", Prestamo.class).getResultList();

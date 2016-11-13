@@ -113,7 +113,16 @@ public class RevistaBean implements Serializable {
     public List<PalabraClave> getListaPalabraClaveModificar() {
         return listaPalabraClaveModificar;
     }
+    
+    public List<Revista> reporteDonacion() {
+        return new RevistasJPA().getReporteDonacion();
+    }
 
+    
+    public List<Revista> reportePrestamos() {
+        return new RevistasJPA().getReportePrestamos();
+    }        
+            
     public void setListaPalabraClaveModificar(List<PalabraClave> listaPalabraClaveModificar) {
         this.listaPalabraClaveModificar = listaPalabraClaveModificar;
     }
