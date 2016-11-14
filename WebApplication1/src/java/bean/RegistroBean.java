@@ -35,6 +35,7 @@ public class RegistroBean implements Serializable {
 
     private Usuario newUser = new Usuario();
     private UsuarioJPA usuarioJPA;
+    private boolean buttonDisabled;
 
     /**
      * Creates a new instance of RegistroBean
@@ -44,7 +45,7 @@ public class RegistroBean implements Serializable {
     }
 
     public void nuevoVisitante() {
-
+        this.setButtonDisabled(true);
         try {
             System.out.println("si llegó");
             String contra1 = newUser.getPassword();
@@ -153,5 +154,13 @@ public class RegistroBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Válido"));
             }
         }
+    }
+
+    public boolean isButtonDisabled() {
+        return buttonDisabled;
+    }
+
+    public void setButtonDisabled(boolean buttonDisabled) {
+        this.buttonDisabled = buttonDisabled;
     }
 }
