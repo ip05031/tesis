@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Visitas.findAll", query = "SELECT v FROM Visitas v"),
     @NamedQuery(name = "Visitas.findByFechav", query = "SELECT v FROM Visitas v WHERE v.fechav = :fechav"),
+    @NamedQuery(name = "Visitas.findByFechaMaxima", query = "SELECT max (v.fechav) FROM Visitas v "),
     @NamedQuery(name = "Visitas.findByCantidadv", query = "SELECT v FROM Visitas v WHERE v.cantidadv = :cantidadv")})
 public class Visitas implements Serializable {
 

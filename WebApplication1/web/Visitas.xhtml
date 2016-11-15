@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"       
+    >
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         
@@ -12,6 +13,8 @@
     <body>
 
         <ui:composition template="./boot.xhtml">
+          
+            
 
             <ui:define name="content">
 
@@ -23,7 +26,7 @@
                                 <i class="fa fa-bar-chart-o fa-fw"></i> Visitas
                                 <div class="pull-right">
                                     <div class="btn-group">
-
+                                        
                                     </div>
 
 
@@ -33,10 +36,9 @@
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <!-- /codigo de google analitycs -->
-
-                                <iframe src="pruevass.html" width="860" height="500" align="center" style=" border: 0"></iframe>
+                                <iframe src="pruevass.html" width="860" height="500" align="center" style=" border: 0"></iframe> 
                                
-
+                                <p:outputLabel value="#{envioAnality.prueva()}"/>
 
 
 
@@ -105,6 +107,7 @@
             </ui:define>
 
         </ui:composition>
+       
 
     </body>
 </html>
