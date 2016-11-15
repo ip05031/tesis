@@ -120,7 +120,7 @@ public class InventarioBean implements Serializable {
             revista2.setIdRevista(this.idRevista);
             inv.setIdInventario(clave);
             inv.setIdRevista(revista2);
-            inv.setExistenciai(0);
+            inv.setExistenciai(1);
             inv.setIdEstado(esta);
 //aca ba el cambio       
             inventarioJPA = new InventarioJPA();

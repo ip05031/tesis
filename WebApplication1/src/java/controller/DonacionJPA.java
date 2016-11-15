@@ -37,6 +37,17 @@ public class DonacionJPA {
         }
     }
     
+    public List<Donaciones> getDonacionReporte() {
+        try {
+            donaciones = em.createNamedQuery("Donaciones.reporte", Donaciones.class).getResultList();
+            return donaciones;
+        } catch (Exception e) {
+            return donaciones;
+        }
+    }
+    
+    
+    
     public Donaciones LeerIdDonaciones(Donaciones don)
     {
         Donaciones donaciones = new Donaciones();

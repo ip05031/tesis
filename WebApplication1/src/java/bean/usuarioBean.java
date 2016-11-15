@@ -159,7 +159,7 @@ public class usuarioBean implements Serializable {
         try {
             System.out.println("" + user.getNombreu());
             System.out.println("" + user.getEstadoi());
-            user.setEstadoi(2);
+            user.setEstadoi(3);
             usuarioJPA = new UsuarioJPA();
             usuarioJPA.updateUsuario(user);
         } catch (Exception e) {

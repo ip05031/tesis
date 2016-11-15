@@ -12,76 +12,81 @@
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-                <script>
-                    $(document).ready(function () {
-                        ocultar_buqueda_2();
-                    });
-                </script>
-                
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="pull-left">
-                            <h:link outcome="Prestamo" value="Regresar" class="btn btn-danger btn-block "/>
-                            
+                <c:set var="nombre" value="Reporte" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <script>
+                        $(document).ready(function () {
+                            ocultar_buqueda_2();
+                        });
+                    </script>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="pull-left">
+                                <h:link outcome="Prestamo" value="Regresar" class="btn btn-danger btn-block "/>
+
+                            </div>
+                            <div class="pull-left">
+                                <h:link outcome="Prestados" value="Ver Revistas Prestadas" class="btn btn-success btn-block " style="margin-left: 5px;"/>
+                            </div>
+
                         </div>
-                        <div class="pull-left">
-                            <h:link outcome="Prestados" value="Ver Revistas Prestadas" class="btn btn-success btn-block " style="margin-left: 5px;"/>
-                        </div>
-                        
                     </div>
-                </div>
-                <div class="row" >
-                    <div class="col-md-12" > 
-                        <h4> Listado de Revistas </h4>
-                        <h:form id="frm_table">
-                            <p:growl id="msj" autoUpdate="true"></p:growl>
-                            <p:dataTable value="#{prestamoBean.obtenerRevistas()}" var="revista" paginator="true" id="detailTable" emptyMessage="No se encontraron registros" rows="6">
-                                <p:column headerText="Nombre Revista" >
-                                    <h:outputText value="#{revista.idTitulo.tituloRevista} #{revista.titulor}" />
-                                </p:column>
-                                <p:column headerText="Prestar"  style="text-align: center" width="11%">
-                                    <p:commandButton  icon="ui-icon-pencil" title="Prestar Revista"   actionListener="#{prestamoBean.seleccionarRevista(revista)}"  oncomplete="PF('prestarRevista').show();" update=":prestarRevista" />
-                                </p:column>
-                            </p:dataTable>
-                        </h:form>
+                    <div class="row" >
+                        <div class="col-md-12" > 
+                            <h4> Listado de Revistas </h4>
+                            <h:form id="frm_table">
+                                <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
+                                <p:dataTable value="#{prestamoBean.obtenerRevistas()}" var="revista" paginator="true" id="detailTable" emptyMessage="No hay revistas disponibles para su prestamo." rows="6">
+                                    <p:column headerText="Nombre Revista" >
+                                        <h:outputText value="#{revista.idTitulo.tituloRevista} #{revista.titulor}" />
+                                    </p:column>
+                                    <p:column headerText="Prestar"  style="text-align: center" width="auto">
 
-                        <!-- /.insertar categoria -->
-                        <p:dialog header="Prestar Revista" widgetVar="prestarRevista" minHeight="40" modal="true" resizable="false">
-                            <h:form id="prestarRevista">
-                                <c:if test="#{ prestamoBean.idInventario gt 0 }" >
-                                    <div class="form-group">
-                                        <p>
-                                            Se prestará una copia de #{prestamoBean.revistaSel.idTitulo.tituloRevista}:#{prestamoBean.revistaSel.titulor} al usuario : 
-                                        </p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="id_usuario">
-                                            id_usuario
-                                        </label>
-                                        <p:selectOneMenu id="id_usuario" value="#{prestamoBean.idUsuario}" effect="fold" 
-                                                         style="width:100%; vertical-align: 15px;" filter="true" filterMatchMode="startsWith" 
-                                                         required="true" class=" col-md-6 ">
-                                            <f:selectItems value="#{usuarioBean.getir(3)  }" var="usuario" itemLabel="#{usuario.nickname}-#{usuario.nombreu}" itemValue="#{usuario.idUsuario}"/>
-                                        </p:selectOneMenu>
-                                    </div>
+                                        <p:commandButton  icon="ui-icon-pencil" title="Prestar Revista"   actionListener="#{prestamoBean.seleccionarRevista(revista)}"  oncomplete="PF('prestarRevista').show();" update=":prestarRevista" />
 
-                                    <p:commandButton class="btn btn-success pull-right" value="Ok" 
-                                                     actionListener="#{prestamoBean.guardarPrestamo()  }"
-                                                     oncomplete="PF('prestarRevista').hide();"/>
-                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('prestarRevista').hide();"/>
-                                </c:if>
-                                <c:if test="#{ prestamoBean.idInventario le 0 }" >
-                                    <p>
-                                        No hay copias disponibles!
-                                    </p>
-                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('prestarRevista').hide();"/>
-                                </c:if>
-
+                                    </p:column>
+                                </p:dataTable>
                             </h:form>
-                        </p:dialog>
 
+                            <!-- /.insertar categoria -->
+                            <p:dialog header="Prestar Revista" widgetVar="prestarRevista" minHeight="40" modal="true" resizable="false">
+                                <h:form id="prestarRevista">
+                                    <c:if test="#{ prestamoBean.idInventario gt 0 }" >
+                                        <div class="form-group">
+                                            <p>
+                                                Se prestará una copia de #{prestamoBean.revistaSel.idTitulo.tituloRevista}:#{prestamoBean.revistaSel.titulor} al usuario : 
+                                            </p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_usuario">
+                                                id_usuario
+                                            </label>
+                                            <p:selectOneMenu id="id_usuario" value="#{prestamoBean.idUsuario}" effect="fold" 
+                                                             style="width:100%; vertical-align: 15px;" filter="true" filterMatchMode="startsWith" 
+                                                             required="true" class=" col-md-6 ">
+                                                <f:selectItems value="#{usuarioBean.getir(3)  }" var="usuario" itemLabel="#{usuario.nickname}-#{usuario.nombreu}" itemValue="#{usuario.idUsuario}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+
+                                        <p:commandButton class="btn btn-success pull-right" value="Ok" 
+                                                         actionListener="#{prestamoBean.guardarPrestamo()  }"
+                                                         oncomplete="PF('prestarRevista').hide();"/>
+                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('prestarRevista').hide();"/>
+                                    </c:if>
+                                    <c:if test="#{ prestamoBean.idInventario le 0 }" >
+                                        <p>
+                                            No hay copias disponibles!
+                                        </p>
+                                        <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('prestarRevista').hide();"/>
+                                    </c:if>
+
+                                </h:form>
+                            </p:dialog>
+
+                        </div>
                     </div>
-                </div>
+                </c:if>
             </ui:define>
 
         </ui:composition>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePrestamos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14bf01da-3d0b-47c4-a356-89120f5145ea">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="date_desde" class="java.util.Date"/>
+	<parameter name="date_hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     titulo."titulo_revista"||' '||revista."titulor" AS titulo_titulo_revista,
+     prestamo."fechap" AS prestamo_fechap,
+     prestamo."horap" AS prestamo_horap,
+     prestamo."paginasp" AS prestamo_paginasp,
+usuario."nombreu" || ' ' ||  usuario."apellidosu"  AS usuario_nombreu,
+     usuario."nickname" AS usuario_nickname
+FROM
+     "public"."titulo" titulo INNER JOIN "public"."revista" revista ON titulo."id_titulo" = revista."id_titulo"
+     INNER JOIN "public"."inventario" inventario ON revista."id_revista" = inventario."id_revista"
+     INNER JOIN "public"."prestamo" prestamo ON inventario."id_inventario" = prestamo."id_inventario"
+     INNER JOIN "public"."usuario" usuario ON prestamo."id_usuario" = usuario."id_usuario"
+     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"]]>
+	</queryString>
+	<field name="titulo_titulo_revista" class="java.lang.String"/>
+	<field name="prestamo_fechap" class="java.sql.Date"/>
+	<field name="prestamo_horap" class="java.sql.Time"/>
+	<field name="prestamo_paginasp" class="java.lang.Integer"/>
+	<field name="usuario_nombreu" class="java.lang.String"/>
+	<field name="usuario_nickname" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="9" width="425" height="20" uuid="45744253-6d30-4dd2-b612-c4f0321c6c7e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="58" width="43" height="20" uuid="cf759114-65b0-4a39-8e9d-8e905c88c78b"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="34" width="212" height="20" uuid="94759389-b006-4c46-af0f-dcb70f78c184"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Prestamos de Revistas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="58" width="36" height="20" uuid="f6db1d03-28b4-47d9-8ef0-8c559f6141e4"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="4" y="29" width="133" height="45" uuid="85bead44-5373-4c8b-b98f-0959aa81df4c"/>
+				<imageExpression><![CDATA["C:\\Users\\Mario Sanchez\\Desktop\\imagenes banner\\muna-antropologia.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="229" y="58" width="100" height="20" uuid="8d04112b-78e9-46e9-b0e1-40794ab69461"/>
+				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="58" width="100" height="20" uuid="10be7081-5e67-4915-aa1e-9d1dc2fa337a"/>
+				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="1" width="100" height="20" uuid="bd9a0818-5a7b-4677-9564-d879c3034926"/>
+				<text><![CDATA[Titulo Revista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="1" width="100" height="20" uuid="3ac0539b-ab50-4762-8259-7828cc613401"/>
+				<text><![CDATA[prestamo_fechap]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="1" width="100" height="20" uuid="b4fc9dae-1e70-4cfc-915f-1f2450373d4d"/>
+				<text><![CDATA[Paginas Consultadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="157" y="2" width="100" height="20" uuid="3777d835-54b3-46b8-becd-9e76de46d73e"/>
+				<text><![CDATA[Usuario ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="9" y="0" width="100" height="20" uuid="f3c60c37-d804-46a1-bdea-b34bda958742"/>
+				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="446" y="0" width="100" height="20" uuid="f0879794-f8b1-40d1-b4a3-ff5dcb56e649"/>
+				<textFieldExpression><![CDATA[$F{prestamo_fechap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="0" width="100" height="20" uuid="73aa6864-98d1-4c89-9e30-0bd8d1851b95"/>
+				<textFieldExpression><![CDATA[$F{prestamo_paginasp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="1" width="100" height="20" uuid="916f8a75-a0d0-49a1-a23c-fe23cf8a196d"/>
+				<textFieldExpression><![CDATA[$F{usuario_nombreu}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="402" y="6" width="48" height="20" uuid="02340530-67a8-4ca9-94e8-e0481bac23ba"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="401" y="31" width="80" height="20" uuid="0926ec9f-05bc-4fe9-af9c-31cde255782e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="486" y="31" width="40" height="20" uuid="263d75c7-32b0-4d34-9117-87986c88ebc7"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="5" y="6" width="100" height="20" uuid="887173d2-a166-4eb6-a2ba-dad4bea98113"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="5" y="29" width="100" height="20" uuid="4fa85500-a05d-4b55-a0b4-f37f793bb0bf"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

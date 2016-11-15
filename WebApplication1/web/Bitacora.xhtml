@@ -12,7 +12,8 @@
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-
+                <c:set var="nombre" value="Bitacora" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
                     <div class="row" >
                         <div class="col-md-1" ></div>  
 
@@ -83,7 +84,7 @@
                         </div>
                         <div class="col-md-1" ></div>
                     </div>
-                
+                </c:if>
             </ui:define>
 
         </ui:composition>

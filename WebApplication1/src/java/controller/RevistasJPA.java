@@ -35,6 +35,31 @@ public class RevistasJPA {
             }
         }
     }
+    public List<Revista> getReporteDonacion() {
+        try {
+            listadoRevista = em.createNamedQuery("Revista.reporteDonacion", Revista.class).getResultList();
+            return listadoRevista;
+        } catch (Exception e) {
+            return listadoRevista;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public List<Revista> getReportePrestamos() {
+        try {
+            listadoRevista = em.createNamedQuery("Revista.reportePrestamos", Revista.class).getResultList();
+            return listadoRevista;
+        } catch (Exception e) {
+            return listadoRevista;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
     public Integer getClave() {
         Integer claveId = 0;

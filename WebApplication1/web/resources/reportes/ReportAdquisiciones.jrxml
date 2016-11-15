@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportAdquisiciones" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b622e135-fd08-4a24-947a-62667a22057e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#D2691E">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFDABF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="f588a666-f1fc-4995-9afe-b402933b3310"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="date_desde" class="java.util.Date"/>
+	<parameter name="date_hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     donate."nombred" AS donate_nombred,
+     donaciones."fechadonacion" AS donaciones_fechadonacion,
+     titulo."titulo_revista"|| ' '|| revista."titulor" AS titulo_titulo_revista
+FROM
+     "public"."donate" donate INNER JOIN "public"."donaciones" donaciones ON donate."id_donante" = donaciones."id_donante"
+     INNER JOIN "public"."revista" revista ON donaciones."id_donacion" = revista."id_donacion"
+     INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo"]]>
+	</queryString>
+	<field name="donate_nombred" class="java.lang.String"/>
+	<field name="donaciones_fechadonacion" class="java.sql.Date"/>
+	<field name="titulo_titulo_revista" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="344" y="49" width="31" height="20" uuid="94f05333-5aa1-4a7f-b4a9-d1057047b48f"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="49" width="37" height="20" uuid="a18c4faf-3cc6-4ed2-8b29-11b36a9d4931"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="6" width="431" height="20" uuid="51c28456-39c5-4a6e-9fd2-86949847a5c3"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="26" width="155" height="20" uuid="31542fda-2e3d-4b89-bef0-d86deed5827b"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Adquisiciones]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="6" width="119" height="43" uuid="96b4e74f-2520-4cb3-b2ae-1158cc8aa963"/>
+				<imageExpression><![CDATA["C:\\Users\\Mario Sanchez\\Desktop\\imagenes banner\\muna-antropologia.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="233" y="49" width="100" height="20" uuid="f41eee18-312f-4b56-a029-03c31b2bbffb"/>
+				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="49" width="100" height="20" uuid="bf0419de-26f2-4024-aade-a68fc6a78baa"/>
+				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="0" width="100" height="20" uuid="600dd536-631b-4f3c-ae3d-2550e0729d93"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="0" width="100" height="20" uuid="1e3842c2-019f-4c6f-a516-f30752dfb8c4"/>
+				<text><![CDATA[Nombre Revista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="2" width="100" height="20" uuid="188505d4-d83c-47a0-bf83-0f4c8485359a"/>
+				<text><![CDATA[Fecha Donacion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="0" width="100" height="20" uuid="a47b97a0-704a-45c3-8ba5-61fe5fa7c9df"/>
+				<textFieldExpression><![CDATA[$F{donate_nombred}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="0" width="100" height="20" uuid="0ad9b4cc-2425-43f4-a13b-4dc4dd7dc7e1"/>
+				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="439" y="0" width="100" height="20" uuid="8d0020b2-cfe3-41c6-847a-628b52f7be9a"/>
+				<textFieldExpression><![CDATA[$F{donaciones_fechadonacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="417" y="5" width="42" height="20" uuid="ed381a71-9a47-45ee-8855-c56d0ae81fc0"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="499" y="29" width="40" height="20" uuid="c8be3677-e453-42b5-9f9f-9a29584087b5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="29" width="80" height="20" uuid="9f1105f4-9e2c-42b6-a7ab-c35817ba5a1a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="14" y="31" width="100" height="20" uuid="3c41c130-c19b-40e2-8932-44fe3489d9fd"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="14" y="6" width="100" height="20" uuid="0faaedc5-2a93-48ea-8e01-de9efc8cf2b8"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

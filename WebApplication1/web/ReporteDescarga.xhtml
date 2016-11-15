@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <c:set var="nombre" value="Bitacora" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <div class="row" >
+                        <div class="col-md-1" ></div>  
+
+                        <div class="col-md-10" >
+                            <p:growl id="msg" autoUpdate="true" />
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Reporte
+                                    <div class="pull-right">
+                                    <h:form >
+                                         <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.exportarPDF()}" />
+                                         <h:link outcome="Reporte" value="Regresar a Reportes" class="btn btn-success btn-xs "/>
+                                    </h:form>
+                                        <div class="btn-group">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <div class="col-md-12" > 
+                                            <h4 align="Center"> MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN </h4>
+                                            <h5 align="Center"> Reporte de Descargas de Revistas </h5>
+                                            
+                                            <h:form id="frm_table">
+                                                <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                
+
+                                                <p:dataTable value="#{bitacoraBean.Getir()}" var="bitacora" id="detailTable" widgetVar="tabla_bitacora" emptyMessage="No se encontraron registros." paginator="true" rows="28">
+                                                    
+                                                   <!--  <h:form > 
+                                                       <h:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                                 actionListener="#{ReporteBean.guardarReporte()}"/>  
+                                                    </h:form>-->
+                                                    
+                                                 
+                                                    <f:facet name="header" >
+                                                    <h:outputLabel value="Fecha Inicial" for="finicial"/>
+                                    
+                                                      <p:calendar id="finicial" value="#{reporteBean.desde}" 
+                                                                  pattern="dd/MM/yyyy"   locale="es"     required="true" 
+                                                                  onkeypress="return permite(event, 'none')" 
+                                                                  requiredMessage="Fecha Inicial Requerida" navigator="true" 
+                                                                   effect="fadeIn" effectDuration="100">
+                                                        <p:ajax event="dateSelect" update="ffinal" oncomplete="PF('bitacora').filter()"/>
+                                                      </p:calendar>     
+                                                        
+                                                        
+                                                     <h:outputLabel value="Fecha Final" for="ffinal"/>
+                                                       <p:calendar id="ffinal" value="#{reporteBean.hasta}" mode="popup"
+                                                                   mindate="#{reporteBean.desde}" pattern="dd/MM/yyyy" 
+                                                                   locale="es" required="true" onkeypress="return permite(event, 'none')" 
+                                                                    requiredMessage="Fecha Final Requerida" navigator="true" effect="fadeIn" 
+                                                                    effectDuration="100">
+                                                           <f:attribute name="finicial" value="#{reporteBean.desde}"/>
+                                                           <p:ajax event="dateSelect" oncomplete="PF('bitacora').filter()" />
+                                                        </p:calendar>   
+                                                    </f:facet> 
+                                                     
+                                                    <!-- / fin bloque de codigo de busqueda --> 
+
+                                                    <p:column headerText="Nombre de Revista" >
+                                                        <h:outputText value="" />
+                                                    </p:column>
+
+                                                    <p:column headerText="Volumen">
+                                                        <h:outputText value=""/>
+                                                    </p:column>
+                                                    <p:column headerText="Categoria">
+                                                        <h:outputText value=""/>
+                                                    </p:column>
+
+                                                    <p:column headerText="Fecha de Descarga" >
+                                                        <h:outputText value="">
+                                                            <f:convertDateTime pattern="dd-MM-YYYY" />
+                                                        </h:outputText>
+                                                    </p:column>
+
+
+                                                </p:dataTable>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1" ></div>
+                    </div>
+                </c:if>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

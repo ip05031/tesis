@@ -26,6 +26,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.hibernate.validator.internal.util.logging.Log_$logger;
 
 /**
@@ -56,7 +58,7 @@ public class PrestamoBean implements Serializable {
     private Date hora;
     private int tipoPrestamo;
     private String fechaMostrar;
-    
+
     private Prestamo devolucion;
     private int pags;
     private Date devFecha;
@@ -68,10 +70,11 @@ public class PrestamoBean implements Serializable {
 
     private List<PalabraClave> palabraSelec = new ArrayList<>();
     private List<Revista> revistasEncontradas;
+    private List<Revista> revistasFiltradas;
     private int idUltimoInventario;
-    
 
     private Revista revistaSel = new Revista();
+    private String numpags;
 
     /**
      * Creates a new instance of PrestamoBean
@@ -96,6 +99,12 @@ public class PrestamoBean implements Serializable {
         categorias = prestamoJPA.getCategorias();
         return categorias;
     }
+    
+    public List<Prestamo> prestamoReporte(){
+       prestamoJPA = new PrestamoJPA();
+      // prestamos = PrestamoJPA.getPrestamoReporte();
+       return prestamos; 
+    }
 
     public List<Titulo> listaTitulos() {
         prestamoJPA = new PrestamoJPA();
@@ -114,8 +123,33 @@ public class PrestamoBean implements Serializable {
                 categoria,
                 palabras);
         paso1 = true;
-
         return "Resultado?faces-redirect=true";
+    }
+
+    public boolean disponible() {
+        int existe;
+        boolean ret;
+        System.out.println("buscando disponibilidad");
+        existe = new InventarioJPA().minIdDisp(1);
+        if (existe > 0) {
+            ret = true;
+        } else {
+            ret = false;
+        }
+        return ret;
+    }
+
+    public boolean disponible2(int id) {
+        int existe;
+        boolean ret;
+        System.out.println("buscando disponibilidad");
+        existe = new InventarioJPA().minIdDisp(id);
+        if (existe > 0) {
+            ret = true;
+        } else {
+            ret = false;
+        }
+        return ret;
     }
 
     public void seleccionarRevista(Revista revista) {
@@ -127,8 +161,9 @@ public class PrestamoBean implements Serializable {
         idPrestamo = new PrestamoJPA().getClave();
         idInventario = new InventarioJPA().minIdDisp(revista.getIdRevista());
         fecha = fechaRegistro;
+        hora = fechaRegistro;
         tipoPrestamo = 1;
-
+        System.out.println("ni idea");
     }
 
     public void guardarPrestamo() {
@@ -146,9 +181,11 @@ public class PrestamoBean implements Serializable {
             prest.setIdUsuario(user);
             prest.setFechap(fecha);
             prest.setTipop(tipoPrestamo);
+            prest.setHorap(hora);
             prestamoJPA.savePrestamo(prest);
             inv.setExistenciai(0);
             new InventarioJPA().updateInventario(inv);
+            FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Se registró un prestamo"));
         } catch (Exception e) {
             System.out.println("Error en guardarPrestamo");
             System.out.println(e.getMessage());
@@ -156,8 +193,8 @@ public class PrestamoBean implements Serializable {
         }
 
     }
-    
-    public void selecDevolverRevista( Prestamo prest ){
+
+    public void selecDevolverRevista(Prestamo prest) {
         devolucion = prest;
         Calendar calendario = GregorianCalendar.getInstance();
         Date fechaRegistro = calendario.getTime();
@@ -169,9 +206,9 @@ public class PrestamoBean implements Serializable {
         idInventario = devolucion.getIdInventario().getIdInventario();
         tipoPrestamo = 2;
     }
-    
-    public void guardarDevolucion(){
-           try {
+
+    public void guardarDevolucion() {
+        try {
             prestamoJPA = new PrestamoJPA();
             Prestamo prest = new Prestamo();
             Inventario inv = new Inventario();
@@ -179,12 +216,21 @@ public class PrestamoBean implements Serializable {
             Usuario user = new Usuario();
             user.setIdUsuario(idUsuario);
 
+            devolucion.setTipop(3);
+            prestamoJPA.updatePrestamo(devolucion);
+
+            prestamoJPA = new PrestamoJPA();
+
             prest.setIdPrestamo(idPrestamo);
             prest.setIdInventario(inv);
             prest.setIdUsuario(user);
             prest.setFechap(devFecha);
             prest.setTipop(tipoPrestamo);
+            prest.setHorap(devFecha);
+            prest.setPaginasp(numpags);
+
             prestamoJPA.savePrestamo(prest);
+
             inv.setExistenciai(1);
             new InventarioJPA().updateInventario(inv);
         } catch (Exception e) {
@@ -193,13 +239,20 @@ public class PrestamoBean implements Serializable {
             System.out.println(e.getCause());
         }
     }
-    
-    
-    
-    public List<Prestamo> ListaPrestamos(){
-        return new PrestamoJPA().listaPrestamos();
+
+    public List<Prestamo> ListaPrestamos() {
+        List<Prestamo> listaPrestamos = new PrestamoJPA().listaPrestamos();
+        for (int i = 0; i < listaPrestamos.size(); i++) {
+            String nombrerev = "";
+            String titulorev = "";
+            nombrerev = listaPrestamos.get(i).getIdInventario().getIdRevista().getTitulor();
+            titulorev = listaPrestamos.get(i).getIdInventario().getIdRevista().getIdTitulo().getTituloRevista();
+            //System.out.println(nombrerev);
+            //System.out.println(titulorev);
+            
+        }
+        return listaPrestamos;
     }
-    
 
     public List<Revista> obtenerRevistas() {
         return this.revistasEncontradas;
@@ -387,6 +440,22 @@ public class PrestamoBean implements Serializable {
 
     public void setDevFecha(Date devFecha) {
         this.devFecha = devFecha;
+    }
+
+    public List<Revista> getRevistasFiltradas() {
+        return revistasFiltradas;
+    }
+
+    public void setRevistasFiltradas(List<Revista> revistasFiltradas) {
+        this.revistasFiltradas = revistasFiltradas;
+    }
+
+    public String getNumpags() {
+        return numpags;
+    }
+
+    public void setNumpags(String numpags) {
+        this.numpags = numpags;
     }
 
 }

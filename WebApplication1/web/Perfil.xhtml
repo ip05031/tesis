@@ -1,23 +1,223 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
-                
-                nombre  : #{perfilBean.logueado.nombreu}
-                Apellido : #{perfilBean.logueado.apellidosu}
-                Pais :#{perfilBean.logueado.paisu}
-                
-                
-                
+                <c:set var="nombre" value="Perfil" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <h:form>
+                        <p:remoteCommand name="onload"  actionListener="#{perfilBean.cargarPerfil()}"  />
+                    </h:form>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="tabbable" id="tabs-128930">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#panel-76036" data-toggle="tab">Datos Personales </a>
+                                        </li>
+                                        <li>
+                                            <a href="#panel-300879" data-toggle="tab">Revistas Descargadas</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="panel-76036">
+                                            <p>
+                                                <h:form id="perfil_user">
+                                                    <div class="panel panel-primary">
+                                                        <div class="panel-heading">
+                                                            <h3 class="panel-title">
+                                                                Datos Personales de Usuario : #{perfilBean.perfilUsuario.nickname}
+                                                            </h3>
+                                                        </div>
+                                                        <div class="panel-body">
+
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
+                                                                    <table class="table">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    Nombre
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:inputText  id="Nombre" value="#{perfilBean.perfilUsuario.nombreu}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
+                                                                                    <p:messages for="Nombre" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    Apellido
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:inputText  id="Apellido" value="#{perfilBean.perfilUsuario.apellidosu}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
+                                                                                    <p:messages for="Apellido" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    Ocupación
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:selectOneMenu   id="ocupacion" value="#{perfilBean.perfilUsuario.ocupacion}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
+                                                                                        <f:selectItem  itemValue="Arqueologo" itemLabel=" Arqueologo"  />
+                                                                                        <f:selectItem  itemValue="Paleontologo" itemLabel=" Paleontologo"  />
+                                                                                        <f:selectItem  itemValue="Filosofo" itemLabel=" Filosofo"  />
+                                                                                        <f:selectItem  itemValue="Estudiante" itemLabel=" Estudiante" />
+                                                                                        <f:selectItem  itemValue="Empleado" itemLabel=" Empleado" />
+                                                                                    </p:selectOneMenu>
+                                                                                    <p:messages for="ocupacion" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    Sexo
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:selectOneMenu id="sexo" value="#{perfilBean.perfilUsuario.sexo}" style="width:250px" >
+                                                                                        <f:selectItem   itemValue="M" itemLabel=" Masculino"  />
+                                                                                        <f:selectItem   itemValue="F" itemLabel=" Femenino"  />
+                                                                                        <f:selectItem   itemValue="O" itemLabel=" Otro"  />
+                                                                                    </p:selectOneMenu>
+                                                                                    <p:messages for="sexo" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    Fecha Nacimiento
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:calendar id="Fecha_Nacimiento" maxdate="-10Y" value="#{perfilBean.fecha_nac}" 
+                                                                                                locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" required="false" style="width:250px"/>
+                                                                                    <p:messages for="Fecha_Nacimiento" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    País
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:selectOneMenu id="pais" 
+                                                                                                     value="#{perfilBean.perfilUsuario.paisu}"  
+                                                                                                     panelStyle="width:180px"
+                                                                                                     effect="fade" 
+                                                                                                     style="width:250px" filter="true" required="true" 
+                                                                                                     filterMatchMode="startsWith"  >
+                                                                                        <f:selectItems value="#{revistaBean.listaPaises()}" 
+                                                                                                       var="themes2" 
+                                                                                                       itemLabel="#{themes2}" 
+                                                                                                       itemValue="#{themes2}"  />
+                                                                                    </p:selectOneMenu>                                                    
+                                                                                    <p:messages for="pais" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    Correo Electrónico
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:inputText value="#{perfilBean.perfilUsuario.nickname}" readonly="true" class="form-control" required="false"/>                                            
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    Correo Electrónico
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p:password id="pwd1" value="#{perfilBean.contra}" feedback="true" inline="true" 
+                                                                                                class="form-control" placeholder="Contraseña" required="false" match="pwd2" 
+                                                                                                label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
+                                                                                    <p:messages for="pwd1" />
+                                                                                    <p:password id="pwd2" feedback="true" inline="true" class="form-control" 
+                                                                                                placeholder="Confirmar Contraseña" required="false"
+                                                                                                label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
+                                                                                    <p:messages for="pwd2" />
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table> 
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="panel-footer">
+                                                            <div class="row">
+                                                                <div class="col-md-10"></div>
+                                                                <div class="col-md-1">
+                                                                    <p:commandButton class="btn btn-success" value="Guardar" actionListener="#{perfilBean.modificarUsuario()}" update="perfil_user" />
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </h:form>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane" id="panel-300879">
+                                            <p>
+
+                                                <div class="panel panel-success">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            Revistas Descargadas
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <h:form >
+                                                            <p:dataTable id="listaTabla" value="#{perfilBean.perfilUsuario.descargaList}" 
+                                                                         var="descarga" paginator="true" widgetVar="descarga" 
+                                                                         emptyMessage="No se encontraron datos">
+
+                                                                <p:column headerText="Nombre Revista" >
+                                                                    <h:outputText value="#{descarga.idRevista.idTitulo.tituloRevista}" />
+                                                                </p:column>
+                                                                <p:column headerText="Volumen Revista" >
+                                                                    <h:outputText value="#{descarga.idRevista.titulor}" />
+                                                                </p:column>
+                                                                <p:column headerText="Fecha Descarga" >
+                                                                    <h:outputText value="#{descarga.fechad}" >
+                                                                        <f:convertDateTime pattern="dd-MM-YYYY"   />
+                                                                    </h:outputText>
+                                                                </p:column>
+                                                                <p:column headerText="Hora Descarga" >
+                                                                    <h:outputText value="#{descarga.horad}" >
+                                                                        <f:convertDateTime pattern="hh:mm:ss aa"   />
+                                                                    </h:outputText>
+                                                                </p:column>
+                                                                <p:column headerText="Ver Revista" >
+                                                                    <h:commandButton value="Ver Revista" action="#{inicioBean.setearRedirigir(descarga.idRevista)}"  class="btn btn-success"/>
+                                                                </p:column>
+
+                                                            </p:dataTable>
+                                                        </h:form>
+
+                                                    </div>
+                                                    <div class="panel-footer">
+                                                        Aqui van los botones
+                                                    </div>
+                                                </div>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

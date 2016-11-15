@@ -11,6 +11,7 @@ import entity.Donaciones;
 import entity.PalabraClave;
 import entity.Revista;
 import entity.Titulo;
+import entity.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -46,6 +47,8 @@ public class RevistaBean implements Serializable {
     private List<PalabraClave> listaPalabraClaveDestino = new ArrayList<>();
     private RevistasJPA jpaRevista;
     private Integer idAutor;
+    FacesContext context = FacesContext.getCurrentInstance();
+    Usuario user =new Usuario();
 
     public RevistaBean() {
         this.idTitulo = new Titulo();
@@ -56,7 +59,7 @@ public class RevistaBean implements Serializable {
         this.donacion = new Donaciones();
         this.donanteFecha = "";
         this.idDonante = -1;
-
+        Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
     }
 
     public Titulo getIdTitulo() {
@@ -110,7 +113,16 @@ public class RevistaBean implements Serializable {
     public List<PalabraClave> getListaPalabraClaveModificar() {
         return listaPalabraClaveModificar;
     }
+    
+    public List<Revista> reporteDonacion() {
+        return new RevistasJPA().getReporteDonacion();
+    }
 
+    
+    public List<Revista> reportePrestamos() {
+        return new RevistasJPA().getReportePrestamos();
+    }        
+            
     public void setListaPalabraClaveModificar(List<PalabraClave> listaPalabraClaveModificar) {
         this.listaPalabraClaveModificar = listaPalabraClaveModificar;
     }
@@ -203,11 +215,11 @@ public class RevistaBean implements Serializable {
         this.idDonacion = -1;
         this.idTitulo.setIdTitulo(1);
         revista = revis;
-        
-        String accion = "Modificacion de datos de Revista" ;
-        String tabla = "Revista" ;
+
+        String accion = "" + user.getNickname() + " Modificó de datos de Revista";
+        String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
-        
+
         this.categoria = revis.getCategoriaList().get(0);
         this.listaArticulos = revis.getArticuloList();
         try {
@@ -240,6 +252,7 @@ public class RevistaBean implements Serializable {
     }
 
     public void crear() {
+
         ArticulosJPA artiJAP = new ArticulosJPA();
         Integer inicialA = artiJAP.getClave() + 1;
         jpaRevista = new RevistasJPA();
@@ -276,9 +289,9 @@ public class RevistaBean implements Serializable {
         }
 
         revista.setArticuloList(listaArticulos);
-        
-        String accion = "Registro de nueva Revista" ;
-        String tabla = "Revista" ;
+
+        String accion = "" + user.getNickname() + "Registró de nueva Revista";
+        String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
         jpaRevista.savePantalla(revista);
@@ -306,14 +319,14 @@ public class RevistaBean implements Serializable {
         this.articulo = new Articulo();
         listaPalabraClaveDestino = new ArrayList<>();
         listaPalabraClave = new ArrayList<>();
-        idAutor=1;
+        idAutor = 1;
         RequestContext.getCurrentInstance().execute("PF('articuloCrear').hide();");
 
     }
 
     public void articuloaModificar(Articulo arti) {
         this.articulo = arti;
-        clone = arti;        
+        clone = arti;
         PalabrasClavesJPA jpaPalabra = new PalabrasClavesJPA();
         listaPalabraClave = jpaPalabra.getPalabraClave();
         listaPalabraClaveDestino = new ArrayList<>();
@@ -439,8 +452,8 @@ public class RevistaBean implements Serializable {
 
     public void eliminar(Revista revis) {
         jpaRevista = new RevistasJPA();
-        String accion = "Datos de Revista Borrados" ;
-        String tabla = "Revista" ;
+        String accion = "" + user.getNickname() + "Eliminó la Revista: " + revis.getIdTitulo().getTituloRevista() + " " + revis.getTitulor();
+        String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
         jpaRevista.deleteTipoUsuario(revis);
 

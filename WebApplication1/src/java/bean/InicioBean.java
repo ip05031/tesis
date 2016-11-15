@@ -6,10 +6,13 @@
 package bean;
 
 import controller.ArticuloJPA;
+import controller.DescargarJPA;
 import controller.ImportarJPA;
 import controller.InicioJPA;
+import controller.PantallaJPA;
 import controller.RevistaJPA;
 import entity.Articulo;
+import entity.Descarga;
 import entity.Pantalla;
 import entity.Revista;
 import entity.Usuario;
@@ -19,6 +22,9 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,7 +60,10 @@ public class InicioBean implements Serializable {
     private String menu;
     private List<Pantalla> listaPantallas = new ArrayList<>();
     private Usuario userLogueado = new Usuario();
+    private Usuario perfilUsuario = new Usuario();
     FacesContext context;
+    private DescargarJPA descargarJPA;
+
 
     /*---------------------------------------------------------- Constructor -----------------------------------------------------------------------*/
     public InicioBean() {
@@ -65,18 +74,74 @@ public class InicioBean implements Serializable {
     }
 
     /*---------------------------------------------------------- Funciones Propias -----------------------------------------------------------------*/
-    public void descargaArchivo() {
-        this.setArchivoDownload(true);
+    public void descargaArchivo(int tipo) {
+
+        Descarga desc = new Descarga();
+        Revista rev = new Revista();
+        Articulo art = new Articulo();
+        Usuario user = new Usuario();
+        Date fecha = null;
+        Date hora = null;
+        int idDescarga = 0;
+        descargarJPA = new DescargarJPA();
+
+        rev = this.revistaAbrir;
+        context = FacesContext.getCurrentInstance();
+        user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
+
+        idDescarga = descargarJPA.getClave();
+        Calendar calendario = GregorianCalendar.getInstance();
+        fecha = calendario.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, calendario.HOUR_OF_DAY);
+        cal.set(Calendar.MINUTE, calendario.MINUTE);
+        cal.set(Calendar.SECOND, calendario.SECOND);
+        cal.set(Calendar.MILLISECOND, calendario.MILLISECOND);
+        hora = calendario.getTime();
+
+        desc.setIdDescarga(idDescarga);
+        desc.setIdRevista(rev);
+        desc.setIdUsuario(user);
+        desc.setFechad(fecha);
+        desc.setHorad(hora);
+
+        if (tipo == 2) {
+            art = this.articuloAbrir;
+            desc.setIdArticulo(art);
+        }
+        try {
+            descargarJPA.saveDescarga(desc);
+            this.setArchivoDownload(true);
+        } catch (Exception e) {
+            System.out.println("solicitar descarga");
+        }
+
+        // id revista
+        // id articulo
+        // id usuario
+        // fecha
+        // hora
+    }
+    
+    public List<Descarga> obtenerHoras(){
+        return new DescargarJPA().getHoras();
+    }
+
+    public void inhabilitar() {
+        this.setArchivoDownload(false);
     }
 
     public String setearRedirigir(Revista revista) {
+        System.out.println("seteando Revista..");
         this.revistaAbrir = revista;
+        inhabilitar();
         listArticulo = new ImportarJPA().getListaUnArticulo(revista.getIdRevista());
         return "PortadaRevista?faces-redirect=true";
     }
 
     public String setearArticuloRedirigir(Articulo art) {
         System.out.println("se va para ver Articulo");
+        inhabilitar();
         this.articuloAbrir = art;
         return "VerArticulo?faces-redirect=true";
     }
@@ -90,6 +155,7 @@ public class InicioBean implements Serializable {
     }
 
     public List<Revista> getListadoRevistas() {
+        System.out.println("getlistadoRevistas");
         inicioJPA = new InicioJPA();
         listaRevista = inicioJPA.obtnerRevistas2();
         return listaRevista;
@@ -114,7 +180,7 @@ public class InicioBean implements Serializable {
             this.setUserLogueado(user.get(0));
             System.out.println("this is the nick: ----------------------");
             System.out.println(userLogged.getNickname());
-            this.setLogueado("" + userLogged.getNombreu() + " " + userLogged.getApellidosu());
+            this.setLogueado("" + userLogged.getNickname());
             listaDePantallas = userLogged.getIdTusuario().getPantallaList();
             definirMenu(userLogged);
             this.setUsuarioContra("");
@@ -127,7 +193,7 @@ public class InicioBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             this.setInicioSesion(false);
             //redirigir();
-            return "inicio?facesRedirect=true";
+            return "Login?facesRedirect=true";
         }
         //return "index?faces-redirect=true";
     }
@@ -140,11 +206,12 @@ public class InicioBean implements Serializable {
     public void definirMenu(Usuario user) {
         System.out.println("usuario:" + user.getNombreu());
         int idUsuario = user.getIdUsuario();
-        this.setListaPantallas(user.getIdTusuario().getPantallaList());
+        this.setListaPantallas(menuList(user));
     }
 
     public String Salir() {
         this.setInicioSesion(false);
+        inhabilitar();
         context = FacesContext.getCurrentInstance();
         context.getExternalContext().getSessionMap().remove("logueado");
         redirigir();
@@ -241,7 +308,18 @@ public class InicioBean implements Serializable {
         }
         return value;
     }
-
+    
+    public List<Pantalla> menuList(Usuario user){
+        
+        List<Pantalla> menuList = new ArrayList();
+        List<Pantalla> pantallaList = user.getIdTusuario().getPantallaList();
+        for (Pantalla pantalla : pantallaList) {
+                if(pantalla.getPermiso() ){
+                    menuList.add(pantalla);
+                }
+            }
+        return menuList;
+    }
     /*---------------------------------------------------------- Setter & Getter -------------------------------------------------------------------*/
     public String getUsuarioNombre() {
         return usuarioNombre;
@@ -361,5 +439,13 @@ public class InicioBean implements Serializable {
 
     public void setUserLogueado(Usuario userLogueado) {
         this.userLogueado = userLogueado;
+    }
+
+    public Usuario getPerfilUsuario() {
+        return perfilUsuario;
+    }
+
+    public void setPerfilUsuario(Usuario perfilUsuario) {
+        this.perfilUsuario = perfilUsuario;
     }
 }
