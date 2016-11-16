@@ -152,7 +152,11 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
-                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{registroBean.nuevoVisitante()}" update="newUsuarioExterno" />
+                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                                 actionListener="#{registroBean.nuevoVisitante()}" 
+                                                                 update="newUsuarioExterno" 
+                                                                 onclick="desactivar(this);"
+                                                                 />
 
                                                 <p:commandButton class="btn btn-danger pull-right" value="Cancelar" immediate="true" />
 
@@ -164,7 +168,11 @@
                         </h:form>
                     </div>
                 </div>
-
+                <!--div id="capa_cargando" class="clase_cargando">
+                    <div class="box-message">
+                        <b>cargando...</b>
+                    </div>
+                </div-->
             </ui:define>
 
         </ui:composition>

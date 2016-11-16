@@ -60,7 +60,7 @@ label {
 }
 
 .registroBtn{
-    
+
     font-weight: bold;
     font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; 
     font-size:18px;
@@ -69,4 +69,47 @@ label {
     background-color: #fff;
     border-color: #ccc;
     color:#036fab !important;
+}
+
+#logo-mobile{
+    display:none; 
+}
+
+#logo-web{
+    display:block;
+}
+@media screen and (max-width: 700px) {
+    #logo-mobile{
+        display:block;
+    }
+    #logo-web{
+        display:none;
+    }
+}
+/*
+.clase_cargando {
+    opacity:0.5;
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+}
+
+.box-message{
+    position:absolute; 
+    top:250px; 
+    left:350px; 
+    width:200px; 
+    height:20px; 
+    border:1px solid #FF6666;
+    background-color:#ccc;
+    color:#FFFFFF; 
+    text-align:center;
+}
+*/
+
+.ui-selectonemenu .ui-selectonemenu-trigger{
+        width: 25px;
 }

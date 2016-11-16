@@ -9,6 +9,7 @@ import controller.ArticuloJPA;
 import controller.DescargarJPA;
 import controller.ImportarJPA;
 import controller.InicioJPA;
+import controller.PantallaJPA;
 import controller.RevistaJPA;
 import entity.Articulo;
 import entity.Descarga;
@@ -121,12 +122,17 @@ public class InicioBean implements Serializable {
         // fecha
         // hora
     }
+    
+    public List<Descarga> obtenerHoras(){
+        return new DescargarJPA().getHoras();
+    }
 
     public void inhabilitar() {
         this.setArchivoDownload(false);
     }
 
     public String setearRedirigir(Revista revista) {
+        System.out.println("seteando Revista..");
         this.revistaAbrir = revista;
         inhabilitar();
         listArticulo = new ImportarJPA().getListaUnArticulo(revista.getIdRevista());
@@ -187,7 +193,7 @@ public class InicioBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             this.setInicioSesion(false);
             //redirigir();
-            return "inicio?facesRedirect=true";
+            return "Login?facesRedirect=true";
         }
         //return "index?faces-redirect=true";
     }
@@ -200,7 +206,7 @@ public class InicioBean implements Serializable {
     public void definirMenu(Usuario user) {
         System.out.println("usuario:" + user.getNombreu());
         int idUsuario = user.getIdUsuario();
-        this.setListaPantallas(user.getIdTusuario().getPantallaList());
+        this.setListaPantallas(menuList(user));
     }
 
     public String Salir() {
@@ -302,7 +308,18 @@ public class InicioBean implements Serializable {
         }
         return value;
     }
-
+    
+    public List<Pantalla> menuList(Usuario user){
+        
+        List<Pantalla> menuList = new ArrayList();
+        List<Pantalla> pantallaList = user.getIdTusuario().getPantallaList();
+        for (Pantalla pantalla : pantallaList) {
+                if(pantalla.getPermiso() ){
+                    menuList.add(pantalla);
+                }
+            }
+        return menuList;
+    }
     /*---------------------------------------------------------- Setter & Getter -------------------------------------------------------------------*/
     public String getUsuarioNombre() {
         return usuarioNombre;

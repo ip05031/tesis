@@ -20,18 +20,15 @@
                                 <h4> Listado de Revistas Prestadas </h4>
                                 <h:form id="frm_table">
                                     <p:growl id="msj" autoUpdate="true"></p:growl>
-                                    <p:dataTable value="#{prestamoBean.ListaPrestamos() }" widgetVar="tabla_devolucion" var="prestamo" paginator="true" id="detailTable" emptyMessage="No se encontraron registros" rows="10">
-                                        <f:facet name="header" >
-                                            <p:outputPanel style="text-align:right">
-                                                <h:outputText value="Buscar:" />
-                                                <p:inputText id="globalFilter" onkeyup="PF('tabla_devolucion').filter()" style="width:150px" placeholder="Busqueda" />
-                                            </p:outputPanel>
-                                        </f:facet>  
-                                        <p:column headerText="Nombre Revista" filterBy="#{prestamo.idInventario.idRevista.idTitulo.tituloRevista} #{prestamo.idInventario.idRevista.titulor}" >
-                                            <h:outputText value="#{prestamo.idInventario.idRevista.idTitulo.tituloRevista} #{prestamo.idInventario.idRevista.titulor}" />
+                                    <p:dataTable value="#{prestamoBean.ListaPrestamos() }" widgetVar="tabla_devolucion" var="prestamo" paginator="true" id="detailTable" emptyMessage="No se encontraron registros" rows="15"> 
+                                        <p:column headerText="Nombre Revista" >
+                                            <h:outputText value="#{prestamo.idInventario.idRevista.idTitulo.tituloRevista}-#{prestamo.idInventario.idRevista.titulor}" />
                                         </p:column>
-                                        <p:column headerText="Prestador"  style="text-align: center" filterBy="#{prestamo.idUsuario.nickname}" >
-                                            <h:outputText value="#{prestamo.idUsuario.nombreu} #{prestamo.idUsuario.apellidosu} - (#{prestamo.idUsuario.nickname})" />
+                                        <p:column headerText="Nombre"  style="text-align: center" >
+                                            <h:outputText value="#{prestamo.idUsuario.nombreu} #{prestamo.idUsuario.apellidosu} " />
+                                        </p:column>
+                                        <p:column headerText="Nombre Usuario"  style="text-align: center" >
+                                            <h:outputText value="#{prestamo.idUsuario.nickname}" />
                                         </p:column>
                                         <p:column headerText="Fecha Prestamo"  style="text-align: center" >
                                             <h:outputText value="#{prestamo.fechap}" >
@@ -53,11 +50,12 @@
                                             <p>
                                                 Se consultaron las siguientes páginas. 
                                             </p>
-                                            <p:inputText placeholder="Paginas" title="Paginas" value="#{prestamoBean.pags}" />
+                                            <p:inputText placeholder="Paginas" title="Paginas" value="#{prestamoBean.numpags}" />
                                         </div>
                                         <p:commandButton class="btn btn-success pull-right" value="Ok" 
                                                          actionListener="#{prestamoBean.guardarDevolucion()  }"
-                                                         oncomplete="PF('devolverRevista').hide();"/>
+                                                         oncomplete="PF('devolverRevista').hide();"
+                                                         update="devolverRevista,:frm_table:detailTable"/>
                                         <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('devolverRevista').hide();"/>
                                     </h:form>
                                 </p:dialog>

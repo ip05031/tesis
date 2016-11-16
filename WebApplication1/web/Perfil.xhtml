@@ -175,7 +175,34 @@
                                                         </h3>
                                                     </div>
                                                     <div class="panel-body">
-                                                        Aqui debe ir la lista de revistas descargadas
+                                                        <h:form >
+                                                            <p:dataTable id="listaTabla" value="#{perfilBean.perfilUsuario.descargaList}" 
+                                                                         var="descarga" paginator="true" widgetVar="descarga" 
+                                                                         emptyMessage="No se encontraron datos">
+
+                                                                <p:column headerText="Nombre Revista" >
+                                                                    <h:outputText value="#{descarga.idRevista.idTitulo.tituloRevista}" />
+                                                                </p:column>
+                                                                <p:column headerText="Volumen Revista" >
+                                                                    <h:outputText value="#{descarga.idRevista.titulor}" />
+                                                                </p:column>
+                                                                <p:column headerText="Fecha Descarga" >
+                                                                    <h:outputText value="#{descarga.fechad}" >
+                                                                        <f:convertDateTime pattern="dd-MM-YYYY"   />
+                                                                    </h:outputText>
+                                                                </p:column>
+                                                                <p:column headerText="Hora Descarga" >
+                                                                    <h:outputText value="#{descarga.horad}" >
+                                                                        <f:convertDateTime pattern="hh:mm:ss aa"   />
+                                                                    </h:outputText>
+                                                                </p:column>
+                                                                <p:column headerText="Ver Revista" >
+                                                                    <h:commandButton value="Ver Revista" action="#{inicioBean.setearRedirigir(descarga.idRevista)}"  class="btn btn-success"/>
+                                                                </p:column>
+
+                                                            </p:dataTable>
+                                                        </h:form>
+
                                                     </div>
                                                     <div class="panel-footer">
                                                         Aqui van los botones

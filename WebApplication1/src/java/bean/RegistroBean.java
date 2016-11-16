@@ -35,6 +35,7 @@ public class RegistroBean implements Serializable {
 
     private Usuario newUser = new Usuario();
     private UsuarioJPA usuarioJPA;
+    private boolean buttonDisabled;
 
     /**
      * Creates a new instance of RegistroBean
@@ -44,7 +45,7 @@ public class RegistroBean implements Serializable {
     }
 
     public void nuevoVisitante() {
-
+        this.setButtonDisabled(true);
         try {
             System.out.println("si llegó");
             String contra1 = newUser.getPassword();
@@ -75,7 +76,7 @@ public class RegistroBean implements Serializable {
             String codigo = inicio + uno + it + corta;
             this.newUser.setClaveValidar(codigo);
 
-            new UsuarioJPA().saveUsuario(newUser);
+            
             //Codigo de Creacion de envio de mensaje 
             String claveEnviar = "http://localhost:8080/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=" + codigo;
             //Mensajeria de confirmacion
@@ -101,7 +102,7 @@ public class RegistroBean implements Serializable {
                     + "Dirreción MUNA";;
             msj.setMensaje(cuerpo);
             cartero.enviarCorreo(msj, null);
-
+            new UsuarioJPA().saveUsuario(newUser);
             this.newUser = new Usuario();
             FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Revise su correo para continuar con el registro."));
             //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado!", null);
@@ -153,5 +154,13 @@ public class RegistroBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Válido"));
             }
         }
+    }
+
+    public boolean isButtonDisabled() {
+        return buttonDisabled;
+    }
+
+    public void setButtonDisabled(boolean buttonDisabled) {
+        this.buttonDisabled = buttonDisabled;
     }
 }

@@ -55,7 +55,7 @@ public class Descarga implements Serializable {
     @ManyToOne(optional = false)
     private Revista idRevista;
     @JoinColumn(name = "id_articulo", referencedColumnName = "id_articulo")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Articulo idArticulo;
 
     public Descarga() {

@@ -7,8 +7,11 @@
 
 $(document).ready(function () {
     $('#bsq_avanzada').hide();
+    $('.clase_cargando').hide();
+    $(".ui-selectonemenu-trigger").css({"width":"25px"});
     sameSizeLi();
     estilosReloj();
+
 })
 
 
@@ -135,8 +138,11 @@ function ocultar_buqueda_2() {
     $('#contenedor_busquedas').hide();
 }
 
-function redireccionar(url){
-  console.log("redirigiendo...");
-  window.location=""+url;
-} 
+function redireccionar(url) {
+    console.log("redirigiendo...");
+    window.location = "" + url;
+}
 
+function desactivar_registrar() {
+    $("#newUsuarioExterno").prop("disabled", true);
+}

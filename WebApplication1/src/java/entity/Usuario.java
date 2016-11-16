@@ -35,12 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findNickname", query = "SELECT u FROM Usuario u where u.nickname like :nickname "),
-    @NamedQuery(name = "Usuario.findEmployee", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario != :idTusuario"),
-    @NamedQuery(name = "Usuario.findVisitor", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario = :idTusuario "),    
+    @NamedQuery(name = "Usuario.findEmployee", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario != :idTusuario and u.estadoi = '2' "),
+    @NamedQuery(name = "Usuario.findVisitor", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario = :idTusuario and u.estadoi = '2'"),    
     @NamedQuery(name = "Usuario.findMaxId", query = "SELECT MAX(u.idUsuario) FROM Usuario u"),
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
-    @NamedQuery(name = "Usuario.findBylogin", query = "SELECT u FROM Usuario u WHERE u.nickname = :nickname AND u.password = :contra"),
+    @NamedQuery(name = "Usuario.findBylogin", query = "SELECT u FROM Usuario u WHERE u.nickname = :nickname AND u.password = :contra and u.estadoi ='2' "),
     @NamedQuery(name = "Usuario.findByNombreu", query = "SELECT u FROM Usuario u WHERE u.nombreu = :nombreu"),
     @NamedQuery(name = "Usuario.findByApellidosu", query = "SELECT u FROM Usuario u WHERE u.apellidosu = :apellidosu"),
     @NamedQuery(name = "Usuario.findByOcupacion", query = "SELECT u FROM Usuario u WHERE u.ocupacion = :ocupacion"),
