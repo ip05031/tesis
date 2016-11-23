@@ -61,6 +61,10 @@ public class RevistaBean implements Serializable {
         this.idDonante = -1;
         Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
     }
+    
+    public void limpiar2(){
+    this.revista.setFechaprf(null);
+    }
 
     public Titulo getIdTitulo() {
         return idTitulo;
