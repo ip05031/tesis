@@ -19,7 +19,6 @@
                             <div class="pull-left">
                                 <h4> Listado de Revistas Prestadas </h4>
                                 <h:form id="frm_table">
-                                    <p:growl id="msj" autoUpdate="true"></p:growl>
                                     <p:dataTable value="#{prestamoBean.ListaPrestamos() }" widgetVar="tabla_devolucion" var="prestamo" paginator="true" id="detailTable" emptyMessage="No se encontraron registros" rows="15"> 
                                         <p:column headerText="Nombre Revista" >
                                             <h:outputText value="#{prestamo.idInventario.idRevista.idTitulo.tituloRevista}-#{prestamo.idInventario.idRevista.titulor}" />
@@ -46,15 +45,16 @@
                                         <div class="form-group">
                                             <p>
                                                 Se Devolverá el dia de #{prestamoBean.fechaMostrar} <br/> una copia de el libro  una copia de #{prestamoBean.devolucion.idInventario.idRevista.idTitulo.tituloRevista}:#{prestamoBean.devolucion.idInventario.idRevista.titulor} 
+                                                
                                             </p>
                                             <p>
                                                 Se consultaron las siguientes páginas. 
                                             </p>
-                                            <p:inputText placeholder="Paginas" title="Paginas" value="#{prestamoBean.numpags}" />
+                                            <p:inputText id="numPags" placeholder="Paginas" title="Paginas" value="#{prestamoBean.numpags}" required="true" requiredMessage="Por favor Ingrese las páginas que consultó de la revista."/>
+                                            <p:messages for ="numPags" autoUpdate="true" closable="true" />
                                         </div>
                                         <p:commandButton class="btn btn-success pull-right" value="Ok" 
                                                          actionListener="#{prestamoBean.guardarDevolucion()  }"
-                                                         oncomplete="PF('devolverRevista').hide();"
                                                          update="devolverRevista,:frm_table:detailTable"/>
                                         <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('devolverRevista').hide();"/>
                                     </h:form>

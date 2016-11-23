@@ -84,14 +84,18 @@
                                                     <label for="nameTipoUsuarioM">
                                                         Nombre Tipo de Usuario
                                                     </label>
-                                                    <p:inputText id="nameTipoUsuarioM" value="#{tipoUsuarioBean.tipo.nombretp}" required="true" requiredMessage="Es obligatorio"  class="form-control" onkeypress="return soloLetras(event)"/>
+                                                    <p:inputText id="nameTipoUsuarioM" value="#{tipoUsuarioBean.tipo.nombretp}" required="true" 
+                                                                 requiredMessage="Ingrese nombre de Tipo de usuario"  class="form-control" onkeypress="return soloLetras(event)"/>
+                                                     <p:messages for="nameTipoUsuarioM" closable="true" />
                                                 </div>
                                                 <div class="form-group">
 
                                                     <label for="desTipoUsurioM">
                                                         Descripción Tipo de Usuario
                                                     </label>
-                                                    <p:inputText id="desTipoUsurioM" value="#{tipoUsuarioBean.tipo.descripciontp}" required="true" requiredMessage="Es obligatorio"  class="form-control" onkeypress="return soloLetras(event)"/>
+                                                    <p:inputText id="desTipoUsurioM" value="#{tipoUsuarioBean.tipo.descripciontp}" required="true" 
+                                                                 requiredMessage="Ingrese nombre de Tipo de usuario"  class="form-control" onkeypress="return soloLetras(event)"/>
+                                                    <p:messages for="desTipoUsurioM" closable="true" />
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-md-12">

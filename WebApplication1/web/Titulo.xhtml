@@ -95,11 +95,14 @@
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1"> Titulo de Revista: </label>
 
-                                                            <p:inputText id="nombret" value="#{tituloBean.titu}" class="form-control" required="true"
+                                                            <p:inputText id="nombret" value="#{tituloBean.titu}" class="form-control" 
+                                                                         required="true" requiredMessage="Debe ingresar Titulo"
                                                                          label="Titulo" onkeypress="return soloLetras(event)">
-                                                                <f:validateRequired />
+                                                                <f:ajax event="change" listener="#{tituloBean.validarTitulo()}" /> 
+                                                                <f:ajax event="keyup" listener="#{tituloBean.validarTitulo()}" /> 
                                                             </p:inputText>
-                                                            <p:message for="nombret" display="icon"  />
+                                                            <p:messages for="nombret"   />
+                                                            <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                                         </div>
 
                                                         <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{tituloBean.guardarTitulo()}"  update=":frm_table:detailTable,newpantpal"/>
@@ -116,10 +119,12 @@
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Titulo de Revista:</label>
                                                         <p:inputText id="name_palabra" value="#{tituloBean.modifi.tituloRevista}" class="form-control" 
-                                                                     required="true" onkeypress="return soloLetras(event)"/>
+                                                                     required="true" requiredMessage="Debe ingresar Titulo"
+                                                                     onkeypress="return soloLetras(event)"/>
                                                     </div>
 
-                                                    <p:commandButton class="btn btn-success" process="@form" action="#{tituloBean.edititulo()}" value="Editar" update=":frm_table" onclick="PF('modificartitulo').hide();"/>
+                                                    <p:commandButton class="btn btn-success" process="@form" action="#{tituloBean.edititulo()}" value="Editar" 
+                                                                     update=":frm_table" />
                                                     <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modificartitulo').hide();"/>
                                                 </h:form>
                                             </p:dialog>

@@ -27,7 +27,7 @@
 
     </h:head>
     <h:body>
-        
+
         <div class="container-fluid" >
             <div id="logo-web" > <img class="img-responsive" src="#{request.contextPath}/media/banner-100.png" /> </div>
             <div id="logo-mobile" > <img class="img-responsive" src="#{request.contextPath}/media/banner-mobile.png"/> </div>            
@@ -205,19 +205,19 @@
                 <h:form id="form-login">
 
                     <h:panelGrid columns="2">
-                        <p:outputLabel value="Usuario"  for="txtUsuario" />
-                        <p:inputText value="#{inicioBean.usuarioNombre}" required="true"  id="txtUsuario"  requiredMessage="Ingrese un Usuario"/>
+                            <p:outputLabel value="Usuario"  for="txtUsuario" />
+                            <p:inputText value="#{inicioBean.usuarioNombre}" required="true"  id="txtUsuario"  requiredMessage="Ingrese un Usuario"/>
 
-                        <p:outputLabel value="Contraseña"  for="txtContra" />
-                        <p:password value="#{inicioBean.usuarioContra}" required="true"  id="txtContra"  requiredMessage="Ingrese una Contraseña"/>
-
+                            <p:outputLabel value="Contraseña"  for="txtContra" />
+                            <p:password value="#{inicioBean.usuarioContra}" required="true"  id="txtContra"  requiredMessage="Ingrese una Contraseña"/>
+                           
                         <h:column />
-                        <h:commandButton value="Iniciar Sesion" action="#{ inicioBean.login()}"/>
+                        <p:commandButton value="Iniciar Sesion" actionListener="#{ inicioBean.login()}" />
 
                     </h:panelGrid>
                     <p:separator />
 
-                    <h:link outcome="Registrarse" value="Registrarse" class="btn registroBtn"/>
+                            <h:link outcome="Registrarse" value="Registrarse" class="btn registroBtn"/>
 
 
                 </h:form>

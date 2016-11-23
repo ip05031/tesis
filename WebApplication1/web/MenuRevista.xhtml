@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <c:set var="nombre" value="MenuRevista" />
+
+                <div class="row" >
+                    <div class="col-md-1" ></div>  
+
+                    <div class="col-md-10" >
+                        <p:growl id="msg" autoUpdate="true" />
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Menu de Revistas
+                                <div class="pull-right">
+                                    <div class="btn-group">
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+
+                                <table align="center">
+
+                                    <tr>
+                                        <td align="center">
+                                            <img src="resources/img/M1.jpg" align="center"/>
+                                            <br/>      
+                                            <h:link outcome="Autor" value="Autor" class="btn btn-success btn-xs"/>
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M2.jpg" align="center" />
+                                            <br/>      
+                                            <h:link outcome="Categoria" value="Categoria" class="btn btn-success btn-xs" />
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M3.jpg" align="center"/>
+                                            <br/>      
+                                            <h:link outcome="PalabrasClave" value="Palabras Claves" class="btn btn-success btn-xs"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <br/> 
+                                        <br/>     
+                                    </tr>
+
+                                    <tr>
+                                        <td align="center">
+                                            <img src="resources/img/M4.jpg" align="center" />
+                                            <br/>      
+                                            <h:link outcome="Titulo" value="Titulo" class="btn btn-success btn-xs"/>
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M5.jpg" align="center"/>
+                                            <br/>      
+                                            <h:link outcome="Revistas" value="Revistas" class="btn btn-success btn-xs"/>
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M6.jpg" align="center" />
+                                            <br/>      
+                                            <h:link outcome="Importar" value="Importación" class="btn btn-success btn-xs"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--   /.panel-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-1" ></div>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

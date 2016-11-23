@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
     @NamedQuery(name = "Categoria.aumentarId", query = "SELECT MAX(c.idCategoria) FROM Categoria c"),
     @NamedQuery(name = "Categoria.findByIdCategoria", query = "SELECT c FROM Categoria c WHERE c.idCategoria = :idCategoria"),
+    @NamedQuery(name = "Categoria.findCategoria", query = "SELECT c FROM Categoria c WHERE c.nombrec like :categoria"),
     @NamedQuery(name = "Categoria.findByNombrec", query = "SELECT c FROM Categoria c WHERE c.nombrec = :nombrec")})
 public class Categoria implements Serializable {
 

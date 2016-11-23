@@ -143,6 +143,6 @@ function redireccionar(url) {
     window.location = "" + url;
 }
 
-function desactivar_registrar() {
-    $("#newUsuarioExterno").prop("disabled", true);
+function desactivar() {
+    $(".btn").prop("disabled", true);
 }

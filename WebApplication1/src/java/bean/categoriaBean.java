@@ -17,7 +17,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-
 @Named(value = "categoriaBean")
 @SessionScoped
 public class categoriaBean implements Serializable {
@@ -36,7 +35,6 @@ public class categoriaBean implements Serializable {
     public void setModCategoria(Categoria modCategoria) {
         this.modCategoria = modCategoria;
     }
-    
 
     public Categoria getCategoria() {
         return categoria;
@@ -45,7 +43,6 @@ public class categoriaBean implements Serializable {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
 
     public String getNombreCategoria() {
         return nombreCategoria;
@@ -62,13 +59,10 @@ public class categoriaBean implements Serializable {
     public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
-    
- 
+
     public categoriaBean() {
 
     }
-    
-    
 
     public List<Categoria> getir() {
         categoriaJPA = new CategoriaJPA();
@@ -87,43 +81,47 @@ public class categoriaBean implements Serializable {
     public void saveCategoria() {
         categoriaJPA = new CategoriaJPA();
         categoria = new Categoria();
-        categoria.setIdCategoria(categoriaJPA.aumentarIdCategoria()+1);
+        categoria.setIdCategoria(categoriaJPA.aumentarIdCategoria() + 1);
         categoria.setNombrec(nombreCategoria);
-        categoriaJPA.saveCategoria(categoria);
-        this.getir();
-        this.setIdCategoria(0);
-        this.setNombreCategoria(null);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria creada exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        if (categoriaJPA.searchCategora(nombreCategoria)) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa categoría ya existe!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else {
+            categoriaJPA = new CategoriaJPA();
+            categoriaJPA.saveCategoria(categoria);
+            this.getir();
+            this.setIdCategoria(0);
+            this.setNombreCategoria(null);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria creada exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "¡Categoria creada exitosamente!"));
+        }
+
     }
-    
+
     public void updCategoria() {
         categoriaJPA = new CategoriaJPA();
-     
-        
+
         categoriaJPA.updateCategoria(modCategoria);
-        
+
         this.setIdCategoria(0);
         this.setNombreCategoria(null);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria modificada exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
-    
+
     public void dltCategoria(Categoria cat) {
         categoriaJPA = new CategoriaJPA();
         categoriaJPA.deleteCategoria(cat);
-        
-        
+
         this.setIdCategoria(0);
         this.setNombreCategoria(null);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria eliminada exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
 
-
     }
-    
-    public void LeerId(Categoria cat){
+
+    public void LeerId(Categoria cat) {
         CategoriaJPA jpa;
         Categoria temp;
         try {
@@ -131,16 +129,23 @@ public class categoriaBean implements Serializable {
             temp = jpa.LeerIdCategoria(cat);
             if (temp != null) {
                 this.modCategoria = temp;
-                
+
             }
-            
+
         } catch (Exception e) {
         }
     }
-    
-   
-    
-    
-    
+
+    public void validarCategoria() {
+        categoriaJPA = new CategoriaJPA();
+        String categoria = this.getNombreCategoria();
+        if (categoria.length() > 0) {
+            System.out.println("comineza la validacion de categoria");
+            if (categoriaJPA.searchCategora(categoria)) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa categoría ya existe!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        }
+    }
 
 }
