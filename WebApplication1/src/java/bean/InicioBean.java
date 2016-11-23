@@ -122,8 +122,8 @@ public class InicioBean implements Serializable {
         // fecha
         // hora
     }
-    
-    public List<Descarga> obtenerHoras(){
+
+    public List<Descarga> obtenerHoras() {
         return new DescargarJPA().getHoras();
     }
 
@@ -170,31 +170,37 @@ public class InicioBean implements Serializable {
         System.out.println("Contra:");
         System.out.println(hashPass);
         System.out.println("ok");
-        user = inicioJPA.existeUsuario(this.usuarioNombre, hashPass);
-        if (!user.isEmpty()) {
-            this.setInicioSesion(true);
-            context = FacesContext.getCurrentInstance();
-            context.getExternalContext().getSessionMap().put("logueado", user.get(0));
-            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("logueado", user.get(0));
-            userLogged = user.get(0);
-            this.setUserLogueado(user.get(0));
-            System.out.println("this is the nick: ----------------------");
-            System.out.println(userLogged.getNickname());
-            this.setLogueado("" + userLogged.getNickname());
-            listaDePantallas = userLogged.getIdTusuario().getPantallaList();
-            definirMenu(userLogged);
-            this.setUsuarioContra("");
-            this.setUsuarioNombre("");
-            RequestContext.getCurrentInstance().update("form-login");
-            redirigir();
-            return "index?facesRedirect=true";
-        } else {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario y/o Contraseña Incorrectos!", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            this.setInicioSesion(false);
-            //redirigir();
+        try {
+            user = inicioJPA.existeUsuario(this.usuarioNombre, hashPass);
+            if (!user.isEmpty()) {
+                this.setInicioSesion(true);
+                context = FacesContext.getCurrentInstance();
+                context.getExternalContext().getSessionMap().put("logueado", user.get(0));
+                //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("logueado", user.get(0));
+                userLogged = user.get(0);
+                this.setUserLogueado(user.get(0));
+                System.out.println("this is the nick: ----------------------");
+                System.out.println(userLogged.getNickname());
+                this.setLogueado("" + userLogged.getNickname());
+                listaDePantallas = userLogged.getIdTusuario().getPantallaList();
+                definirMenu(userLogged);
+                this.setUsuarioContra("");
+                this.setUsuarioNombre("");
+                RequestContext.getCurrentInstance().update("form-login");
+                redirigir();
+                return "index?facesRedirect=true";
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario y/o Contraseña Incorrectos!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                this.setInicioSesion(false);
+                //redirigir();
+                return "Login?facesRedirect=true";
+            }
+
+        } catch (Exception e) {
             return "Login?facesRedirect=true";
         }
+
         //return "index?faces-redirect=true";
     }
 
@@ -308,18 +314,19 @@ public class InicioBean implements Serializable {
         }
         return value;
     }
-    
-    public List<Pantalla> menuList(Usuario user){
-        
+
+    public List<Pantalla> menuList(Usuario user) {
+
         List<Pantalla> menuList = new ArrayList();
         List<Pantalla> pantallaList = user.getIdTusuario().getPantallaList();
         for (Pantalla pantalla : pantallaList) {
-                if(pantalla.getPermiso() ){
-                    menuList.add(pantalla);
-                }
+            if (pantalla.getPermiso()) {
+                menuList.add(pantalla);
             }
+        }
         return menuList;
     }
+
     /*---------------------------------------------------------- Setter & Getter -------------------------------------------------------------------*/
     public String getUsuarioNombre() {
         return usuarioNombre;

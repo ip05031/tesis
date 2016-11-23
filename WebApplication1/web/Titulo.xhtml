@@ -18,7 +18,7 @@
                         <div class="col-md-1" ></div>  
 
                         <div class="col-md-10" >
-                            <p:growl id="msg" autoUpdate="true" />
+
                             <div class="panel panel-primary">
 
                                 <div class="panel-heading">
@@ -90,7 +90,6 @@
                                             <p:dialog widgetVar="ingresarTitulo" header="Titulo" minHeight="40" modal="true" resizable="false">
                                                 <h:form id="newpantpal" >
                                                     <p:panel id="panel1" header="Registrar Titulo" >
-                                                        <p:messages id="msgs" />
 
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1"> Titulo de Revista: </label>
@@ -105,7 +104,9 @@
                                                             <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                                         </div>
 
-                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{tituloBean.guardarTitulo()}"  update=":frm_table:detailTable,newpantpal"/>
+                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar"
+                                                                         action="#{tituloBean.guardarTitulo()}"  
+                                                                         update=":frm_table:detailTable,newpantpal"/>
                                                         <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarTitulo').hide();" immediate="true"/>
                                                     </p:panel>
                                                 </h:form>    

@@ -11,9 +11,10 @@
             <ui:define name="content">
                 <c:set var="nombre" value="Pantalla" />
                 <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                     <div class="row" >
                         <div class="col-md-12" >
-                            <p:growl id="msg" autoUpdate="true" />
+
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <i class="fa fa-bar-chart-o fa-fw"></i> Pantallas
@@ -79,6 +80,7 @@
                                             <!-- MODAL PARA REGISTRAR UNA PANTALLA  -->
                                             <p:dialog header="Nueva Pantalla" widgetVar="nuevaPantalla" minHeight="40" modal="true" resizable="false" draggable="false">
                                                 <h:form id="newPantalla" >
+                                                    <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">
                                                             Nombre de pantalla
@@ -86,16 +88,28 @@
                                                         <p:inputText id="name_pantalla_n"  value="#{pantallaBean.nombrePantalla}" 
                                                                      required="true"  class="form-control" autocomplete="off" 
                                                                      onkeypress="return soloLetras(event)"
-                                                                     requiredMessage="Ingrese Nombre de Pantalla"/>
+                                                                     requiredMessage="Ingrese Nombre de Pantalla">
+                                                            <f:ajax event="change" listener="#{pantallaBean.validarNombrePantalla(1)}" /> 
+                                                            <f:ajax event="keyup" listener="#{pantallaBean.validarNombrePantalla(1)}" /> 
+                                                        </p:inputText>
+                                                        <p:messages for="name_pantalla_n" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                     </div>
                                                     <div class="form-group">
 
                                                         <label for="exampleInputPassword1">
                                                             Url de Pantalla
                                                         </label>
-                                                        <p:inputText id="ulr_pantalla_n"  class="form-control" value="#{pantallaBean.urlPantalla}" required="true" requiredMessage="El url Es obligatorio" autocomplete="off"/>
+                                                        <p:inputText id="ulr_pantalla_n"  class="form-control" 
+                                                                     value="#{pantallaBean.urlPantalla}" required="true" 
+                                                                     requiredMessage="Ingrese url de Pantalla" autocomplete="off">
+                                                            <f:ajax event="change" listener="#{pantallaBean.validarAccesoPa(1)}" /> 
+                                                            <f:ajax event="keyup" listener="#{pantallaBean.validarAccesoPa(1)}" /> 
+                                                        </p:inputText>
+                                                        <p:messages for="ulr_pantalla_n" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                     </div>
-                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{pantallaBean.savePantalla()}"  update=":frm_table:detailTable,newPantalla"/>
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                                     action="#{pantallaBean.savePantalla()}"  
+                                                                     update=":frm_table:detailTable,newPantalla"/>
                                                     <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaPantalla').hide();" immediate="true" />
 
                                                 </h:form>
@@ -105,19 +119,35 @@
                                             <!-- MODAL PARA EDITAR LA PANTALLA  -->
                                             <p:dialog header="Modificar Pantalla" widgetVar="modalPantallaUpdate" id="modalPantallaUpdate" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
                                                 <h:form id="updatePantalla">
+                                                    <p:messages for ="Message3" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                     <div class="form-group">
                                                         <label >
                                                             Nombre de pantalla
                                                         </label>
-                                                        <p:inputText  class="form-control" value="#{pantallaBean.pantallaActualizar.nombrepa}" required="true" requiredMessage="El nombre es obligatorio" autocomplete="off" onkeypress="return soloLetras(event)"/>
+                                                        <p:inputText  id="name_pantalla_m" class="form-control" value="#{pantallaBean.pantallaActualizar.nombrepa}" 
+                                                                      required="true" requiredMessage="El nombre es obligatorio" 
+                                                                      autocomplete="off" onkeypress="return soloLetras(event)">
+                                                            <f:ajax event="change" listener="#{pantallaBean.validarNombrePantalla(2)}" /> 
+                                                            <f:ajax event="keyup" listener="#{pantallaBean.validarNombrePantalla(2)}" /> 
+                                                        </p:inputText>
+                                                        <p:messages for="name_pantalla_m" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label >
                                                             Url de Pantalla
                                                         </label>
-                                                        <p:inputText  class="form-control" value="#{pantallaBean.pantallaActualizar.accesopa}" required="true" requiredMessage="EL url Es obligatorio" autocomplete="off"/>
+                                                        <p:inputText  id="ulr_pantalla_m" class="form-control" 
+                                                                      value="#{pantallaBean.pantallaActualizar.accesopa}"
+                                                                      required="true" requiredMessage="EL url Es obligatorio" 
+                                                                      autocomplete="off">
+                                                            <f:ajax event="change" listener="#{pantallaBean.validarAccesoPa(2)}" /> 
+                                                            <f:ajax event="keyup" listener="#{pantallaBean.validarAccesoPa(2)}" /> 
+                                                        </p:inputText>    
+                                                        <p:messages for="ulr_pantalla_m" />
                                                     </div>
-                                                    <p:commandButton class="btn btn-success pull-right" value="Modificar" actionListener="#{pantallaBean.modificarPantalla()}"  update=":frm_table:detailTable,updatePantalla"/>
+                                                    <p:commandButton class="btn btn-success pull-right" value="Modificar" 
+                                                                     action="#{pantallaBean.modificarPantalla()}"  
+                                                                     update=":frm_table:detailTable,updatePantalla"/>
                                                     <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modalPantallaUpdate').hide();" immediate="true" />
 
                                                 </h:form>

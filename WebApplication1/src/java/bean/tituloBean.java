@@ -77,17 +77,20 @@ public class tituloBean implements Serializable {
     ////////////// metodo guardar, editar y eleiminar///////////////////////// 
     ////////////// falta arreglar lo de guardar //////////////////////////////
     public void guardarTitulo() {
-        TituloJPA ti = new TituloJPA();
-        titulo.setIdTitulo(ti.getClave() + 1);
-        titulo.setTituloRevista(titu);
-        ti = new TituloJPA();
-        ti.saveTitulo(titulo);
+        try {
+            TituloJPA ti = new TituloJPA();
+            titulo.setIdTitulo(ti.getClave() + 1);
+            titulo.setTituloRevista(titu);
+            ti = new TituloJPA();
+            ti.saveTitulo(titulo);
 
-        this.Getir();
-        titulo = new Titulo();
-
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡No se ha eliminado la categoría!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+            this.Getir();
+            titulo = new Titulo();
+            FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Título creado con éxito."));
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        
     }
 
     public List<Titulo> Getir() {

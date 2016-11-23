@@ -78,7 +78,34 @@
                                             </h:form>
 
 
+                                            <!-- /.insertar categoria -->
+                                            <p:dialog header="Nueva Categoria" widgetVar="nuevaCategoria" minHeight="40" modal="true" resizable="false">
+                                                <h:form id="newCategoria">
 
+                                                    <div class="form-group">
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">
+                                                            Nombre de categoria
+                                                        </label>
+                                                        <p:inputText id="name_categoria_n"  value="#{categoriaBean.nombreCategoria}" 
+                                                                     class="form-control"  required="true" 
+                                                                     requiredMessage="Debe ingresar una Categoría" 
+                                                                     onkeypress="return soloLetras(event)" >
+                                                            <f:ajax event="change" listener="#{categoriaBean.validarCategoria()}" /> 
+                                                            <f:ajax event="keyup" listener="#{categoriaBean.validarCategoria()}" /> 
+                                                        </p:inputText>
+
+
+                                                    </div>
+
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                                     actionListener="#{categoriaBean.saveCategoria()}" 
+                                                                     update=":frm_table:detailTable, newCategoria" validateClient="true"/>
+                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaCategoria').hide();" />
+                                                </h:form>
+                                            </p:dialog>
 
                                             <p:dialog header="ModificarCategoria" widgetVar="modCategoria" id="mCat" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
                                                 <legend>Modificar</legend>
@@ -106,34 +133,7 @@
                                             </p:dialog>
 
 
-                                            <!-- /.insertar categoria -->
-                                            <p:dialog header="Nueva Categoria" widgetVar="nuevaCategoria" minHeight="40" modal="true" resizable="false">
-                                                <h:form id="newCategoria">
-                                                    
-                                                    <div class="form-group">
 
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1">
-                                                            Nombre de categoria
-                                                        </label>
-                                                        <p:inputText id="name_categoria_n"  value="#{categoriaBean.nombreCategoria}" 
-                                                                     class="form-control"  required="true" 
-                                                                     requiredMessage="Debe ingresar una Categoría" 
-                                                                     onkeypress="return soloLetras(event)" >
-                                                            <f:ajax event="change" listener="#{categoriaBean.validarCategoria()}" /> 
-                                                            <f:ajax event="keyup" listener="#{categoriaBean.validarCategoria()}" /> 
-                                                        </p:inputText>
-                                                       
-                                                        
-                                                    </div>
-
-                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" 
-                                                                     actionListener="#{categoriaBean.saveCategoria()}" 
-                                                                     update=":frm_table:detailTable, newCategoria" validateClient="true"/>
-                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaCategoria').hide();" />
-                                                </h:form>
-                                            </p:dialog>
 
                                         </div>
                                     </div>

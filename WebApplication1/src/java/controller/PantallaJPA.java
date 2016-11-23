@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Categoria;
 import entity.Pantalla;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,35 @@ public class PantallaJPA {
             System.out.println(e.getMessage());
         }
     }
+    
+    
+        public boolean searchPantalla(int tipo , String valor) {
+        boolean existe = false;
+        String query = "";
+        String param = "";
+
+        try {
+            if ( tipo == 1 ){
+                query = "Pantalla.findByNombrepa";
+                param = "nombrepa";
+            }
+            else{
+                query = "Pantalla.findByAccesopa";
+                param = "accesopa";
+            }
+            pantalla = em.createNamedQuery(query, Pantalla.class)
+                    .setParameter(param, valor)
+                    .getResultList();
+            existe = pantalla.size() > 0;
+            return existe;
+        } catch (Exception e) {
+            System.out.println("Error en pantalla JPA");
+            System.out.println(e.getMessage());
+            return existe;
+        }
+
+    }
+    
 }
 
 
