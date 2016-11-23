@@ -11,7 +11,7 @@
             <ui:define name="content">
                 <c:set var="nombre" value="Pantalla" />
                 <c:if test="#{inicioBean.verificarPagina(nombre)}">
-                    <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
+                    
                     <div class="row" >
                         <div class="col-md-12" >
 
@@ -32,6 +32,7 @@
                                         <div class="col-md-12" > 
                                             <h4> Listado de Pantallas </h4>
                                             <h:form id="frm_table">
+                                                <p:messages for ="Message4" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                 <p:dataTable id="detailTable" value="#{pantallaBean.getir()}" var="pantalla" rows="6" widgetVar="tabla_pantalla" emptyMessage="No se encontraron registros." paginator="true" >
                                                     <f:facet name="header" >
                                                         <p:outputPanel style="text-align:right">

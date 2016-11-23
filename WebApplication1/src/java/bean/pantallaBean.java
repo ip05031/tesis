@@ -124,8 +124,8 @@ public class pantallaBean implements Serializable {
 
                 this.getir();
                 this.setIdPantalla(0);
-                this.setNombrePantalla(null);
-                this.setUrlPantalla(null);
+                this.setNombrePantalla("");
+                this.setUrlPantalla("");
                 this.setLpantalla(null);
                 FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Pantalla creada con éxito."));
             }
@@ -166,7 +166,7 @@ public class pantallaBean implements Serializable {
         try {
             pantallaJPA = new PantallaJPA();
         pantallaJPA.deletePantalla(pant);
-        FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "ingrese un nombre de pantalla y/o url de pantalla"));
+        FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Pantalla eliminada con éxito."));
         } catch (Exception e) {
             System.out.println("error al eliminar pantalla");
             System.out.println(e.getMessage());
