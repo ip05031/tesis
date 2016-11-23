@@ -13,77 +13,77 @@
 
             <ui:define name="content">
                 <c:set var="nombre" value="MenuRevista" />
-                <c:if test="#{inicioBean.verificarPagina(nombre)}">
-                    <div class="row" >
-                        <div class="col-md-1" ></div>  
 
-                        <div class="col-md-10" >
-                            <p:growl id="msg" autoUpdate="true" />
-                            <div class="panel panel-primary">
+                <div class="row" >
+                    <div class="col-md-1" ></div>  
 
-                                <div class="panel-heading">
-                                    <i class="fa fa-bar-chart-o fa-fw"></i> Menu de Revistas
-                                    <div class="pull-right">
-                                        <div class="btn-group">
-                                           
+                    <div class="col-md-10" >
+                        <p:growl id="msg" autoUpdate="true" />
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Menu de Revistas
+                                <div class="pull-right">
+                                    <div class="btn-group">
 
 
-                                        </div>
+
                                     </div>
                                 </div>
-                                <!-- /.panel-heading -->
-                                <div class="panel-body">
-                                                                        
-  <table align="center">
-  
-  <tr>
-    <td align="center">
-      <img src="resources/img/m1.jpg" align="center"/>
-      <br/>      
-      <h:link outcome="Autor" value="Autor" class="btn btn-success btn-xs"/>
-    </td>
-      <td align="center">
-        <img src="resources/img/m2.jpg" align="center" />
-      <br/>      
-      <h:link outcome="Categoria" value="Categoria" class="btn btn-success btn-xs" />
-    </td>
-    <td align="center">
-      <img src="resources/img/m3.jpg" align="center"/>
-      <br/>      
-      <h:link outcome="PalabrasClave" value="Palabras Claves" class="btn btn-success btn-xs"/>
-    </td>
-  </tr>
-  
-  <tr>
-  <br/> 
-  <br/>     
-  </tr>
-  
-  <tr>
-    <td align="center">
-      <img src="resources/img/m4.jpg" align="center" />
-      <br/>      
-      <h:link outcome="Titulo" value="Titulo" class="btn btn-success btn-xs"/>
-    </td>
-   <td align="center">
-      <img src="resources/img/m5.jpg" align="center"/>
-      <br/>      
-      <h:link outcome="Revistas" value="Revistas" class="btn btn-success btn-xs"/>
-    </td>
-    <td align="center">
-     <img src="resources/img/m6.jpg" align="center" />
-      <br/>      
-      <h:link outcome="Importar" value="Importación" class="btn btn-success btn-xs"/>
-    </td>
-  </tr>
-  </table>
-                                </div>
-                               <!--   /.panel-body -->
                             </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+
+                                <table align="center">
+
+                                    <tr>
+                                        <td align="center">
+                                            <img src="resources/img/M1.jpg" align="center"/>
+                                            <br/>      
+                                            <h:link outcome="Autor" value="Autor" class="btn btn-success btn-xs"/>
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M2.jpg" align="center" />
+                                            <br/>      
+                                            <h:link outcome="Categoria" value="Categoria" class="btn btn-success btn-xs" />
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M3.jpg" align="center"/>
+                                            <br/>      
+                                            <h:link outcome="PalabrasClave" value="Palabras Claves" class="btn btn-success btn-xs"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <br/> 
+                                        <br/>     
+                                    </tr>
+
+                                    <tr>
+                                        <td align="center">
+                                            <img src="resources/img/M4.jpg" align="center" />
+                                            <br/>      
+                                            <h:link outcome="Titulo" value="Titulo" class="btn btn-success btn-xs"/>
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M5.jpg" align="center"/>
+                                            <br/>      
+                                            <h:link outcome="Revistas" value="Revistas" class="btn btn-success btn-xs"/>
+                                        </td>
+                                        <td align="center">
+                                            <img src="resources/img/M6.jpg" align="center" />
+                                            <br/>      
+                                            <h:link outcome="Importar" value="Importación" class="btn btn-success btn-xs"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--   /.panel-body -->
                         </div>
-                        <div class="col-md-1" ></div>
                     </div>
-                </c:if>
+                    <div class="col-md-1" ></div>
+                </div>
+
             </ui:define>
 
         </ui:composition>

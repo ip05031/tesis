@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "palabra_clave")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "PalabraClave.findPalabra", query = "SELECT p FROM PalabraClave p where p.nombrep like :palabra "),
     @NamedQuery(name = "PalabraClave.finlistaNombre", query = "SELECT p.nombrep FROM PalabraClave p order by p.idPalabra"),
     @NamedQuery(name = "PalabraClave.findArticulo", query = "SELECT p.nombrep FROM PalabraClave p INNER JOIN p.articuloList a  Where a.idArticulo=:idArticulo order by p.idPalabra"),
     @NamedQuery(name = "PalabraClave.findAll", query = "SELECT p FROM PalabraClave p order by p.idPalabra"),

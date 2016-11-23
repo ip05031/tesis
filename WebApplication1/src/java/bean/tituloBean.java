@@ -1,4 +1,3 @@
-
 package bean;
 
 import controller.PalabrasClavesJPA;
@@ -13,22 +12,21 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-
 @Named(value = "tituloBean")
 @SessionScoped
 public class tituloBean implements Serializable {
-    
+
     private List<Titulo> listaTitulos = new ArrayList<>();
     private Integer idTitulo;
     private String titu;
     private TituloJPA tituloJPA;
     private Titulo titulo;
     private Titulo modifi;
-   
+
     public tituloBean() {
         titulo = new Titulo();
         modifi = new Titulo();
-    //    listaTitulos = new ArrayList<>();
+        //    listaTitulos = new ArrayList<>();
     }
 
     public Titulo getTitulo() {
@@ -70,47 +68,65 @@ public class tituloBean implements Serializable {
     public void setTitu(String titu) {
         this.titu = titu;
     }
-    
-    public List<Titulo> listaTitulos(){
+
+    public List<Titulo> listaTitulos() {
         TituloJPA ti = new TituloJPA();
-    return ti.getTitulos();
+        return ti.getTitulos();
     }
-    
-    
+
     ////////////// metodo guardar, editar y eleiminar///////////////////////// 
     ////////////// falta arreglar lo de guardar //////////////////////////////
-    public void guardarTitulo(){        
+    public void guardarTitulo() {
         TituloJPA ti = new TituloJPA();
-        titulo.setIdTitulo(ti.getClave()+1); 
+        titulo.setIdTitulo(ti.getClave() + 1);
         titulo.setTituloRevista(titu);
         ti = new TituloJPA();
-        ti.saveTitulo(titulo); 
-        
-             
+        ti.saveTitulo(titulo);
+
         this.Getir();
         titulo = new Titulo();
-        
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Almacenado exitosamente!", null);
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡No se ha eliminado la categoría!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
-     }
-    
+    }
+
     public List<Titulo> Getir() {
         tituloJPA = new TituloJPA();
         listaTitulos = tituloJPA.getTitulos();
         return listaTitulos;
     }
-    
-    public void edititulo(){        
+
+    public void edititulo() {
         tituloJPA = new TituloJPA();
         tituloJPA.editituloJPA(modifi);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editato exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    public void capturartitulo(Titulo capturatitulo){
-    this.modifi=capturatitulo;
-}
-  public void eliminarTitulo(Titulo titulos){
-        
+
+    public void capturartitulo(Titulo capturatitulo) {
+        this.modifi = capturatitulo;
+    }
+
+    public void eliminarTitulo(Titulo titulos) {
+
         tituloJPA = new TituloJPA();
         tituloJPA.deleteTituloJPA(titulos);
-    }  
-    
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Eliminado exitosamente!", null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void validarTitulo() {
+        tituloJPA = new TituloJPA();
+        String titulo = this.getTitu();
+        System.out.println("titulo:");
+        System.out.println(this.getTitu());
+        if (titulo.length() > 0) {
+            System.out.println("comineza la validacion de titulo");
+            if (tituloJPA.searchTitulo(titulo)) {
+                FacesContext.getCurrentInstance().addMessage("Message2",
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El titulo ya está registrada"));
+            }
+        }
+    }
+
 }

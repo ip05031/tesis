@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.PalabraClave;
 import entity.Titulo;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.persistence.Persistence;
  * @author Flever
  */
 public class TituloJPA {
+
     EntityManager em;
     EntityManagerFactory emf;
     private List<Titulo> estadoList = new ArrayList<>();
@@ -26,7 +28,7 @@ public class TituloJPA {
         em = emf.createEntityManager();
         em.getTransaction().begin();
     }
-    
+
     public List<Titulo> getTitulos() {
         try {
             estadoList = em.createNamedQuery("Titulo.findAll", Titulo.class).getResultList();
@@ -39,27 +41,27 @@ public class TituloJPA {
             }
         }
     }
-    
-    public List <String> getListatitulos(Integer idTitulo){
-    List<String> titulos=null;
+
+    public List<String> getListatitulos(Integer idTitulo) {
+        List<String> titulos = null;
         try {
-            titulos = em.createNamedQuery("Titulo.finlistaNombre",String.class).setParameter("idTitulo", idTitulo).getResultList();
+            titulos = em.createNamedQuery("Titulo.finlistaNombre", String.class).setParameter("idTitulo", idTitulo).getResultList();
             return titulos;
         } catch (Exception e) {
             return titulos;
         }
     }
-    
-    
-     public List<String> getTitulosNombres() {
-        List<String> titulos=null;
+
+    public List<String> getTitulosNombres() {
+        List<String> titulos = null;
         try {
-            titulos = em.createNamedQuery("Titulo.finlistaNombre",String.class).getResultList();
+            titulos = em.createNamedQuery("Titulo.finlistaNombre", String.class).getResultList();
             return titulos;
         } catch (Exception e) {
             return titulos;
         }
     }
+
     public Integer getClave() {
         Integer claveId = 0;
         try {
@@ -107,16 +109,15 @@ public class TituloJPA {
             }
         }
     }
-    
-    public void editituloJPA(Titulo titulo){
-    try{
-        em.merge(titulo);
-        em.getTransaction().commit();
-        em.close();
-}
-    catch(Exception e){
-        System.out.println(e.getMessage() );
-    }  
+
+    public void editituloJPA(Titulo titulo) {
+        try {
+            em.merge(titulo);
+            em.getTransaction().commit();
+            em.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public boolean deleteTituloJPA(Titulo titulo) {
@@ -133,5 +134,21 @@ public class TituloJPA {
             }
         }
     }
-    
+
+    public boolean searchTitulo(String titulo) {
+        boolean existe = false;
+        System.out.println("searchTitulo");
+        try {
+            estadoList = em.createNamedQuery("Titulo.findTitulo", Titulo.class)
+                    .setParameter("titulo", titulo)
+                    .getResultList();
+            existe = estadoList.size() > 0;
+            return existe;
+        } catch (Exception e) {
+            System.out.println("Error en Palabra clave JPA");
+            System.out.println(e.getMessage());
+            return existe;
+        }
+
+    }
 }

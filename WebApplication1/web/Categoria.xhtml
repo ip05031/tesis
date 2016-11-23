@@ -84,15 +84,22 @@
                                                 <legend>Modificar</legend>
                                                 <h:form id="cat">
                                                     <div class="form-group">
-
                                                         <label for="exampleInputEmail1">
                                                             Nombre de Categoria
                                                         </label>
                                                         <p:column headerText="Nombre Categoria"/>
 
-                                                        <p:inputText id="name_categoria"  class="form-control" value="#{categoriaBean.modCategoria.nombrec}" onkeypress="return soloLetras(event)"/>
+                                                        <p:inputText id="name_categoria"  class="form-control" 
+                                                                     value="#{categoriaBean.modCategoria.nombrec}" 
+                                                                     required="true" 
+                                                                     requiredMessage="Debe ingresar una Categoría"
+                                                                     onkeypress="return soloLetras(event)">
+                                                        </p:inputText>
+
                                                     </div>
-                                                    <p:commandButton class="btn btn-success" value="Editar" actionListener="#{categoriaBean.updCategoria()}" oncomplete="PF('modCategoria').hide();" update=":frm_table:detailTable, cat" />
+                                                    <p:commandButton class="btn btn-success" value="Editar" 
+                                                                     actionListener="#{categoriaBean.updCategoria()}" 
+                                                                     update=":frm_table:detailTable, cat" />
                                                     <p:commandButton  class="btn btn-danger pull-right" value="Cancelar" oncomplete="PF('modCategoria').hide();"/>
                                                 </h:form>
 
@@ -102,6 +109,7 @@
                                             <!-- /.insertar categoria -->
                                             <p:dialog header="Nueva Categoria" widgetVar="nuevaCategoria" minHeight="40" modal="true" resizable="false">
                                                 <h:form id="newCategoria">
+                                                    
                                                     <div class="form-group">
 
                                                     </div>
@@ -109,11 +117,20 @@
                                                         <label for="exampleInputEmail1">
                                                             Nombre de categoria
                                                         </label>
-                                                        <p:inputText id="name_categoria_n"  value="#{categoriaBean.nombreCategoria}" class="form-control"  required="true" onkeypress="return soloLetras(event)"/>
+                                                        <p:inputText id="name_categoria_n"  value="#{categoriaBean.nombreCategoria}" 
+                                                                     class="form-control"  required="true" 
+                                                                     requiredMessage="Debe ingresar una Categoría" 
+                                                                     onkeypress="return soloLetras(event)" >
+                                                            <f:ajax event="change" listener="#{categoriaBean.validarCategoria()}" /> 
+                                                            <f:ajax event="keyup" listener="#{categoriaBean.validarCategoria()}" /> 
+                                                        </p:inputText>
+                                                       
+                                                        
                                                     </div>
 
-                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{categoriaBean.saveCategoria()}" 
-                                                                     oncomplete="PF('nuevaCategoria').hide();" update=":frm_table:detailTable, newCategoria" validateClient="true"/>
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                                     actionListener="#{categoriaBean.saveCategoria()}" 
+                                                                     update=":frm_table:detailTable, newCategoria" validateClient="true"/>
                                                     <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaCategoria').hide();" />
                                                 </h:form>
                                             </p:dialog>

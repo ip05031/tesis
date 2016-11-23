@@ -11,6 +11,10 @@
         <ui:composition template="./boot.xhtml">
 
             <ui:define name="content">
+                <h:form>
+                    <p:remoteCommand name="onload"  actionListener="#{prestamo.ListaPrestamos()}"  />
+                </h:form>
+
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="pull-left">

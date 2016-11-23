@@ -6,6 +6,7 @@
 package controller;
 
 import entity.Categoria;
+import entity.PalabraClave;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,87 +38,97 @@ public class CategoriaJPA {
             return categoria;
         }
     }
-    
-    public Categoria LeerIdCategoria(Categoria cat)
-    {
+
+    public Categoria LeerIdCategoria(Categoria cat) {
         Categoria categoria = new Categoria();
         try {
             categoria = em.createNamedQuery("Categoria.findByIdCategoria", Categoria.class)
-                    .setParameter("idCategoria",cat.getIdCategoria())
+                    .setParameter("idCategoria", cat.getIdCategoria())
                     .getSingleResult();
             return categoria;
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return categoria;
         }
     }
-    
+
     public Categoria LeerCategoria(int cat) {
-    Categoria cate = new Categoria();
-    try {
+        Categoria cate = new Categoria();
+        try {
             cate = (Categoria) em.createNamedQuery("Categoria.findByIdCategoria").setParameter("idCategoria", cat).getSingleResult();
-            int i=0;
+            int i = 0;
             return cate;
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return cate;
         }
     }
-    
-     public Integer aumentarIdCategoria()
-    {
+
+    public Integer aumentarIdCategoria() {
         Integer temp = 0;
         try {
             temp = (Integer) em.createNamedQuery("Categoria.aumentarId").getSingleResult();
             if (temp != null) {
                 return temp;
-            }else{
-            return 0;
+            } else {
+                return 0;
             }
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return temp;
         }
     }
-    
-    
-    
-    
-    
-        public void saveCategoria(Categoria cat ){
+
+    public void saveCategoria(Categoria cat) {
         try {
             em.persist(cat);
             em.getTransaction().commit();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-        
-        public void updateCategoria(Categoria cat ){
+
+    public void updateCategoria(Categoria cat) {
         try {
             em.merge(cat);
             em.getTransaction().commit();
             em.close();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-        
-        public void deleteCategoria(Categoria cat ){
+
+    public void deleteCategoria(Categoria cat) {
         try {
             em.remove(em.merge(cat));
             em.getTransaction().commit();
             em.close();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-        
+    
+    public boolean searchCategora(String categoria2) {
+        boolean existe = false;
+
+        try {
+            categoria = em.createNamedQuery("Categoria.findCategoria", Categoria.class)
+                    .setParameter("categoria", categoria2)
+                    .getResultList();
+            existe = categoria.size() > 0;
+            return existe;
+        } catch (Exception e) {
+            System.out.println("Error en categoria JPA");
+            System.out.println(e.getMessage());
+            return existe;
+        }
+
+    }
 
 }

@@ -92,7 +92,7 @@
                                             <p:dialog widgetVar="ingresarPalabra" header="Palabras Claves" minHeight="40" modal="true" resizable="false">
                                                 <h:form id="newpantpal" >
                                                     <p:panel id="panel1" header="Ingresar Palabra Clave" >
-                                                        <p:messages id="msgs" />
+                                                        
 
                                                         <!--
                                                         <div class="form-group">
@@ -106,15 +106,23 @@
                                                                 Palabra Clave
                                                             </label>
                                                             <!-- <p:outputLabel value="Nombre Palabra"/>  -->
-                                                            <p:inputText id="nombre" value="#{palabraClaveBean.nombrepalabra}" class="form-control" required="true"
-                                                                         label="Palabra Clave">
-                                                                <f:validateRequired />
+                                                            <p:inputText id="nombre" value="#{palabraClaveBean.nombrepalabra}" 
+                                                                         class="form-control" required="true"
+                                                                         label="Palabra Clave"
+                                                                         requiredMessage="Debe ingresar palabra clave">
+                                                                <f:ajax event="change" listener="#{palabraClaveBean.validarPalabra()}" /> 
+                                                                <f:ajax event="keyup" listener="#{palabraClaveBean.validarPalabra()}" /> 
+                                                               
                                                             </p:inputText>
-                                                            <p:message for="nombre" display="icon"  />
+                                                            
+                                                            <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                                         </div>
 
-                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{palabraClaveBean.guardarpc()}"  update=":frm_table:detailTable,newpantpal"/>
-                                                        <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarPalabra').hide();" immediate="true"/>
+                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                                         action="#{palabraClaveBean.guardarpc()}"  
+                                                                         update=":frm_table:detailTable,newpantpal"/>
+                                                        <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  
+                                                                         onclick="PF('ingresarPalabra').hide();" immediate="true"/>
                                                     </p:panel>
                                                 </h:form>    
                                             </p:dialog>
@@ -127,10 +135,14 @@
                                                         <label for="exampleInputEmail1">
                                                             Nombre de Palabra
                                                         </label>
-                                                        <p:inputText id="name_palabra" value="#{palabraClaveBean.editarpc.nombrep}" class="form-control" required="true"/>
+                                                        <p:inputText id="name_palabra" value="#{palabraClaveBean.editarpc.nombrep}" 
+                                                                     class="form-control" required="true"
+                                                                     requiredMessage="Debe ingresar palabra clave"/>
                                                     </div>
 
-                                                    <p:commandButton class="btn btn-success" process="@form" action="#{palabraClaveBean.editpc()}" value="Editar" update=":frm_table" onclick="PF('modificarpalabra').hide();"/>
+                                                    <p:commandButton class="btn btn-success" process="@form" 
+                                                                     action="#{palabraClaveBean.editpc()}" value="Editar" 
+                                                                     update=":frm_table" />
                                                     <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modificarpalabra').hide();"/>
                                                 </h:form>
                                             </p:dialog>

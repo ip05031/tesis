@@ -62,13 +62,13 @@
 
                                                     <p:column headerText="Fecha" filterBy="#{bitacora.fechabitacora}" sortBy="#{bitacora.fechabitacora}">
                                                         <h:outputText value="#{bitacora.fechabitacora}">
-                                                            <f:convertDateTime pattern="dd-MM-YYYY" />
+                                                            <f:convertDateTime pattern="dd-MM-yyyy" />
                                                         </h:outputText>
 
                                                         <f:facet name="filter" >
                                                             <p:calendar mode="popup"  pattern="dd-MM-yyyy" widgetVar="calendarB" effect="fold" >
 
-                                                                <p:ajax event="dateSelect" oncomplete="PF('bitacora').filter()" />
+                                                                <p:ajax event="dateSelect" oncomplete="PF('tabla_bitacora').filter()" />
                                                             </p:calendar>
 
                                                         </f:facet>
