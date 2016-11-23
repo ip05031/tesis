@@ -124,21 +124,33 @@
                                                                 Periodo de puplicación: 
                                                             </label>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group">                                                           
                                                             <label for="popup">
                                                                 Inicio: 
                                                             </label>
-                                                            <p:calendar  style="width: 100%"   id="popup" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de inicio" requiredMessage="La Fecha es obligatoria">
+                                                            <p:calendar  style="width: 100%"   id="popup" 
+                                                                         value="#{revistaBean.revista.fechapr}" 
+                                                                         locale="es" navigator="true" pattern="dd-MM-yyyy" 
+                                                                         mask="true" label="Fecha de inicio" 
+                                                                         onkeypress="return permite(event, 'none')"
+                                                                         requiredMessage="La Fecha es obligatoria">
                                                                 <f:validateRequired />
                                                                 <p:message for="popup" display="icon"  />
+                                                                 <p:ajax event="dateSelect" update="popup2" process="popup" listener="#{revistaBean.limpiar2()}" />
                                                             </p:calendar>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="popup2">
                                                                 fin: 
                                                             </label>
-                                                            <p:calendar  style="width: 100%"   id="popup2" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de fin" requiredMessage="La Fecha es obligatoria">
-                                                                <f:validateRequired />
+                                                            <p:calendar  style="width: 100%"   id="popup2"
+                                                                         value="#{revistaBean.revista.fechaprf}" locale="es" 
+                                                                          mindate="#{revistaBean.revista.fechapr}"
+                                                                         navigator="true" pattern="dd-MM-yyyy" mask="true" 
+                                                                         onkeypress="return permite(event, 'none')"
+                                                                         label="Fecha de fin" requiredMessage="La Fecha es obligatoria">
+                                                                <f:validateRequired />                                                                
+                                                                <p:ajax event="dateSelect"  process="@this" />
                                                                 <p:message for="popup2" display="icon"  />
                                                             </p:calendar>
                                                         </div>
@@ -519,7 +531,7 @@
                                                                 <br />
                                                             </div>
                                                             <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.modificarArticulo()}" process="@this, @form"  update=":newPantalla2:tblSelMuestras , @form" validateClient="true"/>
-                                                            <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloCrear').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
+                                                            <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloModificar').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
 
                                                         </div>
                                                     </p:panel>
@@ -571,17 +583,27 @@
                                                             <label for="descripT">
                                                                 Inicio: 
                                                             </label>
-                                                            <p:calendar    id="descripT" value="#{revistaBean.revista.fechapr}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de inicio">
+                                                            <p:calendar    id="descripT" value="#{revistaBean.revista.fechapr}" 
+                                                                           locale="es" navigator="true" pattern="dd-MM-yyyy" 
+                                                                           onkeypress="return permite(event, 'none')"
+                                                                           mask="true" label="Fecha de inicio">
                                                                 <f:validateRequired />
                                                                 <p:message for="descripT" display="icon"  />
+                                                                <p:ajax event="dateSelect" update="descripT2" process="descripT" listener="#{revistaBean.limpiar2()}" />
                                                             </p:calendar>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="descripT2">
                                                                 Fin: 
                                                             </label>
-                                                            <p:calendar     id="descripT2" value="#{revistaBean.revista.fechaprf}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha de fin">
+                                                            <p:calendar     id="descripT2" value="#{revistaBean.revista.fechaprf}"
+                                                                             mindate="#{revistaBean.revista.fechapr}"
+                                                                            locale="es" navigator="true" pattern="dd-MM-yyyy"
+                                                                            onkeypress="return permite(event, 'none')"
+                                                                            mask="true" label="Fecha de fin">
                                                                 <f:validateRequired />
+                                                                <f:attribute name="descripT" value="#{revistaBean.revista.fechapr}"/>
+                                                                <p:ajax event="dateSelect"  process="@this" />
                                                                 <p:message for="descripT2" display="icon"  />
                                                             </p:calendar>
                                                         </div>
