@@ -20,7 +20,9 @@ FROM
      INNER JOIN "public"."revista" revista ON descarga."id_revista" = revista."id_revista"
      INNER JOIN "public"."posee" posee ON revista."id_revista" = posee."id_revista"
      INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo"
-     INNER JOIN "public"."categoria" categoria ON posee."id_categoria" = categoria."id_categoria"]]>
+     INNER JOIN "public"."categoria" categoria ON posee."id_categoria" = categoria."id_categoria"
+WHERE revista."fechapr"
+between $P{date_desde} and $P{date_hasta}]]>
 	</queryString>
 	<field name="usuario_nombreu" class="java.lang.String"/>
 	<field name="revista_titulor" class="java.lang.String"/>
@@ -63,10 +65,6 @@ FROM
 				<reportElement x="366" y="61" width="100" height="20" uuid="9958efc4-7650-4481-b0f6-69c908b70a36"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="5" y="32" width="133" height="45" uuid="2a1773b2-87e9-47c2-9551-f7e2a0294f35"/>
-				<imageExpression><![CDATA["C:\\Users\\Mario Sanchez\\Desktop\\imagenes banner\\muna-antropologia.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<columnHeader>
@@ -99,7 +97,7 @@ FROM
 				<reportElement x="295" y="12" width="100" height="20" uuid="6d4c6d05-d966-4424-93aa-6d45bbab8bd0"/>
 				<textFieldExpression><![CDATA[$F{categoria_nombrec}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="423" y="12" width="100" height="20" uuid="63430da2-6b52-4c62-90c1-6e17d66f839c"/>
 				<textFieldExpression><![CDATA[$F{revista_fechapr}]]></textFieldExpression>
 			</textField>
@@ -134,7 +132,7 @@ FROM
 			</staticText>
 			<textField>
 				<reportElement x="455" y="7" width="100" height="20" uuid="4261af59-b48c-4ac8-963c-5de90c1788af"/>
-				<textFieldExpression><![CDATA[$F{tipo_usuario_nombretp}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

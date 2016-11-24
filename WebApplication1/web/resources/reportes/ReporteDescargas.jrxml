@@ -21,7 +21,9 @@ FROM
      INNER JOIN "public"."posee" posee ON revista."id_revista" = posee."id_revista"
      INNER JOIN "public"."categoria" categoria ON posee."id_categoria" = categoria."id_categoria"
      INNER JOIN "public"."usuario" usuario ON descarga."id_usuario" = usuario."id_usuario"
-     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"]]>
+     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"
+WHERE  descarga."fechad"
+between $P{date_desde} and $P{date_hasta}]]>
 	</queryString>
 	<field name="descarga_fechad" class="java.sql.Date"/>
 	<field name="categoria_nombrec" class="java.lang.String"/>
@@ -39,10 +41,6 @@ FROM
 				<reportElement x="183" y="57" width="37" height="20" uuid="7124f08c-498a-4836-9ae3-e7de9753e95f"/>
 				<text><![CDATA[Desde:]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="14" width="119" height="43" uuid="798d68c2-da7c-476f-99a2-f6cdc5c799f7"/>
-				<imageExpression><![CDATA["C:\\Users\\Mario Sanchez\\Desktop\\imagenes banner\\muna-antropologia.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="219" y="34" width="204" height="20" uuid="d0c165b4-6390-4d50-868c-7f9a7e4b14eb"/>
 				<textElement>
@@ -61,11 +59,11 @@ FROM
 				</textElement>
 				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="221" y="57" width="100" height="20" uuid="f2595e2e-fc0e-4355-863c-4a43d0686f1e"/>
 				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="364" y="57" width="100" height="20" uuid="ad80a192-6086-4c25-a44c-a4ec09f1e155"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
@@ -105,7 +103,7 @@ FROM
 				<reportElement x="307" y="0" width="100" height="20" uuid="b65f68ab-e4d3-45ed-bed3-73f3ca9333dc"/>
 				<textFieldExpression><![CDATA[$F{categoria_nombrec}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="440" y="0" width="100" height="20" uuid="07318d69-c78c-49c5-9eff-13e54d606255"/>
 				<textFieldExpression><![CDATA[$F{descarga_fechad}]]></textFieldExpression>
 			</textField>
@@ -136,7 +134,7 @@ FROM
 			</textField>
 			<textField>
 				<reportElement x="465" y="6" width="87" height="20" uuid="952791a6-23f4-44b2-81e1-fecf5880a7fe"/>
-				<textFieldExpression><![CDATA[$F{tipo_usuario_nombretp}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

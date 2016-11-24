@@ -25,7 +25,7 @@
                                     <i class="fa fa-bar-chart-o fa-fw"></i> Reporte
                                     <div class="pull-right">
                                         <h:form >
-
+                                            
                                             <h:link outcome="Reporte" value="Regresar a Reportes" class="btn btn-success btn-xs "/>
                                         </h:form>
                                         <div class="btn-group">
@@ -37,8 +37,9 @@
                                     <div class="row" >
                                         <div class="col-md-12" > 
                                             <h4 align="Center"> MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN </h4>
-                                            <h5 align="Center"> Reporte de Acciones Realizadas por el Usuario </h5>
-                                            <div class="form-group" align="center">
+                                            <h5 align="Center"> Reporte de Visitas </h5>
+
+                                              <div class="form-group" align="center">
                                                 <h:form id="frm_table">
                                                     <p:growl id="msj" autoUpdate="true"></p:growl>
 
@@ -47,7 +48,7 @@
                                                     <div class="form-group">
 
                                                         <p:calendar id="finicial" value="#{reporteBean.desde}" 
-                                                                    pattern="MM/dd/yyyy"   locale="es"     required="true" 
+                                                                    pattern="dd/MM/yyyy"   locale="es"     required="true" 
                                                                     onkeypress="return permite(event, 'none')" 
                                                                     requiredMessage="Fecha Inicial Requerida" navigator="true" 
                                                                     effect="fadeIn" effectDuration="100">
@@ -58,7 +59,7 @@
                                                     <h:outputLabel value="Fecha Final" for="ffinal"/>
                                                     <div class="form-group">
                                                         <p:calendar id="ffinal" value="#{reporteBean.hasta}" mode="popup"
-                                                                    mindate="#{reporteBean.desde}" pattern="MM/dd/yyyy" 
+                                                                    mindate="#{reporteBean.desde}" pattern="dd/MM/yyyy" 
                                                                     locale="es" required="true" onkeypress="return permite(event, 'none')" 
                                                                     requiredMessage="Fecha Final Requerida" navigator="true" effect="fadeIn" 
                                                                     effectDuration="100">
@@ -66,10 +67,9 @@
                                                             <p:ajax event="dateSelect" oncomplete="#{reporteBean.setHasta(hasta)}" />
                                                         </p:calendar>
                                                     </div>
-                                                    <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportBitacora()}"/>
+                                                    <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportVisitas()}" />
                                                 </h:form>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

@@ -23,7 +23,7 @@ FROM
      INNER JOIN "public"."estado" estado ON inventario."id_estado" = estado."id_estado"
      INNER JOIN "public"."usuario" usuario ON descarga."id_usuario" = usuario."id_usuario"
      INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"
-where estado."nombre_estado" = $P{estado}]]>
+]]>
 	</queryString>
 	<field name="estado_nombre_estado" class="java.lang.String"/>
 	<field name="revista_titulor" class="java.lang.String"/>

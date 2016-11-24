@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteBitacora" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43d1814c-a058-4cb8-a4f1-e46c3b140ca4">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteVisitas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43d1814c-a058-4cb8-a4f1-e46c3b140ca4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,17 +8,16 @@
 	<parameter name="date_hasta" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[SELECT
-     bitacora."tabla" AS bitacora_tabla,
-     bitacora."fechabitacora" AS bitacora_fechabitacora,
-     bitacora."accion" AS bitacora_accion
+     visitas."fechav" AS visitas_fecha,
+     visitas."cantidadv" AS visitas_cantidad
+
 FROM
-     "public"."bitacora" bitacora
-WHERE  bitacora."fechabitacora"
+     "public"."visitas" visitas
+WHERE   visitas."fechav"
 between $P{date_desde} and $P{date_hasta}]]>
 	</queryString>
-	<field name="bitacora_tabla" class="java.lang.String"/>
-	<field name="bitacora_fechabitacora" class="java.sql.Date"/>
-	<field name="bitacora_accion" class="java.lang.String"/>
+	<field name="visitas_fecha" class="java.sql.Date"/>
+	<field name="visitas_cantidad" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -29,11 +28,11 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<text><![CDATA[Hasta:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="201" y="29" width="273" height="20" uuid="47928cbc-c3fa-4da3-8ac6-c12ff31e0923"/>
-				<textElement>
+				<reportElement x="178" y="24" width="273" height="20" uuid="47928cbc-c3fa-4da3-8ac6-c12ff31e0923"/>
+				<textElement textAlignment="Center">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Reporte de Acciones Realizadas por el Usuario]]></text>
+				<text><![CDATA[Reporte de Visitas]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="126" y="4" width="425" height="20" uuid="aee3a6d1-aac4-4ed3-a74c-d5872ada1bdb"/>
@@ -46,11 +45,11 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<reportElement x="195" y="53" width="43" height="20" uuid="72d85a0c-3510-4cca-a45a-152345de6cca"/>
 				<text><![CDATA[Desde:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="239" y="53" width="100" height="20" uuid="6f416b02-7fd8-4d22-9fc9-28cdc3055906"/>
 				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="379" y="53" width="100" height="20" uuid="6165096f-7033-4744-9271-10390d9ec9f2"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
@@ -59,32 +58,24 @@ between $P{date_desde} and $P{date_hasta}]]>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement x="55" y="2" width="100" height="20" uuid="e9f05d9e-4a63-443c-865a-9d96bb150bcb"/>
-				<text><![CDATA[Tabla Afectada]]></text>
+				<reportElement x="126" y="2" width="100" height="20" uuid="e9f05d9e-4a63-443c-865a-9d96bb150bcb"/>
+				<text><![CDATA[Fecha de visita]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="238" y="2" width="100" height="20" uuid="778327f9-cbc9-4493-aa79-81893d9b6c4e"/>
-				<text><![CDATA[Accion Realizada]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="417" y="2" width="100" height="20" uuid="0fd62786-f9b6-48e5-aff0-00096f2113ef"/>
-				<text><![CDATA[Fecha]]></text>
+				<reportElement x="317" y="2" width="100" height="20" uuid="778327f9-cbc9-4493-aa79-81893d9b6c4e"/>
+				<text><![CDATA[Cantidad de visitas]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement x="55" y="0" width="100" height="20" uuid="5269311b-5deb-45e6-8cf9-8ad3ea95eeb9"/>
-				<textFieldExpression><![CDATA[$F{bitacora_tabla}]]></textFieldExpression>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="126" y="0" width="100" height="20" uuid="5269311b-5deb-45e6-8cf9-8ad3ea95eeb9"/>
+				<textFieldExpression><![CDATA[$F{visitas_fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="238" y="0" width="100" height="20" uuid="48e9e979-fab5-4592-975e-2f6ed5942dbd"/>
-				<textFieldExpression><![CDATA[$F{bitacora_accion}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="418" y="0" width="100" height="20" uuid="d14034c5-3c4c-4289-98a1-ec4bde76a49d"/>
-				<textFieldExpression><![CDATA[$F{bitacora_fechabitacora}]]></textFieldExpression>
+				<reportElement x="351" y="3" width="100" height="20" uuid="48e9e979-fab5-4592-975e-2f6ed5942dbd"/>
+				<textFieldExpression><![CDATA[$F{visitas_cantidad}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

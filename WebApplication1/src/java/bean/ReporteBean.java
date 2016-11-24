@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,55 +45,79 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class ReporteBean implements Serializable {
 
     private List<Bitacora> lBitacora = new ArrayList<>();
+    private List<Bitacora> tempBitacora = new ArrayList<>();
     private BitacoraJPA bitacoraJPA;
-    
+
     private Date desde;
     private Date hasta;
     private String nombreUsuario;
     private Usuario user;
+    private String estado;
     //private Bitacora guardar;
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    
     public ReporteBean() {
         FacesContext context = FacesContext.getCurrentInstance();
         user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
+        Getir();
     }
 
     public void setNombreUsuario() {
-        nombreUsuario = user.getNombreu() +" "+user.getApellidosu();
+        nombreUsuario = user.getNombreu() + " " + user.getApellidosu();
     }
     
+    public List<Bitacora> listado() {
     
-   public List<Bitacora> Getir() {
+    return lBitacora;}
+
+    public List<Bitacora> Getir() {
         bitacoraJPA = new BitacoraJPA();
         lBitacora = bitacoraJPA.getBitacora();
         return lBitacora;
     }
-    
- public void guardarReporte() {
-         
+
+    public void filtro() {
+        
+        lBitacora.addAll(tempBitacora);
+        this.tempBitacora.clear();
+        for (Bitacora bi : lBitacora) {
+            if ((desde.before(bi.getFechabitacora()) && hasta.after(bi.getFechabitacora()))) {
+            this.tempBitacora.add(bi);
+            
+            }
+        }
+        lBitacora.removeAll(tempBitacora);
+
+    }
+
+    public void guardarReporte() {
+
         //eventosJPA = new EventosJPA();
-       // guardar = new Bitacora();
-       // Usuario de = new Usuario();
+        // guardar = new Bitacora();
+        // Usuario de = new Usuario();
         //Date hora = new Date();
         //de.setIdUsuario(Usuario);
-        
         //guardar.setD(lugarevento);
         //guardar.setFechae(fechaevento);
-        
         //eventosJPA.guardareventoJPA(nomevento);
-
         this.Getir();
         this.setDesde(null);
         this.setHasta(null);
-        
+
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Evento Almacenado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
 
     }
-    
-    
-/*--------------------------REPORTE DESCARGAS-----------------------------------------------------*/
-    
+
+    /*--------------------------REPORTE DESCARGAS-----------------------------------------------------*/
     public void exportarPDF() {
         System.out.println("exportar PDF");
         String realPath = "";
@@ -102,17 +127,14 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        Date desde = calendario.getTime();
-        Date hasta = calendario.getTime();
         String usuario = "Nombre Usuario";
 
-        parametros.put("date_desde", desde);
-        parametros.put("date_hasta", hasta);
+        parametros.put("date_desde", this.desde);
+        parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
 
         realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteDescargas.jasper");
-        System.out.println("realpath");
-        System.out.println(realPath);
+        
         archivo = new File(realPath);
 
         try {
@@ -131,18 +153,23 @@ public class ReporteBean implements Serializable {
             stream.flush();
             stream.close();
             FacesContext.getCurrentInstance().responseComplete();
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         } catch (Exception ex) {
             System.out.println("Error : 1");
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             //Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("fin error 1");
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         }
 
     }
-    
+
     /*--------------------------REPORTE DE PUBLICACIONES-----------------------------------------------------*/
-    
     public void reportPublicaciones() {
         System.out.println("exportar PDF");
         String realPath = "";
@@ -152,17 +179,14 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        Date desde = calendario.getTime();
-        Date hasta = calendario.getTime();
         String usuario = "Nombre Usuario";
 
-        parametros.put("date_desde", desde);
-        parametros.put("date_hasta", hasta);
+        parametros.put("date_desde", this.desde);
+        parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
 
         realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/RevistaPMensual.jasper");
-        System.out.println("realpath");
-        System.out.println(realPath);
+
         archivo = new File(realPath);
 
         try {
@@ -181,21 +205,25 @@ public class ReporteBean implements Serializable {
             stream.flush();
             stream.close();
             FacesContext.getCurrentInstance().responseComplete();
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         } catch (Exception ex) {
             System.out.println("Error : 1");
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("fin error 1");
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         }
 
     }
-    
+
     /*-------------------------------------------------------------------------------------------------------*/
-    
-    /*-------------------------Reporte de Estado Revista-----------------------------------------------------*/
-    
-     public void reportEstadoRevista() {
+ /*-------------------------Reporte de Estado Revista-----------------------------------------------------*/
+    public void reportEstadoRevista() {
         System.out.println("exportar PDF");
         String realPath = "";
         File archivo;
@@ -204,18 +232,27 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        Date desde = calendario.getTime();
-        Date hasta = calendario.getTime();
         String usuario = "Nombre Usuario";
-
-        parametros.put("date_desde", desde);
-        parametros.put("date_hasta", hasta);
+        
+        parametros.put("estado", this.estado);
+        
         parametros.put("usuario", usuario);
-
-        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstado.jasper");
-        System.out.println("realpath");
-        System.out.println(realPath);
-        archivo = new File(realPath);
+         
+        if(estado.compareTo("Todos")==0)   
+        {
+           
+           realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstadoT.jasper");
+      
+        archivo = new File(realPath);  
+        }
+        else
+        {
+          realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstado.jasper");
+        
+        archivo = new File(realPath);   
+        }
+        
+       
 
         try {
             conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
@@ -233,21 +270,25 @@ public class ReporteBean implements Serializable {
             stream.flush();
             stream.close();
             FacesContext.getCurrentInstance().responseComplete();
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         } catch (Exception ex) {
             System.out.println("Error : 1");
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("fin error 1");
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         }
 
     }
-    
+
     /*------------------------------------------------------------------------------------------------------*/
-    
-     /*-------------------------Reporte de Bitacora-----------------------------------------------------*/
-    
-     public void reportBitacora() {
+ /*-------------------------Reporte de Bitacora-----------------------------------------------------*/
+    public void reportBitacora() {
         System.out.println("exportar PDF");
         String realPath = "";
         File archivo;
@@ -256,17 +297,14 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        Date desde = calendario.getTime();
-        Date hasta = calendario.getTime();
         String usuario = "Nombre Usuario";
 
-        parametros.put("date_desde", desde);
-        parametros.put("date_hasta", hasta);
+        parametros.put("date_desde", this.desde);
+        parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
 
         realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteBitacora.jasper");
-        System.out.println("realpath");
-        System.out.println(realPath);
+
         archivo = new File(realPath);
 
         try {
@@ -276,6 +314,7 @@ public class ReporteBean implements Serializable {
                     parametros,
                     conect
             );
+
             HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
             response.addHeader("Content-disposition", "attachment; filename=ReporteBitacora.pdf");
             ServletOutputStream stream = response.getOutputStream();
@@ -285,22 +324,28 @@ public class ReporteBean implements Serializable {
             stream.flush();
             stream.close();
             FacesContext.getCurrentInstance().responseComplete();
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
+
         } catch (Exception ex) {
             System.out.println("Error : 1");
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("fin error 1");
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
+
         }
 
     }
-    
+
     /*------------------------------------------------------------------------------------------------------*/
-     
-     
-     /*-------------------------Reporte de Adquisiciones-----------------------------------------------------*/
     
-     public void reportAdquisiciones() {
+    /*-------------------------Reporte de visitas-----------------------------------------------------*/
+    public void reportVisitas() {
         System.out.println("exportar PDF");
         String realPath = "";
         File archivo;
@@ -309,17 +354,72 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        Date desde = calendario.getTime();
-        Date hasta = calendario.getTime();
         String usuario = "Nombre Usuario";
 
-        parametros.put("date_desde", desde);
-        parametros.put("date_hasta", hasta);
+        parametros.put("date_desde", this.desde);
+        parametros.put("date_hasta", this.hasta);
+        parametros.put("usuario", usuario);
+
+        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteVisitas.jasper");
+
+        archivo = new File(realPath);
+
+        try {
+            conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    archivo.getPath(),
+                    parametros,
+                    conect
+            );
+
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=ReporteVisitas.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+            FacesContext.getCurrentInstance().responseComplete();
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
+
+        } catch (Exception ex) {
+            System.out.println("Error : 1");
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("fin error 1");
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
+
+        }
+
+    }
+
+    /*------------------------------------------------------------------------------------------------------*/
+    
+    
+ /*-------------------------Reporte de Adquisiciones-----------------------------------------------------*/
+    public void reportAdquisiciones() {
+        System.out.println("exportar PDF");
+        String realPath = "";
+        File archivo;
+        Connection conect;
+
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        Calendar calendario = GregorianCalendar.getInstance();
+
+        String usuario = "Nombre Usuario";
+
+        parametros.put("date_desde", this.desde);
+        parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
 
         realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReportAdquisiciones.jasper");
-        System.out.println("realpath");
-        System.out.println(realPath);
+
         archivo = new File(realPath);
 
         try {
@@ -338,21 +438,25 @@ public class ReporteBean implements Serializable {
             stream.flush();
             stream.close();
             FacesContext.getCurrentInstance().responseComplete();
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         } catch (Exception ex) {
             System.out.println("Error : 1");
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("fin error 1");
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         }
 
     }
-    
+
     /*------------------------------------------------------------------------------------------------------*/
-     
-    /*-------------------------Reporte de Prestamos-----------------------------------------------------*/
-    
-     public void reportPrestamos() {
+ /*-------------------------Reporte de Prestamos-----------------------------------------------------*/
+    public void reportPrestamos() {
         System.out.println("exportar PDF");
         String realPath = "";
         File archivo;
@@ -361,17 +465,14 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        Date desde = calendario.getTime();
-        Date hasta = calendario.getTime();
         String usuario = "Nombre Usuario";
 
-        parametros.put("date_desde", desde);
-        parametros.put("date_hasta", hasta);
+        parametros.put("date_desde", this.desde);
+        parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
 
         realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReportePrestamos.jasper");
-        System.out.println("realpath");
-        System.out.println(realPath);
+       
         archivo = new File(realPath);
 
         try {
@@ -390,25 +491,24 @@ public class ReporteBean implements Serializable {
             stream.flush();
             stream.close();
             FacesContext.getCurrentInstance().responseComplete();
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         } catch (Exception ex) {
             System.out.println("Error : 1");
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
             Logger.getLogger(ReporteBean.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("fin error 1");
+            this.setDesde(null);
+            this.setHasta(null);
+            this.setNombreUsuario("");
         }
 
     }
-    
+
     /*------------------------------------------------------------------------------------------------------*/
-      
-     
-     
-     
-     
-     
-     
-     public Date getDesde() {
+    public Date getDesde() {
         return desde;
     }
 
