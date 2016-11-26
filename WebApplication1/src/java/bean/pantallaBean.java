@@ -109,7 +109,7 @@ public class pantallaBean implements Serializable {
 
             if (txt1.compareToIgnoreCase("") == 0 || txt2.compareToIgnoreCase("") == 0) {
                 System.out.println("vacio");
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "ingrese un nombre de pantalla y/o url de pantalla"));
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese un nombre de pantalla y/o url de pantalla"));
                 //FacesContext.getCurrentInstance().addMessage("ulr_pantalla_n", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Ingrese nombre de pantalla"));
                 //FacesContext.getCurrentInstance().addMessage("name_pantalla_n", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Ingrese url de pantalla"));
 
@@ -153,11 +153,13 @@ public class pantallaBean implements Serializable {
                 this.setNombrePantalla(null);
                 this.setUrlPantalla(null);
                 this.setLpantalla(null);
-                FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "ingrese un nombre de pantalla y/o url de pantalla"));
+                FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Pantalla modificada con éxito!"));
             }
 
         } catch (Exception e) {
             System.out.println("error en modificar pantalla");
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
         }
 
     }

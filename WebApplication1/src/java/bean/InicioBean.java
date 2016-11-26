@@ -190,6 +190,7 @@ public class InicioBean implements Serializable {
                 redirigir();
                 return "index?facesRedirect=true";
             } else {
+                System.out.println("error ...");
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario y/o Contraseña Incorrectos!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 this.setInicioSesion(false);
@@ -233,7 +234,7 @@ public class InicioBean implements Serializable {
             List<Pantalla> pantallaList = user.getIdTusuario().getPantallaList();
             int contador = 0;
             for (Pantalla pantalla : pantallaList) {
-                if (pantalla.getNombrepa().compareToIgnoreCase(nombre) == 0) {
+                if (pantalla.getAccesopa().compareToIgnoreCase(nombre) == 0) {
                     contador++;
                 }
             }

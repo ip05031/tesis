@@ -27,6 +27,7 @@ public class ValidarSubcriptorBean implements Serializable {
     private String texto;
 
     public ValidarSubcriptorBean() {
+        System.out.println("Validando suscriptor");
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         Map params = ec.getRequestParameterMap();
         claveSub = (String) params.get("claveSub");
@@ -38,21 +39,22 @@ public class ValidarSubcriptorBean implements Serializable {
                 List<Usuario> listaUsuario = uJpa.getUsuarios(1);
                 //http://localhost:8083/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=123312Es343a
                 for (Usuario u : listaUsuario) {
-                    if(u.getClaveValidar()!=null)
-                    if (u.getClaveValidar().equals(claveSub)) {
-                        s = u.getClaveValidar().charAt(8);
-                        int cantidad = u.getApellidosu().length();
-                        if (cantidad >= 4) {
-                            cantidad = 4;
-                        }
-                        String corta = u.getApellidosu().substring(cantidad - 1, cantidad);
-                        String compara = claveSub.substring(11);
-                        Integer ia = Integer.parseInt(s + "");
-                        String uno = u.getIdUsuario() + "";
-                        uno = uno.substring(0, 1);
-                        Integer dos = Integer.parseInt(uno + "");
-                        if (ia == dos && compara.equals(corta)) {
-                            us = u;
+                    if (u.getClaveValidar() != null) {
+                        if (u.getClaveValidar().equals(claveSub)) {
+                            s = u.getClaveValidar().charAt(8);
+                            int cantidad = u.getApellidosu().length();
+                            if (cantidad >= 4) {
+                                cantidad = 4;
+                            }
+                            String corta = u.getApellidosu().substring(cantidad - 1, cantidad);
+                            String compara = claveSub.substring(11);
+                            Integer ia = Integer.parseInt(s + "");
+                            String uno = u.getIdUsuario() + "";
+                            uno = uno.substring(0, 1);
+                            Integer dos = Integer.parseInt(uno + "");
+                            if (ia == dos && compara.equals(corta)) {
+                                us = u;
+                            }
                         }
                     }
                 }
@@ -61,7 +63,7 @@ public class ValidarSubcriptorBean implements Serializable {
         }
 
         if (us.getNombreu() != null) {
-            texto = ""+ us.getNombreu()+ ", Su cuenta ha sido activada con éxito." ;
+            texto = "" + us.getNombreu() + ", Su cuenta ha sido activada con éxito.";
             UsuarioJPA uJpa = new UsuarioJPA();
             us.setEstadoi(2);
             uJpa.updateUsuario(us);

@@ -90,7 +90,7 @@ public class usuarioBean implements Serializable {
         user.setCorreou(correoUsuario);
         user.setPassword(contra1);
         user.setFechau(fechaRegistro);
-        user.setEstadoi(1);
+        user.setEstadoi(2);
 
         try {
             usuarioJPA.saveUsuario(user);

@@ -8,7 +8,7 @@
 $(document).ready(function () {
     $('#bsq_avanzada').hide();
     $('.clase_cargando').hide();
-    $(".ui-selectonemenu-trigger").css({"width":"25px"});
+    $(".ui-selectonemenu-trigger").css({"width": "25px"});
     sameSizeLi();
     estilosReloj();
 
@@ -143,6 +143,6 @@ function redireccionar(url) {
     window.location = "" + url;
 }
 
-function desactivar_registrar() {
-    $("#newUsuarioExterno").prop("disabled", true);
+function desactivar(btn) {
+    $(btn).prop('disabled', true);
 }

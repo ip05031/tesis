@@ -58,10 +58,15 @@
                                                         #{articulo.resumena}
                                                         <div style="padding: 10px" class="pull-right">
                                                             <h:form>
-                                                                <h:commandButton value="Leer Artículo" 
-                                                                                 action="#{inicioBean.setearArticuloRedirigir(articulo)}"  
-                                                                                 class="btn btn-sm btn-info active "
-                                                                                 />
+                                                                <c:if test="#{ !inicioBean.inicioSesion}" >
+                                                                    <a onclick="PF('login_modal').show();" class="btn btn-primary pull-right btn-block" > Iniciar Sesión para ver Articulo </a>
+                                                                </c:if> 
+                                                                <c:if test="#{ inicioBean.inicioSesion}" >
+                                                                    <h:commandButton value="Leer Artículo" 
+                                                                                     action="#{inicioBean.setearArticuloRedirigir(articulo)}"  
+                                                                                     class="btn btn-sm btn-info active "
+                                                                                     />
+                                                                </c:if>
                                                             </h:form>
                                                         </div>
                                                     </div>
