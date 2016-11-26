@@ -217,6 +217,7 @@
                                                                  action="#{contactenosBean.enviarCorreo()}"
                                                                  
                                                                  styleClass="btn btn-success btn-block"
+                                                                 onclick="$(this).prop('disabled', true);"
 
                                                                  >
                                                     <f:ajax execute="mailFrm" render="mailFrm" />
