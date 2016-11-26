@@ -63,20 +63,25 @@ public class ReporteBean implements Serializable {
         this.estado = estado;
     }
 
-    
     public ReporteBean() {
         FacesContext context = FacesContext.getCurrentInstance();
         user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
-        Getir();
+        setNombreUsuario();
     }
 
     public void setNombreUsuario() {
-        nombreUsuario = user.getNombreu() + " " + user.getApellidosu();
+        if (user == null) {
+            nombreUsuario = "Nombre Apellido";
+
+        } else {
+            nombreUsuario = user.getNombreu() + " " + user.getApellidosu();
+        }
     }
-    
+
     public List<Bitacora> listado() {
-    
-    return lBitacora;}
+
+        return lBitacora;
+    }
 
     public List<Bitacora> Getir() {
         bitacoraJPA = new BitacoraJPA();
@@ -85,13 +90,13 @@ public class ReporteBean implements Serializable {
     }
 
     public void filtro() {
-        
+
         lBitacora.addAll(tempBitacora);
         this.tempBitacora.clear();
         for (Bitacora bi : lBitacora) {
             if ((desde.before(bi.getFechabitacora()) && hasta.after(bi.getFechabitacora()))) {
-            this.tempBitacora.add(bi);
-            
+                this.tempBitacora.add(bi);
+
             }
         }
         lBitacora.removeAll(tempBitacora);
@@ -127,14 +132,14 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        String usuario = "Nombre Usuario";
+        String usuario = nombreUsuario;
 
         parametros.put("date_desde", this.desde);
         parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
 
         realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteDescargas.jasper");
-        
+
         archivo = new File(realPath);
 
         try {
@@ -179,7 +184,7 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        String usuario = "Nombre Usuario";
+        String usuario = nombreUsuario;
 
         parametros.put("date_desde", this.desde);
         parametros.put("date_hasta", this.hasta);
@@ -232,27 +237,22 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        String usuario = "Nombre Usuario";
-        
+        String usuario = nombreUsuario;
+
         parametros.put("estado", this.estado);
-        
+
         parametros.put("usuario", usuario);
-         
-        if(estado.compareTo("Todos")==0)   
-        {
-           
-           realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstadoT.jasper");
-      
-        archivo = new File(realPath);  
+
+        if (estado.compareTo("Todos") == 0) {
+
+            realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstadoT.jasper");
+
+            archivo = new File(realPath);
+        } else {
+            realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstado.jasper");
+
+            archivo = new File(realPath);
         }
-        else
-        {
-          realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteEstado.jasper");
-        
-        archivo = new File(realPath);   
-        }
-        
-       
 
         try {
             conect = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/baseMuna", "postgres", "muna2015");
@@ -297,7 +297,7 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        String usuario = "Nombre Usuario";
+        String usuario = nombreUsuario;
 
         parametros.put("date_desde", this.desde);
         parametros.put("date_hasta", this.hasta);
@@ -343,8 +343,7 @@ public class ReporteBean implements Serializable {
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-    
-    /*-------------------------Reporte de visitas-----------------------------------------------------*/
+ /*-------------------------Reporte de visitas-----------------------------------------------------*/
     public void reportVisitas() {
         System.out.println("exportar PDF");
         String realPath = "";
@@ -354,14 +353,20 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        String usuario = "Nombre Usuario";
+        String usuario = nombreUsuario;
 
         parametros.put("date_desde", this.desde);
         parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
+        System.out.println(this.estado.compareTo("todas"));
+        if (this.estado.compareTo("todas") == 0) {
+            realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteVisitasII.jasper");
 
-        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteVisitas.jasper");
+        }
+        if (this.estado.compareTo("diarias") == 0) {
+            realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteVisitas.jasper");
 
+        }
         archivo = new File(realPath);
 
         try {
@@ -400,8 +405,6 @@ public class ReporteBean implements Serializable {
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-    
-    
  /*-------------------------Reporte de Adquisiciones-----------------------------------------------------*/
     public void reportAdquisiciones() {
         System.out.println("exportar PDF");
@@ -412,7 +415,7 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        String usuario = "Nombre Usuario";
+        String usuario = nombreUsuario;
 
         parametros.put("date_desde", this.desde);
         parametros.put("date_hasta", this.hasta);
@@ -465,14 +468,14 @@ public class ReporteBean implements Serializable {
         Map<String, Object> parametros = new HashMap<String, Object>();
         Calendar calendario = GregorianCalendar.getInstance();
 
-        String usuario = "Nombre Usuario";
+        String usuario = nombreUsuario;
 
         parametros.put("date_desde", this.desde);
         parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
 
         realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReportePrestamos.jasper");
-       
+
         archivo = new File(realPath);
 
         try {
