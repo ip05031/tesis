@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteVisitas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43d1814c-a058-4cb8-a4f1-e46c3b140ca4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="date_desde" class="java.util.Date"/>
+	<parameter name="date_hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT   sum(visitas."cantidadv") AS visitas_cantidad,to_char(visitas."fechav", 'Mon')  AS visitas_mes, to_char(visitas."fechav", 'YYYY') AS visitas_año
+  FROM "public"."visitas" Where visitas."fechav" between $P{date_desde} and $P{date_hasta} GROUP BY to_char(visitas."fechav", 'Mon'), to_char(visitas."fechav", 'YYYY');]]>
+	</queryString>
+	<field name="visitas_cantidad" class="java.lang.Long"/>
+	<field name="visitas_mes" class="java.lang.String"/>
+	<field name="visitas_año" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="342" y="53" width="36" height="20" uuid="3e5ea625-cd23-4319-bcba-cfe0a1f233df"/>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="24" width="273" height="20" uuid="47928cbc-c3fa-4da3-8ac6-c12ff31e0923"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Visitas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="126" y="4" width="425" height="20" uuid="aee3a6d1-aac4-4ed3-a74c-d5872ada1bdb"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="53" width="43" height="20" uuid="72d85a0c-3510-4cca-a45a-152345de6cca"/>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="239" y="53" width="100" height="20" uuid="6f416b02-7fd8-4d22-9fc9-28cdc3055906"/>
+				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="379" y="53" width="100" height="20" uuid="6165096f-7033-4744-9271-10390d9ec9f2"/>
+				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="108" y="2" width="100" height="20" uuid="2ce43caf-cff3-4173-915f-ea65edd58fd4"/>
+				<text><![CDATA[Cantidad de visitas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="2" width="100" height="20" uuid="9971b4aa-1c8a-4bc1-80dd-bcd95f658f87"/>
+				<text><![CDATA[Año]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="2" width="100" height="20" uuid="2028e63c-3a25-427b-8c95-b9b1ca01065f"/>
+				<text><![CDATA[Mes]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="108" y="3" width="100" height="20" uuid="64f5def5-0c4b-4618-94e4-07efd41d471e"/>
+				<textFieldExpression><![CDATA[$F{visitas_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="388" y="0" width="100" height="20" uuid="998556e9-07e5-49bb-a8d4-72918de08651"/>
+				<textFieldExpression><![CDATA[$F{visitas_año}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="3" width="100" height="20" uuid="f0f123ee-ba2c-476a-81ff-fa9ae43873c0"/>
+				<textFieldExpression><![CDATA[$F{visitas_mes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="h.mm.ss a">
+				<reportElement x="10" y="10" width="100" height="20" uuid="5a5157d4-57f9-406a-b9f7-4442535c540b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="10" y="31" width="100" height="20" uuid="279d17eb-35bd-4cc9-bcc7-6d92e16774b3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="499" y="29" width="40" height="20" uuid="0ac7c17e-622c-4566-8faa-ad8e75fe385b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="29" width="80" height="20" uuid="68a0369f-a636-4aa4-b10f-01c18af61c2f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="5" width="48" height="20" uuid="61732bf0-498b-47c0-bbb5-4b38abca80b7"/>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="451" y="5" width="100" height="20" uuid="059193fa-177a-4fe7-8011-b3de55d979c5"/>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
