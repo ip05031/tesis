@@ -241,15 +241,17 @@ public class PrestamoBean implements Serializable {
     }
 
     public List<Prestamo> ListaPrestamos() {
-        List<Prestamo> listaPrestamos = new PrestamoJPA().listaPrestamos();
+        prestamoJPA = new PrestamoJPA(); 
+        List<Prestamo> listaPrestamos = new ArrayList<>();
+        listaPrestamos = prestamoJPA.listaPrestamos();
+        
         for (int i = 0; i < listaPrestamos.size(); i++) {
             String nombrerev = "";
             String titulorev = "";
             nombrerev = listaPrestamos.get(i).getIdInventario().getIdRevista().getTitulor();
             titulorev = listaPrestamos.get(i).getIdInventario().getIdRevista().getIdTitulo().getTituloRevista();
-            //System.out.println(nombrerev);
-            //System.out.println(titulorev);
-            
+            System.out.println(nombrerev);
+            System.out.println(titulorev);
         }
         return listaPrestamos;
     }

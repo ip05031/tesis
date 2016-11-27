@@ -28,6 +28,9 @@
 
                             <!-- /.panel-heading -->
                             <div class="panel-body" >
+                                <div class="pull-left">
+                                    <h:link outcome="index"      value="Regresar a Inicio" class="btn btn-danger"/>
+                                </div>
                                 <h:form  >
                                     <p:growl id="msj" autoUpdate="true"></p:growl>
                                     <div class="row">
@@ -214,6 +217,7 @@
                                                                  action="#{contactenosBean.enviarCorreo()}"
                                                                  
                                                                  styleClass="btn btn-success btn-block"
+                                                                 onclick="$(this).prop('disabled', true);"
 
                                                                  >
                                                     <f:ajax execute="mailFrm" render="mailFrm" />

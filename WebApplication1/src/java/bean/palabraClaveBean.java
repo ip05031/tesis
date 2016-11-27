@@ -129,7 +129,7 @@ public class palabraClaveBean implements Serializable {
 
         palabraJPA = new PalabrasClavesJPA();
         palabraJPA.eliminarpcJPA(epc);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡No se ha Eliminado Palabra Clave!", null);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Palabra Clave eliminada exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 

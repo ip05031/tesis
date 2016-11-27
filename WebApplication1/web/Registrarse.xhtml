@@ -153,10 +153,11 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
-                                                <p:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                <p:commandButton id="btn_new_usuario"
+                                                                 class="btn btn-success pull-right" value="Guardar" 
                                                                  actionListener="#{registroBean.nuevoVisitante()}" 
                                                                  update="newUsuarioExterno" 
-                                                                 onclick="desactivar();"
+                                                                 onclick="desactivar(this);"
                                                                  />
 
                                                 <p:commandButton class="btn btn-danger pull-right" value="Cancelar" immediate="true" />

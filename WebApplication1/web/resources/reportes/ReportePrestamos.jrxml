@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePrestamos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14bf01da-3d0b-47c4-a356-89120f5145ea">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportePrestamos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14bf01da-3d0b-47c4-a356-89120f5145ea">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -21,7 +21,8 @@ FROM
      INNER JOIN "public"."usuario" usuario ON prestamo."id_usuario" = usuario."id_usuario"
      INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"
 WHERE  prestamo."fechap"
-between $P{date_desde} and $P{date_hasta}]]>
+between $P{date_desde} and $P{date_hasta}
+and prestamo."tipop" = 3]]>
 	</queryString>
 	<field name="titulo_titulo_revista" class="java.lang.String"/>
 	<field name="prestamo_fechap" class="java.sql.Date"/>
@@ -97,12 +98,12 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<textFieldExpression><![CDATA[$F{prestamo_fechap}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="303" y="0" width="100" height="20" uuid="73aa6864-98d1-4c89-9e30-0bd8d1851b95"/>
-				<textFieldExpression><![CDATA[$F{prestamo_paginasp]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="157" y="1" width="100" height="20" uuid="916f8a75-a0d0-49a1-a23c-fe23cf8a196d"/>
 				<textFieldExpression><![CDATA[$F{usuario_nombreu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="4" width="100" height="20" uuid="d03a9a5a-dbf5-4c15-b22d-3591839dbcdb"/>
+				<textFieldExpression><![CDATA[$F{prestamo_paginasp}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
