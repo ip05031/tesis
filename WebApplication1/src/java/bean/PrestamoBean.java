@@ -29,6 +29,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.hibernate.validator.internal.util.logging.Log_$logger;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -71,15 +72,53 @@ public class PrestamoBean implements Serializable {
     private List<PalabraClave> palabraSelec = new ArrayList<>();
     private List<Revista> revistasEncontradas;
     private List<Revista> revistasFiltradas;
+    private List<Revista> listadoRevistas;
     private int idUltimoInventario;
 
     private Revista revistaSel = new Revista();
     private String numpags;
+    private Inventario inventarioDevolucion;
+    private Inventario inventarioPrestamo;
 
     /**
      * Creates a new instance of PrestamoBean
      */
     public PrestamoBean() {
+        RevistasJPA revis = new RevistasJPA();
+        listadoRevistas = revis.getRevistas();
+        prestamoJPA = new PrestamoJPA();
+        titulos = prestamoJPA.getTitulos();
+
+    }
+
+    public String buscaTitulo(Prestamo p) {
+        String titu = "";
+        if (p.getIdInventario() != null) {
+            if (p.getIdInventario().getIdRevista() != null) {
+                try {
+                    for (Revista r : listadoRevistas) {
+
+                        if (p.getIdInventario().getIdRevista().getIdRevista() != null) {
+                            if (r.getIdRevista() == p.getIdInventario().getIdRevista().getIdRevista()) {
+                                for (Titulo t : titulos) {
+                                    if (r.getIdTitulo().getIdTitulo() == t.getIdTitulo()) {
+                                        titu = t.getTituloRevista() + " " + r.getTitulor();
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+            }
+
+        }
+
+        return titu;
 
     }
 
@@ -99,11 +138,11 @@ public class PrestamoBean implements Serializable {
         categorias = prestamoJPA.getCategorias();
         return categorias;
     }
-    
-    public List<Prestamo> prestamoReporte(){
-       prestamoJPA = new PrestamoJPA();
-      // prestamos = PrestamoJPA.getPrestamoReporte();
-       return prestamos; 
+
+    public List<Prestamo> prestamoReporte() {
+        prestamoJPA = new PrestamoJPA();
+        // prestamos = PrestamoJPA.getPrestamoReporte();
+        return prestamos;
     }
 
     public List<Titulo> listaTitulos() {
@@ -159,7 +198,14 @@ public class PrestamoBean implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         fechaMostrar = sdf.format(fechaRegistro);
         idPrestamo = new PrestamoJPA().getClave();
-        idInventario = new InventarioJPA().minIdDisp(revista.getIdRevista());
+        //idInventario = new InventarioJPA().minIdDisp(revista.getIdRevista());
+        inventarioPrestamo = new InventarioJPA().minIdDisp2(revista.getIdRevista());
+        if (inventarioPrestamo == null) {
+            idInventario = 0;
+            FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "comuniquese con el administrador error en registro de prestamos"));
+        } else {
+            idInventario = inventarioPrestamo.getIdInventario();
+        }
         fecha = fechaRegistro;
         hora = fechaRegistro;
         tipoPrestamo = 1;
@@ -172,7 +218,8 @@ public class PrestamoBean implements Serializable {
             prestamoJPA = new PrestamoJPA();
             Prestamo prest = new Prestamo();
             Inventario inv = new Inventario();
-            inv.setIdInventario(idInventario);
+            //inv.setIdInventario(idInventario);
+            inv = inventarioPrestamo;
             Usuario user = new Usuario();
             user.setIdUsuario(idUsuario);
 
@@ -204,6 +251,7 @@ public class PrestamoBean implements Serializable {
         idPrestamo = new PrestamoJPA().getClave();
         idUsuario = devolucion.getIdUsuario().getIdUsuario();
         idInventario = devolucion.getIdInventario().getIdInventario();
+        inventarioDevolucion = devolucion.getIdInventario();
         tipoPrestamo = 2;
     }
 
@@ -212,7 +260,7 @@ public class PrestamoBean implements Serializable {
             prestamoJPA = new PrestamoJPA();
             Prestamo prest = new Prestamo();
             Inventario inv = new Inventario();
-            inv.setIdInventario(idInventario);
+            inv = this.inventarioDevolucion;
             Usuario user = new Usuario();
             user.setIdUsuario(idUsuario);
 
@@ -233,6 +281,10 @@ public class PrestamoBean implements Serializable {
 
             inv.setExistenciai(1);
             new InventarioJPA().updateInventario(inv);
+            this.numpags = "";
+            RequestContext.getCurrentInstance().execute("PF('devolverRevista').hide();");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Devolución almacenada exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage("msgDevo", message);
         } catch (Exception e) {
             System.out.println("Error en guardar devolucion");
             System.out.println(e.getMessage());
@@ -241,18 +293,18 @@ public class PrestamoBean implements Serializable {
     }
 
     public List<Prestamo> ListaPrestamos() {
-        prestamoJPA = new PrestamoJPA(); 
+        prestamoJPA = new PrestamoJPA();
         List<Prestamo> listaPrestamos = new ArrayList<>();
         listaPrestamos = prestamoJPA.listaPrestamos();
-        
-        for (int i = 0; i < listaPrestamos.size(); i++) {
+
+        /*   for (int i = 0; i < listaPrestamos.size(); i++) {
             String nombrerev = "";
             String titulorev = "";
-            nombrerev = listaPrestamos.get(i).getIdInventario().getIdRevista().getTitulor();
+            // nombrerev = listaPrestamos.get(i).getIdInventario().getIdRevista().getTitulor();
             titulorev = listaPrestamos.get(i).getIdInventario().getIdRevista().getIdTitulo().getTituloRevista();
             System.out.println(nombrerev);
             System.out.println(titulorev);
-        }
+        }*/
         return listaPrestamos;
     }
 

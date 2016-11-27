@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
     @NamedQuery(name = "Inventario.findMaxId", query = "SELECT MAX(i.idInventario) FROM Inventario i"),
     @NamedQuery(name = "Inventario.findMinIdDisp", query = "SELECT MIN(i.idInventario) FROM Inventario i  where i.idRevista.idRevista = :idRevista AND i.existenciai = '1' and i.idEstado.idEstado = '1'"),
+    @NamedQuery(name = "Inventario.findMinIdDisp2", query = "SELECT i2 FROM Inventario i2 WHERE i2.idInventario = (SELECT MIN(i.idInventario) FROM Inventario i  where i.idRevista.idRevista = :idRevista AND i.existenciai = '1' and i.idEstado.idEstado = '1')"),
     @NamedQuery(name = "Inventario.findByIdInventario", query = "SELECT i FROM Inventario i WHERE i.idInventario = :idInventario"),
     @NamedQuery(name = "Inventario.findByExistenciai", query = "SELECT i FROM Inventario i WHERE i.existenciai = :existenciai")})
 public class Inventario implements Serializable {

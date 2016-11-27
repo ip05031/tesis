@@ -139,7 +139,10 @@ public class palabraClaveBean implements Serializable {
         if (palabra.length() > 0) {
             System.out.println("comineza la validacion de palabra clave");
             if (palabraJPA.searchPalabra(palabra)) {
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Esa palabra ya está registrada"));
+                //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Esa palabra ya está registrada"));
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esa palabra ya está registrada", null);
+       // FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage("Message2",message);
             }
         }
     }

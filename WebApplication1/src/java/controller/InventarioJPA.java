@@ -91,6 +91,23 @@ public class InventarioJPA {
 
     }
     
+    public Inventario minIdDisp2(int idRev) {
+        Inventario claveId = new Inventario();
+        try {
+            claveId = (Inventario) em.createNamedQuery("Inventario.findMinIdDisp2",Inventario.class)
+                    .setParameter("idRevista", idRev)
+                    .getSingleResult();          
+            if (claveId != null) {
+                return claveId;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }  
+    
     
     public void updateInventario(Inventario inv) {
         try {

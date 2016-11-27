@@ -48,7 +48,7 @@ public class RevistaBean implements Serializable {
     private RevistasJPA jpaRevista;
     private Integer idAutor;
     FacesContext context = FacesContext.getCurrentInstance();
-    Usuario user =new Usuario();
+    Usuario user = new Usuario();
 
     public RevistaBean() {
         this.idTitulo = new Titulo();
@@ -61,9 +61,9 @@ public class RevistaBean implements Serializable {
         this.idDonante = -1;
         Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
     }
-    
-    public void limpiar2(){
-    this.revista.setFechaprf(null);
+
+    public void limpiar2() {
+        this.revista.setFechaprf(null);
     }
 
     public Titulo getIdTitulo() {
@@ -117,16 +117,15 @@ public class RevistaBean implements Serializable {
     public List<PalabraClave> getListaPalabraClaveModificar() {
         return listaPalabraClaveModificar;
     }
-    
+
     public List<Revista> reporteDonacion() {
         return new RevistasJPA().getReporteDonacion();
     }
 
-    
     public List<Revista> reportePrestamos() {
         return new RevistasJPA().getReportePrestamos();
-    }        
-            
+    }
+
     public void setListaPalabraClaveModificar(List<PalabraClave> listaPalabraClaveModificar) {
         this.listaPalabraClaveModificar = listaPalabraClaveModificar;
     }
@@ -378,6 +377,34 @@ public class RevistaBean implements Serializable {
 
     public void modificarPalabraClave() {
 
+    }
+
+    public void validarPalabra() {
+        PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
+        String palabra = this.getNombrepalabra();
+        if (palabra.length() > 0) {
+
+            if (palabraJPA.searchPalabra(palabra)) {
+                //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Esa palabra ya está registrada"));
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esa palabra ya está registrada", null);
+                // FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesContext.getCurrentInstance().addMessage("nombre", message);
+            }
+        }
+    }
+
+    public void validarTitulo() {
+        TituloJPA tituloJPA = new TituloJPA();
+        String titulo = this.idTitulo.getTituloRevista();
+        System.out.println("titulo:");
+        if (titulo.length() > 0) {
+            if (tituloJPA.searchTitulo(titulo)) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El titulo ya está registrada", null);
+                // FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesContext.getCurrentInstance().addMessage("nombreTitulossa", message);
+
+            }
+        }
     }
 
     public void guardarpc() {

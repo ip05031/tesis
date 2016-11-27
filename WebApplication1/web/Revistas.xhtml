@@ -136,7 +136,7 @@
                                                                          requiredMessage="La Fecha es obligatoria">
                                                                 <f:validateRequired />
                                                                 <p:message for="popup"   />
-                                                                 <p:ajax event="dateSelect" update="popup2" process="popup" listener="#{revistaBean.limpiar2()}" />
+                                                                <p:ajax event="dateSelect" update="popup2" process="popup" listener="#{revistaBean.limpiar2()}" />
                                                             </p:calendar>
                                                         </div>
                                                         <div class="form-group">
@@ -145,7 +145,7 @@
                                                             </label>
                                                             <p:calendar  style="width: 100%"   id="popup2"
                                                                          value="#{revistaBean.revista.fechaprf}" locale="es" 
-                                                                          mindate="#{revistaBean.revista.fechapr}"
+                                                                         mindate="#{revistaBean.revista.fechapr}"
                                                                          navigator="true" pattern="dd-MM-yyyy" mask="true" 
                                                                          onkeypress="return permite(event, 'none')"
                                                                          label="Fecha de fin" requiredMessage="La Fecha es obligatoria">
@@ -204,7 +204,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="donateCt">
-                                                                Donante: 
+                                                                Adquirido por medio de: 
                                                             </label>
                                                             <p:selectOneMenu id="donateCt"
                                                                              value="#{revistaBean.idDonacion}"
@@ -597,7 +597,7 @@
                                                                 Fin: 
                                                             </label>
                                                             <p:calendar     id="descripT2" value="#{revistaBean.revista.fechaprf}"
-                                                                             mindate="#{revistaBean.revista.fechapr}"
+                                                                            mindate="#{revistaBean.revista.fechapr}"
                                                                             locale="es" navigator="true" pattern="dd-MM-yyyy"
                                                                             onkeypress="return permite(event, 'none')"
                                                                             mask="true" label="Fecha de fin">
@@ -658,7 +658,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="donateC">
-                                                                Dontate: 
+                                                                Adquirido por medio de: 
                                                             </label>
                                                             <p:selectOneMenu id="donateC"
                                                                              value="#{revistaBean.idDonacion}"
@@ -747,7 +747,10 @@
                                                     <p:messages for="msgs2" id="msgs2" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                     <div class="form-group">
                                                         <p:outputLabel value="Nombre Palabra"/>
-                                                        <p:inputText id="nombre" value="#{revistaBean.nombrepalabra}" class="form-control" required="true"/>
+                                                        <p:inputText id="nombre" value="#{revistaBean.nombrepalabra}" class="form-control" required="true">
+                                                            <f:ajax event="change" listener="#{revistaBean.validarPalabra()}" /> 
+                                                            <f:ajax event="keyup" listener="#{revistaBean.validarPalabra()}" /> 
+                                                        </p:inputText>
                                                         <p:message for="nombre"  />
                                                     </div>
 
@@ -766,7 +769,11 @@
                                                 <p:panel id="panel24"  >                                               
                                                     <div class="form-group">
                                                         <p:outputLabel value="Titulo"/>                                                    
-                                                        <p:inputText id="nombreTitulossa" value="#{revistaBean.idTitulo.tituloRevista}" class="form-control" required="true"/>
+                                                        <p:inputText id="nombreTitulossa" value="#{revistaBean.idTitulo.tituloRevista}" 
+                                                                     onkeypress="return soloLetras(event)" class="form-control" required="true"> 
+                                                            <f:ajax event="change" listener="#{revistaBean.validarTitulo()}" /> 
+                                                            <f:ajax event="keyup" listener="#{revistaBean.validarTitulo()}" /> 
+                                                        </p:inputText>
                                                         <p:message for="nombreTitulossa" />
                                                     </div>
                                                     <p:commandButton class="btn btn-success btn-xs" value="Guardar"  action="#{revistaBean.guardarpc2()}" 

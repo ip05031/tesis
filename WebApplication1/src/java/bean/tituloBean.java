@@ -87,6 +87,7 @@ public class tituloBean implements Serializable {
             this.Getir();
             titulo = new Titulo();
             FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Título creado con éxito."));
+            titu ="";
         } catch (Exception e) {
             System.out.println("error");
         }
