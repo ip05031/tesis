@@ -36,7 +36,7 @@ public class ValidarSubcriptorBean implements Serializable {
         if (claveSub != null) {
             if (!claveSub.isEmpty()) {
                 UsuarioJPA uJpa = new UsuarioJPA();
-                List<Usuario> listaUsuario = uJpa.getUsuarios(1);
+                List<Usuario> listaUsuario = uJpa.getUsuarios(4);
                 //http://localhost:8083/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=123312Es343a
                 for (Usuario u : listaUsuario) {
                     if (u.getClaveValidar() != null) {
@@ -63,7 +63,7 @@ public class ValidarSubcriptorBean implements Serializable {
         }
 
         if (us.getNombreu() != null) {
-            texto = "" + us.getNombreu() + ", Su cuenta ha sido activada con éxito.";
+            texto = "" + us.getNombreu() + ". Su cuenta ha sido activada con éxito.";
             UsuarioJPA uJpa = new UsuarioJPA();
             us.setEstadoi(2);
             uJpa.updateUsuario(us);

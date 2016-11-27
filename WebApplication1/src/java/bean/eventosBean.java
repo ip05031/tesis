@@ -190,7 +190,7 @@ public class eventosBean implements Serializable {
         SimpleDateFormat formateadorhora = new SimpleDateFormat("hh:mm a");
         String datos = "Saludos .\n"
                 + "Por este medio se informa a nuestros subscriptores que el museo tendrá un evento.\n"
-                + "El dia de " + formateador.format(fechaevento) + " se realizará el evento de " + nombrevento + "a las " + formateadorhora.format(horaevento) + " en el local " + lugarevento + " del MUNA.\n"
+                + "El día de " + formateador.format(fechaevento) + " se realizará el evento de " + nombrevento + "a las " + formateadorhora.format(horaevento) + " en el local " + lugarevento + " del MUNA.\n"
                 + "\n"
                 + "Se adjunta el afiche del evento.\n"
                 + "Atentamente \n"

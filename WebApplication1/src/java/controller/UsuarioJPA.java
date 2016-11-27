@@ -36,12 +36,15 @@ public class UsuarioJPA {
             case 3:
                 namedquery = "Usuario.findAll";
                 break;
+             case 4:
+                namedquery = "Usuario.findVisitor2";
+                break;
             default:
                 namedquery = "Usuario.findAll";
                 break;
         }
         try {
-            if (tipo == 1 || tipo == 2) {
+            if (tipo == 1 || tipo == 2 || tipo == 4) {
                 Integer i = 5;
                 listaUsuario = em.createNamedQuery(namedquery, Usuario.class)
                         .setParameter("idTusuario", i)

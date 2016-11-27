@@ -93,10 +93,11 @@ public class RegistroBean implements Serializable {
             EMail msj = new EMail();
             msj.setRemitente(cuentaMail);
             msj.getDestinatarios().add(newUser.getCorreou());
-            msj.setAsunto("Envio de Código de confirmación sobre Subscripción al Portal de (MUNA)");
-            String cuerpo = "Muchas Gracias por subcribirse al  portal del  Museo Nacional de Antropología Dr. David J. Guzmán (MUNA) solo queda un paso:\n"
-                    + "Este correo es autogenerado; de clic sobre el link para poder su activar de su cuenta: \n" + claveEnviar
+            msj.setAsunto("Envió  de Código de confirmación sobre Subscripción al Portal de (MUNA)");
+            String cuerpo = "Muchas Gracias por subscribirse  al  portal del  Museo Nacional de Antropología Dr. David J. Guzmán (MUNA) solo queda un paso:\n"
+                    + "De clic sobre el link para poder activar su cuenta: \n\n" + claveEnviar
                     + "\n\n"
+                    +"Este correo es autogenerado no debe ser respondido gracias.\n"
                     + "Atentamente \n"
                     + "Museo Nacional de Antropología Dr. David J. Guzmán \n"
                     + "Dirreción MUNA";;
