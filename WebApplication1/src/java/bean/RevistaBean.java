@@ -306,7 +306,7 @@ public class RevistaBean implements Serializable {
         this.idTitulo = new Titulo();
         RequestContext.getCurrentInstance().execute("PF('nuevaPantalla').hide();");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage("msgs1", message);
 
     }
 
@@ -438,7 +438,7 @@ public class RevistaBean implements Serializable {
         jpaRevista.mergeTipoUsuario(revista);
         RequestContext.getCurrentInstance().execute("PF('dlg2').hide()");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage("msgs5", message);
 
     }
 

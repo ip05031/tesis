@@ -90,7 +90,7 @@
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="formulario_mo">
                                                     <p:panel id="panel5" >
-                                                        <p:messages id="msgs5" />
+                                                        <p:messages id="msgs5" for="msgs5" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="tituloRevist">
                                                                 Titulo de revista 
@@ -135,7 +135,7 @@
                                                                          onkeypress="return permite(event, 'none')"
                                                                          requiredMessage="La Fecha es obligatoria">
                                                                 <f:validateRequired />
-                                                                <p:message for="popup" display="icon"  />
+                                                                <p:message for="popup"   />
                                                                  <p:ajax event="dateSelect" update="popup2" process="popup" listener="#{revistaBean.limpiar2()}" />
                                                             </p:calendar>
                                                         </div>
@@ -151,7 +151,7 @@
                                                                          label="Fecha de fin" requiredMessage="La Fecha es obligatoria">
                                                                 <f:validateRequired />                                                                
                                                                 <p:ajax event="dateSelect"  process="@this" />
-                                                                <p:message for="popup2" display="icon"  />
+                                                                <p:message for="popup2"   />
                                                             </p:calendar>
                                                         </div>
                                                         <div class="form-group">
@@ -291,7 +291,7 @@
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="articuloCr" >
                                                     <p:panel id="panel4"  >
-                                                        <p:messages id="msgs4" />
+                                                        <p:messages id="msgs4" for="msgs4" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="TituloArticulo">
                                                                 Titulo de articulo:
@@ -419,13 +419,13 @@
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="articuloCrMod" >
                                                     <p:panel id="panel3"  >
-                                                        <p:messages id="msgs3" />
+                                                        <p:messages id="msgs3" for="msgs3" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="TituloArticuloM">
                                                                 Titulo de articulo:
                                                             </label>
                                                             <p:inputText id="TituloArticuloM"  value="#{revistaBean.articulo.tituloa}" class="form-control" required="true" requiredMessage="Titulo es Obligatorio" />
-                                                            <p:message for="TituloArticuloM" />
+                                                            <p:messages for="TituloArticuloM" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="AutorAM">
@@ -546,7 +546,7 @@
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="newPantalla2" >
                                                     <p:panel id="panel1"  >
-                                                        <p:messages id="msgs1" />
+                                                        <p:messages id="msgs1" for="msgs1" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="tituloRevist2">
                                                                 Titulo de revista 
@@ -573,7 +573,7 @@
                                                                 Volumen de la Revista:
                                                             </label>
                                                             <p:inputText id="nombreI"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="El titulo es Obligatorio" />
-                                                            <p:message for="nombreI" />
+                                                            <p:messages for="nombreI" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label >
@@ -588,7 +588,7 @@
                                                                            onkeypress="return permite(event, 'none')"
                                                                            mask="true" label="Fecha de inicio">
                                                                 <f:validateRequired />
-                                                                <p:message for="descripT" display="icon"  />
+                                                                <p:messages for="descripT"   />
                                                                 <p:ajax event="dateSelect" update="descripT2" process="descripT" listener="#{revistaBean.limpiar2()}" />
                                                             </p:calendar>
                                                         </div>
@@ -604,7 +604,7 @@
                                                                 <f:validateRequired />
                                                                 <f:attribute name="descripT" value="#{revistaBean.revista.fechapr}"/>
                                                                 <p:ajax event="dateSelect"  process="@this" />
-                                                                <p:message for="descripT2" display="icon"  />
+                                                                <p:messages for="descripT2"   />
                                                             </p:calendar>
                                                         </div>
 
@@ -633,7 +633,7 @@
                                                                 ISSN: 
                                                             </label>
                                                             <p:inputMask id="issnC"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true" requiredMessage="El ISSN es Obligatorio"/> 
-                                                            <p:message for="issnC" />
+                                                            <p:messages for="issnC" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="paisSelect">
@@ -744,11 +744,11 @@
                                                   minHeight="40" modal="true"   resizable="false" >
                                             <h:form id="newpantpal" > 
                                                 <p:panel id="panel2"  >
-                                                    <p:messages id="msgs2" />
+                                                    <p:messages for="msgs2" id="msgs2" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                     <div class="form-group">
                                                         <p:outputLabel value="Nombre Palabra"/>
                                                         <p:inputText id="nombre" value="#{revistaBean.nombrepalabra}" class="form-control" required="true"/>
-                                                        <p:message for="nombre" />
+                                                        <p:message for="nombre"  />
                                                     </div>
 
                                                     <p:commandButton class="btn btn-success btn-xs" value="Guardar"  action="#{revistaBean.guardarpc()}" 
