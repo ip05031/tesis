@@ -13,7 +13,7 @@
 
             <ui:define name="content">
                 <h:form>
-                    <p:remoteCommand name="onload"  actionListener="#{inicioBean.getListadoRevistas()}"  />
+                    <p:remoteCommand name="onload"  actionListener="#{inicioBean.setearRevistas()}"  />
                 </h:form>
                 <div class="row">
                     <div class="col-lg-12">
@@ -157,14 +157,12 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <br/>
+
                                 <div role="tabpanel" class="tab-pane active" id="letraA"> 
-
-
-
                                     <div class="row">
-
+                                        &nbsp;
                                         <h:form>
-                                            <ui:repeat value="#{inicioBean.listaRevista2}" var="item"  varStatus="estado"  rendered="true">  
+                                            <ui:repeat value="#{inicioBean.listaA}" var="item"  varStatus="estado"  rendered="true">  
                                                 <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
                                                     <div class="caption" style="text-align: center;">
                                                         <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
@@ -176,154 +174,489 @@
                                                 </div>
                                             </ui:repeat>
                                         </h:form> 
-
-
-
                                     </div>
-
-
-
                                 </div>
-
-
-
 
                                 <div role="tabpanel" class="tab-pane" id="letraB">
                                     <div class="row">
-                                        B
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaB}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
+
                                 <div role="tabpanel" class="tab-pane" id="letraC">
                                     <div class="row">
-                                        C
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaC}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraD">
                                     <div class="row">
-                                        D
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaD}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraE">
                                     <div class="row">
-                                        E
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaE}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraF">
                                     <div class="row">
-                                        F
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaF}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraG">
                                     <div class="row">
-                                        G
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaG}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraH">
                                     <div class="row">
-                                        H
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaH}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraI">
                                     <div class="row">
-                                        I
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaI}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraJ">
                                     <div class="row">
-                                        J
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaJ}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraK">
                                     <div class="row">
-                                        K
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaK}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div> 
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraL">
                                     <div class="row">
-                                        L
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaL}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraM">
                                     <div class="row">
-                                        M
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaM}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraN">
                                     <div class="row">
-                                        N
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaN}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
+
                                 <div role="tabpanel" class="tab-pane" id="letraO">
                                     <div class="row">
-                                        O
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaO}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraP">
                                     <div class="row">
-                                        P
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaP}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraQ">
                                     <div class="row">
-                                        Q
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaQ}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraR">
                                     <div class="row">
-                                        R
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaR}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraS">
                                     <div class="row">
-                                        S
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaS}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraT">
                                     <div class="row">
-                                        T
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaT}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraU">
                                     <div class="row">
-                                        U
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaU}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraV">
                                     <div class="row">
-                                        V
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaV}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraW">
                                     <div class="row">
-                                        W
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaW}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraX">
                                     <div class="row">
-                                        X
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaX}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraY">
                                     <div class="row">
-                                        Y
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaY}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
+
                                 <div role="tabpanel" class="tab-pane" id="letraZ">
                                     <div class="row">
-                                        Z
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaZ}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
                                     </div>
                                 </div>
 
+                                <div role="tabpanel" class="tab-pane" id="todo">
+                                    <div class="row">
+                                        &nbsp;
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaTodos}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
 
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
+                                    </div>
+                                </div>
                             </div>
-
-
-
                         </div>
-                    </div>
 
-                    <div class="col-lg-1"></div>
-                </div>    
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-1"></div>   
 
 
 
