@@ -35,7 +35,7 @@ public class donacionBean implements Serializable {
     private List<Donaciones> ldonaciones = new ArrayList<>();
     private DonacionJPA donacionJPA = new DonacionJPA();
     private Map<String, String> listadoDonantes = new HashMap<String, String>();
-    private String destination = "C:\\us\\sistema\\donaciones";
+    private String destination = "C:\\us\\sistema\\donaciones\\";
     private String archivoDonacion;
     private int idDonacion;
     private Donate idDonante;
