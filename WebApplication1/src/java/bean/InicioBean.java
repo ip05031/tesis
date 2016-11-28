@@ -366,6 +366,7 @@ public class InicioBean implements Serializable {
     }
     
     public String login() {
+        inicioJPA = new InicioJPA();
         System.out.println("Inicio sesion");
         List<Usuario> user = new ArrayList<>();
         List<Pantalla> listaDePantallas = new ArrayList<>();
