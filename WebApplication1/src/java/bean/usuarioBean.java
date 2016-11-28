@@ -127,9 +127,11 @@ public class usuarioBean implements Serializable {
         if (contraUsuario.compareTo("") != 0) {
             this.editUsuario.setPassword(contraUsuario);
         }
-        if (paisUsuario.compareTo(paisUsuario) != 0) {
+       /* if (paisUsuario.compareTo(paisUsuario) != 0) {
             this.editUsuario.setPaisu(paisUsuario);
-        }
+        }*/
+        this.editUsuario.setPaisu(paisUsuario);
+        this.editUsuario.setIdTusuario(new TipoUsuario(idTipoUsuario));
         System.out.println("" + this.editUsuario.getEstadoi());
 
         usuarioJPA.updateUsuario(this.editUsuario);
