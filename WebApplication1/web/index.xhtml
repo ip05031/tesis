@@ -414,7 +414,6 @@
 
                                 <div role="tabpanel" class="tab-pane" id="letraO">
                                     <div class="row">
-                                        &nbsp;
                                         <h:form>
                                             <ui:repeat value="#{inicioBean.listaO}" var="item"  varStatus="estado"  rendered="true">  
                                                 <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
@@ -432,7 +431,6 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="letraP">
                                     <div class="row">
-                                        &nbsp;
                                         <h:form>
                                             <ui:repeat value="#{inicioBean.listaP}" var="item"  varStatus="estado"  rendered="true">  
                                                 <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
@@ -610,10 +608,9 @@
                                         </h:form> 
                                     </div>
                                 </div>
-
+                                        &nbsp;
                                 <div role="tabpanel" class="tab-pane" id="letraZ">
                                     <div class="row">
-                                        &nbsp;
                                         <h:form>
                                             <ui:repeat value="#{inicioBean.listaZ}" var="item"  varStatus="estado"  rendered="true">  
                                                 <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
@@ -629,6 +626,25 @@
                                         </h:form> 
                                     </div>
                                 </div>
+                                
+                                <div role="tabpanel" class="tab-pane" id="todo">
+                                    <div class="row">
+                                        <h:form>
+                                            <ui:repeat value="#{inicioBean.listaTodos}" var="item"  varStatus="estado"  rendered="true">  
+                                                <div class="col-sm-3 col-lg-3 col-md-3" style="padding: 5px;">
+                                                    <div class="caption" style="text-align: center;">
+                                                        <h4> #{item.idTitulo.tituloRevista} #{item.titulor}</h4>
+                                                        <img src="#{request.contextPath}/portadas/#{item.imagenpr}" width="120px" height="150px" align="center"/>
+                                                        <br/>
+
+                                                        <h:commandButton value="Ver Revista..." action="#{inicioBean.setearRedirigir(item)}"  class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:form> 
+                                    </div>
+                                </div>
+                                
 
                                 <div role="tabpanel" class="tab-pane" id="todo">
                                     <div class="row">
@@ -666,3 +682,4 @@
 
     </body>
 </html>
+                                        &nbsp;
