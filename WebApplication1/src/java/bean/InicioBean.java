@@ -48,6 +48,67 @@ public class InicioBean implements Serializable {
     private RevistaJPA jpaRevista;
     private InicioJPA inicioJPA;
     private List<Revista> listaRevista = new ArrayList<>();
+    // lista para letra A
+    private List<Revista> listaA = new ArrayList<>();
+    // lista para letra B
+    private List<Revista> listaB = new ArrayList<>();
+    // lista para letra C
+    private List<Revista> listaC = new ArrayList<>();
+    // lista para letra D
+    private List<Revista> listaD = new ArrayList<>();
+    // lista para letra E
+    private List<Revista> listaE = new ArrayList<>();
+    // lista para letra F
+    private List<Revista> listaF = new ArrayList<>();
+    // lista para letra G
+    private List<Revista> listaG = new ArrayList<>();
+    // lista para letra H
+    private List<Revista> listaH = new ArrayList<>();
+    // lista para letra I
+    private List<Revista> listaI = new ArrayList<>();
+    // lista para letra J
+    private List<Revista> listaJ = new ArrayList<>();
+    // lista para letra K
+    private List<Revista> listaK = new ArrayList<>();
+    // lista para letra L
+    private List<Revista> listaL = new ArrayList<>();
+    // lista para letra M
+    private List<Revista> listaM = new ArrayList<>();
+    // lista para letra N
+    private List<Revista> listaN = new ArrayList<>();
+    // lista para letra O
+    private List<Revista> listaO = new ArrayList<>();
+    // lista para letra P
+    private List<Revista> listaP = new ArrayList<>();
+    // lista para letra Q
+    private List<Revista> listaQ = new ArrayList<>();
+    // lista para letra R
+    private List<Revista> listaR = new ArrayList<>();
+    // lista para letra S
+    private List<Revista> listaS = new ArrayList<>();
+    // lista para letra T
+    private List<Revista> listaT = new ArrayList<>();
+    // lista para letra U
+    private List<Revista> listaU = new ArrayList<>();
+    // lista para letra V
+    private List<Revista> listaV = new ArrayList<>();
+    // lista para letra W
+    private List<Revista> listaW = new ArrayList<>();
+    // lista para letra X
+    private List<Revista> listaX = new ArrayList<>();
+    // lista para letra Y
+    private List<Revista> listaY = new ArrayList<>();
+    // lista para letra Z
+    private List<Revista> listaZ = new ArrayList<>();
+    // lista para letra #
+    private List<Revista> listaNum = new ArrayList<>();
+    // lista para letra todos
+    private List<Revista> listaTodos = new ArrayList<>();
+    
+    
+    
+    
+    
     private List<Revista> listaRevista2 = new ArrayList<>();
     private Revista revistaAbrir = new Revista();
     private Revista revistaAbrir2 = new Revista();
@@ -68,9 +129,9 @@ public class InicioBean implements Serializable {
     /*---------------------------------------------------------- Constructor -----------------------------------------------------------------------*/
     public InicioBean() {
         System.out.println("Iniciando el construnctor Inicio-Bean");
-        listaRevista2 = getListadoRevistas();
+        
         this.setArchivoDownload(false);
-
+        
     }
 
     /*---------------------------------------------------------- Funciones Propias -----------------------------------------------------------------*/
@@ -154,13 +215,156 @@ public class InicioBean implements Serializable {
 
     }
 
-    public List<Revista> getListadoRevistas() {
-        System.out.println("getlistadoRevistas");
+    public void setearRevistas(){
+       
+        System.out.println("letra A");
         inicioJPA = new InicioJPA();
-        listaRevista = inicioJPA.obtnerRevistas2();
-        return listaRevista;
-    }
+        listaA = inicioJPA.obtnerRevistas2();
+        inicioJPA = null;
+        
+        System.out.println("letra B");
+        inicioJPA = new InicioJPA();
+        listaB = inicioJPA.obtenerRevistaPorLetra("B");
+        inicioJPA = null;
+        
+        System.out.println("letra C");
+        inicioJPA = new InicioJPA();
+        listaC = inicioJPA.obtenerRevistaPorLetra("C");
+        inicioJPA = null;
+        
+        System.out.println("letra D");
+        inicioJPA = new InicioJPA();
+        listaD = inicioJPA.obtenerRevistaPorLetra("D");
+        inicioJPA = null;
+        
+        System.out.println("letra E");
+        inicioJPA = new InicioJPA();
+        listaE = inicioJPA.obtenerRevistaPorLetra("E");
+        inicioJPA = null;
+        
+        System.out.println("letra F");
+        inicioJPA = new InicioJPA();
+        listaF = inicioJPA.obtenerRevistaPorLetra("F");
+        inicioJPA = null;
+        
+        System.out.println("letra G");
+        inicioJPA = new InicioJPA();
+        listaG = inicioJPA.obtenerRevistaPorLetra("G");
+        inicioJPA = null;
+        
+        System.out.println("letra H");
+        inicioJPA = new InicioJPA();
+        listaH = inicioJPA.obtenerRevistaPorLetra("H");
+        inicioJPA = null;
+        
+        System.out.println("letra I");
+        inicioJPA = new InicioJPA();
+        listaI = inicioJPA.obtenerRevistaPorLetra("I");
+        inicioJPA = null;
+        
+        System.out.println("letra J");
+        inicioJPA = new InicioJPA();
+        listaJ = inicioJPA.obtenerRevistaPorLetra("J");
+        inicioJPA = null;
+        
+        System.out.println("letra K");
+        inicioJPA = new InicioJPA();
+        listaK = inicioJPA.obtenerRevistaPorLetra("K");
+        inicioJPA = null;
+        
+        System.out.println("letra L");
+        inicioJPA = new InicioJPA();
+        listaL = inicioJPA.obtenerRevistaPorLetra("L");
+        inicioJPA = null;
+        
+        System.out.println("letra M");
+        inicioJPA = new InicioJPA();
+        listaM = inicioJPA.obtenerRevistaPorLetra("M");
+        inicioJPA = null;
+        
+        System.out.println("letra N");
+        inicioJPA = new InicioJPA();
+        listaN = inicioJPA.obtenerRevistaPorLetra("N");
+        inicioJPA = null;
+        
+        System.out.println("letra O");
+        inicioJPA = new InicioJPA();
+        listaO = inicioJPA.obtenerRevistaPorLetra("O");
+        inicioJPA = null;
+        
+        System.out.println("letra P");
+        inicioJPA = new InicioJPA();
+        listaP = inicioJPA.obtenerRevistaPorLetra("P");
+        inicioJPA = null;
+        
+        System.out.println("letra Q");
+        inicioJPA = new InicioJPA();
+        listaQ = inicioJPA.obtenerRevistaPorLetra("Q");
+        inicioJPA = null;
+        
+        System.out.println("letra R");
+        inicioJPA = new InicioJPA();
+        listaR = inicioJPA.obtenerRevistaPorLetra("R");
+        inicioJPA = null;
+        
+        System.out.println("letra S");
+        inicioJPA = new InicioJPA();
+        listaS = inicioJPA.obtenerRevistaPorLetra("S");
+        inicioJPA = null;
+        
+        System.out.println("letra T");
+        inicioJPA = new InicioJPA();
+        listaT = inicioJPA.obtenerRevistaPorLetra("T");
+        inicioJPA = null;
+        
+        System.out.println("letra U");
+        inicioJPA = new InicioJPA();
+        listaU = inicioJPA.obtenerRevistaPorLetra("U");
+        inicioJPA = null;
+        
+        System.out.println("letra V");
+        inicioJPA = new InicioJPA();
+        listaV = inicioJPA.obtenerRevistaPorLetra("V");
+        inicioJPA = null;
+        
+        System.out.println("letra W");
+        inicioJPA = new InicioJPA();
+        listaW = inicioJPA.obtenerRevistaPorLetra("W");
+        inicioJPA = null;
+        
+        System.out.println("letra X");
+        inicioJPA = new InicioJPA();
+        listaX = inicioJPA.obtenerRevistaPorLetra("X");
+        inicioJPA = null;
+        
+        System.out.println("letra Y");
+        inicioJPA = new InicioJPA();
+        listaY = inicioJPA.obtenerRevistaPorLetra("Y");
+        inicioJPA = null;
+        
+        System.out.println("letra Z");
+        inicioJPA = new InicioJPA();
+        listaZ = inicioJPA.obtenerRevistaPorLetra("Z");
+        inicioJPA = null;
+        
 
+        
+        System.out.println("Todas");
+        inicioJPA = new InicioJPA();
+        listaTodos = inicioJPA.obtenerTodasRevistas();
+        inicioJPA = null;
+    }
+  
+
+    
+    public boolean verExistencias(List<Revista> revista){
+        System.out.println("verificando existencia");
+        boolean valor = false;
+        valor = revista.size() > 0;
+        System.out.println(valor);
+        return valor;
+    }
+    
     public String login() {
         System.out.println("Inicio sesion");
         List<Usuario> user = new ArrayList<>();
@@ -455,5 +659,229 @@ public class InicioBean implements Serializable {
 
     public void setPerfilUsuario(Usuario perfilUsuario) {
         this.perfilUsuario = perfilUsuario;
+    }
+
+    public List<Revista> getListaA() {
+        return listaA;
+    }
+
+    public void setListaA(List<Revista> listaA) {
+        this.listaA = listaA;
+    }
+
+    public List<Revista> getListaB() {
+        return listaB;
+    }
+
+    public void setListaB(List<Revista> listaB) {
+        this.listaB = listaB;
+    }
+
+    public List<Revista> getListaC() {
+        return listaC;
+    }
+
+    public void setListaC(List<Revista> listaC) {
+        this.listaC = listaC;
+    }
+
+    public List<Revista> getListaD() {
+        return listaD;
+    }
+
+    public void setListaD(List<Revista> listaD) {
+        this.listaD = listaD;
+    }
+
+    public List<Revista> getListaE() {
+        return listaE;
+    }
+
+    public void setListaE(List<Revista> listaE) {
+        this.listaE = listaE;
+    }
+
+    public List<Revista> getListaF() {
+        return listaF;
+    }
+
+    public void setListaF(List<Revista> listaF) {
+        this.listaF = listaF;
+    }
+
+    public List<Revista> getListaG() {
+        return listaG;
+    }
+
+    public void setListaG(List<Revista> listaG) {
+        this.listaG = listaG;
+    }
+
+    public List<Revista> getListaH() {
+        return listaH;
+    }
+
+    public void setListaH(List<Revista> listaH) {
+        this.listaH = listaH;
+    }
+
+    public List<Revista> getListaI() {
+        return listaI;
+    }
+
+    public void setListaI(List<Revista> listaI) {
+        this.listaI = listaI;
+    }
+
+    public List<Revista> getListaJ() {
+        return listaJ;
+    }
+
+    public void setListaJ(List<Revista> listaJ) {
+        this.listaJ = listaJ;
+    }
+
+    public List<Revista> getListaK() {
+        return listaK;
+    }
+
+    public void setListaK(List<Revista> listaK) {
+        this.listaK = listaK;
+    }
+
+    public List<Revista> getListaL() {
+        return listaL;
+    }
+
+    public void setListaL(List<Revista> listaL) {
+        this.listaL = listaL;
+    }
+
+    public List<Revista> getListaM() {
+        return listaM;
+    }
+
+    public void setListaM(List<Revista> listaM) {
+        this.listaM = listaM;
+    }
+
+    public List<Revista> getListaN() {
+        return listaN;
+    }
+
+    public void setListaN(List<Revista> listaN) {
+        this.listaN = listaN;
+    }
+
+    public List<Revista> getListaO() {
+        return listaO;
+    }
+
+    public void setListaO(List<Revista> listaO) {
+        this.listaO = listaO;
+    }
+
+    public List<Revista> getListaP() {
+        return listaP;
+    }
+
+    public void setListaP(List<Revista> listaP) {
+        this.listaP = listaP;
+    }
+
+    public List<Revista> getListaQ() {
+        return listaQ;
+    }
+
+    public void setListaQ(List<Revista> listaQ) {
+        this.listaQ = listaQ;
+    }
+
+    public List<Revista> getListaR() {
+        return listaR;
+    }
+
+    public void setListaR(List<Revista> listaR) {
+        this.listaR = listaR;
+    }
+
+    public List<Revista> getListaS() {
+        return listaS;
+    }
+
+    public void setListaS(List<Revista> listaS) {
+        this.listaS = listaS;
+    }
+
+    public List<Revista> getListaT() {
+        return listaT;
+    }
+
+    public void setListaT(List<Revista> listaT) {
+        this.listaT = listaT;
+    }
+
+    public List<Revista> getListaU() {
+        return listaU;
+    }
+
+    public void setListaU(List<Revista> listaU) {
+        this.listaU = listaU;
+    }
+
+    public List<Revista> getListaV() {
+        return listaV;
+    }
+
+    public void setListaV(List<Revista> listaV) {
+        this.listaV = listaV;
+    }
+
+    public List<Revista> getListaW() {
+        return listaW;
+    }
+
+    public void setListaW(List<Revista> listaW) {
+        this.listaW = listaW;
+    }
+
+    public List<Revista> getListaX() {
+        return listaX;
+    }
+
+    public void setListaX(List<Revista> listaX) {
+        this.listaX = listaX;
+    }
+
+    public List<Revista> getListaY() {
+        return listaY;
+    }
+
+    public void setListaY(List<Revista> listaY) {
+        this.listaY = listaY;
+    }
+
+    public List<Revista> getListaZ() {
+        return listaZ;
+    }
+
+    public void setListaZ(List<Revista> listaZ) {
+        this.listaZ = listaZ;
+    }
+
+    public List<Revista> getListaNum() {
+        return listaNum;
+    }
+
+    public void setListaNum(List<Revista> listaNum) {
+        this.listaNum = listaNum;
+    }
+
+    public List<Revista> getListaTodos() {
+        return listaTodos;
+    }
+
+    public void setListaTodos(List<Revista> listaTodos) {
+        this.listaTodos = listaTodos;
     }
 }
