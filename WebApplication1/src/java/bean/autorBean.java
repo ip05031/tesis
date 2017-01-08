@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 
 @Named(value = "autorBean")
@@ -81,6 +82,7 @@ public class autorBean implements Serializable {
         
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Almacenado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+        RequestContext.getCurrentInstance().execute("PF('ingresarAutor').hide();");
          
     }
     
@@ -100,6 +102,7 @@ public class autorBean implements Serializable {
         autorJPA.editautorJPA(editarautor);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor modificado Exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+        RequestContext.getCurrentInstance().execute("PF('modificarautor').hide();");
     }
 public void capturarautor(Autor capturautor){
     this.editarautor=capturautor;

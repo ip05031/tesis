@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 @Named(value = "categoriaBean")
 @SessionScoped
@@ -94,7 +95,7 @@ public class categoriaBean implements Serializable {
             this.setNombreCategoria(null);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria creada exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
-            FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "¡Categoria creada exitosamente!"));
+            RequestContext.getCurrentInstance().execute("PF('nuevaCategoria').hide();");
         }
 
     }
@@ -108,6 +109,7 @@ public class categoriaBean implements Serializable {
         this.setNombreCategoria(null);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria modificada exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+         RequestContext.getCurrentInstance().execute("PF('modCategoria').hide();");
     }
 
     public void dltCategoria(Categoria cat) {

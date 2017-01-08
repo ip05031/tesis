@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 
 @Named(value = "donantesBean")
@@ -122,6 +123,7 @@ public class donantesBean implements Serializable {
         
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Donante Almacenado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+        RequestContext.getCurrentInstance().execute("PF('ingresarDonante').hide();");
         
     }
     public void editardonante(){
@@ -133,6 +135,7 @@ public class donantesBean implements Serializable {
         donantesJPA.editdonanteJPA(editardon);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Donante modificado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+         RequestContext.getCurrentInstance().execute("PF('modificardonante').hide();");
        }
     
 public void capturardonante(Donate capturardon){

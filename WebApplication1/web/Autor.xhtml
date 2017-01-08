@@ -90,16 +90,16 @@
                                             <p:dialog widgetVar="ingresarAutor" header="Autor" minHeight="40" modal="true" resizable="false">
                                                 <h:form id="newpantpal" >
                                                     <p:panel id="panel1" header="Registrar Autor" >
-                                                        <p:messages id="msgs" />
+                                                        
 
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1"> Nombre de Autor: </label>
 
                                                             <p:inputText id="nombrea" value="#{autorBean.nombreautor}" class="form-control" required="true"
-                                                                         label="Autor" onkeypress="return soloLetras(event)">
+                                                                         label="Autor" onkeypress="return soloLetras(event)" requiredMessage="Error el campo nombre debe tener al menos un caracter">
                                                                 <f:validateRequired />
                                                             </p:inputText>
-                                                            <p:message for="nombrea" display="icon"  />
+                                                            <p:messages for="nombrea" />
                                                         </div>
 
                                                         <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{autorBean.guardarautor()}"  update=":frm_table:detailTable,newpantpal"/>
@@ -114,11 +114,12 @@
                                                 <h:form id="modpal">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Nombre de Autor:</label>
-                                                        <p:inputText id="name_palabra" value="#{autorBean.editarautor.nombreAutor}" class="form-control" 
-                                                                     required="true" onkeypress="return soloLetras(event)"/>
+                                                        <p:inputText id="name_palabra" value="#{autorBean.editarautor.nombreAutor}" class="form-control"  label="autor"
+                                                                     required="true" onkeypress="return soloLetras(event)" requiredMessage="Error el campo nombre debe tener al menos un caracter" />
+                                                         <p:message for="name_palabra" />
                                                     </div>
 
-                                                    <p:commandButton class="btn btn-success" process="@form" action="#{autorBean.editautor()}" value="Editar" update=":frm_table" onclick="PF('modificarautor').hide();"/>
+                                                    <p:commandButton class="btn btn-success" process="@form" action="#{autorBean.editautor()}" value="Editar" update=":frm_table, modpal"/>
                                                     <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modificarautor').hide();"/>
                                                 </h:form>
                                             </p:dialog>

@@ -168,8 +168,7 @@
                                                       draggable="false"
                                                       closeOnEscape="true">
                                                 <p:scrollPanel mode="native" style="height: 460px; border: none;">
-                                                    <h:form id="newUsuario" >
-                                                        <p:messages for ="Message4" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
+                                                    <h:form id="newUsuario" >                                                       
                                                         <div class="row">
                                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                 <div class="form-group">
@@ -178,12 +177,12 @@
                                                                     </label>
                                                                     <div class="row">
                                                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                            <p:inputText  id="Nombre" value="#{usuarioBean.nombreUsuario}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
-                                                                            <p:messages for="Nombre" />
+                                                                            <p:inputText  id="Nombre1" value="#{usuarioBean.nombreUsuario}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
+                                                                            <p:messages for="Nombre1" />
                                                                         </div>
                                                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
-                                                                            <p:inputText  id="Apellido" value="#{usuarioBean.apellidoUsuario}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
-                                                                            <p:messages for="Apellido" />
+                                                                            <p:inputText  id="Apellido1" value="#{usuarioBean.apellidoUsuario}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
+                                                                            <p:messages for="Apellido1" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -222,7 +221,7 @@
                                                                             <label for="exampleInputEmail1">
                                                                                 Fecha de Nacimiento
                                                                             </label><br/>
-                                                                            <p:calendar id="Fecha_Nacimiento" 
+                                                                            <p:calendar id="Fecha_Nacimiento1" 
                                                                                         value="#{usuarioBean.fechaNacUsuario}"
                                                                                         locale="es" navigator="true" 
                                                                                         pattern="dd-MM-yyyy" mask="true" 
@@ -231,7 +230,7 @@
                                                                                         maxdate="-10Y"
                                                                                         widgetVar="calwidget"
                                                                                         />
-                                                                           <p:message for="Fecha_Nacimiento" />
+                                                                           <p:message for="Fecha_Nacimiento1" />
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
@@ -239,7 +238,7 @@
                                                                             <label for="pais">
                                                                                 Pais: 
                                                                             </label>
-                                                                            <p:selectOneMenu id="pais" 
+                                                                            <p:selectOneMenu id="pais1" 
                                                                                              value="#{usuarioBean.paisUsuario}"  
                                                                                              panelStyle="width:180px"
                                                                                              effect="fade" 
@@ -250,7 +249,7 @@
                                                                                                itemLabel="#{themes2}" 
                                                                                                itemValue="#{themes2}"  />
                                                                             </p:selectOneMenu>                                                    
-                                                                            <p:message for="pais" />
+                                                                            <p:message for="pais1" />
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">  
@@ -273,10 +272,10 @@
                                                                             <label for="exampleInputEmail1">
                                                                                 Nombre de Usuario
                                                                             </label><br/>
-                                                                            <p:inputText  id="inputNick" value="#{usuarioBean.nickUsuario}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
+                                                                            <p:inputText  id="inputNick1" value="#{usuarioBean.nickUsuario}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
                                                                                 <f:ajax event="keyup" listener="#{usuarioBean.validarUsuarioExiste()}" /> 
                                                                             </p:inputText>
-                                                                            <p:messages for="inputNick" id="msgLastname" />
+                                                                            <p:messages for="inputNick1" id="msgLastname" />
 
                                                                             <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                                                         </div>
@@ -286,10 +285,10 @@
                                                                             <label for="emailUsuario">
                                                                                 Correo Electronico
                                                                             </label>
-                                                                            <p:inputText  id="emailUsuario" value="#{usuarioBean.correoUsuario}" class="form-control" placeholder="e-mail" required="true" requiredMessage="Ingrese su correo electrónico" validatorMessage="Formato de correo inválido">
+                                                                            <p:inputText  id="emailUsuario1" value="#{usuarioBean.correoUsuario}" class="form-control" placeholder="e-mail" required="true" requiredMessage="Ingrese su correo electrónico" validatorMessage="Formato de correo inválido">
                                                                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                                             </p:inputText>
-                                                                            <p:messages for="emailUsuario"  />
+                                                                            <p:messages for="emailUsuario1"  />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -299,23 +298,23 @@
                                                                             <label for="pwd1">
                                                                                 Contraseña
                                                                             </label><br/>
-                                                                            <p:password id="pwd1" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" 
+                                                                            <p:password id="pwd11" value="#{usuarioBean.contraUsuario}" feedback="true" inline="true" 
                                                                                         class="form-control" placeholder="Contraseña" required="true" match="pwd2" 
                                                                                         requiredMessage="Ingrese Contraseña"
                                                                                         label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
-                                                                            <p:messages for="pwd1"  />
+                                                                            <p:messages for="pwd11"  />
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                         <div class="form-group">
-                                                                            <label for="pwd2">
+                                                                            <label for="pwd21">
                                                                                 Confirmar Contraseña
                                                                             </label>
-                                                                            <p:password id="pwd2" feedback="true" inline="true" 
+                                                                            <p:password id="pwd21" feedback="true" inline="true" 
                                                                                         class="form-control" placeholder="Confirmar Contraseña" 
                                                                                         required="true" requiredMessage="Confirme Contraseña"
                                                                                         label="Ingrese Contraseña" goodLabel="Bueno" weakLabel="Muy débil" strongLabel="Fuerte" promptLabel="Ingrese Contraseña" />
-                                                                            <p:messages for="pwd2"  />
+                                                                            <p:messages for="pwd21"  />
                                                                         </div>
                                                                     </div>
                                                                 </div>  
@@ -349,11 +348,11 @@
                                                                 <div class="row">
                                                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                         <p:inputText  id="Nombre" value="#{usuarioBean.editUsuario.nombreu}" class="form-control" placeholder="Nombre" required="true" requiredMessage="Ingrese Nombre" onkeypress="return soloLetras(event)"/>
-                                                                        <p:message for="Nombre" display="icon" />
+                                                                        <p:message for="Nombre"  />
                                                                     </div>
                                                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">  
                                                                         <p:inputText  id="Apellido" value="#{usuarioBean.editUsuario.apellidosu}" class="form-control" placeholder="Apellido" required="true" requiredMessage="Ingrese Apellido" onkeypress="return soloLetras(event)"/>
-                                                                        <p:message for="Apellido" display="icon" />
+                                                                        <p:message for="Apellido"  />
                                                                     </div>
                                                                 </div>
                                                             </div>

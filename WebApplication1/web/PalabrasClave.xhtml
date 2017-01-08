@@ -115,7 +115,7 @@
                                                                
                                                             </p:inputText>
                                                             
-                                                            <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
+                                                            <p:messages for ="nombre" showDetail="true" autoUpdate="true" closable="true" />
                                                         </div>
 
                                                         <p:commandButton class="btn btn-success pull-right" value="Guardar" 
@@ -139,7 +139,7 @@
                                                                      class="form-control" required="true"
                                                                      requiredMessage="Debe ingresar palabra clave"/>
                                                     </div>
-
+                                                            <p:messages for ="name_palabra" showDetail="true" autoUpdate="true" closable="true" />
                                                     <p:commandButton class="btn btn-success" process="@form" 
                                                                      action="#{palabraClaveBean.editpc()}" value="Editar" 
                                                                      update=":frm_table" />

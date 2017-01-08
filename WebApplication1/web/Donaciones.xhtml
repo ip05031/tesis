@@ -108,9 +108,9 @@
                                             <p:dialog header="ModificarDonacion" widgetVar="modDonacion" id="mDon" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false"  closable="false" >
                                                 <legend>Modificar</legend>
                                                 <h:form id="don"  enctype="multipart/form-data">
-                                                    <p:panel id="panel" header="ModificarDonacion">
+                                                  
 
-                                                        <p:messages id="msgs" />
+                                                        
                                                         <div class="form-group">
 
                                                             <label for="exampleInputEmail1">
@@ -126,9 +126,9 @@
                                                             </label>
                                                             <div class="form-group">
 
-                                                                <p:calendar   id="popup" value="#{donacionBean.modDonaciones.fechadonacion}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha">
+                                                                <p:calendar   id="popup2" value="#{donacionBean.modDonaciones.fechadonacion}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha" validatorMessage="La fecha es obligatoria">
                                                                     <f:validateRequired />
-                                                                    <p:message for="popup" display="icon"  />
+                                                                    <p:message for="popup2"   />
                                                                 </p:calendar>
                                                             </div>
                                                             <div class="form-group">
@@ -153,7 +153,7 @@
                                                         </div>
                                                         <p:commandButton class="btn btn-success" value="Editar" actionListener="#{donacionBean.updDonacion()}"  update=":frm_table:detailTable, don, panel" ajax="false"/>
                                                         <p:commandButton  class="btn btn-danger pull-right" value="Cancelar" oncomplete="PF('modDonacion').hide();"/>
-                                                    </p:panel>
+                                                   
                                                 </h:form>
 
                                             </p:dialog>
@@ -162,8 +162,7 @@
                                             <!-- /.insertar donacion -->
                                             <p:dialog id="nuevaDonacion" header="Nueva Donacion" widgetVar="nuevaDonacion" minHeight="40" modal="true" resizable="false" hideEffect="fade">
                                                 <h:form id="newDonacion" enctype="multipart/form-data">
-                                                    <p:messages id="msgs" />
-                                                    <p:panel id="panel1" header="Registrar donacion">
+                                                    
 
 
                                                         <div class="form-group">
@@ -183,9 +182,9 @@
                                                                 <label for="exampleInputEmail1">
                                                                     Fecha donacion
                                                                 </label><br/>
-                                                                <p:calendar  id="popup" value="#{donacionBean.fechaDonacion}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha">
+                                                                <p:calendar  id="popup" value="#{donacionBean.fechaDonacion}" locale="es" navigator="true" pattern="dd-MM-yyyy" mask="true" label="Fecha" validatorMessage="La fecha es obligatoria">
                                                                     <f:validateRequired />
-                                                                    <p:message for="popup" display="icon" />
+                                                                    <p:message for="popup"  />
                                                                 </p:calendar>
 
                                                             </div>
@@ -215,7 +214,7 @@
 
                                                         <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{donacionBean.saveDonaciones()}" update=":frm_table:detailTable, newDonacion, panel1, nuevaDonacion;"  validateClient="true" ajax="false"/>
                                                         <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaDonacion').hide();" />
-                                                    </p:panel>
+                                                   
                                                 </h:form>
                                             </p:dialog>
 

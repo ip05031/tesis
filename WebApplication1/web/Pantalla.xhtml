@@ -21,6 +21,7 @@
                                     <div class="pull-right">
                                         <div class="btn-group">
                                             <h:form>
+                                                
                                                 <p:commandButton class="btn btn-success btn-xs" value="Nueva Pantalla" type="button" onclick="PF('nuevaPantalla').show();" />
                                             </h:form>
                                         </div>
@@ -32,6 +33,7 @@
                                         <div class="col-md-12" > 
                                             <h4> Listado de Pantallas </h4>
                                             <h:form id="frm_table">
+                                                 <p:growl id="msg" autoUpdate="true" />
                                                 <p:messages for ="Message4" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                 <p:dataTable id="detailTable" value="#{pantallaBean.getir()}" var="pantalla" rows="6" widgetVar="tabla_pantalla" emptyMessage="No se encontraron registros." paginator="true" >
                                                     <f:facet name="header" >
@@ -81,7 +83,7 @@
                                             <!-- MODAL PARA REGISTRAR UNA PANTALLA  -->
                                             <p:dialog header="Nueva Pantalla" widgetVar="nuevaPantalla" minHeight="40" modal="true" resizable="false" draggable="false">
                                                 <h:form id="newPantalla" >
-                                                    <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
+                                                     <p:growl id="msg2" autoUpdate="true" />
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">
                                                             Nombre de pantalla
@@ -120,7 +122,7 @@
                                             <!-- MODAL PARA EDITAR LA PANTALLA  -->
                                             <p:dialog header="Modificar Pantalla" widgetVar="modalPantallaUpdate" id="modalPantallaUpdate" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
                                                 <h:form id="updatePantalla">
-                                                    <p:messages for ="Message3" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
+                                                     <p:growl id="msg3" autoUpdate="true" />
                                                     <div class="form-group">
                                                         <label >
                                                             Nombre de pantalla

@@ -97,7 +97,7 @@
                                                             <f:ajax event="keyup" listener="#{categoriaBean.validarCategoria()}" /> 
                                                         </p:inputText>
 
-
+                                                        <p:messages for="name_categoria_n" />   
                                                     </div>
 
                                                     <p:commandButton class="btn btn-success pull-right" value="Guardar" 
@@ -122,6 +122,7 @@
                                                                      requiredMessage="Debe ingresar una Categoría"
                                                                      onkeypress="return soloLetras(event)">
                                                         </p:inputText>
+                                                        <p:messages for="name_categoria" /> 
 
                                                     </div>
                                                     <p:commandButton class="btn btn-success" value="Editar" 

@@ -101,7 +101,6 @@
                                                                 <f:ajax event="keyup" listener="#{tituloBean.validarTitulo()}" /> 
                                                             </p:inputText>
                                                             <p:messages for="nombret"   />
-                                                            <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                                         </div>
 
                                                         <p:commandButton class="btn btn-success pull-right" value="Guardar"
@@ -122,10 +121,11 @@
                                                         <p:inputText id="name_palabra" value="#{tituloBean.modifi.tituloRevista}" class="form-control" 
                                                                      required="true" requiredMessage="Debe ingresar Titulo"
                                                                      onkeypress="return soloLetras(event)"/>
+                                                        <p:message for="name_palabra"   />
                                                     </div>
 
                                                     <p:commandButton class="btn btn-success" process="@form" action="#{tituloBean.edititulo()}" value="Editar" 
-                                                                     update=":frm_table" />
+                                                                     update=":frm_table, modpal" />
                                                     <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modificartitulo').hide();"/>
                                                 </h:form>
                                             </p:dialog>

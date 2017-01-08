@@ -94,7 +94,7 @@
                                             <p:dialog widgetVar="ingresarInventario" header="Inventario" minHeight="40" modal="true" resizable="false">
                                                 <h:form id="newInventario" >
                                                     <p:panel id="panel1" header="Ingresar Inventario" >
-                                                        <p:messages id="msgs" />
+                                                        
 
                                                         <div class="form-group">
                                                             <label for="revista">
@@ -103,10 +103,10 @@
                                                             <!-- <p:outputLabel value="Nombre Palabra"/>  -->
                                                             <p:selectOneMenu id="revista" value="#{inventarioBean.idRevista}" effect="fold" 
                                                                              style="width:100%; vertical-align: 15px;" filter="true" filterMatchMode="startsWith" 
-                                                                             required="true" class=" col-md-6 ">
-                                                                <f:selectItems value="#{revistaBean.obtener() }" var="revista" itemLabel="#{revista.titulor}" itemValue="#{revista.idRevista}"/>
+                                                                             required="true" class=" col-md-6 " requiredMessage="Seleccione un de las revistas">
+                                                                <f:selectItems value="#{revistaBean.obtener() }" var="revista" itemLabel="#{revista.idTitulo.tituloRevista} #{revista.titulor}  " itemValue="#{revista.idRevista}"/>
                                                             </p:selectOneMenu>
-                                                            <p:message for="revista" display="icon"  />
+                                                            <p:message for="revista"   />
                                                         </div>
 
                                                         <br/>
@@ -115,9 +115,9 @@
                                                                 <h:outputText value="#{estados.estado.nombreEstado}" />
                                                             </p:column>
                                                             <p:column headerText="Cantidad" >                                                            
-                                                                <p:inputText  value="#{estados.cantidad}" maxlength="9"   label="Volumenes en Mal estado" autocomplete="off" onkeypress="return soloNumeros(event)"> 
+                                                                <p:inputText   value="#{estados.cantidad}" maxlength="9"   label="Volumenes en Mal estado" autocomplete="off" onkeypress="return soloNumeros(event)"> 
                                                                     <p:clientValidator event="keyup"/>
-                                                                </p:inputText>                                                           
+                                                                </p:inputText>                                                                  
                                                             </p:column>
 
                                                         </p:dataTable>

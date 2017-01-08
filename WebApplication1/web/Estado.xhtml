@@ -89,16 +89,16 @@
                                             <p:dialog widgetVar="ingresarEstado" header="Estado" minHeight="40" modal="true" resizable="false">
                                                 <h:form id="newpantpal" >
                                                     <p:panel id="panel1" header="Registrar Estado" >
-                                                        <p:messages id="msgs" />
+                                                        
 
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1"> Nombre de Nuevo Estado: </label>
 
                                                             <p:inputText id="nombree" value="#{estadosBean.nombrestado}" class="form-control" required="true"
-                                                                         label="Estado" onkeypress="return soloLetras(event)">
+                                                                         label="Estado" onkeypress="return soloLetras(event)" requiredMessage="El nombre es obligatorio">
                                                                 <f:validateRequired />
                                                             </p:inputText>
-                                                            <p:message for="nombree" display="icon"  />
+                                                            <p:message for="nombree"  />
                                                         </div>
 
                                                         <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{estadosBean.guardarestado()}"  update=":frm_table:detailTable,newpantpal"/>
@@ -114,7 +114,8 @@
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Nombre de Nuevo Estado:</label>
                                                         <p:inputText id="name_palabra" value="#{estadosBean.editarestado.nombreEstado}" class="form-control" 
-                                                                     required="true" onkeypress="return soloLetras(event)" requiredMessage="Ingrese un nombre"/>
+                                                                     required="true"  onkeypress="return soloLetras(event)" requiredMessage="El nombre es obligatorio"/>
+                                                    <p:message for="name_palabra"  />
                                                     </div>
 
                                                     <p:commandButton class="btn btn-success" process="@form" action="#{estadosBean.editestado()}" value="Editar" update=":frm_table" />

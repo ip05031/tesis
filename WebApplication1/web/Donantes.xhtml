@@ -103,25 +103,25 @@
                                         <p:dialog widgetVar="ingresarDonante" header="Donantes" minHeight="40" modal="true" resizable="false">
                                             <h:form >
                                                 <p:panel id="panel1" header="Registrar donante" >
-                                                    <p:messages id="msgs" />
+                                                   
 
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">  Nombre Donante </label>
                                                         <!--  <p:outputLabel value="Nombre Donante"/> -->
                                                         <p:inputText id="nombre" value="#{donantesBean.nombredonante}" class="form-control" required="true" 
-                                                                                          label="Nombre Donante" onkeypress="return soloLetras(event)">
+                                                                     label="Nombre Donante" onkeypress="return soloLetras(event)" requiredMessage="El nombre es obligatorio">
                                                             <f:validateRequired />
                                                         </p:inputText>
-                                                        <p:message for="nombre" display="icon"  />
+                                                        <p:message for="nombre"   />
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">
                                                             Direccion
                                                         </label>
-                                                        <p:inputText id="direcciond" value="#{donantesBean.dirdonante}" class="form-control" required="true" label="Direccion">
+                                                        <p:inputText id="direcciond" value="#{donantesBean.dirdonante}" class="form-control" required="true" label="Direccion" requiredMessage="La dirreción es obligatoria">
                                                             <f:validateRequired />
                                                         </p:inputText>
-                                                        <p:message for="direcciond" display="icon"  />
+                                                        <p:message for="direcciond"   />
                                                     </div>
 
                                                     
@@ -131,7 +131,7 @@
                                                         </label>
                                                         <!--  <p:outputLabel value="Telefono"/>  -->
                                                         <p:inputMask id="telefonod" value="#{donantesBean.teldonante}"  mask="9999-9999" class="form-control" 
-                                                                     required="true" maxlength="9"   label="Telefono">
+                                                                     required="true" maxlength="9"   label="Telefono" requiredMessage="El telefono es obligatorio">
                                                             <f:validateRegex 
                                                                 pattern="[0-9]+\-[0-9]+" />
                                                             
@@ -144,7 +144,7 @@
                                                             
                                                             <f:validateRequired />
                                                         </p:inputText> -->
-                                                        <p:message for="telefonod" display="icon"  />
+                                                        <p:message for="telefonod"   />
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">
@@ -152,12 +152,12 @@
                                                         </label>
                                                         <!-- <p:outputLabel value="Correo electronico"/> -->
                                                         <p:inputText id="correod" value="#{donantesBean.corrdonante}" class="form-control" required="true" 
-                                                                     label="Correo Electronico" validatorMessage = "Ingrese Correo válido">
+                                                                     label="Correo Electronico" validatorMessage = "Ingrese Correo válido" requiredMessage="El correo es obligatorio">
                                                             <f:validateRegex 
                                                                 pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                             <!-- <f:validateRequired /> -->
                                                         </p:inputText>
-                                                        <p:message for="correod" display="icon"  />
+                                                        <p:message for="correod" />
                                                     </div>
 
                                                     <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{donantesBean.guardardonante()}"  update="panel1" validateClient="true"/>
@@ -174,28 +174,30 @@
                                                     <label for="exampleInputEmail1">
                                                         Nombre de Donante
                                                     </label>
-                                                    <p:inputText  value="#{donantesBean.editardon.nombred}" class="form-control" required="true" 
-                                                                  onkeypress="return soloLetras(event)"/>
+                                                    <p:inputText id="nomm"  value="#{donantesBean.editardon.nombred}" class="form-control" required="true" 
+                                                                 onkeypress="return soloLetras(event)" requiredMessage="El nombre es obligatorio"/>
                                                 </div>
-                                                
+                                                <p:message for="nomm" />
                                                  <div class="form-group">
                                                     <label for="exampleInputEmail1">
                                                         Direccion
                                                     </label>
-                                                     <p:inputText  value="#{donantesBean.editardon.direccion}" class="form-control" required="true"/>
-                                                </div>
+                                                     <p:inputText id="dir" requiredMessage="La dirrecón es obligatoria"  value="#{donantesBean.editardon.direccion}" class="form-control" required="true"/>
+                                                <p:message for="dir" />
+                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">
                                                         Telefono
                                                     </label>
                                                     <p:inputMask id="telefonod" value="#{donantesBean.editardon.telefono}"  mask="9999-9999" class="form-control" 
-                                                                     required="true" maxlength="9"   label="Telefono">
+                                                                 required="true" maxlength="9"   label="Telefono" requiredMessage="El numero de telefono es obligatorio">
                                                             <f:validateRegex 
                                                                 pattern="[0-9]+\-[0-9]+" />
                                                             
                                                             <f:validateRequired />
                                                         </p:inputMask>
+                                                    <p:message for="telefonod" />
                                                     <!--<p:inputText  value="#{donantesBean.editardon.telefono}" class="form-control" required="true" maxlength="9" label="Telefono">
                                                     <f:validateRegex 
                                                     pattern="[0-9]+\-[0-9]+" />
@@ -206,12 +208,13 @@
                                                     <label for="exampleInputEmail1">
                                                         Correo electronico
                                                     </label>
-                                                    <p:inputText  value="#{donantesBean.editardon.correodonate}" class="form-control" 
-                                                                  required="true" label="Correo Electronico" validatorMessage = "Ingrese Correo válido">
+                                                    <p:inputText id="cor"  value="#{donantesBean.editardon.correodonate}" class="form-control" 
+                                                                 required="true" label="Correo Electronico" validatorMessage = "Ingrese Correo válido" requiredMessage="El correo es obligatorio">
                                                         <f:validateRegex 
                                                     pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                                                      <!-- <f:validateRequired /> -->
                                                     </p:inputText>
+                                                    <p:message for="cor" />
                                                    </div>
                                                
                                                 <p:commandButton class="btn btn-success" process="@form" action="#{donantesBean.editardonante()}" value="Editar" update=":frm_table:detailTable,updatedon" onclick="PF('modificardonante').hide();"/>

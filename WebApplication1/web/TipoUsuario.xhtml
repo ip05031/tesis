@@ -180,12 +180,14 @@
                                                         Nombre de tipo Usuario
                                                     </label>
                                                     <p:inputText id="nombreI"  value="#{tipoUsuarioBean.tipo.nombretp}" class="form-control" required="true" requiredMessage="obligatoio" onkeypress="return soloLetras(event)"/>
+                                                     <p:messages for="nombreI" closable="true" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="descripT">
                                                         Descripcion del Tipo de Usuario
                                                     </label>
                                                     <p:inputText id="descripT"  value="#{tipoUsuarioBean.tipo.descripciontp}" class="form-control" required="true" requiredMessage="obligatorio" onkeypress="return soloLetras(event)"/>
+                                                    <p:messages for="descripT" closable="true" />
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-md-12">

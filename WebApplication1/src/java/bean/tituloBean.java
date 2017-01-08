@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 @Named(value = "tituloBean")
 @SessionScoped
@@ -88,6 +89,7 @@ public class tituloBean implements Serializable {
             titulo = new Titulo();
             FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Título creado con éxito."));
             titu ="";
+             RequestContext.getCurrentInstance().execute("PF('ingresarTitulo').hide();");
         } catch (Exception e) {
             System.out.println("error");
         }
@@ -105,6 +107,7 @@ public class tituloBean implements Serializable {
         tituloJPA.editituloJPA(modifi);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editato exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+         RequestContext.getCurrentInstance().execute("PF('modificartitulo').hide();");
     }
 
     public void capturartitulo(Titulo capturatitulo) {

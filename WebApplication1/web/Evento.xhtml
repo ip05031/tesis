@@ -121,8 +121,7 @@
                                             <p:dialog widgetVar="ingresarEvento" header="Evento" hideEffect="bounce" minHeight="40" modal="true" resizable="false">
                                                 <h:form enctype="multipart/form-data">
                                                     <p:scrollPanel id="scroll" mode="native" style="width:550px;height:500px">
-                                                        <p:panel id="panel2" header="Registrar Evento">
-                                                            <p:messages id="msgs" />
+                                                        <p:panel id="panel2" header="Registrar Evento">                                                            
                                                             <div class="form-group">
 
                                                                 <label for="exampleInputEmail1">
@@ -131,7 +130,7 @@
 
                                                                 <div class="form-group">
                                                                     <p:selectOneMenu id="city" value="#{eventosBean.usuario}" effect="fold"  style="width:160px" filter="true" filterMatchMode="startsWith" required="true">
-                                                                        <f:selectItems value="#{usuarioBean.getir(2) }" var="todousuario" 
+                                                                        <f:selectItems value="#{usuarioBean.getir(2) }" var="todousuario"  
                                                                                        itemLabel="#{todousuario.nombreu}" itemValue="#{todousuario.idUsuario}"/>
                                                                     </p:selectOneMenu>
                                                                 </div> 
@@ -140,20 +139,20 @@
                                                                     <label for="exampleInputEmail1">
                                                                         Evento
                                                                     </label>
-                                                                    <p:inputText id="nombre" value="#{eventosBean.nombrevento}" class="form-control" required="true">
+                                                                    <p:inputText id="nombre" value="#{eventosBean.nombrevento}" class="form-control" required="true" requiredMessage="El nombre es obligatorio">
                                                                         <f:validateRequired />
                                                                     </p:inputText>
-                                                                    <p:message for="nombre" display="icon"  />
+                                                                    <p:message for="nombre"  />
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label for="exampleInputEmail1">
                                                                         Lugar
                                                                     </label>
-                                                                    <p:inputText id="direccione" value="#{eventosBean.lugarevento}" class="form-control" required="true">
+                                                                    <p:inputText id="direccione" value="#{eventosBean.lugarevento}" class="form-control" required="true" requiredMessage="La dirección es obligatoria">
                                                                         <f:validateRequired />
                                                                     </p:inputText>
-                                                                    <p:message for="direccione" display="icon"  />
+                                                                    <p:message for="direccione"  />
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -161,9 +160,9 @@
                                                                         Fecha
                                                                     </label>
                                                                     <p:calendar  id="popup" value="#{eventosBean.fechaevento}" locale="es" navigator="true" 
-                                                                                 pattern="dd-MM-yyyy" mask="true" label="Fecha" widgetVar="calendarE" effect="fold" mindate="today + 1">
+                                                                                 pattern="dd-MM-yyyy" mask="true" label="Fecha" widgetVar="calendarE" effect="fold" mindate="today + 1" requiredMessage="La fecha es obligatoria">
                                                                         <f:validateRequired />
-                                                                        <p:message for="popup" display="icon"  />
+                                                                        <p:message for="popup"   />
                                                                     </p:calendar>
 
                                                                 </div>
@@ -173,9 +172,9 @@
                                                                         Hora
                                                                     </label>
                                                                     <br/>
-                                                                    <p:calendar id="horae" value="#{eventosBean.horaevento}" pattern="HH:mm" timeOnly="true"  required="true">
+                                                                    <p:calendar id="horae" value="#{eventosBean.horaevento}" pattern="HH:mm" timeOnly="true"  required="true" requiredMessage="La hora es obligatoria">
                                                                         <f:validateRequired />
-                                                                        <p:message for="horae" display="icon"  />
+                                                                        <p:message for="horae"  />
                                                                     </p:calendar>
                                                                 </div>
 
@@ -211,7 +210,6 @@
                                                 <h:form id="updatedon" enctype="multipart/form-data">
                                                     <p:scrollPanel id="scroll" mode="native" style="width:550px;height:500px">
                                                         <p:panel id="panel3" header="Modificar Evento">
-                                                            <p:messages id="msgs" /> 
                                                             <div class="form-group">
 
                                                                 <label for="exampleInputEmail1">
@@ -219,7 +217,7 @@
                                                                 </label>
 
                                                                 <div class="form-group">
-                                                                    <p:selectOneMenu id="city" value="#{eventosBean.usuario}" effect="fold"  style="width:160px" filter="true" filterMatchMode="startsWith" required="true">
+                                                                    <p:selectOneMenu id="city" value="#{eventosBean.usuario}" effect="fold"  style="width:160px" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Debe seleccionar una opción">
                                                                         <f:selectItems value="#{usuarioBean.getir(2) }" var="todousuario" 
                                                                                        itemLabel="#{todousuario.nombreu}" itemValue="#{todousuario.idUsuario}"/>
                                                                     </p:selectOneMenu>
@@ -229,19 +227,19 @@
                                                                     <label for="exampleInputEmail1">
                                                                         Evento
                                                                     </label>
-                                                                    <p:inputText  id="nombre" value="#{eventosBean.editarevento.nombree}" class="form-control" required="true">
+                                                                    <p:inputText  id="nombre" value="#{eventosBean.editarevento.nombree}" class="form-control" required="true" requiredMessage="EL nombre es obligatorio">
                                                                         <f:validateRequired />
                                                                     </p:inputText>
-                                                                    <p:message for="nombre" display="icon"  />
+                                                                    <p:message for="nombre"   />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="exampleInputEmail1">
                                                                         Lugar:
                                                                     </label>
-                                                                    <p:inputText id="direccione" value="#{eventosBean.editarevento.lugare}" class="form-control" required="true">
+                                                                    <p:inputText id="direccione" value="#{eventosBean.editarevento.lugare}" class="form-control" required="true" requiredMessage="La dirección es obligatoria">
                                                                         <f:validateRequired />
                                                                     </p:inputText>
-                                                                    <p:message for="direccione" display="icon"  />
+                                                                    <p:message for="direccione"   />
                                                                 </div>
 
                                                                 <label for="exampleInputEmail1">
@@ -250,9 +248,9 @@
                                                                 <div class="form-group">
 
                                                                     <p:calendar   id="popup" value="#{eventosBean.editarevento.fechae}" locale="es" navigator="true" 
-                                                                                  pattern="dd-MM-yyyy" mask="true" label="Fecha" widgetVar="calendarE" effect="fold" mindate="today + 1">
+                                                                                  pattern="dd-MM-yyyy" mask="true" label="Fecha" widgetVar="calendarE" effect="fold" mindate="today + 1" requiredMessage="La fecha es obligatoria">
                                                                         <f:validateRequired />
-                                                                        <p:message for="popup" display="icon"  />
+                                                                        <p:message for="popup"   />
                                                                     </p:calendar>
                                                                 </div>
 
@@ -261,9 +259,9 @@
                                                                         Hora
                                                                     </label>
                                                                     <br/>
-                                                                    <p:calendar id="horae" value="#{eventosBean.editarevento.horae}" pattern="HH:mm" timeOnly="true"  required="true">
+                                                                    <p:calendar id="horae" value="#{eventosBean.editarevento.horae}" pattern="HH:mm" timeOnly="true"  required="true" requiredMessage="La hora es obligatoria">
                                                                         <f:validateRequired />
-                                                                        <p:message for="horae" display="icon"  />
+                                                                        <p:message for="horae"  />
                                                                     </p:calendar>
                                                                 </div>
 
