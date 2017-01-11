@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Evento.findByLugare", query = "SELECT e FROM Evento e WHERE e.lugare = :lugare"),
     @NamedQuery(name = "Evento.findByImagene", query = "SELECT e FROM Evento e WHERE e.imagene = :imagene"),
     @NamedQuery(name = "Evento.findByNombree", query = "SELECT e FROM Evento e WHERE e.nombree = :nombree"),
+    @NamedQuery(name = "Evento.findByImaBanner", query = "SELECT e FROM Evento e WHERE e.imgbanner = :imgbanner"),
     @NamedQuery(name = "Evento.findByHorae", query = "SELECT e FROM Evento e WHERE e.horae = :horae")})
 public class Evento implements Serializable {
 
@@ -61,6 +62,9 @@ public class Evento implements Serializable {
     @Column(name = "horae")
     @Temporal(TemporalType.TIME)
     private Date horae;
+    @Size(max = 50)
+    @Column(name = "imgbanner")
+    private String imgbanner;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
@@ -126,6 +130,14 @@ public class Evento implements Serializable {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+    
+     public String getImgbanner() {
+        return imgbanner;
+    }
+
+    public void setImgbanner(String imgbanner) {
+        this.imgbanner = imgbanner;
     }
     
     @Override

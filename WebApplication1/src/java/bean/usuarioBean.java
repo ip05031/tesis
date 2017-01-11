@@ -138,6 +138,8 @@ public class usuarioBean implements Serializable {
         System.out.println("se envio...");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+         RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('modalPantallaUpdate').hide();");
     }
 
     public void limpiar() {

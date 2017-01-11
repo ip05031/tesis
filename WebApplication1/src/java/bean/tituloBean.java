@@ -87,7 +87,8 @@ public class tituloBean implements Serializable {
 
             this.Getir();
             titulo = new Titulo();
-            FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Título creado con éxito."));
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo registrado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);           
             titu ="";
              RequestContext.getCurrentInstance().execute("PF('ingresarTitulo').hide();");
         } catch (Exception e) {
@@ -105,7 +106,7 @@ public class tituloBean implements Serializable {
     public void edititulo() {
         tituloJPA = new TituloJPA();
         tituloJPA.editituloJPA(modifi);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editato exitosamente!", null);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
          RequestContext.getCurrentInstance().execute("PF('modificartitulo').hide();");
     }

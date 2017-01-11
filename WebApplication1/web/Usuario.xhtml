@@ -16,7 +16,7 @@
                 <c:if test="#{inicioBean.verificarPagina(nombre)}">
                     <div class="row" >
                         <div class="col-md-12" >
-                            <p:growl id="msg"  />
+                             <p:growl id="msg" autoUpdate="true" />
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <i class="fa fa-bar-chart-o fa-fw"></i> Usuarios
@@ -272,10 +272,10 @@
                                                                             <label for="exampleInputEmail1">
                                                                                 Nombre de Usuario
                                                                             </label><br/>
-                                                                            <p:inputText  id="inputNick1" value="#{usuarioBean.nickUsuario}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" > 
+                                                                            <p:inputText  id="inputNick1" value="#{usuarioBean.nickUsuario}" class="form-control" placeholder="Nombre Usuario" required="true" maxlength="15" requiredMessage="El nombre de usuario es obligatorio" > 
                                                                                 <f:ajax event="keyup" listener="#{usuarioBean.validarUsuarioExiste()}" /> 
                                                                             </p:inputText>
-                                                                            <p:messages for="inputNick1" id="msgLastname" />
+                                                                            <p:messages for="inputNick1" id="msgLastname3" />
 
                                                                             <p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
                                                                         </div>
@@ -321,7 +321,7 @@
                                                                 <div class="row">
                                                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                         <div class="form-group">
-                                                                            <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{usuarioBean.saveUsuario()}"  update=":frm_table_visitantes:detailTable,:frm_table_empleados:detailTable,newUsuario"/>
+                                                                            <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{usuarioBean.saveUsuario()}" validateClient="true"  update=":frm_table_visitantes:detailTable,:frm_table_empleados:detailTable,newUsuario"/>
                                                                             <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevoUsuario').hide();" immediate="true" />
 
                                                                         </div>
@@ -339,6 +339,7 @@
                                                       draggable="false"
                                                       closeOnEscape="true">
                                                 <h:form id="updateUsuario" >
+                                                     <p:growl id="msg4" autoUpdate="true" />
                                                     <div class="row">
                                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                             <div class="form-group">
@@ -476,7 +477,7 @@
                                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                                     <div class="form-group">
                                                                         <p:commandButton class="btn btn-success pull-right" value="Guardar" actionListener="#{usuarioBean.modificarUsuario()}"  
-                                                                                         oncomplete="PF('modalPantallaUpdate').hide();" 
+                                                                                           validateClient="true"
                                                                                          update=":frm_table_visitantes:detailTable,:frm_table_empleados:detailTable,updateUsuario"/>
                                                                         <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modalPantallaUpdate').hide();" immediate="true" />
 
