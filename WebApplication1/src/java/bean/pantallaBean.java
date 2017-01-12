@@ -33,6 +33,7 @@ public class pantallaBean implements Serializable {
     private int idPantalla;
     private Pantalla pantalla;
     private Pantalla pantallaActualizar;
+    private Boolean verdad;
 
     public Pantalla getPantallaActualizar() {
         return pantallaActualizar;
@@ -114,26 +115,32 @@ public class pantallaBean implements Serializable {
                 //FacesContext.getCurrentInstance().addMessage("name_pantalla_n", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Ingrese url de pantalla"));
 
             } else {
-                int id = pantallaJPA.obtenerUltimoId();
+                validarAccesoPa(1);
+                if (this.verdad) {
+                    pantallaJPA = new PantallaJPA();
+                    int id = pantallaJPA.obtenerUltimoId();
 
-                pantalla.setIdPantalla(id);
-                pantalla.setNombrepa(nombrePantalla);
-                pantalla.setAccesopa(urlPantalla);
-                pantallaJPA.savePantalla(pantalla);
+                    pantalla.setIdPantalla(id);
+                    pantalla.setNombrepa(nombrePantalla);
+                    pantalla.setAccesopa(urlPantalla);
+                    pantallaJPA.savePantalla(pantalla);
 
-                this.getir();
-                this.setIdPantalla(0);
-                this.setNombrePantalla("");
-                this.setUrlPantalla("");
-                this.setLpantalla(null);
-                //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Pantalla creada con éxito."));
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Pantalla registrada exitosamente!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
-                RequestContext.getCurrentInstance().execute("PF('nuevaPantalla').hide();");
+                    this.getir();
+                    this.setIdPantalla(0);
+                    this.setNombrePantalla("");
+                    this.setUrlPantalla("");
+                    this.setLpantalla(null);
+                    //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Pantalla creada con éxito."));
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Pantalla registrada exitosamente!", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                    RequestContext.getCurrentInstance().execute("PF('nuevaPantalla').hide();");
+                } else {
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "!Pantalla ya esta registrada!", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
             }
 
         } catch (Exception e) {
-            System.out.println("error en pantalla bean 1");
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
             // buscar un metodo para redirigir a la página de error
@@ -190,12 +197,12 @@ public class pantallaBean implements Serializable {
             if (pantallaJPA.searchPantalla(1, nombrepantalla)) {
                 if (tipo == 1) {
                     RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Nombre de pantalla ya existe!", null);
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "!Nombre de pantalla ya existe!", null);
                     FacesContext.getCurrentInstance().addMessage(null, message);
                     //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Nombre de pantalla ya existe"));
                 } else {
                     RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Nombre de pantalla ya existe!", null);
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "!Nombre de pantalla ya existe!", null);
                     FacesContext.getCurrentInstance().addMessage(null, message);
                     // FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Nombre de pantalla ya existe"));
                 }
@@ -207,15 +214,17 @@ public class pantallaBean implements Serializable {
     }
 
     public void validarAccesoPa(int tipo) {
+        this.verdad = true;
         pantallaJPA = new PantallaJPA();
         String acceso = this.getUrlPantalla();
         if (acceso.length() > 0) {
             if (pantallaJPA.searchPantalla(2, acceso)) {
+                this.verdad = false;
                 if (tipo == 1) {
                     RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Url de pantalla ya existe!", null);
                     FacesContext.getCurrentInstance().addMessage(null, message);
-                   //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Url de pantalla ya existe"));
+                    //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Url de pantalla ya existe"));
                 } else {
                     RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Url de pantalla ya existe!", null);

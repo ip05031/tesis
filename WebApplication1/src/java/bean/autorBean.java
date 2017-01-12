@@ -13,7 +13,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
-
 @Named(value = "autorBean")
 @SessionScoped
 public class autorBean implements Serializable {
@@ -24,6 +23,7 @@ public class autorBean implements Serializable {
     private String nombreautor;
     private Autor tor;
     private Autor editarautor;
+    private boolean verdad;
 
     public List<Autor> getlAutor() {
         return lAutor;
@@ -65,55 +65,71 @@ public class autorBean implements Serializable {
         this.editarautor = editarautor;
     }
 
-   ////////////// metodo guardar, editar y eleiminar///////////////////////// 
-    
-    public void guardarautor(){
-        tor= new Autor();
-        tor.setNombreAutor(nombreautor);
-        autorJPA = new AutorJPA();
-        tor.setIdAutor(autorJPA.aumentarIdautor()+1);
-        autorJPA.guardarautorJPA(tor);
-        nombreautor = "";
-        
-        this.getir();
-        this.setIdautor(0);
-        this.setNombreautor(null);
-        this.setlAutor(null);
-        
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Almacenado exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        RequestContext.getCurrentInstance().execute("PF('ingresarAutor').hide();");
-         
+    ////////////// metodo guardar, editar y eleiminar///////////////////////// 
+    public void guardarautor() {
+        validarCategoria();
+        if (this.verdad) {
+            tor = new Autor();
+            tor.setNombreAutor(nombreautor);
+            autorJPA = new AutorJPA();
+            tor.setIdAutor(autorJPA.aumentarIdautor() + 1);
+            autorJPA.guardarautorJPA(tor);
+            nombreautor = "";
+
+            this.getir();
+            this.setIdautor(0);
+            this.setNombreautor(null);
+            this.setlAutor(null);
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Almacenado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext.getCurrentInstance().execute("PF('ingresarAutor').hide();");
+        }
+
     }
-    
+
     public List<Autor> getir() {
         autorJPA = new AutorJPA();
         lAutor = autorJPA.getAutor();
         return lAutor;
     }
-    
+
     public autorBean() {
+        this.verdad = true;
     }
-    
-    
-    public void editautor(){
-        
+
+    public void editautor() {
+
         autorJPA = new AutorJPA();
         autorJPA.editautorJPA(editarautor);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor modificado Exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
         RequestContext.getCurrentInstance().execute("PF('modificarautor').hide();");
     }
-public void capturarautor(Autor capturautor){
-    this.editarautor=capturautor;
-    
 
-}
-public void eliminarautor(Autor autorr){
-        
+    public void capturarautor(Autor capturautor) {
+        this.editarautor = capturautor;
+
+    }
+
+    public void eliminarautor(Autor autorr) {
+
         autorJPA = new AutorJPA();
         autorJPA.eliminarautorJPA(autorr);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Eliminado Exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void validarCategoria() {
+        this.verdad = true;
+        autorJPA = new AutorJPA();
+        String autor = this.getNombreautor();
+        if (autor.length() > 0) {
+            if (autorJPA.searchCategora(autor)) {
+                verdad = false;
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡EL nombre del autor esta asignado!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        }
     }
 }

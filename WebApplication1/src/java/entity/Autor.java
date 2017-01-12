@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Autor.findAll", query = "SELECT a FROM Autor a"),
     @NamedQuery(name = "Autor.aumentarId", query = "SELECT MAX(a.idAutor) FROM Autor a"),
     @NamedQuery(name = "Autor.findByIdAutor", query = "SELECT a FROM Autor a WHERE a.idAutor = :idAutor"),
+    @NamedQuery(name = "Autor.findBySearch", query = "SELECT a FROM Autor a WHERE a.nombreAutor like :nombreAutor"),
     @NamedQuery(name = "Autor.findByNombreAutor", query = "SELECT a FROM Autor a WHERE a.nombreAutor = :nombreAutor")})
 public class Autor implements Serializable {
 

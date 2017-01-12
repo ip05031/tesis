@@ -23,10 +23,12 @@ public class tituloBean implements Serializable {
     private TituloJPA tituloJPA;
     private Titulo titulo;
     private Titulo modifi;
+    private Boolean verdad;
 
     public tituloBean() {
         titulo = new Titulo();
         modifi = new Titulo();
+        this.verdad = true;
         //    listaTitulos = new ArrayList<>();
     }
 
@@ -79,22 +81,28 @@ public class tituloBean implements Serializable {
     ////////////// falta arreglar lo de guardar //////////////////////////////
     public void guardarTitulo() {
         try {
-            TituloJPA ti = new TituloJPA();
-            titulo.setIdTitulo(ti.getClave() + 1);
-            titulo.setTituloRevista(titu);
-            ti = new TituloJPA();
-            ti.saveTitulo(titulo);
+            validarTitulo();
+            if (this.verdad) {
+                TituloJPA ti = new TituloJPA();
+                titulo.setIdTitulo(ti.getClave() + 1);
+                titulo.setTituloRevista(titu);
+                ti = new TituloJPA();
+                ti.saveTitulo(titulo);
 
-            this.Getir();
-            titulo = new Titulo();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo registrado exitosamente!", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);           
-            titu ="";
-             RequestContext.getCurrentInstance().execute("PF('ingresarTitulo').hide();");
+                this.Getir();
+                titulo = new Titulo();
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo registrado exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                titu = "";
+                RequestContext.getCurrentInstance().execute("PF('ingresarTitulo').hide();");
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Titulo ya esta registrado!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
         } catch (Exception e) {
             System.out.println("error");
         }
-        
+
     }
 
     public List<Titulo> Getir() {
@@ -108,7 +116,7 @@ public class tituloBean implements Serializable {
         tituloJPA.editituloJPA(modifi);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
-         RequestContext.getCurrentInstance().execute("PF('modificartitulo').hide();");
+        RequestContext.getCurrentInstance().execute("PF('modificartitulo').hide();");
     }
 
     public void capturartitulo(Titulo capturatitulo) {
@@ -124,15 +132,15 @@ public class tituloBean implements Serializable {
     }
 
     public void validarTitulo() {
+        this.verdad = true;
         tituloJPA = new TituloJPA();
         String titulo = this.getTitu();
-        System.out.println("titulo:");
         System.out.println(this.getTitu());
         if (titulo.length() > 0) {
-            System.out.println("comineza la validacion de titulo");
             if (tituloJPA.searchTitulo(titulo)) {
-                FacesContext.getCurrentInstance().addMessage("Message2",
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El titulo ya está registrada"));
+                this.verdad = false;
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Titulo ya esta registrado!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
             }
         }
     }
