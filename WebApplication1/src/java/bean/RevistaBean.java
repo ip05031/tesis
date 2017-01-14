@@ -218,8 +218,9 @@ public class RevistaBean implements Serializable {
         this.idDonacion = -1;
         this.idTitulo.setIdTitulo(1);
         revista = revis;
-
-        String accion = "" + user.getNickname() + " Modificó de datos de Revista";
+        FacesContext context2 = FacesContext.getCurrentInstance();
+        Usuario user2 = (Usuario) context2.getExternalContext().getSessionMap().get("logueado");
+        String accion = " Modificó de datos de Revista por el Usuario "+ user2.getIdUsuario();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -292,8 +293,9 @@ public class RevistaBean implements Serializable {
         }
 
         revista.setArticuloList(listaArticulos);
-
-        String accion = "" + user.getNickname() + "Registró de nueva Revista";
+        FacesContext context4 = FacesContext.getCurrentInstance();
+        Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+        String accion = "Registró de nueva Revista por el usuario = "+user4.getIdUsuario();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
 

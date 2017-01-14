@@ -3,6 +3,7 @@ package controller;
 import entity.Usuario;
 import entity.TipoUsuario;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -120,4 +121,31 @@ public class UsuarioJPA {
         }
 
     }
+    
+    public List<Usuario>  eliminarUsuario(Date fecha){
+        try {
+            
+            
+            listaUsuario = em.createNamedQuery("Usuario.findByEliminar", Usuario.class)
+                    .setParameter("fechavisita", fecha)
+                    .getResultList();
+            return listaUsuario;
+        } catch (Exception e) {
+            System.out.println("Error en UsuarioJPA");
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    public boolean eliminarUsuarioJPA(Usuario usuario) {
+        try {
+            em.remove(em.merge(usuario));
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        } 
+    }
+    
 }

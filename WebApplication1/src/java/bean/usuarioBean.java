@@ -77,7 +77,7 @@ public class usuarioBean implements Serializable {
         Date fechaRegistro = calendario.getTime();
 
         String contra1 = sha256(contraUsuario);
-        
+
         user.setIdUsuario(usuarioJPA.getClave());
         user.setNombreu(this.nombreUsuario);
         user.setApellidosu(this.apellidoUsuario);
@@ -98,6 +98,11 @@ public class usuarioBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('nuevoUsuario').show();");
+            FacesContext context4 = FacesContext.getCurrentInstance();
+            Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+            String accion = "Registró de nueva Usuario por el usuario = " + user4.getIdUsuario();
+            String tabla = "Usuario";
+            new bitacoraBean().guardarbitacora(tabla, accion);
             limpiarDatosUsuario();
             FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Registrado Correctamente"));
 
@@ -127,7 +132,7 @@ public class usuarioBean implements Serializable {
         if (contraUsuario.compareTo("") != 0) {
             this.editUsuario.setPassword(contraUsuario);
         }
-       /* if (paisUsuario.compareTo(paisUsuario) != 0) {
+        /* if (paisUsuario.compareTo(paisUsuario) != 0) {
             this.editUsuario.setPaisu(paisUsuario);
         }*/
         this.editUsuario.setPaisu(paisUsuario);
@@ -138,8 +143,13 @@ public class usuarioBean implements Serializable {
         System.out.println("se envio...");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
-         RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("PF('modalPantallaUpdate').hide();");
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesContext context4 = FacesContext.getCurrentInstance();
+        Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+        String accion = "Registró de Modificacion de Revista por el usuario = " + user4.getIdUsuario();
+        String tabla = "Revista";
+        new bitacoraBean().guardarbitacora(tabla, accion);
+        context.execute("PF('modalPantallaUpdate').hide();");
     }
 
     public void limpiar() {
@@ -166,6 +176,11 @@ public class usuarioBean implements Serializable {
             user.setEstadoi(3);
             usuarioJPA = new UsuarioJPA();
             usuarioJPA.updateUsuario(user);
+            FacesContext context4 = FacesContext.getCurrentInstance();
+            Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+            String accion = "Registró de Eliminacion de Revista por el usuario = " + user4.getIdUsuario();
+            String tabla = "Revista";
+            new bitacoraBean().guardarbitacora(tabla, accion);
         } catch (Exception e) {
         }
     }
@@ -183,6 +198,23 @@ public class usuarioBean implements Serializable {
         }
     }
 
+    public void eliminarUsuariosInactivos() {
+        usuarioJPA = new UsuarioJPA();
+        Calendar calendar = GregorianCalendar.getInstance();
+
+        calendar.add(Calendar.DAY_OF_YEAR, -364);
+        List<Usuario> listado = usuarioJPA.eliminarUsuario(calendar.getTime());
+        String accion = "Eliminar Listados de usuario para la fecha: " + calendar.getTime();
+        String tabla = "Usuario";
+        new bitacoraBean().guardarbitacora(tabla, accion);
+
+        for (Usuario u : listado) {
+            System.out.println(u.getApellidosu());
+            usuarioJPA = new UsuarioJPA();
+            usuarioJPA.eliminarUsuarioJPA(u);
+        }
+    }
+
     public void biginteger() {
         BigInteger A = new BigInteger("1");
         BigInteger I = new BigInteger("10542516131213232");
@@ -191,7 +223,7 @@ public class usuarioBean implements Serializable {
 
     }
 
-    public void probandoSha256(){
+    public void probandoSha256() {
         String test1 = sha256("admin123");
         String test2 = sha256("visitante123");
         String test3 = sha256("123456789");
@@ -201,8 +233,7 @@ public class usuarioBean implements Serializable {
         System.out.println(test3);
         System.out.println(test4);
     }
-    
-    
+
     public String sha256(String base) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

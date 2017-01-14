@@ -11,6 +11,7 @@ import controller.ImportarJPA;
 import controller.InicioJPA;
 import controller.PantallaJPA;
 import controller.RevistaJPA;
+import controller.UsuarioJPA;
 import entity.Articulo;
 import entity.Descarga;
 import entity.Pantalla;
@@ -382,6 +383,7 @@ public class InicioBean implements Serializable {
                 context = FacesContext.getCurrentInstance();
                 context.getExternalContext().getSessionMap().put("logueado", user.get(0));
                 //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("logueado", user.get(0));
+                            
                 userLogged = user.get(0);
                 this.setUserLogueado(user.get(0));
                 System.out.println("this is the nick: ----------------------");
@@ -392,6 +394,12 @@ public class InicioBean implements Serializable {
                 this.setUsuarioContra("");
                 this.setUsuarioNombre("");
                 RequestContext.getCurrentInstance().update("form-login");
+               //Usuario fecha que ingreso de visita
+                UsuarioJPA usuarioJPA = new UsuarioJPA();
+                Calendar calendar = GregorianCalendar.getInstance();
+                userLogged.setFechavisita(calendar.getTime());
+                usuarioJPA.updateUsuario(userLogged);
+                
                 redirigir();
                 return "index?facesRedirect=true";
             } else {

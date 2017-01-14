@@ -27,6 +27,17 @@
                                                                  value="Nuevo Usuario" 
                                                                  type="button" 
                                                                  onclick="PF('nuevoUsuario').show();" />
+                                                <p:commandButton value ="Eliminar Usuarios Inactivos" class="btn btn-danger btn-xs"
+                                                                 actionListener="#{usuarioBean.eliminarUsuariosInactivos()}"                                                                                     >
+                                                                        <p:confirm message="¿Esta Seguro de eliminar los usuario incativos ?" header="¡Advertencia!" icon="ui-icon-alert"/>
+                                                                    </p:commandButton>
+                                                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                                        <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                                         styleClass="ui-confirmdialog-yes"/>
+                                                                        <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                                         styleClass="ui-confirmdialog-no"/>
+                                                                    </p:confirmDialog>
+                                                    
                                             </h:form>
                                         </div>
                                     </div>
@@ -92,7 +103,7 @@
                                                                 <p:column headerText="Eliminar"  style="width:10%; text-align:center;">
                                                                     <p:commandButton icon="ui-icon-trash"  
                                                                                      actionListener="#{usuarioBean.eliminarUsuario(usuario)}"
-                                                                                     update="@form"  process="@this">
+                                                                                     update="@form"  process="@this" class="btn btn-danger">
                                                                         <p:confirm message="¿Desea dar de baja al usuario #{usuario.nombreu} ?" header="Aviso" icon="ui-icon-alert"/>
                                                                     </p:commandButton>
                                                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">

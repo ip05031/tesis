@@ -8,6 +8,7 @@ import controller.TipoUsuarioJPA;
 import entity.Donaciones;
 import entity.Donate;
 import entity.TipoUsuario;
+import entity.Usuario;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -55,7 +56,6 @@ public class donacionBean implements Serializable {
         this.donacionPdf = donacionPdf;
     }
 
-    
     public String getRuta_archivo() {
         return ruta_archivo;
     }
@@ -143,11 +143,11 @@ public class donacionBean implements Serializable {
         this.iterar();
         return ldonaciones;
     }
-    
-    public List<Donaciones> donacionesReporte(){
+
+    public List<Donaciones> donacionesReporte() {
         ldonaciones = donacionJPA.getDonacionReporte();
         this.iterar();
-        return ldonaciones; 
+        return ldonaciones;
     }
 
     public Map<String, String> getListadoDonantes() {
@@ -157,7 +157,6 @@ public class donacionBean implements Serializable {
     public void iterar() {
         List<Donate> lista = new ArrayList<>();
         lista = new DonantesJPA().getDonate();
-        
 
         listadoDonantes = new HashMap<String, String>();
 
@@ -176,59 +175,52 @@ public class donacionBean implements Serializable {
         try {
             this.streamArchivo = event.getFile().getInputstream();
             //this.setRuta_archivo(event.getFile().getFileName());
-           
-                    donacionJPA = new DonacionJPA();
-                    this.setRuta_archivo("Donacion"+(donacionJPA.aumentarIdDonaciones() + 1)+".pdf");
-                   
+
+            donacionJPA = new DonacionJPA();
+            this.setRuta_archivo("Donacion" + (donacionJPA.aumentarIdDonaciones() + 1) + ".pdf");
+
         } catch (IOException ex) {
             Logger.getLogger(donacionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     public void upload6(FileUploadEvent event) {
         try {
-            
+
             this.streamArchivo = event.getFile().getInputstream();
             //this.setRuta_archivo(event.getFile().getFileName());
             this.setRuta_archivo(modDonaciones.getArchivod());
-            
-             
+
         } catch (IOException ex) {
             Logger.getLogger(donacionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    
-    
-    
-
-     public void copyFile(String fileName, InputStream in) {
-           try {
-              System.out.println("nombre vacio"+fileName);
-               if (fileName != null) {
-                   // write the inputStream to a FileOutputStream
+    public void copyFile(String fileName, InputStream in) {
+        try {
+            System.out.println("nombre vacio" + fileName);
+            if (fileName != null) {
+                // write the inputStream to a FileOutputStream
                 OutputStream out = new FileOutputStream(new File(destination + fileName));
-              
+
                 int read = 0;
                 byte[] bytes = new byte[1024];
-              
+
                 while ((read = in.read(bytes)) != -1) {
                     out.write(bytes, 0, read);
-                    System.out.println("read:"+read);
+                    System.out.println("read:" + read);
                 }
-              
+
                 in.close();
                 out.flush();
                 out.close();
-              
+
                 System.out.println("New file created!");
-               }
-                
-                
-                } catch (IOException e) {
-                System.out.println(e.getMessage());
-                }
+            }
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
     //////////////////////////////////////////////////////////////////////////////
 
@@ -237,17 +229,18 @@ public class donacionBean implements Serializable {
         donacionJPA = new DonacionJPA();
         donaciones = new Donaciones();
         Donate de = new Donate();
-        
+
         de.setIdDonante(donante);
         donaciones.setIdDonacion(donacionJPA.aumentarIdDonaciones() + 1);
         donaciones.setIdDonante(de);
         donaciones.setFechadonacion(fechaDonacion);
         donaciones.setArchivod(ruta_archivo);
-        
-        String accion = "Registro de nueva Donacion" ;
-        String tabla = "Donaciones" ;
+        FacesContext context = FacesContext.getCurrentInstance();
+        Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
+        String accion = "Registro de nueva Donacion realizada por el usuario = " + user.getIdUsuario();
+        String tabla = "Donaciones";
         new bitacoraBean().guardarbitacora(tabla, accion);
-        
+
         donacionJPA.saveDonaciones(donaciones);
         this.getir();
         de.setIdDonante(0);
@@ -257,28 +250,22 @@ public class donacionBean implements Serializable {
         this.setRuta_archivo(null);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Donacion creada exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('nuevaDonacion').hide();");
+        RequestContext context2 = RequestContext.getCurrentInstance();
+        context2.execute("PF('nuevaDonacion').hide();");
         System.out.println("entro");
-        
-        
-        
-       
-        
-        
-        
 
         //////////////////////////////////////////////////77
     }
 
     public void updDonacion() {
-        
+
         donacionJPA = new DonacionJPA();
-        
-        String accion = "Modificacion de datos en Donacion" ;
-        String tabla = "Donaciones" ;
+        FacesContext context = FacesContext.getCurrentInstance();
+        Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
+        String accion = "Modificacion de datos en Donacion realizada por el usuario = " + user.getIdUsuario();
+        String tabla = "Donaciones";
         new bitacoraBean().guardarbitacora(tabla, accion);
-        
+
         donacionJPA.updateDonaciones(modDonaciones);
         copyFile(this.ruta_archivo, streamArchivo);
         System.out.println(this.ruta_archivo);
@@ -288,18 +275,19 @@ public class donacionBean implements Serializable {
         this.setRuta_archivo(null);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Donacion modificada exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('modDonacion').hide();");
+        RequestContext context2 = RequestContext.getCurrentInstance();
+        context2.execute("PF('modDonacion').hide();");
 
     }
 
     public void dltDonacion(Donaciones don) {
         donacionJPA = new DonacionJPA();
-        
-        String accion = "Datos de Donacion Borrados" ;
-        String tabla = "Donaciones" ;
+        FacesContext context = FacesContext.getCurrentInstance();
+        Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
+        String accion = "Datos de Donacion Borrados realizada por el usuario = "+user.getIdUsuario();
+        String tabla = "Donaciones";
         new bitacoraBean().guardarbitacora(tabla, accion);
-        
+
         donacionJPA.deleteDonaciones(don);
 
         this.setIdDonacion(0);
@@ -325,11 +313,11 @@ public class donacionBean implements Serializable {
         } catch (Exception e) {
         }
     }
-    
-    public void verPDF(Donaciones pdfDon ){
-        
-    this.donacionPdf = pdfDon;
-    
-}
+
+    public void verPDF(Donaciones pdfDon) {
+
+        this.donacionPdf = pdfDon;
+
+    }
 
 }

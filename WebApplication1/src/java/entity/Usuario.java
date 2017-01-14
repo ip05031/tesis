@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findMaxId", query = "SELECT MAX(u.idUsuario) FROM Usuario u"),
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Usuario.findByEliminar", query = "SELECT u FROM Usuario u WHERE u.fechavisita < :fechavisita"),
     @NamedQuery(name = "Usuario.findBylogin", query = "SELECT u FROM Usuario u WHERE u.nickname = :nickname AND u.password = :contra and u.estadoi ='2' "),
     @NamedQuery(name = "Usuario.findByNombreu", query = "SELECT u FROM Usuario u WHERE u.nombreu = :nombreu"),
     @NamedQuery(name = "Usuario.findByApellidosu", query = "SELECT u FROM Usuario u WHERE u.apellidosu = :apellidosu"),
@@ -95,6 +96,9 @@ public class Usuario implements Serializable {
     @Size(max = 14)
     @Column(name = "claveValidar")
     private String claveValidar;
+    @Column(name = "fechavisita")
+    @Temporal(TemporalType.DATE)
+    private Date fechavisita;
     @JoinColumn(name = "id_tusuario", referencedColumnName = "id_tusuario")
     @ManyToOne(optional = false)
     private TipoUsuario idTusuario;
@@ -214,6 +218,14 @@ public class Usuario implements Serializable {
 
     public void setIdTusuario(TipoUsuario idTusuario) {
         this.idTusuario = idTusuario;
+    }
+    
+    public Date getFechavisita() {
+        return fechavisita;
+    }
+
+    public void setFechavisita(Date fechavisita) {
+        this.fechavisita = fechavisita;
     }
 
     @XmlTransient
