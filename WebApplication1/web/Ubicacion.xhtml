@@ -6,6 +6,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+
     <body>
 
         <ui:composition template="./boot.xhtml">
@@ -35,14 +36,14 @@
                                     <p:growl id="msj" autoUpdate="true"></p:growl>
                                     <div class="row">
                                         <div class="col-lg-l2 col-sm-12">
-                                    <p:panel id="basic0" header="Ubicación">
+                                            <p:panel id="basic0" header="Ubicación">
 
 
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7247.76500132719!2d-89.23848750771052!3d13.687537439307063!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x95ee999d2d47a81d!2sMuseo+Nacional+de+Antropolog%C3%ADa+Dr.+David+J.+Guzm%C3%A1n!5e0!3m2!1ses!2ssv!4v1478220741789" width="100%" height="600" frameborder="0" ></iframe>
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7247.76500132719!2d-89.23848750771052!3d13.687537439307063!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x95ee999d2d47a81d!2sMuseo+Nacional+de+Antropolog%C3%ADa+Dr.+David+J.+Guzm%C3%A1n!5e0!3m2!1ses!2ssv!4v1478220741789" width="100%" height="600" frameborder="0" ></iframe>
 
-                                    </p:panel>
-                                            </div>
+                                            </p:panel>
                                         </div>
+                                    </div>
                                     <p:panel id="basic" header="Cómo llegar" >
                                         <table class="table">
                                             <tr>
@@ -157,25 +158,32 @@
                                     modal="true"
                                     width="40%"
                                     header="Envío de Correos">
+                                    
+                                    <h:form>
+                                        <p:captcha label="Captcha" />
+                                        <p:commandButton id="check" value="Check"  actionListener="#{contactenosBean.submit()}" ajax="true" icon="ui-icon-check" update=":mailFrm" />
+                                    </h:form>
+
                                     <h:form id="mailFrm"
                                             prependId="false"
-                                            styleClass="form-horizontal">
+                                            styleClass="form-horizontal" >
+                                        
                                         <h5>El envio del mensaje puede tardar unos segundos por favor espere mensaje de confirmacion.</h5>
-                                        
 
-                                        
-                                        
+
+
+
                                         <div class="form-group">
-                                            
+
                                             <p:outputLabel id="lblAsunto"
                                                            for="txtAsunto"
                                                            value="Nombre"
-                                                           styleClass="col-lg-2 control-label"/>
+                                                           styleClass="col-lg-2 control-label" rendered="#{contactenosBean.catcha}"/>
 
                                             <div class="col-lg-10">
                                                 <h:inputText id="txtAsunto"
                                                              value="#{contactenosBean.asuntoCorreo}"
-                                                             styleClass="form-control" required="true" requiredMessage="Se necesita un nombre de contacto"/>
+                                                             styleClass="form-control" required="true" requiredMessage="Se necesita un nombre de contacto" rendered="#{contactenosBean.catcha}"/>
                                             </div>                            
                                         </div>
 
@@ -183,12 +191,12 @@
                                             <p:outputLabel id="lblPara"
                                                            for="txtPara"
                                                            value="Correo"
-                                                           styleClass="col-lg-2 control-label"/>
+                                                           styleClass="col-lg-2 control-label" rendered="#{contactenosBean.catcha}"/>
 
                                             <div class="col-lg-10">
                                                 <h:inputText id="txtPara"
                                                              value="#{contactenosBean.destin}"
-                                                             styleClass="form-control"  required="true" requiredMessage="Se necesita una dirección de correo"/>
+                                                             styleClass="form-control"  required="true" requiredMessage="Se necesita una dirección de correo" rendered="#{contactenosBean.catcha}"/>
 
                                             </div>                            
                                         </div>                        
@@ -199,41 +207,26 @@
                                             <p:outputLabel id="lblMensaje"
                                                            for="txtMensaje"
                                                            value="Mensaje"
-                                                           styleClass="col-lg-2 control-label"/>
+                                                           styleClass="col-lg-2 control-label" rendered="#{contactenosBean.catcha}"/>
 
                                             <div class="col-lg-10">
                                                 <h:inputTextarea 
                                                     id="txtMensaje"
                                                     value="#{contactenosBean.mensajeCorreo}"
                                                     styleClass="form-control"
-                                                    required="true" requiredMessage="Se necesita un mensaje"/>
+                                                    required="true" requiredMessage="Se necesita un mensaje" rendered="#{contactenosBean.catcha}"/>
                                             </div>                                
-                                        </div>    
-
-                                        <div class="form-group">
-                                            <div class="col-lg-3 col-lg-offset-2">
-                                                <h:commandButton id="cmdEnviar"
-                                                                 value="Enviar"
-                                                                 action="#{contactenosBean.enviarCorreo()}"
-                                                                 
-                                                                 styleClass="btn btn-success btn-block"
-                                                                 onclick="$(this).prop('disabled', true);"
-
-                                                                 >
-                                                    <f:ajax execute="mailFrm" render="mailFrm" />
-
-                                                </h:commandButton>
-                                            </div>
-                                            <div class="col-lg-3 col-lg-offset-2">
+                                        </div>   
 
 
-                                            </div>
-                                        </div>
+                                        <p:commandButton  class="btn" value="Enviar"  actionListener="#{contactenosBean.enviarCorreo()}" ajax="true" icon="ui-icon-check" validateClient="true" update="mailFrm" rendered="#{contactenosBean.catcha}" onclick="$(this).prop('disabled', true);"/>
+
 
 
                                     </h:form>
+                                    
                                 </p:dialog>
-                                
+
 
 
                             </div>
