@@ -5,7 +5,9 @@
  */
 package bean;
 
+import controller.ParametroJPA;
 import controller.UsuarioJPA;
+import entity.Parametro;
 import entity.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -63,7 +65,11 @@ public class ValidarSubcriptorBean implements Serializable {
         }
 
         if (us.getNombreu() != null) {
-            texto = "" + us.getNombreu() + ". Su cuenta ha sido activada con éxito.";
+            ParametroJPA ps=new ParametroJPA();
+        Parametro pa =  ps.leerIdParametroString("MVV");
+        String dirrecionR = pa.getValorParametro();
+           // texto = "" + us.getNombreu() + ". Su cuenta ha sido activada con éxito.";
+           texto = ""+ us.getNombreu()+dirrecionR;
             UsuarioJPA uJpa = new UsuarioJPA();
             us.setEstadoi(2);
             uJpa.updateUsuario(us);

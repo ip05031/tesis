@@ -48,6 +48,20 @@ public class ParametroJPA {
         }
     }
     
+    public Parametro leerIdParametroString(String cat) {
+        Parametro pa = new Parametro();
+        try {
+            pa = em.createNamedQuery("Parametro.findByIdParametro", Parametro.class)
+                    .setParameter("idParametro", cat)
+                    .getSingleResult();
+            return pa;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return pa;
+        }
+    }
+    
      public Boolean leerParametro(String cat) {
         Boolean paV = false;
         Parametro pa= new Parametro();

@@ -9,11 +9,13 @@ import controller.ArticulosJPA;
 import controller.CategoriaJPA;
 import controller.ImportarJPA;
 import controller.PantallaJPA;
+import controller.ParametroJPA;
 import controller.RevistaJPA;
 import controller.RevistasJPA;
 import entity.Articulo;
 import entity.Categoria;
 import entity.Pantalla;
+import entity.Parametro;
 import entity.Revista;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,6 +68,9 @@ public class importacionBean implements Serializable {
     private InputStream streamPortada;
     private InputStream streamRevista;
     private InputStream streamArticulo;
+    
+    private final String destino;
+    private final String destino2;
 
     public Articulo getArticulo() {
         return articulo;
@@ -161,6 +166,12 @@ public class importacionBean implements Serializable {
      * Creates a new instance of importacionBean
      */
     public importacionBean() {
+        ParametroJPA ps=new ParametroJPA();
+        Parametro pa =  ps.leerIdParametroString("FIV");
+        this.destino = pa.getValorParametro();
+        ps=new ParametroJPA();
+        pa =  ps.leerIdParametroString("FIG");
+        this.destino2 = pa.getValorParametro();
 
     }
 
@@ -343,7 +354,7 @@ public class importacionBean implements Serializable {
             // write the inputStream to a FileOutputStream
             String nombreCompleto = "";
 
-            switch (tipo) {
+          /*  switch (tipo) {
                 case 1:
                     nombreCompleto = destination + "\\portadas\\" + fileName;
                     break;
@@ -355,6 +366,22 @@ public class importacionBean implements Serializable {
                     break;
                 default:
                     nombreCompleto = destination + "\\perdidos\\" + fileName;
+                    break;
+
+            }*/
+          
+          switch (tipo) {
+                case 1:
+                    nombreCompleto = destino + "\\portadas\\" + fileName;
+                    break;
+                case 2:
+                    nombreCompleto = destino + "\\revistas\\" + fileName;
+                    break;
+                case 3:
+                    nombreCompleto = destino + "\\articulos\\" + fileName;
+                    break;
+                default:
+                    nombreCompleto = destino + "\\perdidos\\" + fileName;
                     break;
 
             }
@@ -467,7 +494,8 @@ public class importacionBean implements Serializable {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         String ruta = "";
-        ruta = "C:\\us\\sistema\\revistas\\";
+        //ruta = "C:\\us\\sistema\\revistas\\";
+        ruta = destino2;
 
         try {
             inputStream = file1.getInputStream();  //leemos el fichero local
