@@ -24,6 +24,14 @@ public class EventosJPA {
         em.getTransaction().begin();
     }
 
+    public List<Evento> getImgBanner(){
+        try {
+            evento = em.createNamedQuery("Evento.findAllBanner",Evento.class).getResultList();
+            return evento;
+        } catch (Exception e) {
+            return evento;
+        }
+    }
     
     public List<Evento> getEventos()  {
         try {

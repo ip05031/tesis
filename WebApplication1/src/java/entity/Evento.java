@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Evento.findAll", query = "SELECT e FROM Evento e"),
+    @NamedQuery(name = "Evento.findAllBanner", query = "SELECT e  FROM Evento e where e.fechae > current_date"),
     @NamedQuery(name = "Evento.aumentarId", query = "SELECT MAX(e.idEvento) FROM Evento e"),
     @NamedQuery(name = "Evento.findByIdEvento", query = "SELECT e FROM Evento e WHERE e.idEvento = :idEvento"),
     @NamedQuery(name = "Evento.findByFechae", query = "SELECT e FROM Evento e WHERE e.fechae = :fechae"),

@@ -7,6 +7,7 @@ package bean;
 
 import controller.ArticuloJPA;
 import controller.DescargarJPA;
+import controller.EventosJPA;
 import controller.ImportarJPA;
 import controller.InicioJPA;
 import controller.PantallaJPA;
@@ -14,6 +15,7 @@ import controller.RevistaJPA;
 import controller.UsuarioJPA;
 import entity.Articulo;
 import entity.Descarga;
+import entity.Evento;
 import entity.Pantalla;
 import entity.Revista;
 import entity.Usuario;
@@ -45,7 +47,6 @@ public class InicioBean implements Serializable {
 
     private String usuarioNombre;
     private String usuarioContra;
-    private List<String> miLista = Arrays.asList("evento_1", "evento_2", "evento_3", "evento_4");
     private RevistaJPA jpaRevista;
     private InicioJPA inicioJPA;
     private List<Revista> listaRevista = new ArrayList<>();
@@ -125,6 +126,7 @@ public class InicioBean implements Serializable {
     private Usuario perfilUsuario = new Usuario();
     FacesContext context;
     private DescargarJPA descargarJPA;
+    private List<Evento> banner = new ArrayList<>();
 
 
     /*---------------------------------------------------------- Constructor -----------------------------------------------------------------------*/
@@ -216,6 +218,10 @@ public class InicioBean implements Serializable {
 
     }
 
+    public void cargarListaBanner(){
+       setBanner(new EventosJPA().getImgBanner());
+    }
+    
     public void setearRevistas(){
        
         System.out.println("letra A");
@@ -606,13 +612,6 @@ public class InicioBean implements Serializable {
         this.listaRevista = listaRevista;
     }
 
-    public List<String> getMiLista() {
-        return miLista;
-    }
-
-    public void setMiLista(List<String> miLista) {
-        this.miLista = miLista;
-    }
 
     public boolean isInicioSesion() {
         return inicioSesion;
@@ -892,5 +891,13 @@ public class InicioBean implements Serializable {
 
     public void setListaTodos(List<Revista> listaTodos) {
         this.listaTodos = listaTodos;
+    }
+
+    public List<Evento> getBanner() {
+        return banner;
+    }
+
+    public void setBanner(List<Evento> banner) {
+        this.banner = banner;
     }
 }
