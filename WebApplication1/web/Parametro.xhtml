@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+            <ui:define name="content">
+                <c:set var="nombre" value="Estado" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <div class="row" >
+                        <div class="col-md-1" ></div>  
+
+                        <div class="col-md-10" >
+                            <p:growl id="msg" autoUpdate="true" />
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Parametros
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <h:form>
+                                                <p:commandButton class="btn btn-success btn-xs" value="Ingresar Parametro" type="button" onclick="PF('ingresarParametro').show();" actionListener="#{parametroBean.limpiar()}" />    
+                                            </h:form>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <div class="col-md-12" > 
+                                            <h4> Listado de Parametros  </h4>
+                                            <h:form id="frm_table">
+                                                <p:growl id="msj" autoUpdate="true"></p:growl>
+
+                                                <p:dataTable value="#{parametroBean.listaParametros()}" var="estado" id="detailTable" widgetVar="tabla_estado" emptyMessage="No se encontraron registros." paginator="true" rows="8">
+
+
+                                                    <!-- esta parte la agrege para poder hacer la busqueda -->
+                                                    <f:facet name="header" >
+                                                        <p:outputPanel style="text-align:right">
+                                                            <h:outputText value="Buscar:" />
+                                                            <p:inputText id="globalFilter" onkeyup="PF('tabla_estado').filter()" style="width:150px" placeholder="Busqueda" />
+                                                        </p:outputPanel>
+                                                    </f:facet>   
+
+                                                    <!-- / fin bloque de codigo de busqueda --> 
+
+
+                                                    <p:column headerText="ID" filterBy="#{estado.idParametro}" sortBy="#{estado.idParametro}" width="15%">
+                                                        <h:outputText value="#{estado.idParametro }" />
+                                                    </p:column>
+                                                    <p:column headerText="Valor" filterBy="#{estado.valorParametro}" sortBy="#{estado.valorParametro}" width="40%">
+                                                        <h:outputText value="#{estado.valorParametro }" />
+                                                    </p:column>
+                                                    <p:column headerText="Descripcion" filterBy="#{estado.descripcion}" sortBy="#{estado.descripcion}" width="33%">
+                                                        <h:outputText value="#{estado.descripcion }" />
+                                                    </p:column>
+
+                                                    <p:column headerText="Editar" style="text-align:center" width="11%">
+
+                                                        <p:commandButton icon="ui-icon-pencil"  
+                                                                         oncomplete="PF('modificarParametro').show();" 
+                                                                         action="#{parametroBean.selecionarParametro(estado)}" 
+                                                                         update=":modpal" process="@this"/>
+
+                                                    </p:column>                                                    
+                                                </p:dataTable>
+                                            </h:form>
+
+
+
+                                            <!-- / Bloque de codigo parainsertar dato --> 
+                                            <p:dialog widgetVar="ingresarParametro" header="Parametro" minHeight="40" modal="true" resizable="false">
+                                                <h:form id="newpantpal" >
+                                                    <p:panel id="panel1" header="Registrar Parametro" >
+
+
+                                                        <div class="form-group">
+                                                            <label for="nombree"> ID: </label>
+
+                                                            <p:inputText id="nombree" value="#{parametroBean.parametro.idParametro}" class="form-control" required="true"
+                                                                         label="ID" onkeypress="return soloLetras(event)" requiredMessage="El nombre es obligatorio">
+                                                                <f:validateRequired />
+                                                                <f:ajax event="change" listener="#{parametroBean.validarCategoria()}" /> 
+                                                                <f:ajax event="keyup" listener="#{parametroBean.validarCategoria()}" /> 
+                                                            </p:inputText>
+                                                            <p:message for="nombree"  />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nombree2"> valor: </label>
+
+                                                            <p:inputText id="nombree2" value="#{parametroBean.parametro.valorParametro}" class="form-control" required="true"
+                                                                         label="Valor"  requiredMessage="El valor es obligatorio">
+                                                                <f:validateRequired />
+                                                            </p:inputText>
+                                                            <p:message for="nombree2"  />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nombree3"> Descripción: </label>
+
+                                                            <p:inputText id="nombree3" value="#{parametroBean.parametro.descripcion}" class="form-control" required="true"
+                                                                         label="Descripcion" onkeypress="return soloLetras(event)" requiredMessage="La descripcion es obligatorio">
+                                                                <f:validateRequired />
+                                                            </p:inputText>
+                                                            <p:message for="nombree3"  />
+                                                        </div>
+
+                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{parametroBean.guardarParametro()}"  update=":frm_table:detailTable,newpantpal"/>
+                                                        <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarParametro').hide();" immediate="true"/>
+                                                    </p:panel>
+                                                </h:form>    
+                                            </p:dialog>
+
+
+                                            <p:dialog id="editpalabras" header="Modificar Estado" widgetVar="modificarParametro" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
+                                                <legend>Modificar Nombre de Estado</legend>
+                                                <h:form id="modpal">
+                                                    <div class="form-group">
+                                                            <label for="nombree4"> ID: </label>
+
+                                                            <p:inputText id="nombree4" value="#{parametroBean.parametro.idParametro}" class="form-control" required="true"
+                                                                         label="ID" onkeypress="return soloLetras(event)" requiredMessage="El nombre es obligatorio">
+                                                                <f:validateRequired />
+                                                                <f:ajax event="change" listener="#{parametroBean.validarCategoria()}" /> 
+                                                                <f:ajax event="keyup" listener="#{parametroBean.validarCategoria()}" /> 
+                                                            </p:inputText>
+                                                            <p:message for="nombree4"  />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nombree24"> valor: </label>
+
+                                                            <p:inputText id="nombree24" value="#{parametroBean.parametro.valorParametro}" class="form-control" required="true"
+                                                                         label="Valor"  requiredMessage="El valor es obligatorio">
+                                                                <f:validateRequired />
+                                                            </p:inputText>
+                                                            <p:message for="nombree24"  />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nombree34"> Descripción: </label>
+
+                                                            <p:inputText id="nombree34" value="#{parametroBean.parametro.descripcion}" class="form-control" required="true"
+                                                                         label="Estado" onkeypress="return soloLetras(event)" requiredMessage="La descripción es obligatorio">
+                                                                <f:validateRequired />
+                                                            </p:inputText>
+                                                            <p:message for="nombree34"  />
+                                                        </div>
+
+
+                                                    <p:commandButton class="btn btn-success" process="@form" action="#{parametroBean.mergeParamtro()}" value="Editar" update=":frm_table" />
+                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('modificarParametro').hide();"/>
+                                                </h:form>
+                                            </p:dialog>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                        </div>
+                        <div class="col-md-1" ></div>
+                    </div>
+                </c:if>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

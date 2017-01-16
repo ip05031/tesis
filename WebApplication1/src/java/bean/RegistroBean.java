@@ -6,8 +6,10 @@
 package bean;
 
 import controller.InicioJPA;
+import controller.ParametroJPA;
 import controller.UsuarioJPA;
 import entity.Inventario;
+import entity.Parametro;
 import entity.Revista;
 import entity.TipoUsuario;
 import javax.inject.Named;
@@ -36,11 +38,46 @@ public class RegistroBean implements Serializable {
     private Usuario newUser = new Usuario();
     private UsuarioJPA usuarioJPA;
     private boolean buttonDisabled;
-
+    final private String dirrecionR;
+    final private String correo;
+    final private String conta;
+    final private String serv1;
+    final private String puer;
+    final private String asunto;
+    final private String cuerpo1;
+    final private String cuerpo2;
     /**
      * Creates a new instance of RegistroBean
      */
     public RegistroBean() {
+        ParametroJPA ps=new ParametroJPA();
+        Parametro pa =  ps.leerIdParametroString("CRE");
+        this.dirrecionR = pa.getValorParametro();
+        ps=new ParametroJPA();
+        pa =  ps.leerIdParametroString("CRC");
+        this.correo = pa.getValorParametro();
+         ps=new ParametroJPA();
+        pa =  ps.leerIdParametroString("CRR");
+        this.conta = pa.getValorParametro();
+         ps=new ParametroJPA();
+        pa =  ps.leerIdParametroString("CRS");
+        this.serv1 = pa.getValorParametro();
+         ps=new ParametroJPA();
+        pa =  ps.leerIdParametroString("CRP");
+        this.puer = pa.getValorParametro();
+        
+        ps=new ParametroJPA();        
+         pa =  ps.leerIdParametroString("MAC");
+        this.asunto = pa.getValorParametro();
+         ps=new ParametroJPA();
+        pa =  ps.leerIdParametroString("MCC");
+        this.cuerpo1 = pa.getValorParametro();
+        ps=new ParametroJPA();
+        pa =  ps.leerIdParametroString("MCV");
+        this.cuerpo2 = pa.getValorParametro();
+        
+        
+        
 
     }
 
@@ -78,13 +115,19 @@ public class RegistroBean implements Serializable {
 
             
             //Codigo de Creacion de envio de mensaje 
-            String claveEnviar = "http://localhost:8080/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=" + codigo;
-            //Mensajeria de confirmacion
+           // String claveEnviar = "http://localhost:8080/WebApplication1/faces/ValidarSubscriptor.xhtml?faces-redirect=true&claveSub=" + codigo;
+               String claveEnviar = this.dirrecionR+codigo;
+
+//Mensajeria de confirmacion
             Mailer cartero = new Mailer();
-            String cuentaMail = "museomuna2016@gmail.com";
+          /*  String cuentaMail = "museomuna2016@gmail.com";
             String contra = "muna2016";
             String serv = "smtp.gmail.com";
-            String puerto = "587";
+            String puerto = "587";*/
+          String cuentaMail = this.correo;
+            String contra = this.conta;
+            String serv = this.serv1;
+            String puerto = this.puer;
             cartero.setCorreo(cuentaMail);
             cartero.setPass(contra);
             cartero.setSmtpHost(serv);
@@ -93,14 +136,27 @@ public class RegistroBean implements Serializable {
             EMail msj = new EMail();
             msj.setRemitente(cuentaMail);
             msj.getDestinatarios().add(newUser.getCorreou());
-            msj.setAsunto("Envió  de Código de confirmación sobre Subscripción al Portal de (MUNA)");
+           /* msj.setAsunto("Envió  de Código de confirmación sobre Subscripción al Portal de (MUNA)");
             String cuerpo = "Muchas Gracias por subscribirse  al  portal del  Museo Nacional de Antropología Dr. David J. Guzmán (MUNA) solo queda un paso:\n"
                     + "De clic sobre el link para poder activar su cuenta: \n\n" + claveEnviar
                     + "\n\n"
                     +"Este correo es autogenerado no debe ser respondido gracias.\n"
                     + "Atentamente \n"
                     + "Museo Nacional de Antropología Dr. David J. Guzmán \n"
-                    + "Dirreción MUNA";;
+                    + "Dirreción MUNA";;*/
+           
+           msj.setAsunto(this.asunto);
+           String[]desmebrar = cuerpo1.split(",");
+           String cuerpo="";
+           for(String i :desmebrar)
+               cuerpo=cuerpo+i+"\n";
+           cuerpo=cuerpo+claveEnviar;
+           
+           String[]desmebrar2=cuerpo2.split(",");
+           for(String i :desmebrar2)
+               cuerpo=cuerpo+i+"\n";
+           //String cuerpo = this.cuerpo1+claveEnviar+this.cuerpo2;
+           
             msj.setMensaje(cuerpo);
             cartero.enviarCorreo(msj, null);
             new UsuarioJPA().saveUsuario(newUser);

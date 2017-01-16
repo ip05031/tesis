@@ -18,6 +18,9 @@ import javax.inject.Named;
 import javax.mail.MessagingException;
 import org.hibernate.validator.constraints.Email;
 import org.primefaces.context.RequestContext;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -32,6 +35,16 @@ public class contactenosBean implements Serializable {
     private String mensajeCorreo;
     @Email(message = "Debe ingresar un correo con formato valido.")
     private String destin;
+    private boolean catcha;
+
+    public boolean isCatcha() {
+        return catcha;
+    }
+
+    public void setCatcha(boolean catcha) {
+        this.catcha = catcha;
+    }
+    
 
     public String getDestin() {
         return destin;
@@ -66,13 +79,21 @@ public class contactenosBean implements Serializable {
     }
 
     public contactenosBean() {
-               
+         this.catcha=false;      
 
     }
     public void showMessage() {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado", "Gracias por esperar su mensaje ha sido enviado exitosamente.!!!");
          
         RequestContext.getCurrentInstance().showMessageInDialog(message);
+    }
+    
+     public void submit() {
+       // RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", false);");
+       this.catcha=true;
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ahora ya puede enviar su mensaje", "");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
     }
 
     public void enviarCorreo() {
@@ -122,6 +143,7 @@ public class contactenosBean implements Serializable {
             this.setCuentaMail(null);
             this.setDestin(null);
             this.setMensajeCorreo(null);
+            this.catcha=false; 
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje enviado con exito.", "PrimeFaces Rocks."));
            // message1 = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Enviado Exitosamente!", null);
             //FacesContext.getCurrentInstance().addMessage(null, message1);

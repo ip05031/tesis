@@ -3,8 +3,10 @@
 package bean;
 
 import controller.EventosJPA;
+import controller.ParametroJPA;
 import controller.UsuarioJPA;
 import entity.Evento;
+import entity.Parametro;
 import entity.Usuario;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -64,6 +66,20 @@ public class eventosBean implements Serializable {
     private InputStream streamArchivo;
     private String ruta_archivo;
     private Evento eventoPdf;
+
+    private final String destino;
+    private final String correo;
+    private final String conta;
+    private final String serv1;
+    private final String puer;
+    private final String asunto;
+    private final String cuerpo0;
+    private final String cuerpo1;
+    private final String cuerpo2;
+    private final String cuerpo3;
+    private final String cuerpo4;
+    private final String cuerpo5;
+    private final String cuerpo6;
 
     public Evento getEventoPdf() {
         return eventoPdf;
@@ -162,7 +178,47 @@ public class eventosBean implements Serializable {
     }
 
     public eventosBean() {
+        ParametroJPA ps = new ParametroJPA();
+        Parametro pa = ps.leerIdParametroString("FED");
+        this.destino = pa.getValorParametro();
 
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("CRC");
+        this.correo = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("CRR");
+        this.conta = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("CRS");
+        this.serv1 = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("CRP");
+        this.puer = pa.getValorParametro();
+
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("MEA");
+        this.asunto = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("ME0");
+        this.cuerpo0 = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("ME1");
+        this.cuerpo1 = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("ME2");
+        this.cuerpo2 = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("ME3");
+        this.cuerpo3 = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("ME4");
+        this.cuerpo4 = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("ME5");
+        this.cuerpo5 = pa.getValorParametro();
+        ps = new ParametroJPA();
+        pa = ps.leerIdParametroString("ME6");
+        this.cuerpo6 = pa.getValorParametro();
     }
 
     public List<Evento> getLeventos() {
@@ -185,7 +241,7 @@ public class eventosBean implements Serializable {
     }
 
     public void guardarevento() {
-        cuentaMail = "museomuna2016@gmail.com";
+        /* cuentaMail = "museomuna2016@gmail.com";
         SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formateadorhora = new SimpleDateFormat("hh:mm a");
         String datos = "Saludos .\n"
@@ -196,28 +252,100 @@ public class eventosBean implements Serializable {
                 + "Atentamente \n"
                 + "Museo Nacional de Antropología Dr. David J. Guzmán \n"
                 + "www.cultura.gob.sv/muna \n"
-                + "Dirreción MUNA";
+                + "Dirreción MUNA";*/
+        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formateadorhora = new SimpleDateFormat("hh:mm a");
+        String datos = "";
+       String[] desmebrar0 = cuerpo0.split(",");
+
+        for (String i : desmebrar0) {
+            if (desmebrar0.length > 1) {
+                datos = datos + i + "\n";
+            } else {
+                datos = datos + i;
+            }
+        }
+        String[] desmebrar1 = cuerpo1.split(",");
+
+        for (String i : desmebrar1) {
+            if (desmebrar1.length > 1) {
+                datos = datos + i + "\n";
+            } else {
+                datos = datos + i;
+            }
+        }
+        datos = datos + formateador.format(fechaevento);
+        String[] desmebrar2 = cuerpo2.split(",");
+        for (String i : desmebrar2) {
+            if (desmebrar2.length > 1) {
+                datos = datos + i + "\n";
+            } else {
+                datos = datos + i;
+            }
+        }
+        datos = datos + nombrevento;
+
+        String[] desmebrar3 = cuerpo3.split(",");
+        for (String i : desmebrar3) {
+            if (desmebrar3.length > 1) {
+                datos = datos + i + "\n";
+            } else {
+                datos = datos + i;
+            }
+        }
+        datos = datos + formateadorhora.format(horaevento);
+
+        String[] desmebrar4 = cuerpo4.split(",");
+        for (String i : desmebrar4) {
+            if (desmebrar4.length > 1) {
+                datos = datos + i + "\n";
+            } else {
+                datos = datos + i;
+            }
+        }
+        datos = datos + lugarevento;
+
+        String[] desmebrar5 = cuerpo5.split(",");
+        for (String i : desmebrar5) {
+            if (desmebrar5.length > 1) {
+                datos = datos + i + "\n";
+            } else {
+                datos = datos + i;
+            }
+        }
+
+        String[] desmebrar6 = cuerpo6.split(",");
+        for (String i : desmebrar6) {
+            if (desmebrar6.length > 1) {
+                datos = datos + i + "\n";
+            } else {
+                datos = datos + i;
+            }
+        }
+
         EMail msj = new EMail();
+        cuentaMail = this.correo;
         msj.setRemitente(cuentaMail);
 
         //Seteando destinatarios
         UsuarioJPA usuJpa = new UsuarioJPA();
         List<Usuario> listUsuario = usuJpa.getUsuarios(1);
         try {
-            for (Usuario us : listUsuario) {
+             for (Usuario us : listUsuario) {
                 if (us.getCorreou() != null) {
-                    if(!us.getCorreou().isEmpty()){
-                    msj.getDestinatarios().add(us.getCorreou());
+                    if (!us.getCorreou().isEmpty()) {
+                        msj.getDestinatarios().add(us.getCorreou());
                     }
 
                 }
 
             }
+            
         } catch (Exception e) {
         }
 
-       
-        msj.setAsunto("Evento en el Museo Nacional de Antropología Dr. David J. Guzmán : "+ nombrevento);
+        //       msj.setAsunto("Evento en el Museo Nacional de Antropología Dr. David J. Guzmán : " + nombrevento);
+        msj.setAsunto(asunto + nombrevento);
         msj.setMensaje(datos);
         msj.setImagen(ruta_archivo);
 
@@ -338,7 +466,8 @@ public class eventosBean implements Serializable {
 
             if (fileName != null) {
                 // write the inputStream to a FileOutputStream
-                OutputStream out = new FileOutputStream(new File(destination + fileName));
+                //OutputStream out = new FileOutputStream(new File(destination + fileName));
+                OutputStream out = new FileOutputStream(new File(this.destino + fileName));
                 int read = 0;
                 byte[] bytes = new byte[1024];
 
@@ -350,16 +479,22 @@ public class eventosBean implements Serializable {
                 out.flush();
                 out.close();
 
-                File fi = new File(destination + fileName);
+                //File fi = new File(destination + fileName);
+                File fi = new File(this.destino + fileName);
                 byte[] fileContent = Files.readAllBytes(fi.toPath());
 
                 if (msj != null) {
                     //Sector de parametrizacion;
                     Mailer cartero = new Mailer();
-                    cuentaMail = "museomuna2016@gmail.com";
+                    /* cuentaMail = "museomuna2016@gmail.com";
                     contra = "muna2016";
                     serv = "smtp.gmail.com";
-                    puerto = "587";
+                    puerto = "587";*/
+
+                    cuentaMail = this.correo;
+                    contra = this.conta;
+                    serv = this.serv1;
+                    puerto = this.puer;
                     cartero.setCorreo(cuentaMail); // 
                     cartero.setPass(contra);
                     cartero.setSmtpHost(serv);

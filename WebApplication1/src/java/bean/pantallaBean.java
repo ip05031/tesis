@@ -123,13 +123,14 @@ public class pantallaBean implements Serializable {
                     pantalla.setIdPantalla(id);
                     pantalla.setNombrepa(nombrePantalla);
                     pantalla.setAccesopa(urlPantalla);
+                    pantalla.setPermiso(true);
                     pantallaJPA.savePantalla(pantalla);
 
                     this.getir();
                     this.setIdPantalla(0);
                     this.setNombrePantalla("");
                     this.setUrlPantalla("");
-                    this.setLpantalla(null);
+                    this.setLpantalla(null);                    
                     //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Pantalla creada con éxito."));
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Pantalla registrada exitosamente!", null);
                     FacesContext.getCurrentInstance().addMessage(null, message);

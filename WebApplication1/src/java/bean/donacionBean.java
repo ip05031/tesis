@@ -4,9 +4,11 @@ package bean;
 
 import controller.DonacionJPA;
 import controller.DonantesJPA;
+import controller.ParametroJPA;
 import controller.TipoUsuarioJPA;
 import entity.Donaciones;
 import entity.Donate;
+import entity.Parametro;
 import entity.TipoUsuario;
 import entity.Usuario;
 import java.io.File;
@@ -47,6 +49,7 @@ public class donacionBean implements Serializable {
     private int donante;
     private String ruta_archivo;
     private InputStream streamArchivo;
+    private String destino;
 
     public Donaciones getDonacionPdf() {
         return donacionPdf;
@@ -134,6 +137,9 @@ public class donacionBean implements Serializable {
 
     public donacionBean() {
         this.iterar();
+        ParametroJPA ps=new ParametroJPA();
+        Parametro pa =  ps.leerIdParametroString("FDG");
+        destino = pa.getValorParametro();
 
     }
 
@@ -201,7 +207,7 @@ public class donacionBean implements Serializable {
             System.out.println("nombre vacio" + fileName);
             if (fileName != null) {
                 // write the inputStream to a FileOutputStream
-                OutputStream out = new FileOutputStream(new File(destination + fileName));
+                OutputStream out = new FileOutputStream(new File(this.destino + fileName));
 
                 int read = 0;
                 byte[] bytes = new byte[1024];
