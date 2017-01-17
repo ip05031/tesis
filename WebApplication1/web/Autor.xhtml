@@ -90,13 +90,15 @@
                                             <p:dialog widgetVar="ingresarAutor" header="Autor" minHeight="40" modal="true" resizable="false">
                                                 <h:form id="newpantpal" >
                                                     <p:panel id="panel1" header="Registrar Autor" >
-                                                        
+
 
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1"> Nombre de Autor: </label>
 
                                                             <p:inputText id="nombrea" value="#{autorBean.nombreautor}" class="form-control" required="true"
-                                                                         label="Autor" onkeypress="return soloLetras(event)" requiredMessage="Error el campo nombre debe tener al menos un caracter">
+                                                                         label="Autor" onkeypress="return soloLetras(event)" requiredMessage="Es obligatorio">
+                                                                <f:ajax event="change" listener="#{autorBean.validarCategoria()}" /> 
+                                                                <f:ajax event="keyup" listener="#{autorBean.validarCategoria()}" /> 
                                                                 <f:validateRequired />
                                                             </p:inputText>
                                                             <p:messages for="nombrea" />
@@ -115,8 +117,8 @@
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Nombre de Autor:</label>
                                                         <p:inputText id="name_palabra" value="#{autorBean.editarautor.nombreAutor}" class="form-control"  label="autor"
-                                                                     required="true" onkeypress="return soloLetras(event)" requiredMessage="Error el campo nombre debe tener al menos un caracter" />
-                                                         <p:message for="name_palabra" />
+                                                                     required="true" onkeypress="return soloLetras(event)" requiredMessage="Es obligatorio" />
+                                                        <p:message for="name_palabra" />
                                                     </div>
 
                                                     <p:commandButton class="btn btn-success" process="@form" action="#{autorBean.editautor()}" value="Editar" update=":frm_table, modpal"/>

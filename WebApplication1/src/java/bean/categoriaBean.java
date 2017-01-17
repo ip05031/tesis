@@ -28,6 +28,8 @@ public class categoriaBean implements Serializable {
     private int idCategoria;
     private Categoria categoria;
     private Categoria modCategoria;
+    private String nombreTemCategoria;
+    private Boolean validar;
 
     public Categoria getModCategoria() {
         return modCategoria;
@@ -101,15 +103,31 @@ public class categoriaBean implements Serializable {
     }
 
     public void updCategoria() {
-        categoriaJPA = new CategoriaJPA();
+        if (nombreTemCategoria.contentEquals(modCategoria.getNombrec())) {
+            categoriaJPA = new CategoriaJPA();
 
-        categoriaJPA.updateCategoria(modCategoria);
+            categoriaJPA.updateCategoria(modCategoria);
 
-        this.setIdCategoria(0);
-        this.setNombreCategoria(null);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria modificada exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-         RequestContext.getCurrentInstance().execute("PF('modCategoria').hide();");
+            this.setIdCategoria(0);
+            this.setNombreCategoria(null);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria modificada exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext.getCurrentInstance().execute("PF('modCategoria').hide();");
+        } else {
+            validarCategoria();
+            if (validar) {
+                categoriaJPA = new CategoriaJPA();
+
+                categoriaJPA.updateCategoria(modCategoria);
+
+                this.setIdCategoria(0);
+                this.setNombreCategoria(null);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria modificada exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                RequestContext.getCurrentInstance().execute("PF('modCategoria').hide();");
+            } 
+
+        }
     }
 
     public void dltCategoria(Categoria cat) {
@@ -131,6 +149,7 @@ public class categoriaBean implements Serializable {
             temp = jpa.LeerIdCategoria(cat);
             if (temp != null) {
                 this.modCategoria = temp;
+                this.nombreTemCategoria = temp.getNombrec();
 
             }
 
@@ -139,11 +158,17 @@ public class categoriaBean implements Serializable {
     }
 
     public void validarCategoria() {
+        validar = true;
         categoriaJPA = new CategoriaJPA();
-        String categoria = this.getNombreCategoria();
+        String categoria="";
+        if(this.getNombreCategoria()==null){
+           categoria = this.modCategoria.getNombrec();
+        }
+        else categoria = this.getNombreCategoria();
         if (categoria.length() > 0) {
             System.out.println("comineza la validacion de categoria");
             if (categoriaJPA.searchCategora(categoria)) {
+                validar = false;
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa categoría ya existe!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }

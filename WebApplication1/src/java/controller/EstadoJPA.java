@@ -147,5 +147,21 @@ public class EstadoJPA {
             return temp;
         }
     }  
+     public boolean searchEstado(String categoria2) {
+        boolean existe = false;
+
+        try {
+            estadoList = em.createNamedQuery("Estado.findByNombreEstado", Estado.class)
+                    .setParameter("nombreEstado", categoria2)
+                    .getResultList();
+            existe = estadoList.size() > 0;
+            return existe;
+        } catch (Exception e) {
+            System.out.println("Error en estado JPA");
+            System.out.println(e.getMessage());
+            return existe;
+        }
+
+    }
    
 }

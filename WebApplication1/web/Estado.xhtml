@@ -97,6 +97,8 @@
                                                             <p:inputText id="nombree" value="#{estadosBean.nombrestado}" class="form-control" required="true"
                                                                          label="Estado" onkeypress="return soloLetras(event)" requiredMessage="El nombre es obligatorio">
                                                                 <f:validateRequired />
+                                                                <f:ajax event="change" listener="#{estadosBean.validarEstado()}" /> 
+                                                                <f:ajax event="keyup" listener="#{estadosBean.validarEstado()}" /> 
                                                             </p:inputText>
                                                             <p:message for="nombree"  />
                                                         </div>

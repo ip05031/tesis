@@ -24,6 +24,7 @@ public class autorBean implements Serializable {
     private Autor tor;
     private Autor editarautor;
     private boolean verdad;
+    private String tempA;
 
     public List<Autor> getlAutor() {
         return lAutor;
@@ -84,7 +85,7 @@ public class autorBean implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Almacenado exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext.getCurrentInstance().execute("PF('ingresarAutor').hide();");
-        }
+        } 
 
     }
 
@@ -99,15 +100,26 @@ public class autorBean implements Serializable {
     }
 
     public void editautor() {
-
-        autorJPA = new AutorJPA();
-        autorJPA.editautorJPA(editarautor);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor modificado Exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        RequestContext.getCurrentInstance().execute("PF('modificarautor').hide();");
+        if (tempA.contentEquals(editarautor.getNombreAutor())) {
+            autorJPA = new AutorJPA();
+            autorJPA.editautorJPA(editarautor);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor modificado Exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext.getCurrentInstance().execute("PF('modificarautor').hide();");
+        } else {
+            validarCategoria();
+            if (this.verdad) {
+                autorJPA = new AutorJPA();
+                autorJPA.editautorJPA(editarautor);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor modificado Exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                RequestContext.getCurrentInstance().execute("PF('modificarautor').hide();");
+            } 
+        }
     }
 
     public void capturarautor(Autor capturautor) {
+        this.tempA = capturautor.getNombreAutor();
         this.editarautor = capturautor;
 
     }

@@ -49,6 +49,7 @@ public class RevistaBean implements Serializable {
     private Integer idAutor;
     FacesContext context = FacesContext.getCurrentInstance();
     Usuario user = new Usuario();
+    private Boolean exitencia;
 
     public RevistaBean() {
         this.idTitulo = new Titulo();
@@ -220,7 +221,7 @@ public class RevistaBean implements Serializable {
         revista = revis;
         FacesContext context2 = FacesContext.getCurrentInstance();
         Usuario user2 = (Usuario) context2.getExternalContext().getSessionMap().get("logueado");
-        String accion = " Modificó de datos de Revista por el Usuario "+ user2.getIdUsuario();
+        String accion = " Modificó de datos de Revista por el Usuario " + user2.getIdUsuario();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -295,7 +296,7 @@ public class RevistaBean implements Serializable {
         revista.setArticuloList(listaArticulos);
         FacesContext context4 = FacesContext.getCurrentInstance();
         Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Registró de nueva Revista por el usuario = "+user4.getIdUsuario();
+        String accion = "Registró de nueva Revista por el usuario = " + user4.getIdUsuario();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -396,11 +397,13 @@ public class RevistaBean implements Serializable {
     }
 
     public void validarTitulo() {
+        exitencia = true;
         TituloJPA tituloJPA = new TituloJPA();
         String titulo = this.idTitulo.getTituloRevista();
         System.out.println("titulo:");
         if (titulo.length() > 0) {
             if (tituloJPA.searchTitulo(titulo)) {
+                exitencia = false;
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El titulo ya está registrada", null);
                 // FacesContext.getCurrentInstance().addMessage(null, message);
                 FacesContext.getCurrentInstance().addMessage("nombreTitulossa", message);
@@ -472,14 +475,20 @@ public class RevistaBean implements Serializable {
     }
 
     public void guardarpc2() {
-        TituloJPA ti = new TituloJPA();
-        idTitulo.setIdTitulo(ti.getClave() + 1);
-        ti = new TituloJPA();
-        ti.saveTitulo(idTitulo);
-        idTitulo = new Titulo();
-        RequestContext.getCurrentInstance().execute("PF('ingresarTitulos').hide()");
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        validarTitulo();
+        if (this.exitencia) {
+            TituloJPA ti = new TituloJPA();
+            idTitulo.setIdTitulo(ti.getClave() + 1);
+            ti = new TituloJPA();
+            ti.saveTitulo(idTitulo);
+            idTitulo = new Titulo();
+            RequestContext.getCurrentInstance().execute("PF('ingresarTitulos').hide()");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Titulo ya existe!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
 
     }
 

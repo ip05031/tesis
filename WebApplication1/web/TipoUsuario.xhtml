@@ -85,8 +85,11 @@
                                                         Nombre Tipo de Usuario
                                                     </label>
                                                     <p:inputText id="nameTipoUsuarioM" value="#{tipoUsuarioBean.tipo.nombretp}" required="true" 
-                                                                 requiredMessage="Ingrese nombre de Tipo de usuario"  class="form-control" onkeypress="return soloLetras(event)"/>
-                                                     <p:messages for="nameTipoUsuarioM" closable="true" />
+                                                                 requiredMessage="Ingrese nombre de Tipo de usuario"  class="form-control" onkeypress="return soloLetras(event)">
+                                                        <f:ajax event="change" listener="#{tipoUsuarioBean.validarCategoria()}" /> 
+                                                        <f:ajax event="keyup" listener="#{tipoUsuarioBean.validarCategoria()}" /> 
+                                                    </p:inputText>
+                                                    <p:messages for="nameTipoUsuarioM" closable="true" />
                                                 </div>
                                                 <div class="form-group">
 
@@ -180,7 +183,7 @@
                                                         Nombre de tipo Usuario
                                                     </label>
                                                     <p:inputText id="nombreI"  value="#{tipoUsuarioBean.tipo.nombretp}" class="form-control" required="true" requiredMessage="obligatoio" onkeypress="return soloLetras(event)"/>
-                                                     <p:messages for="nombreI" closable="true" />
+                                                    <p:messages for="nombreI" closable="true" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="descripT">

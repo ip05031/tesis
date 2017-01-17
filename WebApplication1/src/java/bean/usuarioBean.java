@@ -49,6 +49,9 @@ public class usuarioBean implements Serializable {
     private UsuarioJPA usuarioJPA;
     private Usuario editUsuario = new Usuario();
 
+    private Boolean validar;
+    private String validarNombre;
+
     public usuarioBean() {
 
     }
@@ -62,6 +65,7 @@ public class usuarioBean implements Serializable {
 
     public void usuarioEditar(Usuario editUsuario) {
         this.idTipoUsuario = editUsuario.getIdTusuario().getIdTusuario();
+        this.validarNombre = editUsuario.getNickname();
         this.setEditUsuario(editUsuario);
 
     }
@@ -93,18 +97,26 @@ public class usuarioBean implements Serializable {
         user.setEstadoi(2);
 
         try {
-            usuarioJPA.saveUsuario(user);
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado exitosamente!", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("PF('nuevoUsuario').show();");
-            FacesContext context4 = FacesContext.getCurrentInstance();
-            Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
-            String accion = "Registró de nueva Usuario por el usuario = " + user4.getIdUsuario();
-            String tabla = "Usuario";
-            new bitacoraBean().guardarbitacora(tabla, accion);
-            limpiarDatosUsuario();
-            FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Registrado Correctamente"));
+            validarUsuarioExiste();
+            if (validar) {
+                usuarioJPA.saveUsuario(user);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Creado exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                RequestContext context = RequestContext.getCurrentInstance();
+                context.execute("PF('nuevoUsuario').show();");
+                FacesContext context4 = FacesContext.getCurrentInstance();
+                Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+                String accion = "Registró de nueva Usuario por el usuario = " + user4.getIdUsuario();
+                String tabla = "Usuario";
+                new bitacoraBean().guardarbitacora(tabla, accion);
+                limpiarDatosUsuario();
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Registrado Correctamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+              //  FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Registrado Correctamente"));
+                 context.execute("PF('nuevoUsuario').hide();");
+            } else {
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+            }
 
         } catch (Exception e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Ha ocurrido un error!", null);
@@ -135,21 +147,47 @@ public class usuarioBean implements Serializable {
         /* if (paisUsuario.compareTo(paisUsuario) != 0) {
             this.editUsuario.setPaisu(paisUsuario);
         }*/
-        this.editUsuario.setPaisu(paisUsuario);
-        this.editUsuario.setIdTusuario(new TipoUsuario(idTipoUsuario));
-        System.out.println("" + this.editUsuario.getEstadoi());
+        if (validarNombre.contentEquals(editUsuario.getNickname())) {
+            this.editUsuario.setPaisu(paisUsuario);
+            this.editUsuario.setIdTusuario(new TipoUsuario(idTipoUsuario));
+            System.out.println("" + this.editUsuario.getEstadoi());
 
-        usuarioJPA.updateUsuario(this.editUsuario);
-        System.out.println("se envio...");
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        RequestContext context = RequestContext.getCurrentInstance();
-        FacesContext context4 = FacesContext.getCurrentInstance();
-        Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Registró de Modificacion de Revista por el usuario = " + user4.getIdUsuario();
-        String tabla = "Revista";
-        new bitacoraBean().guardarbitacora(tabla, accion);
-        context.execute("PF('modalPantallaUpdate').hide();");
+            usuarioJPA.updateUsuario(this.editUsuario);
+            System.out.println("se envio...");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext context = RequestContext.getCurrentInstance();
+            FacesContext context4 = FacesContext.getCurrentInstance();
+            Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+            String accion = "Registró de Modificacion de Revista por el usuario = " + user4.getIdUsuario();
+            String tabla = "Revista";
+            new bitacoraBean().guardarbitacora(tabla, accion);
+            context.execute("PF('modalPantallaUpdate').hide();");
+        } else {
+            validarUsuarioExiste();
+            if (validar) {
+                this.editUsuario.setPaisu(paisUsuario);
+                this.editUsuario.setIdTusuario(new TipoUsuario(idTipoUsuario));
+                System.out.println("" + this.editUsuario.getEstadoi());
+
+                usuarioJPA.updateUsuario(this.editUsuario);
+                System.out.println("se envio...");
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                RequestContext context = RequestContext.getCurrentInstance();
+                FacesContext context4 = FacesContext.getCurrentInstance();
+                Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+                String accion = "Registró de Modificacion de Revista por el usuario = " + user4.getIdUsuario();
+                String tabla = "Revista";
+                new bitacoraBean().guardarbitacora(tabla, accion);
+                context.execute("PF('modalPantallaUpdate').hide();");
+
+            } else {
+
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+            }
+
+        }
     }
 
     public void limpiar() {
@@ -186,14 +224,16 @@ public class usuarioBean implements Serializable {
     }
 
     public void validarUsuarioExiste() {
+        this.validar = true;
         usuarioJPA = new UsuarioJPA();
         String nickname = this.nickUsuario;
         if (nickUsuario.length() > 3) {
             System.out.println("comineza la validacion");
             if (usuarioJPA.searchNickname(nickname)) {
+                validar = false;
                 FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
             } else {
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Válido"));
+                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "!Validado", "Usuario Válido"));
             }
         }
     }

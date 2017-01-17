@@ -17,15 +17,16 @@ import javax.persistence.Persistence;
  * @author IPalacios
  */
 public class TipoUsuarioJPA {
-         EntityManager em;
-     EntityManagerFactory emf;
-     private List<TipoUsuario> tipousuario = new ArrayList<>();
-     
-     public TipoUsuarioJPA() {
+
+    EntityManager em;
+    EntityManagerFactory emf;
+    private List<TipoUsuario> tipousuario = new ArrayList<>();
+
+    public TipoUsuarioJPA() {
         emf = Persistence.createEntityManagerFactory("WebApplication1PU");
         em = emf.createEntityManager();
         em.getTransaction().begin();
-    }     
+    }
 
     public List<TipoUsuario> getTipoUsuario() {
         try {
@@ -35,16 +36,16 @@ public class TipoUsuarioJPA {
             return tipousuario;
         }
     }
-    
-    
-    public Integer getClave(){
+
+    public Integer getClave() {
         Integer claveId = 0;
-     try {
+        try {
             claveId = (Integer) em.createNamedQuery("TipoUsuario.clave").getSingleResult();
-            if(claveId != null)
-            return claveId;
-            else
-            return 0 ;
+            if (claveId != null) {
+                return claveId;
+            } else {
+                return 0;
+            }
         } catch (Exception e) {
             System.out.println(e);
             return claveId;
@@ -52,8 +53,8 @@ public class TipoUsuarioJPA {
     }
 
     public void savePantalla(TipoUsuario pant) {
-        try {         
-            
+        try {
+
             em.persist(pant);
             em.getTransaction().commit();
             em.close();
@@ -62,10 +63,10 @@ public class TipoUsuarioJPA {
             em.close();
         }
     }
-    
+
     public void mergeTipoUsuario(TipoUsuario pant) {
-        try {         
-            
+        try {
+
             em.merge(pant);
             em.getTransaction().commit();
             em.close();
@@ -74,8 +75,8 @@ public class TipoUsuarioJPA {
             em.close();
         }
     }
-    
-    public boolean deleteTipoUsuario(TipoUsuario tipo){
+
+    public boolean deleteTipoUsuario(TipoUsuario tipo) {
         try {
             em.remove(em.merge(tipo));
             em.getTransaction().commit();
@@ -85,6 +86,22 @@ public class TipoUsuarioJPA {
             System.out.println(e.getMessage());
             em.close();
             return false;
+        }
+    }
+
+    public boolean searchTipo(String categoria2) {
+        boolean existe = false;
+        List<TipoUsuario> tipo = new ArrayList<>();
+        try {
+            tipo = em.createNamedQuery("TipoUsuario.findByNombretp", TipoUsuario.class)
+                    .setParameter("nombretp", categoria2)
+                    .getResultList();
+            existe = tipo.size() > 0;
+            return existe;
+        } catch (Exception e) {
+            System.out.println("Error en categoria JPA");
+            System.out.println(e.getMessage());
+            return existe;
         }
     }
 

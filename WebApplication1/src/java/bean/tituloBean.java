@@ -24,6 +24,7 @@ public class tituloBean implements Serializable {
     private Titulo titulo;
     private Titulo modifi;
     private Boolean verdad;
+    private String temporalTitulo;
 
     public tituloBean() {
         titulo = new Titulo();
@@ -95,10 +96,7 @@ public class tituloBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 titu = "";
                 RequestContext.getCurrentInstance().execute("PF('ingresarTitulo').hide();");
-            } else {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Titulo ya esta registrado!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
+            } 
         } catch (Exception e) {
             System.out.println("error");
         }
@@ -112,14 +110,28 @@ public class tituloBean implements Serializable {
     }
 
     public void edititulo() {
-        tituloJPA = new TituloJPA();
-        tituloJPA.editituloJPA(modifi);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editado exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        RequestContext.getCurrentInstance().execute("PF('modificartitulo').hide();");
+        if (temporalTitulo.contentEquals(modifi.getTituloRevista())) {
+            tituloJPA = new TituloJPA();
+            tituloJPA.editituloJPA(modifi);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext.getCurrentInstance().execute("PF('modificartitulo').hide();");
+        } else {
+            validarTitulo();
+            if (this.verdad) {
+                tituloJPA = new TituloJPA();
+                tituloJPA.editituloJPA(modifi);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Titulo Editado exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                RequestContext.getCurrentInstance().execute("PF('modificartitulo').hide();");
+
+            } 
+
+        }
     }
 
     public void capturartitulo(Titulo capturatitulo) {
+        temporalTitulo = capturatitulo.getTituloRevista();
         this.modifi = capturatitulo;
     }
 

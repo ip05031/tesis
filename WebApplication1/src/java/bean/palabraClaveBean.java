@@ -28,6 +28,7 @@ public class palabraClaveBean implements Serializable {
     private PalabraClave pc;
     private PalabraClave editarpc;
     private Boolean existe;
+    private String tempPA;
 
     public PalabraClave getEditarpc() {
         return editarpc;
@@ -54,6 +55,7 @@ public class palabraClaveBean implements Serializable {
     }
 
     public void guardarpc() {
+        validarPalabra();
         if (this.existe) {
             pc = new PalabraClave();
             pc.setNombrep(nombrepalabra);
@@ -73,11 +75,7 @@ public class palabraClaveBean implements Serializable {
 
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Palabra Clave Almacenada exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
-        } else {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Palabra Clave ya asido asignada!", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-
-        }
+        } 
 
     }
 
@@ -122,14 +120,25 @@ public class palabraClaveBean implements Serializable {
 
     public void editpc() {
 
-        palabraJPA = new PalabrasClavesJPA();
-        palabraJPA.editpcJPA(editarpc);
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Palabra Clave Modificada Exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        if (tempPA.contentEquals(editarpc.getNombrep())) {
+            palabraJPA = new PalabrasClavesJPA();
+            palabraJPA.editpcJPA(editarpc);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Palabra Clave Modificada Exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } else {
+            validarPalabra();
+            if (this.existe) {
+                palabraJPA = new PalabrasClavesJPA();
+                palabraJPA.editpcJPA(editarpc);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Palabra Clave Modificada Exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } 
+        }
 
     }
 
     public void capturarpalabra(PalabraClave capturapal) {
+        this.tempPA = capturapal.getNombrep();
         this.editarpc = capturapal;
 
     }
@@ -145,7 +154,11 @@ public class palabraClaveBean implements Serializable {
     public void validarPalabra() {
         this.existe = true;
         palabraJPA = new PalabrasClavesJPA();
-        String palabra = this.getNombrepalabra();
+        String palabra ="";
+        if(this.getNombrepalabra()==null){
+            palabra = editarpc.getNombrep();
+        }
+        else palabra = this.getNombrepalabra();
         if (palabra.length() > 0) {
             System.out.println("comineza la validacion de palabra clave");
             if (palabraJPA.searchPalabra(palabra)) {

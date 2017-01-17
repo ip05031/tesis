@@ -499,7 +499,7 @@ public class eventosBean implements Serializable {
                     cartero.setPass(contra);
                     cartero.setSmtpHost(serv);
                     cartero.setSmtpPort(puerto);
-                    cartero.enviarCorreo(msj, fileContent);
+                   cartero.enviarCorreo(msj, fileContent);
 
                 }
             }

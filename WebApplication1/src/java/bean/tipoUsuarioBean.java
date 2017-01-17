@@ -5,6 +5,7 @@
  */
 package bean;
 
+import controller.CategoriaJPA;
 import controller.PantallaJPA;
 import controller.TipoUsuarioJPA;
 import entity.Pantalla;
@@ -32,6 +33,7 @@ public class tipoUsuarioBean implements Serializable {
     private List<Pantalla> origenPantallas = new ArrayList<>();
     private List<Pantalla> tempLista = new ArrayList<>();
     private List<Pantalla> destinoPantallas = new ArrayList<>();
+    private Boolean verdad;
 
     public List<Pantalla> getTempLista() {
         return tempLista;
@@ -90,16 +92,22 @@ public class tipoUsuarioBean implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Tipo de Usuario debe Elegir patalla para asignar!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
-            tipo.setIdTusuario(tipoUsuarioJPA.getClave() + 1);
-            tipo.setPantallaList(this.destinoPantallas);
-            tipoUsuarioJPA.savePantalla(tipo);
-            tipo = new TipoUsuario();
-            this.origenPantallas = new ArrayList<>();
-            this.tempLista = new ArrayList<>();
-            this.destinoPantallas = new ArrayList<>();
-            RequestContext.getCurrentInstance().execute("PF('nuevaPantalla').hide();");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Tipo de Usuario Guardado Exitosamente!", null);
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            validarCategoria();
+            if (verdad) {
+                tipo.setIdTusuario(tipoUsuarioJPA.getClave() + 1);
+                tipo.setPantallaList(this.destinoPantallas);
+                tipoUsuarioJPA.savePantalla(tipo);
+                tipo = new TipoUsuario();
+                this.origenPantallas = new ArrayList<>();
+                this.tempLista = new ArrayList<>();
+                this.destinoPantallas = new ArrayList<>();
+                RequestContext.getCurrentInstance().execute("PF('nuevaPantalla').hide();");
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Tipo de Usuario Guardado Exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Tipo de Usuario ya existe!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
         }
     }
 
@@ -190,5 +198,19 @@ public class tipoUsuarioBean implements Serializable {
 
     public void reset() {
         RequestContext.getCurrentInstance().reset("newPantalla");
+    }
+
+    public void validarCategoria() {
+        this.verdad = true;
+        tipoUsuarioJPA = new TipoUsuarioJPA();
+        String tiponom = this.tipo.getNombretp();
+        if (tiponom.length() > 0) {
+            System.out.println("comineza la validacion de tipo");
+            if (tipoUsuarioJPA.searchTipo(tiponom)) {
+                this.verdad = false;
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa tipo de usuario ya exite!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        }
     }
 }

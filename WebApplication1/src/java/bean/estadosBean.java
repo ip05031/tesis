@@ -5,6 +5,7 @@
  */
 package bean;
 
+import controller.CategoriaJPA;
 import controller.EstadoJPA;
 import entity.Estado;
 import javax.inject.Named;
@@ -30,6 +31,8 @@ public class estadosBean implements Serializable {
     private String nombrestado;
     private Estado estad;
     private Estado editarestado;
+    private Boolean verdad;
+    private String tempE;
 
     public List<Estado> getlEstado() {
         return lEstado;
@@ -63,54 +66,86 @@ public class estadosBean implements Serializable {
         this.editarestado = editarestado;
     }
 ////////////////////////// metodos para guardar editar y eliminar ///////////////////////////////
- 
-   public void guardarestado(){
-        estad= new Estado() ;
-        estad.setNombreEstado(nombrestado);
-        estadoJPA = new EstadoJPA();
-        estad.setIdEstado(estadoJPA.aumentarIdestado()+1);
-        estadoJPA.saveEstadoJPA(estad);
-        nombrestado = "";
-        
-        this.Getir();
-        this.setIdestado(0);
-        this.setNombrestado(null);
-        this.setlEstado(null);
-        RequestContext.getCurrentInstance().execute("PF('ingresarEstado').hide();");
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Almacenado exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-         
-    } 
-   
-   public List<Estado> Getir() {
+
+    public void guardarestado() {
+        validarEstado();
+        if (this.verdad) {
+            estad = new Estado();
+            estad.setNombreEstado(nombrestado);
+            estadoJPA = new EstadoJPA();
+            estad.setIdEstado(estadoJPA.aumentarIdestado() + 1);
+            estadoJPA.saveEstadoJPA(estad);
+            nombrestado = "";
+
+            this.Getir();
+            this.setIdestado(0);
+            this.setNombrestado(null);
+            this.setlEstado(null);
+            RequestContext.getCurrentInstance().execute("PF('ingresarEstado').hide();");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Almacenado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
+    }
+
+    public List<Estado> Getir() {
         estadoJPA = new EstadoJPA();
         lEstado = estadoJPA.getEstado();
         return lEstado;
     }
-    
-   public estadosBean() {
+
+    public estadosBean() {
     }
 
-     public void editestado(){
-        
-        estadoJPA = new EstadoJPA();
-        estadoJPA.editestadoJPA(editarestado);
-         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Modificado exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        RequestContext.getCurrentInstance().execute("PF('modificarestado').hide();");
+    public void editestado() {
+        if (tempE.contentEquals(editarestado.getNombreEstado())) {
+            estadoJPA = new EstadoJPA();
+            estadoJPA.editestadoJPA(editarestado);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Modificado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext.getCurrentInstance().execute("PF('modificarestado').hide();");
+        } else {
+            validarEstado();
+            if (this.verdad) {
+                estadoJPA = new EstadoJPA();
+                estadoJPA.editestadoJPA(editarestado);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Modificado exitosamente!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                RequestContext.getCurrentInstance().execute("PF('modificarestado').hide();");
+            }
+        }
     }
-     
-     
-public void capturarestado(Estado capturaestado){
-    this.editarestado=capturaestado;
-}
 
-public void eliminarestado(Estado deletestado){
-        
+    public void capturarestado(Estado capturaestado) {
+        this.editarestado = capturaestado;
+        this.tempE = capturaestado.getNombreEstado();
+    }
+
+    public void eliminarestado(Estado deletestado) {
+
         estadoJPA = new EstadoJPA();
         estadoJPA.eliminarestadoJPA(deletestado);
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Estado Eliminado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void validarEstado() {
+        verdad = true;
+        estadoJPA = new EstadoJPA();
+        String esta = "";
+        if (nombrestado.isEmpty()) {
+            esta = editarestado.getNombreEstado();
+        } else {
+            esta = nombrestado;
+        }
+
+        if (esta.length() > 0) {
+            if (estadoJPA.searchEstado(esta)) {
+                verdad = false;
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa Estado ya existe!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        }
     }
 
 }

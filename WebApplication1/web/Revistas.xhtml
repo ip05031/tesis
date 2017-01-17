@@ -116,7 +116,7 @@
                                                             <label for="nombreIt">
                                                                 Volumen de Revista:
                                                             </label>
-                                                            <p:inputText id="nombreIt"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="Volumen es Requerido" />
+                                                            <p:inputText id="nombreIt"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="Requerido" />
                                                             <p:message for="nombreIt" />
                                                         </div>
                                                         <div class="form-group">
@@ -178,7 +178,7 @@
                                                             <label for="issnCt">
                                                                 ISSN: 
                                                             </label>
-                                                            <p:inputMask id="issnCt"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true"/>
+                                                            <p:inputMask id="issnCt"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true" requiredMessage="Es obligatorio" />
                                                             <p:message for="issnCt" />
                                                         </div>
                                                         <div class="form-group">
@@ -747,7 +747,7 @@
                                                     <p:messages for="msgs2" id="msgs2" showDetail="true" autoUpdate="true" closable="true" escape="true"/>
                                                     <div class="form-group">
                                                         <p:outputLabel value="Nombre Palabra"/>
-                                                        <p:inputText id="nombre" value="#{revistaBean.nombrepalabra}" class="form-control" required="true">
+                                                        <p:inputText id="nombre" value="#{revistaBean.nombrepalabra}" class="form-control" required="true" requiredMessage="Es obligatorio el campo">
                                                             <f:ajax event="change" listener="#{revistaBean.validarPalabra()}" /> 
                                                             <f:ajax event="keyup" listener="#{revistaBean.validarPalabra()}" /> 
                                                         </p:inputText>
@@ -770,7 +770,7 @@
                                                     <div class="form-group">
                                                         <p:outputLabel value="Titulo"/>                                                    
                                                         <p:inputText id="nombreTitulossa" value="#{revistaBean.idTitulo.tituloRevista}" 
-                                                                     onkeypress="return soloLetras(event)" class="form-control" required="true"> 
+                                                                     onkeypress="return soloLetras(event)" class="form-control" required="true" requiredMessage="Es obligarotio el titulo"> 
                                                             <f:ajax event="change" listener="#{revistaBean.validarTitulo()}" /> 
                                                             <f:ajax event="keyup" listener="#{revistaBean.validarTitulo()}" /> 
                                                         </p:inputText>
