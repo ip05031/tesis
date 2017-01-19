@@ -217,9 +217,9 @@ public class InicioBean implements Serializable {
     public void obtenersingleRevista() {
 
     }
-
-    public void cargarListaBanner(){
-       setBanner(new EventosJPA().getImgBanner());
+    public List<Evento> listaImgBanner(){
+        System.out.println("imagenes de banner ");
+        return new EventosJPA().getImgBanner();
     }
     
     public void setearRevistas(){

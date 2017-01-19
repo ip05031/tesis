@@ -65,6 +65,8 @@ public class eventosBean implements Serializable {
     private String destination = "C:\\us\\sistema\\eventos\\";
     private InputStream streamArchivo;
     private String ruta_archivo;
+    private InputStream streamArchivo2;
+    private String ruta_archivo2;
     private Evento eventoPdf;
 
     private final String destino;
@@ -350,6 +352,7 @@ public class eventosBean implements Serializable {
         msj.setImagen(ruta_archivo);
 
         copyFile(this.ruta_archivo, streamArchivo, msj);
+        copyFile(this.ruta_archivo2, streamArchivo2);
 
         eventosJPA = new EventosJPA();
         nomevento = new Evento();
@@ -363,6 +366,8 @@ public class eventosBean implements Serializable {
         nomevento.setFechae(fechaevento);
         nomevento.setHorae(horaevento);
         nomevento.setImagene(ruta_archivo);
+        nomevento.setImgbanner(ruta_archivo2);
+        
         eventosJPA.guardareventoJPA(nomevento);
 
         this.Getir();
@@ -448,6 +453,18 @@ public class eventosBean implements Serializable {
             Logger.getLogger(eventosBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void upload7(FileUploadEvent event) {
+        try {
+            this.streamArchivo2 = event.getFile().getInputstream();
+            // Portevent es igual a Portada evento
+
+            eventosJPA = new EventosJPA();
+            this.setRuta_archivo2("evento" + (eventosJPA.aumentarIdevento() + 1) + ".jpg");
+
+        } catch (IOException ex) {
+            Logger.getLogger(eventosBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void upload6(FileUploadEvent event) {
         try {
@@ -513,9 +530,56 @@ public class eventosBean implements Serializable {
         }
     }
 
+    public void copyFile(String fileName, InputStream in) {
+        try {
+
+            if (fileName != null) {
+                // write the inputStream to a FileOutputStream
+                //OutputStream out = new FileOutputStream(new File(destination + fileName));
+                OutputStream out = new FileOutputStream(new File(this.destino + fileName));
+                int read = 0;
+                byte[] bytes = new byte[1024];
+
+                while ((read = in.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+
+                in.close();
+                out.flush();
+                out.close();
+
+                //File fi = new File(destination + fileName);
+                File fi = new File(this.destino + fileName);
+                byte[] fileContent = Files.readAllBytes(fi.toPath());
+
+            }
+
+        } catch (IOException e) {
+            Logger.getLogger(eventosBean.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+
+        }
+    }
+
     public void verPDF(Evento pdfEvent) {
 
         this.eventoPdf = pdfEvent;
+    }
+
+    public InputStream getStreamArchivo2() {
+        return streamArchivo2;
+    }
+
+    public void setStreamArchivo2(InputStream streamArchivo2) {
+        this.streamArchivo2 = streamArchivo2;
+    }
+
+    public String getRuta_archivo2() {
+        return ruta_archivo2;
+    }
+
+    public void setRuta_archivo2(String ruta_archivo2) {
+        this.ruta_archivo2 = ruta_archivo2;
     }
 
 }

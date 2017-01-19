@@ -146,13 +146,15 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
+                                                                    <label for="lugar">
                                                                         Lugar
                                                                     </label>
-                                                                    <p:inputText id="direccione" value="#{eventosBean.lugarevento}" class="form-control" required="true" requiredMessage="La dirección es obligatoria">
-                                                                        <f:validateRequired />
-                                                                    </p:inputText>
-                                                                    <p:message for="direccione"  />
+                                                                    <br/>
+                                                                    <p:selectOneMenu id="lugar" value="#{eventosBean.lugarevento}" style="width:250px" required="true" requiredMessage="Seleccione un lugar">
+                                                                        <f:selectItem   itemValue="Auditorium Muna"    itemLabel="Auditorium del Muna"  />        
+                                                                        <f:selectItem   itemValue="Patio Muna"      itemLabel="Patio del Muna"  />        
+                                                                    </p:selectOneMenu>
+                                                                    <p:message for="lugar"  />
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -179,7 +181,7 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1">
+                                                                    <label for="ruta_portada">
                                                                         Imagen:
                                                                     </label>
                                                                     <p:fileUpload fileUploadListener="#{eventosBean.upload5}" 
@@ -195,9 +197,27 @@
 
                                                                     <p:inputText readonly="true" id="ruta_portada" value="#{eventosBean.ruta_archivo}"/>
                                                                 </div> 
+                                                                <div class="form-group">
+                                                                    <label for="ruta_portada2">
+                                                                        Imagen:
+                                                                    </label>
+                                                                    <p:fileUpload fileUploadListener="#{eventosBean.upload7}" 
+                                                                                  mode="advanced"
+                                                                                  auto="true"
+                                                                                  update="ruta_portada2"
+                                                                                  allowTypes="/(\.|\/)(jpg)$/" 
+                                                                                  sizeLimit="7000000"
+                                                                                  label="Elegir"
+                                                                                  cancelLabel="Cancelar"
+                                                                                  uploadLabel="Subir"
+                                                                                  />
+
+                                                                    <p:inputText readonly="true" id="ruta_portada2" value="#{eventosBean.ruta_archivo2}"/>
+                                                                </div> 
                                                             </div> 
                                                             <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarEvento').hide();" immediate="true"/>
-                                                            <p:commandButton class="btn btn-success pull-right"  ajax="false" value="Guardar" action="#{eventosBean.guardarevento()}" update="panel2" validateClient="true"/>
+                                                            <p:commandButton class="btn btn-success pull-right"  ajax="false" value="Guardar" action="#{eventosBean.guardarevento()}" 
+                                                                             update="panel2" validateClient="true" onclick="$('this').disabled();"/>
 
                                                         </p:panel>
                                                     </p:scrollPanel>

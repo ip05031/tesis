@@ -14,7 +14,6 @@
             <ui:define name="content">
                 <h:form>
                     <p:remoteCommand name="onload"  actionListener="#{inicioBean.setearRevistas()}"  />
-                    <p:remoteCommand name="onload"  actionListener="#{inicioBean.cargarListaBanner()}"  />
                 </h:form>
                 <div class="row">
                     <div class="col-lg-12">
@@ -37,7 +36,7 @@
                                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                        <ui:repeat value="#{inicioBean.banner}" var="item"  varStatus="estado">  
+                                        <ui:repeat value="#{inicioBean.listaImgBanner()}" var="item"  varStatus="estado">  
                                             <li data-target="#carousel-example-generic" data-slide-to="#{ (estado.index + 1) }" class=""></li>
                                         </ui:repeat>
 
@@ -46,7 +45,7 @@
                                         <div class="item active">
                                             <img class="slide-image" src="#{request.contextPath}/eventos/evento_0.PNG" width="800px" height="350px" alt="" />
                                         </div>
-                                        <ui:repeat value="#{inicioBean.banner}" var="item"  varStatus="estado">  
+                                        <ui:repeat value="#{inicioBean.listaImgBanner()}" var="item"  varStatus="estado">  
                                             <div class="item">
                                                 <img class="slide-image" src="#{request.contextPath}/eventos/#{item.imgbanner}" width="800px" height="350px" alt="" />
                                             </div>
