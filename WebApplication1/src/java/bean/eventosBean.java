@@ -389,6 +389,7 @@ public class eventosBean implements Serializable {
         eventosJPA = new EventosJPA();
         eventosJPA.editeventoJPA(editarevento);
         copyFile(this.ruta_archivo, streamArchivo, null);
+        copyFile(this.ruta_archivo2, streamArchivo2);
         System.out.println(this.ruta_archivo);
         this.setIdevento(0);
         this.setNomevento(null);
@@ -472,6 +473,17 @@ public class eventosBean implements Serializable {
             this.streamArchivo = event.getFile().getInputstream();
             //this.setRuta_archivo(event.getFile().getFileName());
             this.setRuta_archivo(editarevento.getImagene());
+
+        } catch (IOException ex) {
+            Logger.getLogger(eventosBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void upload8(FileUploadEvent event) {
+        try {
+
+            this.streamArchivo2 = event.getFile().getInputstream();
+            //this.setRuta_archivo(event.getFile().getFileName());
+            this.setRuta_archivo2(editarevento.getImgbanner()) ;
 
         } catch (IOException ex) {
             Logger.getLogger(eventosBean.class.getName()).log(Level.SEVERE, null, ex);
