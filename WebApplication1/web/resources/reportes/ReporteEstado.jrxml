@@ -59,6 +59,10 @@ where estado."nombre_estado" = $P{estado}]]>
 				<reportElement x="269" y="59" width="100" height="20" uuid="b72aea71-f8f2-41dd-b786-9e8cbac4bbd9"/>
 				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="32" y="10" width="85" height="53" uuid="634574fe-9406-45c9-a81f-b12cf74c2353"/>
+				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

@@ -33,6 +33,22 @@ public class EstadoJPA {
         }
     }
     
+     public List<Estado> getEstado2() {
+        try {
+            estadoList = em.createNamedQuery("Estado.finlistaNombre", Estado.class).getResultList();
+            return estadoList;
+        } catch (Exception e) {
+            return estadoList;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    
+    
+    
      public List <String> getListanombresestado(Integer idEstado){
     List<String> estador=null;
         try {

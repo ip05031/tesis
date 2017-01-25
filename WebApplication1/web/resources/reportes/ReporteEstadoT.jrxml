@@ -22,8 +22,7 @@ FROM
      INNER JOIN "public"."inventario" inventario ON revista."id_revista" = inventario."id_revista"
      INNER JOIN "public"."estado" estado ON inventario."id_estado" = estado."id_estado"
      INNER JOIN "public"."usuario" usuario ON descarga."id_usuario" = usuario."id_usuario"
-     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"
-]]>
+     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"]]>
 	</queryString>
 	<field name="estado_nombre_estado" class="java.lang.String"/>
 	<field name="revista_titulor" class="java.lang.String"/>
@@ -59,6 +58,10 @@ FROM
 				<reportElement x="269" y="59" width="100" height="20" uuid="b72aea71-f8f2-41dd-b786-9e8cbac4bbd9"/>
 				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="29" y="10" width="85" height="53" uuid="7e2d2754-9aa2-4841-b104-c0a7c3dc7737"/>
+				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

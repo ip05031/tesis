@@ -24,9 +24,9 @@
                                 <div class="panel-heading">
                                     <i class="fa fa-bar-chart-o fa-fw"></i> Reporte
                                     <div class="pull-right">
-                                        
+
                                         <h:form >
-                                            
+
                                             <h:link outcome="Reporte" value="Regresar a Reportes" class="btn btn-success btn-xs "/>
                                         </h:form>
                                         <div class="btn-group">
@@ -40,25 +40,23 @@
                                             <h4 align="Center"> MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN </h4>
                                             <h5 align="Center"> Reporte de Estado de Revistas </h5>
                                             <div class="form-group" align="center">
-                                            <h:form id="frm_table">
-                                                <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                <h:form id="frm_table">
+                                                    <p:growl id="msj" autoUpdate="true"></p:growl>
 
 
-                                                <h3 style="margin-top:0">Estado de revistas</h3>
-                                                <h:panelGrid columns="2" style="margin-bottom:20px" cellpadding="20">
-                                                    <p:outputLabel for="estado" value="Estado:" />
-                                                    <p:selectOneRadio id="estado" value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione una opción">
-                                                        <f:selectItem itemLabel="Todos" itemValue="Todos" />
-                                                       
-                                                        <f:selectItem itemLabel="Bueno" itemValue="Bueno" />
-                                                       
-                                                        <f:selectItem itemLabel="Malo" itemValue="Malo" />
-                                                   
-                                                    </p:selectOneRadio>
-                                                </h:panelGrid>
-                                                <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportEstadoRevista()}" />
-                                            </h:form>
-                                                </div>
+                                                    <h3 style="margin-top:0">Estado de revistas</h3>
+
+                                                    <div class="form-group">
+                                                        <p:selectOneMenu id="city" value="#{reporteBean.estado}" effect="fold" style="width:160px" filter="true" filterMatchMode="startsWith" required="true" >
+                                                        
+                                                            <f:selectItems value="#{estadosBean.Getir2()}"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+
+
+                                                    <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportEstadoRevista()}" />
+                                                </h:form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

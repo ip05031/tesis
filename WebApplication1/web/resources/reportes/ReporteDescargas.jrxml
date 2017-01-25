@@ -67,6 +67,10 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<reportElement x="364" y="57" width="100" height="20" uuid="ad80a192-6086-4c25-a44c-a4ec09f1e155"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="19" y="14" width="85" height="53" uuid="c289b20f-9d75-4318-8dbc-7ebaf809baa2"/>
+				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
@@ -92,7 +96,7 @@ between $P{date_desde} and $P{date_hasta}]]>
 	<detail>
 		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="19" y="0" width="100" height="20" uuid="19cbc30a-0a58-4782-a670-7cfa99d67c3d"/>
+				<reportElement x="19" y="5" width="100" height="20" uuid="19cbc30a-0a58-4782-a670-7cfa99d67c3d"/>
 				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -125,11 +129,11 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<text><![CDATA[Usuario:]]></text>
 			</staticText>
 			<textField pattern="h.mm.ss a">
-				<reportElement x="4" y="9" width="100" height="20" uuid="36988da2-a263-45c6-b68f-caf749226958"/>
+				<reportElement x="19" y="6" width="100" height="20" uuid="36988da2-a263-45c6-b68f-caf749226958"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="7" y="29" width="100" height="20" uuid="137543ca-484e-4ddf-96f4-1d71b5fdbb15"/>
+				<reportElement x="19" y="29" width="100" height="20" uuid="137543ca-484e-4ddf-96f4-1d71b5fdbb15"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>

@@ -54,12 +54,16 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<reportElement x="379" y="53" width="100" height="20" uuid="6165096f-7033-4744-9271-10390d9ec9f2"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="25" y="4" width="85" height="53" uuid="c1b0b268-e8b8-4d94-8552-09a8e2ed1dd1"/>
+				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement x="55" y="2" width="100" height="20" uuid="e9f05d9e-4a63-443c-865a-9d96bb150bcb"/>
+				<reportElement x="25" y="2" width="100" height="20" uuid="e9f05d9e-4a63-443c-865a-9d96bb150bcb"/>
 				<text><![CDATA[Tabla Afectada]]></text>
 			</staticText>
 			<staticText>
@@ -75,7 +79,7 @@ between $P{date_desde} and $P{date_hasta}]]>
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="55" y="0" width="100" height="20" uuid="5269311b-5deb-45e6-8cf9-8ad3ea95eeb9"/>
+				<reportElement x="25" y="3" width="100" height="20" uuid="5269311b-5deb-45e6-8cf9-8ad3ea95eeb9"/>
 				<textFieldExpression><![CDATA[$F{bitacora_tabla}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -91,11 +95,11 @@ between $P{date_desde} and $P{date_hasta}]]>
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField pattern="h.mm.ss a">
-				<reportElement x="10" y="10" width="100" height="20" uuid="5a5157d4-57f9-406a-b9f7-4442535c540b"/>
+				<reportElement x="25" y="9" width="100" height="20" uuid="5a5157d4-57f9-406a-b9f7-4442535c540b"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement x="10" y="31" width="100" height="20" uuid="279d17eb-35bd-4cc9-bcc7-6d92e16774b3"/>
+				<reportElement x="25" y="29" width="100" height="20" uuid="279d17eb-35bd-4cc9-bcc7-6d92e16774b3"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">

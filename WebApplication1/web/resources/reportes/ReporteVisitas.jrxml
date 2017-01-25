@@ -53,6 +53,10 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<reportElement x="379" y="53" width="100" height="20" uuid="6165096f-7033-4744-9271-10390d9ec9f2"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="25" y="4" width="85" height="53" uuid="d8e2ddda-02f2-4faf-b3e8-68d1bb4db9c7"/>
+				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>

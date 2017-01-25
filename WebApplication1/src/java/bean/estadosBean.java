@@ -93,6 +93,12 @@ public class estadosBean implements Serializable {
         lEstado = estadoJPA.getEstado();
         return lEstado;
     }
+    
+     public List<Estado> Getir2() {
+        estadoJPA = new EstadoJPA();
+        lEstado = estadoJPA.getEstado2();
+        return lEstado;
+    }
 
     public estadosBean() {
     }
