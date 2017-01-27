@@ -50,6 +50,7 @@ public class RevistaBean implements Serializable {
     FacesContext context = FacesContext.getCurrentInstance();
     Usuario user = new Usuario();
     private Boolean exitencia;
+    private Boolean exite2;
 
     public RevistaBean() {
         this.idTitulo = new Titulo();
@@ -383,11 +384,13 @@ public class RevistaBean implements Serializable {
     }
 
     public void validarPalabra() {
+        this.exite2=true;
         PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
         String palabra = this.getNombrepalabra();
         if (palabra.length() > 0) {
 
             if (palabraJPA.searchPalabra(palabra)) {
+                this.exite2=false;
                 //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Esa palabra ya está registrada"));
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esa palabra ya está registrada", null);
                 // FacesContext.getCurrentInstance().addMessage(null, message);
@@ -413,6 +416,8 @@ public class RevistaBean implements Serializable {
     }
 
     public void guardarpc() {
+        this.validarPalabra();
+        if(this.exite2){
         PalabraClave pc = new PalabraClave();
         PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
         pc.setIdPalabra(palabraJPA.aumentarIdpalabra() + 1);
@@ -426,7 +431,7 @@ public class RevistaBean implements Serializable {
         this.listaPalabraClaveModificar = new ArrayList<>();
         RequestContext.getCurrentInstance().execute("PF('ingresarPalabra').hide();");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesContext.getCurrentInstance().addMessage(null, message);}
 
     }
 

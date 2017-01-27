@@ -43,7 +43,9 @@
                                                                          value="#{importacionBean.descripcion }" 
                                                                          cols="35" 
                                                                          required="false"
-                                                                         requiredMessage="Ingrese una descripciòn" />
+                                                                         requiredMessage="Ingrese una descripciòn" > 
+                                                            <f:ajax event="keyup" execute="@this" />
+                                                            </p:inputTextarea>
                                                         <p:messages id="error_descripcion" for="descripcion"/>
                                                         <p:outputLabel value="Portada de Revista:" /><br/>
                                                         <p:fileUpload id="uploadPortada"
@@ -166,7 +168,7 @@
                                                                                      actionListener="#{importacionBean.guardarArticulo()}" 
                                                                                      validateClient="false"
                                                                                      class="btn btn-success"
-                                                                                     ajax="false"
+                                                                                     ajax="false" 
                                                                                      />
                                                                 </p:dialog> 
                                                             </div>
