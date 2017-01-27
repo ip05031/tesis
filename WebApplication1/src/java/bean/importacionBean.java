@@ -342,7 +342,7 @@ public class importacionBean implements Serializable {
         nombreArticulo = "Articulo-"+numeroRevista+"-"+numeroArticulo+".pdf";
         System.out.println("nombre:"+nombreArticulo);
         copyFile(nombreArticulo, streamArticulo, 3);
-        this.articulo.setResumena(this.resumen);
+    //    this.articulo.setResumena(this.resumen);
         this.articulo.setArchivoa(nombreArticulo);
         new ArticulosJPA().mergeTipoUsuario(this.articulo);
         limpiar2();        
