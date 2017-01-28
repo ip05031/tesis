@@ -15,236 +15,239 @@
         <meta http-equiv="expires" content="0" />
         <meta http-equiv="pragma" content="no-cache" />
 
-        <h:outputStylesheet name="css/bootstrap.min.css" />
-        <h:outputStylesheet name="css/blog-home.css" />
-        <h:outputStylesheet name="css/otros.css" />
+        <link rel="shortcut icon" href="resources/img/icono.png"/>
+            
 
-        <h:outputScript name="js/bootstrap.min.js" />
-        <h:outputScript name="js/spanishLocale.js" />
-        <h:outputScript name="js/funciones.js" />
+                <h:outputStylesheet name="css/bootstrap.min.css" />
+                <h:outputStylesheet name="css/blog-home.css" />
+                <h:outputStylesheet name="css/otros.css" />
 
-        <title>SIRPAM</title>
+                <h:outputScript name="js/bootstrap.min.js" />
+                <h:outputScript name="js/spanishLocale.js" />
+                <h:outputScript name="js/funciones.js" />
 
-    </h:head>
-    <h:body>
+                <title>SIRPAM</title>
 
-        <div class="container-fluid" >
-            <div id="logo-web" > <img class="img-responsive" src="#{request.contextPath}/media/banner-100.png" /> </div>
-            <div id="logo-mobile" > <img class="img-responsive" src="#{request.contextPath}/media/banner-mobile.png"/> </div>            
-        </div>
-        <nav class="navbar navbar-default navbar-inverse " >
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <h:link outcome="index" value="SIRPAM" class="navbar-brand" />
-                </div>
+                </h:head>
+                <h:body>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <c:if test="#{inicioBean.inicioSesion}" >
+                    <div class="container-fluid" >
+                        <div id="logo-web" > <img class="img-responsive" src="#{request.contextPath}/media/banner-100.png" /> </div>
+                        <div id="logo-mobile" > <img class="img-responsive" src="#{request.contextPath}/media/banner-mobile.png"/> </div>            
+                    </div>
+                    <nav class="navbar navbar-default navbar-inverse " >
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <h:link outcome="index" value="SIRPAM" class="navbar-brand" />
+                            </div>
 
-                            <c:if test="#{inicioBean.pantallasMenu(1)}" >
-                                <ui:repeat value="#{inicioBean.listaPantallas}" var="item"  varStatus="estado"  rendered="true" >  
-                                    <li><h:link outcome="#{item.accesopa}"      value="#{item.nombrepa}" /></li>
-                                </ui:repeat>
-                            </c:if>
-                            <c:if test="#{inicioBean.pantallasMenu(2)}" >
-                                <c:forEach begin="0" end="9" items="#{inicioBean.listaPantallas}" var="i" >
-                                    <li><h:link outcome="#{i.accesopa}"      value="#{i.nombrepa}" /></li>
-                                </c:forEach>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Más... <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <c:forEach begin="10" end="#{inicioBean.listaPantallas.size()}" items="#{inicioBean.listaPantallas}" var="i" >
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <c:if test="#{inicioBean.inicioSesion}" >
+
+                                        <c:if test="#{inicioBean.pantallasMenu(1)}" >
+                                            <ui:repeat value="#{inicioBean.listaPantallas}" var="item"  varStatus="estado"  rendered="true" >  
+                                                <li><h:link outcome="#{item.accesopa}"      value="#{item.nombrepa}" /></li>
+                                            </ui:repeat>
+                                        </c:if>
+                                        <c:if test="#{inicioBean.pantallasMenu(2)}" >
+                                            <c:forEach begin="0" end="9" items="#{inicioBean.listaPantallas}" var="i" >
                                                 <li><h:link outcome="#{i.accesopa}"      value="#{i.nombrepa}" /></li>
                                             </c:forEach>
-                                        </li>
-                                    </ul>
+                                            <li class="dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Más... <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <c:forEach begin="10" end="#{inicioBean.listaPantallas.size()}" items="#{inicioBean.listaPantallas}" var="i" >
+                                                            <li><h:link outcome="#{i.accesopa}"      value="#{i.nombrepa}" /></li>
+                                                        </c:forEach>
+                                                    </li>
+                                                </ul>
 
-                                </li>
-                            </c:if>
-                        </c:if>
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <c:if test="#{inicioBean.inicioSesion}" >
-                            <li class="dropdown">
-
-
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> #{ inicioBean.logueado}  <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-
-                                    <li>
-                                        <li><h:link outcome="Perfil"   value="Ver Perfil" /></li>
-                                        <li role="separator" class="divider"></li>
-                                        <h:form >
-                                            <h:commandButton action="#{ inicioBean.Salir()}" value="Salir" class="salirBtn"></h:commandButton>
-                                        </h:form>
-                                    </li>
+                                            </li>
+                                        </c:if>
+                                    </c:if>
                                 </ul>
 
-                            </li>
-                        </c:if>         
-                        <c:if test="#{ !inicioBean.inicioSesion}" >
-                            <li>
-                                <a onclick="PF('login_modal').show();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Iniciar Sesión </a>
-                            </li>
-                        </c:if> 
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-        <!-- Page Content -->
-        <div class="container">
-            <div class="row">
-                <!-- Blog Entries Column -->
-                <div class="col-md-9 col-sm-12">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <c:if test="#{inicioBean.inicioSesion}" >
+                                        <li class="dropdown">
 
-                    <ui:insert name="content">Content</ui:insert>
-                </div>
-                <!-- Blog Sidebar Widgets Column -->
-                <div class="col-md-3 col-sm-12">
-                    <div class="row" id="contenedor_busquedas">
-                        <!-- Blog Search Well -->                    
-                        <h:form id="frm_busqueda">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        Búsqueda de Revistas
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="input-group">
-                                        <p:inputText id="busqueda" value="#{busquedaBean.studentId}" class="form-control" >
 
-                                        </p:inputText>
-                                        <span class="input-group-btn">
-                                            <p:commandButton class="btn btn-default" icon="ui-icon-search" action="#{busquedaBean.buscarSimple()}"  style="height: 34px" >
+
+                                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> #{ inicioBean.logueado}  <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+
+                                                <li>
+                                                    <li><h:link outcome="Perfil"   value="Ver Perfil" /></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <h:form >
+                                                        <h:commandButton action="#{ inicioBean.Salir()}" value="Salir" class="salirBtn"></h:commandButton>
+                                                    </h:form>
+                                                </li>
+                                            </ul>
+
+                                        </li>
+                                    </c:if>         
+                                    <c:if test="#{ !inicioBean.inicioSesion}" >
+                                        <li>
+                                            <a onclick="PF('login_modal').show();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Iniciar Sesión </a>
+                                        </li>
+                                    </c:if> 
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                    <!-- Page Content -->
+                    <div class="container">
+                        <div class="row">
+                            <!-- Blog Entries Column -->
+                            <div class="col-md-9 col-sm-12">
+
+                                <ui:insert name="content">Content</ui:insert>
+                            </div>
+                            <!-- Blog Sidebar Widgets Column -->
+                            <div class="col-md-3 col-sm-12">
+                                <div class="row" id="contenedor_busquedas">
+                                    <!-- Blog Search Well -->                    
+                                    <h:form id="frm_busqueda">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">
+                                                    Búsqueda de Revistas
+                                                </h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="input-group">
+                                                    <p:inputText id="busqueda" value="#{busquedaBean.studentId}" class="form-control" >
+
+                                                    </p:inputText>
+                                                    <span class="input-group-btn">
+                                                        <p:commandButton class="btn btn-default" icon="ui-icon-search" action="#{busquedaBean.buscarSimple()}"  style="height: 34px" >
+
+                                                        </p:commandButton> 
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" id="inlineCheckbox1" value="" onchange="ocultar_bsq_av();" /> Búsqueda Avanzada
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- /.input-group -->
+                                    </h:form>
+                                    <!-- Blog Categories Well -->
+                                    <div class="well primary" id="bsq_avanzada">
+                                        <h:form id="frm_avanzada">
+                                            <h4>Búsqueda Avanzada</h4>
+
+                                            <div class="form-group">
+                                                <p:outputLabel value="Titulo Articulo"  for="bsq_titulo" />
+                                                <p:inputText id="bsq_titulo" value="#{busquedaBean.busquedaTitulo}" class="form-control" placeholder="Título" />
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel value="Autor"  for="bsq_autor" />
+                                                <p:inputText id="bsq_autor" value="#{busquedaBean.busquedaAutor}" class="form-control" placeholder="Autor" onkeypress="return soloLetras(event)"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel value="Resumen"  for="bsq_articulo" />
+                                                <p:inputText id="bsq_articulo" value="#{busquedaBean.busquedaArticulo}" class="form-control" placeholder="Articulo" />
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel value="Categoría"  for="bsq_categoria" />
+                                                <p:selectOneMenu id="bsq_categoria"   
+                                                                 value="#{busquedaBean.busquedaCategoria}"  
+                                                                 panelStyle="width:180px"
+                                                                 effect="fade" 
+                                                                 style="width:100%" filter="true"
+                                                                 filterMatchMode="startsWith"  >
+                                                    <f:selectItem noSelectionOption="true" itemLabel="" itemValue=""/>
+                                                    <f:selectItems value="#{categoriaBean.getir()}" 
+                                                                   var="themes" 
+                                                                   itemLabel="#{themes.nombrec}" 
+                                                                   itemValue="#{themes.nombrec}"  />
+                                                </p:selectOneMenu>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:outputLabel value="Palabras Clave:" for="themes" />                              
+
+                                                <p:autoComplete id="themes" multiple="true"  value="#{busquedaBean.temPalabra}"  
+                                                                completeMethod="#{palabraClaveBean.completeTheme}"
+                                                                var="theme" itemLabel="#{theme}" itemValue="#{theme}"  
+                                                                forceSelection="true"  styleClass="ui-autocomplete"   >                                    
+                                                </p:autoComplete>
+
+
+                                            </div>
+
+
+                                            <p:commandButton class="btn btn-success" value="Buscar" 
+                                                             action="#{busquedaBean.buscar()}" process="@form, :frm_busqueda:busqueda"  >
 
                                             </p:commandButton> 
 
-                                        </span>
+
+                                        </h:form>
                                     </div>
                                 </div>
-                                <div class="panel-footer">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox1" value="" onchange="ocultar_bsq_av();" /> Búsqueda Avanzada
-                                    </label>
-                                </div>
+                                <!-- Side Widget Well -->
                             </div>
-                            <!-- /.input-group -->
-                        </h:form>
-                        <!-- Blog Categories Well -->
-                        <div class="well primary" id="bsq_avanzada">
-                            <h:form id="frm_avanzada">
-                                <h4>Búsqueda Avanzada</h4>
+                        </div>
+                        <p:dialog header="Iniciar Sesión" widgetVar="login_modal" minHeight="100" modal="true" resizable="false" closeOnEscape="true">
+                            <h:form id="form-login">
 
-                                <div class="form-group">
-                                    <p:outputLabel value="Titulo Articulo"  for="bsq_titulo" />
-                                    <p:inputText id="bsq_titulo" value="#{busquedaBean.busquedaTitulo}" class="form-control" placeholder="Título" />
-                                </div>
-                                <div class="form-group">
-                                    <p:outputLabel value="Autor"  for="bsq_autor" />
-                                    <p:inputText id="bsq_autor" value="#{busquedaBean.busquedaAutor}" class="form-control" placeholder="Autor" onkeypress="return soloLetras(event)"/>
-                                </div>
-                                <div class="form-group">
-                                    <p:outputLabel value="Resumen"  for="bsq_articulo" />
-                                    <p:inputText id="bsq_articulo" value="#{busquedaBean.busquedaArticulo}" class="form-control" placeholder="Articulo" />
-                                </div>
-                                <div class="form-group">
-                                    <p:outputLabel value="Categoría"  for="bsq_categoria" />
-                                    <p:selectOneMenu id="bsq_categoria"   
-                                                     value="#{busquedaBean.busquedaCategoria}"  
-                                                     panelStyle="width:180px"
-                                                     effect="fade" 
-                                                     style="width:100%" filter="true"
-                                                     filterMatchMode="startsWith"  >
-                                        <f:selectItem noSelectionOption="true" itemLabel="" itemValue=""/>
-                                        <f:selectItems value="#{categoriaBean.getir()}" 
-                                                       var="themes" 
-                                                       itemLabel="#{themes.nombrec}" 
-                                                       itemValue="#{themes.nombrec}"  />
-                                    </p:selectOneMenu>
-                                </div>
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="Usuario"  for="txtUsuario" />
+                                    <p:inputText value="#{inicioBean.usuarioNombre}" required="true"  id="txtUsuario"  requiredMessage="Ingrese un Usuario"/>
 
-                                <div class="form-group">
-                                    <p:outputLabel value="Palabras Clave:" for="themes" />                              
+                                    <p:outputLabel value="Contraseña"  for="txtContra" />
+                                    <p:password value="#{inicioBean.usuarioContra}" required="true"  id="txtContra"  requiredMessage="Ingrese una Contraseña"/>
 
-                                    <p:autoComplete id="themes" multiple="true"  value="#{busquedaBean.temPalabra}"  
-                                                    completeMethod="#{palabraClaveBean.completeTheme}"
-                                                    var="theme" itemLabel="#{theme}" itemValue="#{theme}"  
-                                                    forceSelection="true"  styleClass="ui-autocomplete"   >                                    
-                                    </p:autoComplete>
+                                    <h:column />
+                                    <p:commandButton value="Iniciar Sesion" actionListener="#{ inicioBean.login()}" />
 
+                                </h:panelGrid>
+                                <p:separator />
 
-                                </div>
-
-
-                                <p:commandButton class="btn btn-success" value="Buscar" 
-                                                 action="#{busquedaBean.buscar()}" process="@form, :frm_busqueda:busqueda"  >
-
-                                </p:commandButton> 
+                                <h:link outcome="Registrarse" value="Registrarse" class="btn registroBtn"/>
 
 
                             </h:form>
-                        </div>
+                        </p:dialog>
+                        <!-- /.row -->
+                        <hr />
+                        <!-- Footer -->
+                        <footer>
+                            <div class="row">
+
+                                <div class="col-lg-5">
+                                    <a href="http://www.cultura.gob.sv/muna">www.cultura.gob.sv/muna</a>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p:clock pattern="dd-MM-yyyy hh:mm:ss a" id="reloj_sistema"/>
+                                </div> 
+                                <div class="col-lg-4">
+                                    <div class="pull-right"> 
+                                        Copyright &copy; SEGI 2016
+                                    </div>
+                                </div>
+
+                                <!-- /.col-lg-12 -->
+                            </div>
+                            <!-- /.row -->
+                        </footer>
                     </div>
-                    <!-- Side Widget Well -->
-                </div>
-            </div>
-            <p:dialog header="Iniciar Sesión" widgetVar="login_modal" minHeight="100" modal="true" resizable="false" closeOnEscape="true">
-                <h:form id="form-login">
-
-                    <h:panelGrid columns="2">
-                            <p:outputLabel value="Usuario"  for="txtUsuario" />
-                            <p:inputText value="#{inicioBean.usuarioNombre}" required="true"  id="txtUsuario"  requiredMessage="Ingrese un Usuario"/>
-
-                            <p:outputLabel value="Contraseña"  for="txtContra" />
-                            <p:password value="#{inicioBean.usuarioContra}" required="true"  id="txtContra"  requiredMessage="Ingrese una Contraseña"/>
-                           
-                        <h:column />
-                        <p:commandButton value="Iniciar Sesion" actionListener="#{ inicioBean.login()}" />
-
-                    </h:panelGrid>
-                    <p:separator />
-
-                            <h:link outcome="Registrarse" value="Registrarse" class="btn registroBtn"/>
-
-
-                </h:form>
-            </p:dialog>
-            <!-- /.row -->
-            <hr />
-            <!-- Footer -->
-            <footer>
-                <div class="row">
-
-                    <div class="col-lg-5">
-                        <a href="http://www.cultura.gob.sv/muna">www.cultura.gob.sv/muna</a>
-                    </div>
-                    <div class="col-lg-3">
-                        <p:clock pattern="dd-MM-yyyy hh:mm:ss a" id="reloj_sistema"/>
-                    </div> 
-                    <div class="col-lg-4">
-                        <div class="pull-right"> 
-                            Copyright &copy; SEGI 2016
-                        </div>
-                    </div>
-
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-            </footer>
-        </div>
-        <!-- /.container -->
-    </h:body>
-</html>
+                    <!-- /.container -->
+                </h:body>
+                </html>
