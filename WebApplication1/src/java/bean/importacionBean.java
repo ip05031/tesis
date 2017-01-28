@@ -307,6 +307,7 @@ public class importacionBean implements Serializable {
 
     public void guardarYenviar() {
         /* Copiando Archivos */
+        if(!this.descripcion.isEmpty()){
         String nombreInventado = "Manual.pdf";
         obtenerRevista(this.idRevista);
         String corte[];
@@ -331,7 +332,14 @@ public class importacionBean implements Serializable {
         revista.setArchivopr(nombreRevista);
         new RevistasJPA().mergeTipoUsuario(revista);
         limpiarTodo();
-
+          FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "El sistema a importado su revista espere unos minutos antes de ver en cambio", null);
+                // FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+        }else{
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El resumen es obligatorio no se ingreso la importacion de la revista", null);
+                // FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+        }
     }
 
     public void guardarArticulo() {
@@ -342,7 +350,7 @@ public class importacionBean implements Serializable {
         nombreArticulo = "Articulo-"+numeroRevista+"-"+numeroArticulo+".pdf";
         System.out.println("nombre:"+nombreArticulo);
         copyFile(nombreArticulo, streamArticulo, 3);
-        this.articulo.setResumena(this.resumen);
+    //    this.articulo.setResumena(this.resumen);
         this.articulo.setArchivoa(nombreArticulo);
         new ArticulosJPA().mergeTipoUsuario(this.articulo);
         limpiar2();        
