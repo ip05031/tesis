@@ -17,4 +17,5 @@
     <property name="alternatedocroot_7" value="from=/banner/* dir=C:\us\sistema" />
     <property name="alternatedocroot_8" value="from=/misionVision/* dir=C:\us\sistema" />
     <property name="alternatedocroot_9" value="from=/icon/* dir=C:\us\sistema" />
+    <property name="alternatedocroot_10" value="from=/ayuda/* dir=C:\us\sistema" />
 </glassfish-web-app>
