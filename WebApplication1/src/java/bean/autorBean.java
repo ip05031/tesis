@@ -135,7 +135,11 @@ public class autorBean implements Serializable {
     public void validarCategoria() {
         this.verdad = true;
         autorJPA = new AutorJPA();
-        String autor = this.getNombreautor();
+        String autor="";
+        if(this.getNombreautor()!=null)
+        autor = this.getNombreautor();
+        else
+          autor=this.editarautor.getNombreAutor();
         if (autor.length() > 0) {
             if (autorJPA.searchCategora(autor)) {
                 verdad = false;
