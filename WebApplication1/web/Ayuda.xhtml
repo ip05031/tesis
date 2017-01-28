@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <c:set var="nombre" value="Donaciones" />
+                <c:if test="#{inicioBean.verificarPagina(nombre)}">
+                    <div class="row" >
+                        <div class="col-md-12" >
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Ayuda
+                                    <div class="pull-right">
+
+                                    </div>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <div class="col-md-12" > 
+                                            <h4> Contenido Ayuda </h4>
+                                            <h:form id="frm_table">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <table class="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            #
+                                                                        </th>
+                                                                        <th>
+                                                                            Ayuda sobre
+                                                                        </th>
+                                                                        <th>
+                                                                            Ver PDF
+                                                                        </th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            1
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda adquisición
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf').show();"  update=":verPdf"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr class="active">
+                                                                        <td>
+                                                                            2
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda busqueda
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf2').show();"  update=":verPdf2"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            3
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda contactanos
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf3').show();"  update=":verPdf3"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr class="active">
+                                                                        <td>
+                                                                            4
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda evento
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf4').show();"  update=":verPdf4"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            5
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda importación
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf5').show();"  update=":verPdf5"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <tr class="active">
+                                                                        <td>
+                                                                            6
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda inicio de sesión
+                                                                        </td>
+                                                                       <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf6').show();"  update=":verPdf6"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <tr >
+                                                                        <td>
+                                                                            7
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda inventario
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf7').show();"  update=":verPdf7"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <tr class="active">
+                                                                        <td>
+                                                                            8
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda prestamo
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf8').show();"  update=":verPdf8"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <tr >
+                                                                        <td>
+                                                                            9
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda reportes
+                                                                        </td>
+                                                                       <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf9').show();"  update=":verPdf9"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <tr class="active">
+                                                                        <td>
+                                                                            10
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda revista
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf10').show();"  update=":verPdf10"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>
+                                                                            11
+                                                                        </td>
+                                                                        <td>
+                                                                            Ayuda usuario
+                                                                        </td>
+                                                                        <td>
+                                                                            <p:commandButton icon="ui-icon-zoomin"  title="Ver PDF" oncomplete="PF('verPdf11').show();"  update=":verPdf11"/>
+
+                                                                        </td>
+
+                                                                    </tr>
+
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                            </h:form>
+                                            
+                                             <p:dialog id="verPdf" header="PDF" widgetVar="verPdf" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/adquisición.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            <p:dialog id="verPdf2" header="PDF" widgetVar="verPdf2" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/busqueda.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf3" header="PDF" widgetVar="verPdf3" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/contactanos.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf4" header="PDF" widgetVar="verPdf4" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/evento.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf5" header="PDF" widgetVar="verPdf5" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/importación.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf6" header="PDF" widgetVar="verPdf6" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/sesión.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf7" header="PDF" widgetVar="verPdf7" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/inventario.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf8" header="PDF" widgetVar="verPdf8" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/prestamo.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf9" header="PDF" widgetVar="verPdf9" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/reportes.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                             <p:dialog id="verPdf10" header="PDF" widgetVar="verPdf10" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/revista.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+                                            <p:dialog id="verPdf11" header="PDF" widgetVar="verPdf11" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
+
+                                                <h:form >
+                                                    <iframe src="#{request.contextPath}/ayuda/usuario.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
+
+                                                </h:form>
+                                            </p:dialog>
+                                            
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+
+
+                        </div>
+                    </div>
+                </c:if>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
