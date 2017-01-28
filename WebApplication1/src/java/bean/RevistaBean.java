@@ -340,6 +340,8 @@ public class RevistaBean implements Serializable {
         listaPalabraClaveDestino = arti.getPalabraClaveList();
         this.listaPalabraClave.removeAll(listaPalabraClaveDestino);
         this.listaPalabraClaveModificar = new ArrayList<>();
+        if(arti.getIdAutor().getIdAutor()!=null)
+        this.idAutor=arti.getIdAutor().getIdAutor();
 
     }
 
