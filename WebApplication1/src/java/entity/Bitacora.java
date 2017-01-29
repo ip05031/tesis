@@ -46,7 +46,7 @@ public class Bitacora implements Serializable {
     @Column(name = "tabla")
     private String tabla;
     @Column(name = "fechabitacora")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechabitacora;
     @Size(max = 300)
     @Column(name = "accion")
