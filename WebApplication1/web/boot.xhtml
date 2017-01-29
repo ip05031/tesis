@@ -102,6 +102,9 @@
                                             <a onclick="PF('login_modal').show();" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Iniciar Sesión </a>
                                         </li>
                                     </c:if> 
+                                    <li>
+                                        <img class="ayuda" src="resources/img/ayuda.jpg" alt="ayuda" style="padding-top:12px; height:40px;"/>
+                                    </li>
                                 </ul>
                             </div><!-- /.navbar-collapse -->
                         </div><!-- /.container-fluid -->
@@ -206,7 +209,7 @@
                         </div>
                         <p:dialog header="Iniciar Sesión" widgetVar="login_modal" minHeight="100" modal="true" resizable="false" closeOnEscape="true">
                             <h:form id="form-login">
-                                     <p:growl id="iniiodeusuariosActivos" autoUpdate="true"></p:growl>
+                                    <p:growl id="msjdeiniciodeseccion" autoUpdate="true"></p:growl>
                                 <h:panelGrid columns="2">
                                     <p:outputLabel value="Usuario"  for="txtUsuario" />
                                     <p:inputText value="#{inicioBean.usuarioNombre}" required="true"  id="txtUsuario"  requiredMessage="Ingrese un Usuario"/>
