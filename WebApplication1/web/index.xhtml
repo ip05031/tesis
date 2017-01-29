@@ -657,21 +657,6 @@
                 </div>
 
                 <div class="col-lg-1"></div>
-                <p:dialog id="verPdf" header="PDF" widgetVar="verPdf" minHeight="40" modal="true" resizable="false" hideEffect="fade" >
-                    <h:form >
-                        <div id="cargarPDF" style="display:none;">
-                            <iframe src="#{request.contextPath}/ayuda/usuario.pdf" width="800" height="600" >your browser cannot display this document.</iframe>
-                        </div>
-                    </h:form>
-                </p:dialog>
-                <script>
-                    $(document).on('click', '.ayuda', function (e) {
-                        $("#cargarPDF").show();
-                        PF('verPdf').show();
-                    });
-                </script>
-
-
             </ui:define>
 
         </ui:composition>
