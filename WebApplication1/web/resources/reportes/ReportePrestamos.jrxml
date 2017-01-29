@@ -57,11 +57,11 @@ and prestamo."tipop" = 3]]>
 				<reportElement x="330" y="58" width="36" height="20" uuid="f6db1d03-28b4-47d9-8ef0-8c559f6141e4"/>
 				<text><![CDATA[Hasta:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="229" y="58" width="100" height="20" uuid="8d04112b-78e9-46e9-b0e1-40794ab69461"/>
 				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="367" y="58" width="100" height="20" uuid="10be7081-5e67-4915-aa1e-9d1dc2fa337a"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
@@ -79,7 +79,7 @@ and prestamo."tipop" = 3]]>
 			</staticText>
 			<staticText>
 				<reportElement x="446" y="1" width="100" height="20" uuid="3ac0539b-ab50-4762-8259-7828cc613401"/>
-				<text><![CDATA[prestamo_fechap]]></text>
+				<text><![CDATA[Fecha de Prestamo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="303" y="1" width="100" height="20" uuid="b4fc9dae-1e70-4cfc-915f-1f2450373d4d"/>
@@ -97,7 +97,7 @@ and prestamo."tipop" = 3]]>
 				<reportElement x="9" y="0" width="100" height="20" uuid="f3c60c37-d804-46a1-bdea-b34bda958742"/>
 				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="446" y="0" width="100" height="20" uuid="f0879794-f8b1-40d1-b4a3-ff5dcb56e649"/>
 				<textFieldExpression><![CDATA[$F{prestamo_fechap}]]></textFieldExpression>
 			</textField>
