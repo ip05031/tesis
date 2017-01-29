@@ -1,6 +1,7 @@
 package bean;
 
 import controller.ArticulosJPA;
+import controller.AutorJPA;
 import controller.PalabrasClavesJPA;
 import controller.RevistasJPA;
 import controller.TituloJPA;
@@ -525,6 +526,57 @@ public class RevistaBean implements Serializable {
 
     public void setIdAutor(Integer idAutor) {
         this.idAutor = idAutor;
+    }
+    private String nombreautor;
+    private Autor autor;
+    private Boolean verdad5;
+
+    public void guardarautor() {
+        validaraAutor();
+        if (this.verdad5) {
+            Autor autor = new Autor();
+            autor.setNombreAutor(nombreautor);
+            AutorJPA autorJPA = new AutorJPA();
+            idAutor = autorJPA.aumentarIdautor() + 1;
+            autor.setIdAutor(idAutor);
+            autorJPA.guardarautorJPA(autor);
+            nombreautor = "";
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Almacenado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext.getCurrentInstance().execute("PF('ingresarAutor').hide();");
+        }
+    }
+
+    public void validaraAutor() {
+        this.verdad5 = true;
+        AutorJPA autorJPA = new AutorJPA();
+        String autor = "";
+        if (this.getNombreautor() != null) {
+            autor = this.getNombreautor();
+        }
+        if (autor.length() > 0) {
+            if (autorJPA.searchCategora(autor)) {
+                verdad5 = false;
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡EL nombre del autor esta asignado!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        }
+    }
+
+    public String getNombreautor() {
+        return nombreautor;
+    }
+
+    public void setNombreautor(String nombreautor) {
+        this.nombreautor = nombreautor;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 
 }

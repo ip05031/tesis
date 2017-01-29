@@ -307,7 +307,7 @@
                                                                              value="#{revistaBean.idAutor}"
                                                                              panelStyle="width:180px"
                                                                              effect="fade"
-                                                                             style="width:100%"
+                                                                             style="width:90%"
                                                                              filter="true" 
                                                                              filterMatchMode="startsWith" >                                                            
                                                                 <f:selectItems value="#{autorBean.getir()}" 
@@ -315,7 +315,11 @@
                                                                                itemLabel="#{themeas.nombreAutor }" 
                                                                                itemValue="#{themeas.idAutor}" />
 
-                                                            </p:selectOneMenu>                                                        
+                                                            </p:selectOneMenu>
+                                                            <p:commandButton icon="ui-icon-plus" title="Agregar Autor"  immediate="true"                                                                     
+                                                                             class="btn btn-danger"  onclick="PF('ingresarAutor').show();" 
+                                                                             style="margin-bottom: 20px">                                                        
+                                                            </p:commandButton>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="Palabralave">
@@ -433,9 +437,9 @@
                                                             </label>
                                                             <p:selectOneMenu id="autorIdMo"
                                                                              value="#{revistaBean.idAutor}"
-                                                                             panelStyle="width:180px"
+                                                                             panelStyle="width:150px"
                                                                              effect="fade"
-                                                                             style="width:100%"
+                                                                             style="width:90%"
                                                                              filter="true" 
                                                                              filterMatchMode="startsWith" >                                                            
                                                                 <f:selectItems value="#{autorBean.getir()}" 
@@ -444,6 +448,10 @@
                                                                                itemValue="#{themeass.idAutor}" />
 
                                                             </p:selectOneMenu>
+                                                            <p:commandButton icon="ui-icon-plus" title="Agregar Autor"  immediate="true"                                                                     
+                                                                             class="btn btn-danger"  onclick="PF('ingresarAutor').show();" 
+                                                                             style="margin-bottom: 20px">                                                        
+                                                            </p:commandButton>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="Palabralave">
@@ -783,6 +791,29 @@
                                                 </p:panel>
                                             </h:form>    
                                         </p:dialog>
+                                        
+                                         <p:dialog widgetVar="ingresarAutor" header="Autor" minHeight="40" modal="true" resizable="false">
+                                                <h:form id="newpantpal12" >
+                                                    <p:panel id="panel18" header="Registrar Autor" >
+
+
+                                                        <div class="form-group">
+                                                            <label for="nombrea3"> Nombre de Autor: </label>
+
+                                                            <p:inputText id="nombrea3" value="#{revistaBean.nombreautor}" class="form-control" required="true"
+                                                                         label="Autor" onkeypress="return soloLetras(event)" requiredMessage="Es obligatorio">
+                                                                <f:ajax event="change" listener="#{revistaBean.validaraAutor()}" /> 
+                                                                <f:ajax event="keyup" listener="#{revistaBean.validaraAutor()}" /> 
+                                                                <f:validateRequired />
+                                                            </p:inputText>
+                                                            <p:messages for="nombrea3" />
+                                                        </div>
+
+                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.guardarautor()}"  update=":articuloCrMod:autorIdMo, :articuloCr:autorId ,newpantpal12"/>
+                                                        <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarAutor').hide();" immediate="true"/>
+                                                    </p:panel>
+                                                </h:form>    
+                                            </p:dialog>
 
                                     </div>
                                 </div>
