@@ -51,7 +51,7 @@ public class Articulo implements Serializable {
     @Size(max = 250)
     @Column(name = "tituloa")
     private String tituloa;
-    @Size(max = 500)
+    @Size(max = 1200)
     @Column(name = "resumena")
     private String resumena;
     @Size(max = 250)

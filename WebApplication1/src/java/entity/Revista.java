@@ -75,7 +75,7 @@ public class Revista implements Serializable {
     @Size(max = 250)
     @Column(name = "archivopr")
     private String archivopr;
-    @Size(max = 250)
+    @Size(max = 1200)
     @Column(name = "descripcionr")
     private String descripcionr;
     @Column(name = "fechaingresor")
