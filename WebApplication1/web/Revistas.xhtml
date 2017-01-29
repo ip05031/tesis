@@ -290,7 +290,7 @@
                                                   minHeight="40" modal="true" resizable="false" width="40%" >
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="articuloCr" >
-                                                    <p:panel id="panel4"  >
+                                                    
                                                         <p:messages id="msgs4" for="msgs4" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="TituloArticulo">
@@ -307,7 +307,7 @@
                                                                              value="#{revistaBean.idAutor}"
                                                                              panelStyle="width:180px"
                                                                              effect="fade"
-                                                                             style="width:90%"
+                                                                             style="width:70%"
                                                                              filter="true" 
                                                                              filterMatchMode="startsWith" >                                                            
                                                                 <f:selectItems value="#{autorBean.getir()}" 
@@ -411,7 +411,7 @@
                                                             <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloCrear').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
 
                                                         </div>
-                                                    </p:panel>
+                                                    
                                                 </h:form>  
                                             </p:scrollPanel>
 
@@ -422,7 +422,7 @@
                                                   minHeight="40" modal="true" resizable="false" width="40%" >
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="articuloCrMod" >
-                                                    <p:panel id="panel3"  >
+                                                    
                                                         <p:messages id="msgs3" for="msgs3" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="TituloArticuloM">
@@ -437,9 +437,9 @@
                                                             </label>
                                                             <p:selectOneMenu id="autorIdMo"
                                                                              value="#{revistaBean.idAutor}"
-                                                                             panelStyle="width:150px"
+                                                                             panelStyle="width:180px"
                                                                              effect="fade"
-                                                                             style="width:90%"
+                                                                             style="width:70%"
                                                                              filter="true" 
                                                                              filterMatchMode="startsWith" >                                                            
                                                                 <f:selectItems value="#{autorBean.getir()}" 
@@ -542,7 +542,7 @@
                                                             <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloModificar').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
 
                                                         </div>
-                                                    </p:panel>
+                                                    
                                                 </h:form>   
                                             </p:scrollPanel>
 
