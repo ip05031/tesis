@@ -131,7 +131,7 @@
                                             <div class="panel-body">
                                                 <div class="input-group">
                                                     <p:inputText id="busqueda" value="#{busquedaBean.studentId}" class="form-control" >
-
+                                                        <f:ajax event="keyup" execute="@this" /> 
                                                     </p:inputText>
                                                     <span class="input-group-btn">
                                                         <p:commandButton class="btn btn-default" icon="ui-icon-search" action="#{busquedaBean.buscarSimple()}"  style="height: 34px" >
