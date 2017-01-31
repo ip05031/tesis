@@ -7,8 +7,8 @@
 	<parameter name="date_desde" class="java.util.Date"/>
 	<parameter name="date_hasta" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[SELECT   sum(visitas."cantidadv") AS visitas_cantidad,to_char(visitas."fechav", 'Mon')  AS visitas_mes, to_char(visitas."fechav", 'YYYY') AS visitas_año
-  FROM "public"."visitas" Where visitas."fechav" between $P{date_desde} and $P{date_hasta} GROUP BY to_char(visitas."fechav", 'Mon'), to_char(visitas."fechav", 'YYYY');]]>
+		<![CDATA[SELECT   sum(visitas."cantidadv") AS visitas_cantidad,to_char(visitas."fechav", 'MM')  AS visitas_mes, to_char(visitas."fechav", 'YYYY') AS visitas_año
+  FROM "public"."visitas" Where visitas."fechav" between $P{date_desde} and $P{date_hasta} GROUP BY to_char(visitas."fechav", 'MM'), to_char(visitas."fechav", 'YYYY');]]>
 	</queryString>
 	<field name="visitas_cantidad" class="java.lang.Long"/>
 	<field name="visitas_mes" class="java.lang.String"/>
@@ -82,7 +82,7 @@
 			</textField>
 			<textField>
 				<reportElement x="259" y="3" width="100" height="20" uuid="f0f123ee-ba2c-476a-81ff-fa9ae43873c0"/>
-				<textFieldExpression><![CDATA[$F{visitas_mes}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{visitas_mes}).equals("01")  ? "ENERO" : ( $F{visitas_mes}).equals("02")  ? "FEBRERO" :  ( $F{visitas_mes}).equals("03")  ? "MARZO" : ( $F{visitas_mes}).equals("04")  ? "ABRIL" : ( $F{visitas_mes}).equals("05")  ? "MAYO" : ( $F{visitas_mes}).equals("06")  ? "JUNIO" : ( $F{visitas_mes}).equals("07")  ? "JULIO" : ( $F{visitas_mes}).equals("08")  ? "AGOSTO" : ( $F{visitas_mes}).equals("09")  ? "SEPTIEMBRE" : ( $F{visitas_mes}).equals("10")  ? "OCTUBRE" : ( $F{visitas_mes}).equals("11")  ? "NOVIEMBRE" : ( $F{visitas_mes}).equals("12")  ? "DICIEMBRE" : "ERROR"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

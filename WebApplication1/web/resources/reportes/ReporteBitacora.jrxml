@@ -17,7 +17,7 @@ WHERE  bitacora."fechabitacora"
 between $P{date_desde} and $P{date_hasta}]]>
 	</queryString>
 	<field name="bitacora_tabla" class="java.lang.String"/>
-	<field name="bitacora_fechabitacora" class="java.sql.Date"/>
+	<field name="bitacora_fechabitacora" class="java.sql.Timestamp"/>
 	<field name="bitacora_accion" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
