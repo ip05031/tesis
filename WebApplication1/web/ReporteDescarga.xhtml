@@ -24,10 +24,10 @@
                                 <div class="panel-heading">
                                     <i class="fa fa-bar-chart-o fa-fw"></i> Reporte
                                     <div class="pull-right">
-                                    <h:form >
-                                         
-                                         <h:link outcome="Reporte" value="Regresar a Reportes" class="btn btn-success btn-xs "/>
-                                    </h:form>
+                                        <h:form >
+
+                                            <h:link outcome="Reporte" value="Regresar a Reportes" class="btn btn-success btn-xs "/>
+                                        </h:form>
                                         <div class="btn-group">
                                         </div>
                                     </div>
@@ -38,10 +38,20 @@
                                         <div class="col-md-12" > 
                                             <h4 align="Center"> MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN </h4>
                                             <h5 align="Center"> Reporte de Descargas de Revistas </h5>
-                                            
-                                              <div class="form-group" align="center">
+
+                                            <div class="form-group" align="center">
                                                 <h:form id="frm_table">
                                                     <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                    
+                                                    <h:outputText value="Detalle de reporte: " />
+                                                    <p:selectOneButton value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                        <f:selectItem itemLabel="Agrupadas por revista" itemValue="todas" />
+                                                        <f:selectItem itemLabel="Diarias" itemValue="diarias" />
+
+                                                    </p:selectOneButton>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <br></br>
 
 
                                                     <h:outputLabel value="Fecha Inicial" for="finicial"/>
