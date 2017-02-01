@@ -131,7 +131,8 @@ public class RevistasJPA {
             try {
                 if (!titulo.isEmpty()) {
                     i = 1;
-                    dato = dato + " t.tituloRevista LIKE '%" + titulo + "%'";
+                    titulo=titulo.toUpperCase();
+                    dato = dato + " UPPER(t.tituloRevista) LIKE '%" + titulo + "%'";
                 }
             } catch (Exception e) {
             }
@@ -150,7 +151,8 @@ public class RevistasJPA {
                     if (i != 0) {
                         dato = dato + " AND ";
                     }
-                    dato = dato + " a.tituloa LIKE '%" + tituloArticulo + "%'";
+                    tituloArticulo = tituloArticulo.toUpperCase();
+                    dato = dato + " UPPER(a.tituloa) LIKE '%" + tituloArticulo + "%'";
                     i = 1;
                 }
             } catch (Exception e) {
@@ -160,7 +162,8 @@ public class RevistasJPA {
                     if (i != 0) {
                         dato = dato + " AND ";
                     }
-                    dato = dato + " au.nombreAutor LIKE '%" + autor + "%'";
+                    autor = autor.toUpperCase();
+                    dato = dato + " UPPER(au.nombreAutor) LIKE '%" + autor + "%'";
                     i = 1;
                 }
             } catch (Exception e) {

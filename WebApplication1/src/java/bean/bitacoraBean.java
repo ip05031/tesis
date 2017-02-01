@@ -104,14 +104,14 @@ public class bitacoraBean implements Serializable {
 
     public void guardarbitacora(String tabla, String accion) {
 
-        Date fecha;
+        Date fecha= new Date();
         bitacora = new Bitacora();
         bitacoraJPA = new BitacoraJPA();
         BigInteger idNuevo = new BigInteger("0");
-        Calendar calendario = GregorianCalendar.getInstance();
+       // Calendar calendario = GregorianCalendar.getInstance();
         
         idNuevo = bitacoraJPA.getClave();
-        fecha = calendario.getTime();
+       // fecha = calendario.getTime();
       
         bitacora.setIdBitacora(idNuevo);
         bitacora.setFechabitacora(fecha);

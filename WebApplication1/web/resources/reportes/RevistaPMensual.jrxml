@@ -10,7 +10,7 @@
 		<![CDATA[SELECT
      usuario."nombreu" AS usuario_nombreu,
      revista."titulor" AS revista_titulor,
-     revista."fechapr" AS revista_fechapr,
+     revista."fechaingresor" AS revista_fechapr,
      categoria."nombrec" AS categoria_nombrec,
      tipo_usuario."nombretp" AS tipo_usuario_nombretp,
      titulo."titulo_revista" AS titulo_titulo_revista
@@ -21,7 +21,7 @@ FROM
      INNER JOIN "public"."posee" posee ON revista."id_revista" = posee."id_revista"
      INNER JOIN "public"."titulo" titulo ON revista."id_titulo" = titulo."id_titulo"
      INNER JOIN "public"."categoria" categoria ON posee."id_categoria" = categoria."id_categoria"
-WHERE revista."fechapr"
+WHERE revista."fechaingresor"
 between $P{date_desde} and $P{date_hasta}]]>
 	</queryString>
 	<field name="usuario_nombreu" class="java.lang.String"/>
@@ -75,7 +75,7 @@ between $P{date_desde} and $P{date_hasta}]]>
 		<band height="34" splitType="Stretch">
 			<staticText>
 				<reportElement x="147" y="11" width="100" height="20" uuid="d6f80355-be2b-49e2-825f-245e4dc59e56"/>
-				<text><![CDATA[Titulo de Revista]]></text>
+				<text><![CDATA[Volumen]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="296" y="11" width="61" height="20" uuid="a7a6bb96-7517-4ee8-a3e9-826294f44b1b"/>
@@ -87,7 +87,7 @@ between $P{date_desde} and $P{date_hasta}]]>
 			</staticText>
 			<staticText>
 				<reportElement x="20" y="11" width="100" height="20" uuid="2177803c-af29-4ad4-8767-d4ec9883a495"/>
-				<text><![CDATA[titulo_titulo_revista]]></text>
+				<text><![CDATA[Titulo de Revista]]></text>
 			</staticText>
 		</band>
 	</columnHeader>

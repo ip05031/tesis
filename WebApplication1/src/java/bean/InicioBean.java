@@ -410,8 +410,8 @@ public class InicioBean implements Serializable {
                 return "index?facesRedirect=true";
             } else {
                 System.out.println("error ...");
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario y/o Contraseña Incorrectos!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Usuario y/o Contraseña Incorrectos!", null);
+                FacesContext.getCurrentInstance().addMessage("Message456", message);
                 this.setInicioSesion(false);
                 //redirigir();
                 return "Login?facesRedirect=true";

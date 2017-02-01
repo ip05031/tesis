@@ -178,7 +178,7 @@
                                                             <label for="issnCt">
                                                                 ISSN: 
                                                             </label>
-                                                            <p:inputMask id="issnCt"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true" requiredMessage="Es obligatorio" />
+                                                            <p:inputMask id="issnCt"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-9999" required="true" requiredMessage="Es obligatorio" />
                                                             <p:message for="issnCt" />
                                                         </div>
                                                         <div class="form-group">
@@ -290,7 +290,7 @@
                                                   minHeight="40" modal="true" resizable="false" width="40%" >
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="articuloCr" >
-                                                    <p:panel id="panel4"  >
+                                                    
                                                         <p:messages id="msgs4" for="msgs4" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="TituloArticulo">
@@ -307,7 +307,7 @@
                                                                              value="#{revistaBean.idAutor}"
                                                                              panelStyle="width:180px"
                                                                              effect="fade"
-                                                                             style="width:100%"
+                                                                             style="width:70%"
                                                                              filter="true" 
                                                                              filterMatchMode="startsWith" >                                                            
                                                                 <f:selectItems value="#{autorBean.getir()}" 
@@ -315,7 +315,11 @@
                                                                                itemLabel="#{themeas.nombreAutor }" 
                                                                                itemValue="#{themeas.idAutor}" />
 
-                                                            </p:selectOneMenu>                                                        
+                                                            </p:selectOneMenu>
+                                                            <p:commandButton icon="ui-icon-plus" title="Agregar Autor"  immediate="true"                                                                     
+                                                                             class="btn btn-danger"  onclick="PF('ingresarAutor').show();" 
+                                                                             style="margin-bottom: 20px">                                                        
+                                                            </p:commandButton>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="Palabralave">
@@ -396,7 +400,7 @@
                                                                 <label for="resumen">
                                                                     Resumen:
                                                                 </label>
-                                                                <p:inputTextarea id="resumen" class="form-control" addLine="4"  maxlength="500" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
+                                                                <p:inputTextarea id="resumen" class="form-control" addLine="4"  maxlength="1200" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -407,7 +411,7 @@
                                                             <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloCrear').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
 
                                                         </div>
-                                                    </p:panel>
+                                                    
                                                 </h:form>  
                                             </p:scrollPanel>
 
@@ -418,7 +422,7 @@
                                                   minHeight="40" modal="true" resizable="false" width="40%" >
                                             <p:scrollPanel mode="native" style="height:400px">
                                                 <h:form id="articuloCrMod" >
-                                                    <p:panel id="panel3"  >
+                                                    
                                                         <p:messages id="msgs3" for="msgs3" showDetail="true" autoUpdate="true" closable="true" escape="true" />
                                                         <div class="form-group">
                                                             <label for="TituloArticuloM">
@@ -435,7 +439,7 @@
                                                                              value="#{revistaBean.idAutor}"
                                                                              panelStyle="width:180px"
                                                                              effect="fade"
-                                                                             style="width:100%"
+                                                                             style="width:70%"
                                                                              filter="true" 
                                                                              filterMatchMode="startsWith" >                                                            
                                                                 <f:selectItems value="#{autorBean.getir()}" 
@@ -444,6 +448,10 @@
                                                                                itemValue="#{themeass.idAutor}" />
 
                                                             </p:selectOneMenu>
+                                                            <p:commandButton icon="ui-icon-plus" title="Agregar Autor"  immediate="true"                                                                     
+                                                                             class="btn btn-danger"  onclick="PF('ingresarAutor').show();" 
+                                                                             style="margin-bottom: 20px">                                                        
+                                                            </p:commandButton>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="Palabralave">
@@ -523,7 +531,7 @@
                                                                 <label for="resumen2">
                                                                     Resumen:
                                                                 </label>
-                                                                <p:inputTextarea id="resumen2" class="form-control" addLine="4" maxlength="500" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
+                                                                <p:inputTextarea id="resumen2" class="form-control" addLine="4" maxlength="1200" value="#{revistaBean.articulo.resumena}" ></p:inputTextarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -534,7 +542,7 @@
                                                             <p:commandButton class="btn btn-danger pull-right" value="Cancelar"  immediate="true"  oncomplete="PF('articuloModificar').hide();" process="@this" update="@form" action="#{revistaBean.clearArticulo()}"/>
 
                                                         </div>
-                                                    </p:panel>
+                                                    
                                                 </h:form>   
                                             </p:scrollPanel>
 
@@ -632,7 +640,7 @@
                                                             <label for="issnC">
                                                                 ISSN: 
                                                             </label>
-                                                            <p:inputMask id="issnC"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-999" required="true" requiredMessage="El ISSN es Obligatorio"/> 
+                                                            <p:inputMask id="issnC"  value="#{revistaBean.revista.issn}" class="form-control"  mask="9999-9999" required="true" requiredMessage="El ISSN es Obligatorio"/> 
                                                             <p:messages for="issnC" />
                                                         </div>
                                                         <div class="form-group">
@@ -783,6 +791,29 @@
                                                 </p:panel>
                                             </h:form>    
                                         </p:dialog>
+                                        
+                                         <p:dialog widgetVar="ingresarAutor" header="Autor" minHeight="40" modal="true" resizable="false">
+                                                <h:form id="newpantpal12" >
+                                                    <p:panel id="panel18" header="Registrar Autor" >
+
+
+                                                        <div class="form-group">
+                                                            <label for="nombrea3"> Nombre de Autor: </label>
+
+                                                            <p:inputText id="nombrea3" value="#{revistaBean.nombreautor}" class="form-control" required="true"
+                                                                         label="Autor" onkeypress="return soloLetras(event)" requiredMessage="Es obligatorio">
+                                                                <f:ajax event="change" listener="#{revistaBean.validaraAutor()}" /> 
+                                                                <f:ajax event="keyup" listener="#{revistaBean.validaraAutor()}" /> 
+                                                                <f:validateRequired />
+                                                            </p:inputText>
+                                                            <p:messages for="nombrea3" />
+                                                        </div>
+
+                                                        <p:commandButton class="btn btn-success pull-right" value="Guardar" action="#{revistaBean.guardarautor()}"  update=":articuloCrMod:autorIdMo, :articuloCr:autorId ,newpantpal12"/>
+                                                        <p:commandButton class="btn btn-danger btn-xs" value="Cancelar"  onclick="PF('ingresarAutor').hide();" immediate="true"/>
+                                                    </p:panel>
+                                                </h:form>    
+                                            </p:dialog>
 
                                     </div>
                                 </div>

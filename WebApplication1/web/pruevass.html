@@ -548,11 +548,6 @@ and open the template in the editor.
                 <ol class="Chartjs-legend" id="legend-2-container"></ol>
             </div>
             <div class="Chartjs">
-                <h3>Top Navegadores (Por pagina vista)</h3>
-                <figure class="Chartjs-figure" id="chart-3-container"></figure>
-                <ol class="Chartjs-legend" id="legend-3-container"></ol>
-            </div>
-            <div class="Chartjs">
                 <h3>Principales pa&iacute;ses (Por Sesiones)</h3>
                 <figure class="Chartjs-figure" id="chart-4-container"></figure>
                 <ol class="Chartjs-legend" id="legend-4-container"></ol>
@@ -886,8 +881,7 @@ and open the template in the editor.
 
                         // Render all the of charts for this view.
                         renderWeekOverWeekChart(data.ids);
-                        renderYearOverYearChart(data.ids);
-                        renderTopBrowsersChart(data.ids);
+                        renderYearOverYearChart(data.ids);                        
                         renderTopCountriesChart(data.ids);
                     });
 
@@ -940,7 +934,7 @@ and open the template in the editor.
                                 labels: labels,
                                 datasets: [
                                     {
-                                        label: 'Last Week',
+                                        label: 'Semana Pasada',
                                         fillColor: 'rgba(220,220,220,0.5)',
                                         strokeColor: 'rgba(220,220,220,1)',
                                         pointColor: 'rgba(220,220,220,1)',
@@ -948,7 +942,7 @@ and open the template in the editor.
                                         data: data2
                                     },
                                     {
-                                        label: 'This Week',
+                                        label: 'Esta Semana',
                                         fillColor: 'rgba(151,187,205,0.5)',
                                         strokeColor: 'rgba(151,187,205,1)',
                                         pointColor: 'rgba(151,187,205,1)',
@@ -999,8 +993,8 @@ and open the template in the editor.
                             var data2 = results[1].rows.map(function (row) {
                                 return +row[2];
                             });
-                            var labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                            var labels = ['Ene', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
                             // Ensure the data arrays are at least as long as the labels array.
                             // Chart.js bar charts don't (yet) accept sparse datasets.
@@ -1015,13 +1009,13 @@ and open the template in the editor.
                                 labels: labels,
                                 datasets: [
                                     {
-                                        label: 'Last Year',
+                                        label: 'A&ntilde;o pasado',
                                         fillColor: 'rgba(220,220,220,0.5)',
                                         strokeColor: 'rgba(220,220,220,1)',
                                         data: data2
                                     },
                                     {
-                                        label: 'This Year',
+                                        label: 'Este A&ntilde;o',
                                         fillColor: 'rgba(151,187,205,0.5)',
                                         strokeColor: 'rgba(151,187,205,1)',
                                         data: data1

@@ -1,6 +1,7 @@
 package bean;
 
 import controller.ArticulosJPA;
+import controller.AutorJPA;
 import controller.PalabrasClavesJPA;
 import controller.RevistasJPA;
 import controller.TituloJPA;
@@ -50,6 +51,7 @@ public class RevistaBean implements Serializable {
     FacesContext context = FacesContext.getCurrentInstance();
     Usuario user = new Usuario();
     private Boolean exitencia;
+    private Boolean exite2;
 
     public RevistaBean() {
         this.idTitulo = new Titulo();
@@ -219,12 +221,6 @@ public class RevistaBean implements Serializable {
         this.idDonacion = -1;
         this.idTitulo.setIdTitulo(1);
         revista = revis;
-        FacesContext context2 = FacesContext.getCurrentInstance();
-        Usuario user2 = (Usuario) context2.getExternalContext().getSessionMap().get("logueado");
-        String accion = " Modificó de datos de Revista por el Usuario " + user2.getIdUsuario();
-        String tabla = "Revista";
-        new bitacoraBean().guardarbitacora(tabla, accion);
-
         this.categoria = revis.getCategoriaList().get(0);
         this.listaArticulos = revis.getArticuloList();
         try {
@@ -339,6 +335,9 @@ public class RevistaBean implements Serializable {
         listaPalabraClaveDestino = arti.getPalabraClaveList();
         this.listaPalabraClave.removeAll(listaPalabraClaveDestino);
         this.listaPalabraClaveModificar = new ArrayList<>();
+        if (arti.getIdAutor().getIdAutor() != null) {
+            this.idAutor = arti.getIdAutor().getIdAutor();
+        }
 
     }
 
@@ -383,11 +382,13 @@ public class RevistaBean implements Serializable {
     }
 
     public void validarPalabra() {
+        this.exite2 = true;
         PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
         String palabra = this.getNombrepalabra();
         if (palabra.length() > 0) {
 
             if (palabraJPA.searchPalabra(palabra)) {
+                this.exite2 = false;
                 //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Esa palabra ya está registrada"));
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esa palabra ya está registrada", null);
                 // FacesContext.getCurrentInstance().addMessage(null, message);
@@ -413,20 +414,23 @@ public class RevistaBean implements Serializable {
     }
 
     public void guardarpc() {
-        PalabraClave pc = new PalabraClave();
-        PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
-        pc.setIdPalabra(palabraJPA.aumentarIdpalabra() + 1);
-        pc.setNombrep(nombrepalabra);
-        palabraJPA.guardarpcJPA(pc);
-        nombrepalabra = "";
-        listaPalabraClave.clear();
-        PalabrasClavesJPA jpaPalabra = new PalabrasClavesJPA();
-        listaPalabraClave = jpaPalabra.getPalabraClave();
-        this.listaPalabraClave.removeAll(listaPalabraClaveDestino);
-        this.listaPalabraClaveModificar = new ArrayList<>();
-        RequestContext.getCurrentInstance().execute("PF('ingresarPalabra').hide();");
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        this.validarPalabra();
+        if (this.exite2) {
+            PalabraClave pc = new PalabraClave();
+            PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
+            pc.setIdPalabra(palabraJPA.aumentarIdpalabra() + 1);
+            pc.setNombrep(nombrepalabra);
+            palabraJPA.guardarpcJPA(pc);
+            nombrepalabra = "";
+            listaPalabraClave.clear();
+            PalabrasClavesJPA jpaPalabra = new PalabrasClavesJPA();
+            listaPalabraClave = jpaPalabra.getPalabraClave();
+            this.listaPalabraClave.removeAll(listaPalabraClaveDestino);
+            this.listaPalabraClaveModificar = new ArrayList<>();
+            RequestContext.getCurrentInstance().execute("PF('ingresarPalabra').hide();");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
 
     }
 
@@ -471,6 +475,11 @@ public class RevistaBean implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('dlg2').hide()");
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Almacenada exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage("msgs5", message);
+        FacesContext context4 = FacesContext.getCurrentInstance();
+        Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+        String accion = "Se Modifico la Revista: " + revista.getIdTitulo().getTituloRevista() + " " + revista.getTitulor() + " por el usuario = " + user4.getIdUsuario();
+        String tabla = "Revista";
+        new bitacoraBean().guardarbitacora(tabla, accion);
 
     }
 
@@ -494,7 +503,9 @@ public class RevistaBean implements Serializable {
 
     public void eliminar(Revista revis) {
         jpaRevista = new RevistasJPA();
-        String accion = "" + user.getNickname() + "Eliminó la Revista: " + revis.getIdTitulo().getTituloRevista() + " " + revis.getTitulor();
+        FacesContext context4 = FacesContext.getCurrentInstance();
+        Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
+        String accion = "Eliminó la Revista: " + revis.getIdTitulo().getTituloRevista() + " " + revis.getTitulor() + " por el usuario = " + user4.getIdUsuario();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
         jpaRevista.deleteTipoUsuario(revis);
@@ -515,6 +526,57 @@ public class RevistaBean implements Serializable {
 
     public void setIdAutor(Integer idAutor) {
         this.idAutor = idAutor;
+    }
+    private String nombreautor;
+    private Autor autor;
+    private Boolean verdad5;
+
+    public void guardarautor() {
+        validaraAutor();
+        if (this.verdad5) {
+            Autor autor = new Autor();
+            autor.setNombreAutor(nombreautor);
+            AutorJPA autorJPA = new AutorJPA();
+            idAutor = autorJPA.aumentarIdautor() + 1;
+            autor.setIdAutor(idAutor);
+            autorJPA.guardarautorJPA(autor);
+            nombreautor = "";
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Almacenado exitosamente!", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            RequestContext.getCurrentInstance().execute("PF('ingresarAutor').hide();");
+        }
+    }
+
+    public void validaraAutor() {
+        this.verdad5 = true;
+        AutorJPA autorJPA = new AutorJPA();
+        String autor = "";
+        if (this.getNombreautor() != null) {
+            autor = this.getNombreautor();
+        }
+        if (autor.length() > 0) {
+            if (autorJPA.searchCategora(autor)) {
+                verdad5 = false;
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡EL nombre del autor esta asignado!", null);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        }
+    }
+
+    public String getNombreautor() {
+        return nombreautor;
+    }
+
+    public void setNombreautor(String nombreautor) {
+        this.nombreautor = nombreautor;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 
 }

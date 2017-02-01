@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -57,6 +58,7 @@ public class TipoUsuario implements Serializable {
         @JoinColumn(name = "id_tusuario", referencedColumnName = "id_tusuario")}, inverseJoinColumns = {
         @JoinColumn(name = "id_pantalla", referencedColumnName = "id_pantalla")})
     @ManyToMany
+    @OrderBy
     private List<Pantalla> pantallaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTusuario")
     private List<Usuario> usuarioList;

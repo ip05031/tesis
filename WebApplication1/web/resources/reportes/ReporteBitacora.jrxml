@@ -17,7 +17,7 @@ WHERE  bitacora."fechabitacora"
 between $P{date_desde} and $P{date_hasta}]]>
 	</queryString>
 	<field name="bitacora_tabla" class="java.lang.String"/>
-	<field name="bitacora_fechabitacora" class="java.sql.Date"/>
+	<field name="bitacora_fechabitacora" class="java.sql.Timestamp"/>
 	<field name="bitacora_accion" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -46,11 +46,11 @@ between $P{date_desde} and $P{date_hasta}]]>
 				<reportElement x="195" y="53" width="43" height="20" uuid="72d85a0c-3510-4cca-a45a-152345de6cca"/>
 				<text><![CDATA[Desde:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="239" y="53" width="100" height="20" uuid="6f416b02-7fd8-4d22-9fc9-28cdc3055906"/>
 				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="379" y="53" width="100" height="20" uuid="6165096f-7033-4744-9271-10390d9ec9f2"/>
 				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
@@ -63,15 +63,15 @@ between $P{date_desde} and $P{date_hasta}]]>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement x="25" y="2" width="100" height="20" uuid="e9f05d9e-4a63-443c-865a-9d96bb150bcb"/>
+				<reportElement x="15" y="2" width="100" height="20" uuid="e9f05d9e-4a63-443c-865a-9d96bb150bcb"/>
 				<text><![CDATA[Tabla Afectada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="238" y="2" width="100" height="20" uuid="778327f9-cbc9-4493-aa79-81893d9b6c4e"/>
+				<reportElement x="130" y="2" width="100" height="20" uuid="778327f9-cbc9-4493-aa79-81893d9b6c4e"/>
 				<text><![CDATA[Accion Realizada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="2" width="100" height="20" uuid="0fd62786-f9b6-48e5-aff0-00096f2113ef"/>
+				<reportElement x="444" y="2" width="100" height="20" uuid="0fd62786-f9b6-48e5-aff0-00096f2113ef"/>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 		</band>
@@ -79,15 +79,15 @@ between $P{date_desde} and $P{date_hasta}]]>
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="25" y="3" width="100" height="20" uuid="5269311b-5deb-45e6-8cf9-8ad3ea95eeb9"/>
+				<reportElement x="15" y="3" width="100" height="20" uuid="5269311b-5deb-45e6-8cf9-8ad3ea95eeb9"/>
 				<textFieldExpression><![CDATA[$F{bitacora_tabla}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="238" y="0" width="100" height="20" uuid="48e9e979-fab5-4592-975e-2f6ed5942dbd"/>
+				<reportElement x="131" y="3" width="298" height="20" uuid="48e9e979-fab5-4592-975e-2f6ed5942dbd"/>
 				<textFieldExpression><![CDATA[$F{bitacora_accion}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="418" y="0" width="100" height="20" uuid="d14034c5-3c4c-4289-98a1-ec4bde76a49d"/>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="444" y="0" width="100" height="20" uuid="d14034c5-3c4c-4289-98a1-ec4bde76a49d"/>
 				<textFieldExpression><![CDATA[$F{bitacora_fechabitacora}]]></textFieldExpression>
 			</textField>
 		</band>

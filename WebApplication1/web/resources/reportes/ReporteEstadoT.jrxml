@@ -9,28 +9,23 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
+     count(*) AS cuantos,
      estado."nombre_estado" AS estado_nombre_estado,
      revista."titulor" AS revista_titulor,
-     tipo_usuario."nombretp" AS tipo_usuario_nombretp,
-     titulo."titulo_revista" AS titulo_titulo_revista,
-     usuario."nombreu" AS usuario_nombreu,
-     usuario."apellidosu" AS usuario_apellidosu,
-     inventario."existenciai" AS inventario_existenciai
+     titulo."titulo_revista" AS titulo_titulo_revista
 FROM
      "public"."titulo" titulo INNER JOIN "public"."revista" revista ON titulo."id_titulo" = revista."id_titulo"
      INNER JOIN "public"."descarga" descarga ON revista."id_revista" = descarga."id_revista"
      INNER JOIN "public"."inventario" inventario ON revista."id_revista" = inventario."id_revista"
      INNER JOIN "public"."estado" estado ON inventario."id_estado" = estado."id_estado"
      INNER JOIN "public"."usuario" usuario ON descarga."id_usuario" = usuario."id_usuario"
-     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"]]>
+     INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"
+Group by estado_nombre_estado,revista_titulor,titulo_titulo_revista]]>
 	</queryString>
+	<field name="cuantos" class="java.lang.Long"/>
 	<field name="estado_nombre_estado" class="java.lang.String"/>
 	<field name="revista_titulor" class="java.lang.String"/>
-	<field name="tipo_usuario_nombretp" class="java.lang.String"/>
 	<field name="titulo_titulo_revista" class="java.lang.String"/>
-	<field name="usuario_nombreu" class="java.lang.String"/>
-	<field name="usuario_apellidosu" class="java.lang.String"/>
-	<field name="inventario_existenciai" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -50,14 +45,6 @@ FROM
 				</textElement>
 				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="211" y="59" width="44" height="20" uuid="1018ad5f-8753-4330-ba34-363a39395610"/>
-				<text><![CDATA[Estado:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="269" y="59" width="100" height="20" uuid="b72aea71-f8f2-41dd-b786-9e8cbac4bbd9"/>
-				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
-			</textField>
 			<image>
 				<reportElement x="29" y="10" width="85" height="53" uuid="7e2d2754-9aa2-4841-b104-c0a7c3dc7737"/>
 				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
@@ -71,12 +58,16 @@ FROM
 				<text><![CDATA[Nombre Revista]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="224" y="12" width="100" height="20" uuid="0db03402-c617-4dd9-908d-30ac33627b96"/>
+				<reportElement x="169" y="12" width="100" height="20" uuid="0db03402-c617-4dd9-908d-30ac33627b96"/>
 				<text><![CDATA[Volumen]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="419" y="12" width="100" height="20" uuid="b18944f3-9fe4-4ae6-89bd-e1da79d8727a"/>
+				<reportElement x="304" y="12" width="100" height="20" uuid="b18944f3-9fe4-4ae6-89bd-e1da79d8727a"/>
 				<text><![CDATA[Estado de Revista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="12" width="117" height="20" uuid="87786525-3da3-499a-a9aa-06709eb570bd"/>
+				<text><![CDATA[Cantidad de Ejemplares]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -87,12 +78,16 @@ FROM
 				<textFieldExpression><![CDATA[$F{titulo_titulo_revista}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="224" y="0" width="100" height="20" uuid="aecf6440-ef08-4082-a11c-89767677fbc3"/>
+				<reportElement x="169" y="0" width="100" height="20" uuid="aecf6440-ef08-4082-a11c-89767677fbc3"/>
 				<textFieldExpression><![CDATA[$F{revista_titulor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="419" y="0" width="100" height="20" uuid="7fb19f94-00ad-42c7-8c28-8a9c99034f60"/>
+				<reportElement x="304" y="0" width="100" height="20" uuid="7fb19f94-00ad-42c7-8c28-8a9c99034f60"/>
 				<textFieldExpression><![CDATA[$F{estado_nombre_estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="0" width="61" height="20" uuid="d70a080b-34f2-4385-8254-c067c315df3a"/>
+				<textFieldExpression><![CDATA[$F{cuantos}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
