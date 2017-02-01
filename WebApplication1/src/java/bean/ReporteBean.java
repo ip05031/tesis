@@ -137,8 +137,17 @@ public class ReporteBean implements Serializable {
         parametros.put("date_desde", this.desde);
         parametros.put("date_hasta", this.hasta);
         parametros.put("usuario", usuario);
+        if (this.estado.compareTo("todas") == 0) {
+           realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteDescargasT.jasper");
 
-        realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteDescargas.jasper");
+        }
+        if (this.estado.compareTo("diarias") == 0) {
+           realPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/reportes/ReporteDescargas.jasper");
+
+        }
+        
+
+        
 
         archivo = new File(realPath);
 

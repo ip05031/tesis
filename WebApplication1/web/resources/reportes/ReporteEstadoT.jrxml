@@ -20,7 +20,7 @@ FROM
      INNER JOIN "public"."estado" estado ON inventario."id_estado" = estado."id_estado"
      INNER JOIN "public"."usuario" usuario ON descarga."id_usuario" = usuario."id_usuario"
      INNER JOIN "public"."tipo_usuario" tipo_usuario ON usuario."id_tusuario" = tipo_usuario."id_tusuario"
-Group by estado_nombre_estado,revista_titulor,titulo_titulo_revista ]]>
+Group by estado_nombre_estado,revista_titulor,titulo_titulo_revista]]>
 	</queryString>
 	<field name="cuantos" class="java.lang.Long"/>
 	<field name="estado_nombre_estado" class="java.lang.String"/>
@@ -45,14 +45,6 @@ Group by estado_nombre_estado,revista_titulor,titulo_titulo_revista ]]>
 				</textElement>
 				<text><![CDATA[MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="211" y="59" width="44" height="20" uuid="1018ad5f-8753-4330-ba34-363a39395610"/>
-				<text><![CDATA[Estado:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="269" y="59" width="100" height="20" uuid="b72aea71-f8f2-41dd-b786-9e8cbac4bbd9"/>
-				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
-			</textField>
 			<image>
 				<reportElement x="29" y="10" width="85" height="53" uuid="7e2d2754-9aa2-4841-b104-c0a7c3dc7737"/>
 				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
