@@ -388,9 +388,10 @@ public class eventosBean implements Serializable {
 
         eventosJPA = new EventosJPA();
         eventosJPA.editeventoJPA(editarevento);
-        copyFile(this.ruta_archivo, streamArchivo, null);
-        copyFile(this.ruta_archivo2, streamArchivo2);
-        System.out.println(this.ruta_archivo);
+        if( streamArchivo != null || streamArchivo2 != null ){
+            copyFile(this.ruta_archivo, streamArchivo, null);
+            copyFile(this.ruta_archivo2, streamArchivo2);  
+        }
         this.setIdevento(0);
         this.setNomevento(null);
         this.setLugarevento(null);
