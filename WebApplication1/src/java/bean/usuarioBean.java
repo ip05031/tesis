@@ -142,11 +142,13 @@ public class usuarioBean implements Serializable {
 
         System.out.println("-" + contraUsuario.compareTo(""));
         if (contraUsuario.compareTo("") != 0) {
-            this.editUsuario.setPassword(contraUsuario);
+            String contra1 = sha256(contraUsuario);
+            this.editUsuario.setPassword(contra1);
         }
         /* if (paisUsuario.compareTo(paisUsuario) != 0) {
             this.editUsuario.setPaisu(paisUsuario);
         }*/
+        
         if (validarNombre.contentEquals(editUsuario.getNickname())) {
             this.editUsuario.setPaisu(paisUsuario);
             this.editUsuario.setIdTusuario(new TipoUsuario(idTipoUsuario));
