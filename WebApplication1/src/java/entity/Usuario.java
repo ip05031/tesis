@@ -99,6 +99,10 @@ public class Usuario implements Serializable {
     @Column(name = "fechavisita")
     @Temporal(TemporalType.DATE)
     private Date fechavisita;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "envio")
+    private boolean envio;
     @JoinColumn(name = "id_tusuario", referencedColumnName = "id_tusuario")
     @ManyToOne(optional = false)
     private TipoUsuario idTusuario;
@@ -286,6 +290,14 @@ public class Usuario implements Serializable {
 
     public void setSexo(Character sexo) {
         this.sexo = sexo;
+    }
+    
+    public boolean getEnvio() {
+        return envio;
+    }
+
+    public void setEnvio(boolean envio) {
+        this.envio = envio;
     }
     
 }
