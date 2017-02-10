@@ -26,7 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ocupacion.findAll", query = "SELECT o FROM Ocupacion o"),
+    @NamedQuery(name = "Ocupacion.aumentarId", query = "SELECT MAX(o.idOcupacion) FROM Ocupacion o"),
     @NamedQuery(name = "Ocupacion.findByIdOcupacion", query = "SELECT o FROM Ocupacion o WHERE o.idOcupacion = :idOcupacion"),
+    @NamedQuery(name = "Ocupacion.findOcupacion", query = "SELECT o FROM Ocupacion o WHERE o.nombreOcupacion like :ocupacion"),
     @NamedQuery(name = "Ocupacion.findByNombreOcupacion", query = "SELECT o FROM Ocupacion o WHERE o.nombreOcupacion = :nombreOcupacion")})
 public class Ocupacion implements Serializable {
 
