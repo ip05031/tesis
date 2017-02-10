@@ -7,6 +7,7 @@ package bean;
 
 import controller.EstadoJPA;
 import controller.InventarioJPA;
+import controller.RevistasJPA;
 import entity.Estado;
 import entity.Inventario;
 import entity.Revista;
@@ -32,7 +33,7 @@ public class InventarioBean implements Serializable {
     private InventarioJPA inventarioJPA;
 
     private Revista revista = new Revista();
-    private Inventario inventario= new Inventario();
+    private Inventario inventario = new Inventario();
     private int idRevista;
     private int idInventario;
     private int existencias;
@@ -40,9 +41,13 @@ public class InventarioBean implements Serializable {
     private int buenEstado;
     private int malEstado;
     private List<InventarioEstado> listaInventarEstado = new ArrayList<>();
+    private List<Inventario> inventariadaTemporal = new ArrayList<>();
+    private List<Revista> listaRevista = new ArrayList<>();
 
     public InventarioBean() {
         inventario = new Inventario();
+        inventariadaTemporal = new ArrayList<>();
+        listaRevista = this.obtener();
     }
 
     // funciones
@@ -63,7 +68,7 @@ public class InventarioBean implements Serializable {
         }
 
         if (bandera == 1) {
-
+            inventariadaTemporal = new ArrayList<>();
             System.out.println("Guardando Inventario");
             inventarioJPA = new InventarioJPA();
             this.idInventario = inventarioJPA.getClave();
@@ -71,6 +76,7 @@ public class InventarioBean implements Serializable {
                 for (int i = 0; i < in.getCantidad(); i++) {
                     saveInventario(idInventario, in.getEstado());
                     ++idInventario;
+
                 }
 
             }
@@ -80,23 +86,42 @@ public class InventarioBean implements Serializable {
             this.malEstado = 0;
             this.idRevista = 1;
             int i = 0;
-            
+
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Inventario Almacenado exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext.getCurrentInstance().execute("PF('ingresarInventario').hide();");
+            RequestContext.getCurrentInstance().execute("PF('ImprimirTodo').show();");
         } else {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Debe ingresar almenos una cantidad de revistas!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
-    
-    public void asiganarModificacion(Inventario iv){
-    this.inventario = iv;
-    
+
+    public List<Revista> obtener() {
+        RevistasJPA jpaRevista = new RevistasJPA();
+        return jpaRevista.getRevistas();
     }
-    
-    public void saveModificar( Estado esta) {
-        try {   
+
+    public void asiganarModificacion(Inventario iv) {
+        this.inventario = iv;
+
+    }
+
+    public void imprimirRevistas() {
+        if (!inventariadaTemporal.isEmpty()) {
+            Integer revista = inventariadaTemporal.get(0).getIdRevista().getIdRevista();            
+            
+            //limpiar el listado
+            inventariadaTemporal = new ArrayList<>();
+        }
+    }
+
+    public void imprimirUnaRevista(Inventario inv) {
+
+    }
+
+    public void saveModificar(Estado esta) {
+        try {
             inventario.setIdEstado(esta);
 //aca ba el cambio       
             inventarioJPA = new InventarioJPA();
@@ -122,6 +147,10 @@ public class InventarioBean implements Serializable {
             inv.setIdRevista(revista2);
             inv.setExistenciai(1);
             inv.setIdEstado(esta);
+            //Ingresa a lista temporal de revistas para imprecion.
+            String codigo = this.generaCodigo(idRevista, clave);
+            inv.setCodigoRevista(codigo);
+            inventariadaTemporal.add(inv);
 //aca ba el cambio       
             inventarioJPA = new InventarioJPA();
             inventarioJPA.guardarInventario(inv);
@@ -140,7 +169,7 @@ public class InventarioBean implements Serializable {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Inventario Eliminado exitosamente!", null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
+
     public List<Estado> listaTemporalEstados() {
         EstadoJPA estadoJPA = new EstadoJPA();
         return estadoJPA.getEstado();
@@ -152,18 +181,38 @@ public class InventarioBean implements Serializable {
         InventarioEstado tem = null;
         List<Estado> listaEstado = estadoJPA.getEstado();
         if (listaEstado.isEmpty()) {
-            System.out.println("error no encontro listas");            
-        }else{
-        for (Estado es : listaEstado) {
-            Integer can = 0;
-            tem = new InventarioEstado(es, can);
-            listaInventarEstado.add(tem);
-        }}
+            System.out.println("error no encontro listas");
+        } else {
+            for (Estado es : listaEstado) {
+                Integer can = 0;
+                tem = new InventarioEstado(es, can);
+                listaInventarEstado.add(tem);
+            }
+        }
         return listaInventarEstado;
+    }
+
+    public String generaCodigo(int idRevista, int idInventario) {
+        Revista r = new Revista();
+        for (Revista tem : this.listaRevista) {
+            if (tem.getIdRevista() == idRevista) {
+                r = tem;
+            }
+        }
+        String codigo = r.getIdTitulo().getTituloRevista().substring(0, 1) + r.getIssn().substring(0, 4) + r.getPaisr().substring(0, 1) + idInventario;
+        return codigo;
     }
 
     // SETTER Y GETTER
     /* --------------------------------------------------------------------------------------------------------------------- */
+    public List<Revista> getListaRevista() {
+        return listaRevista;
+    }
+
+    public void setListaRevista(List<Revista> listaRevista) {
+        this.listaRevista = listaRevista;
+    }
+
     public List<Inventario> getListaInventario() {
         return listaInventario;
     }
@@ -252,5 +301,4 @@ public class InventarioBean implements Serializable {
         this.inventario = inventario;
     }
 
-    
 }

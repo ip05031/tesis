@@ -106,11 +106,7 @@ public class InicioBean implements Serializable {
     private List<Revista> listaNum = new ArrayList<>();
     // lista para letra todos
     private List<Revista> listaTodos = new ArrayList<>();
-    
-    
-    
-    
-    
+
     private List<Revista> listaRevista2 = new ArrayList<>();
     private Revista revistaAbrir = new Revista();
     private Revista revistaAbrir2 = new Revista();
@@ -134,7 +130,7 @@ public class InicioBean implements Serializable {
         System.out.println("Iniciando el construnctor Inicio-Bean");
         this.setearRevistas();
         this.setArchivoDownload(false);
-        
+
     }
 
     /*---------------------------------------------------------- Funciones Propias -----------------------------------------------------------------*/
@@ -150,34 +146,38 @@ public class InicioBean implements Serializable {
         descargarJPA = new DescargarJPA();
 
         rev = this.revistaAbrir;
-        context = FacesContext.getCurrentInstance();
-        user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
+        if (this.revistaAbrir.getArchivopr() != null) {
+            context = FacesContext.getCurrentInstance();
+            user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
 
-        idDescarga = descargarJPA.getClave();
-        Calendar calendario = GregorianCalendar.getInstance();
-        fecha = calendario.getTime();
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, calendario.HOUR_OF_DAY);
-        cal.set(Calendar.MINUTE, calendario.MINUTE);
-        cal.set(Calendar.SECOND, calendario.SECOND);
-        cal.set(Calendar.MILLISECOND, calendario.MILLISECOND);
-        hora = calendario.getTime();
+            idDescarga = descargarJPA.getClave();
+            Calendar calendario = GregorianCalendar.getInstance();
+            fecha = calendario.getTime();
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.HOUR_OF_DAY, calendario.HOUR_OF_DAY);
+            cal.set(Calendar.MINUTE, calendario.MINUTE);
+            cal.set(Calendar.SECOND, calendario.SECOND);
+            cal.set(Calendar.MILLISECOND, calendario.MILLISECOND);
+            hora = calendario.getTime();
 
-        desc.setIdDescarga(idDescarga);
-        desc.setIdRevista(rev);
-        desc.setIdUsuario(user);
-        desc.setFechad(fecha);
-        desc.setHorad(hora);
+            desc.setIdDescarga(idDescarga);
+            desc.setIdRevista(rev);
+            desc.setIdUsuario(user);
+            desc.setFechad(fecha);
+            desc.setHorad(hora);
 
-        if (tipo == 2) {
-            art = this.articuloAbrir;
-            desc.setIdArticulo(art);
-        }
-        try {
-            descargarJPA.saveDescarga(desc);
-            this.setArchivoDownload(true);
-        } catch (Exception e) {
-            System.out.println("solicitar descarga");
+            if (tipo == 2) {
+                art = this.articuloAbrir;
+                desc.setIdArticulo(art);
+            }
+            try {
+                descargarJPA.saveDescarga(desc);
+                this.setArchivoDownload(true);
+            } catch (Exception e) {
+                System.out.println("solicitar descarga");
+            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('construct').show();");
         }
 
         // id revista
@@ -197,17 +197,27 @@ public class InicioBean implements Serializable {
 
     public String setearRedirigir(Revista revista) {
         System.out.println("seteando Revista..");
-        this.revistaAbrir = revista;
-        inhabilitar();
-        listArticulo = new ImportarJPA().getListaUnArticulo(revista.getIdRevista());
-        return "PortadaRevista?faces-redirect=true";
+        if (revista.getArchivopr() != null) {
+            this.revistaAbrir = revista;
+            inhabilitar();
+            listArticulo = new ImportarJPA().getListaUnArticulo(revista.getIdRevista());
+            return "PortadaRevista?faces-redirect=true";
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('construct2').show();");
+            return null;
+        }
     }
 
     public String setearArticuloRedirigir(Articulo art) {
         System.out.println("se va para ver Articulo");
-        inhabilitar();
-        this.articuloAbrir = art;
-        return "VerArticulo?faces-redirect=true";
+        if (art.getArchivoa() != null) {
+            inhabilitar();
+            this.articuloAbrir = art;
+            return "VerArticulo?faces-redirect=true";
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('construct').show();");
+            return null;
+        }
     }
 
     public void listarArticulos() {
@@ -217,161 +227,162 @@ public class InicioBean implements Serializable {
     public void obtenersingleRevista() {
 
     }
-    public List<Evento> listaImgBanner(){
+    
+    public void cerrarDialog(){
+     RequestContext.getCurrentInstance().execute("PF('construct2').hide();");
+    }
+
+    public List<Evento> listaImgBanner() {
         System.out.println("imagenes de banner ");
         return new EventosJPA().getImgBanner();
     }
-    
-    public void setearRevistas(){
-       
+
+    public void setearRevistas() {
+
         System.out.println("letra A");
         inicioJPA = new InicioJPA();
         listaA = inicioJPA.obtnerRevistas2();
         inicioJPA = null;
-        
+
         System.out.println("letra B");
         inicioJPA = new InicioJPA();
         listaB = inicioJPA.obtenerRevistaPorLetra("B");
         inicioJPA = null;
-        
+
         System.out.println("letra C");
         inicioJPA = new InicioJPA();
         listaC = inicioJPA.obtenerRevistaPorLetra("C");
         inicioJPA = null;
-        
+
         System.out.println("letra D");
         inicioJPA = new InicioJPA();
         listaD = inicioJPA.obtenerRevistaPorLetra("D");
         inicioJPA = null;
-        
+
         System.out.println("letra E");
         inicioJPA = new InicioJPA();
         listaE = inicioJPA.obtenerRevistaPorLetra("E");
         inicioJPA = null;
-        
+
         System.out.println("letra F");
         inicioJPA = new InicioJPA();
         listaF = inicioJPA.obtenerRevistaPorLetra("F");
         inicioJPA = null;
-        
+
         System.out.println("letra G");
         inicioJPA = new InicioJPA();
         listaG = inicioJPA.obtenerRevistaPorLetra("G");
         inicioJPA = null;
-        
+
         System.out.println("letra H");
         inicioJPA = new InicioJPA();
         listaH = inicioJPA.obtenerRevistaPorLetra("H");
         inicioJPA = null;
-        
+
         System.out.println("letra I");
         inicioJPA = new InicioJPA();
         listaI = inicioJPA.obtenerRevistaPorLetra("I");
         inicioJPA = null;
-        
+
         System.out.println("letra J");
         inicioJPA = new InicioJPA();
         listaJ = inicioJPA.obtenerRevistaPorLetra("J");
         inicioJPA = null;
-        
+
         System.out.println("letra K");
         inicioJPA = new InicioJPA();
         listaK = inicioJPA.obtenerRevistaPorLetra("K");
         inicioJPA = null;
-        
+
         System.out.println("letra L");
         inicioJPA = new InicioJPA();
         listaL = inicioJPA.obtenerRevistaPorLetra("L");
         inicioJPA = null;
-        
+
         System.out.println("letra M");
         inicioJPA = new InicioJPA();
         listaM = inicioJPA.obtenerRevistaPorLetra("M");
         inicioJPA = null;
-        
+
         System.out.println("letra N");
         inicioJPA = new InicioJPA();
         listaN = inicioJPA.obtenerRevistaPorLetra("N");
         inicioJPA = null;
-        
+
         System.out.println("letra O");
         inicioJPA = new InicioJPA();
         listaO = inicioJPA.obtenerRevistaPorLetra("O");
         inicioJPA = null;
-        
+
         System.out.println("letra P");
         inicioJPA = new InicioJPA();
         listaP = inicioJPA.obtenerRevistaPorLetra("P");
         inicioJPA = null;
-        
+
         System.out.println("letra Q");
         inicioJPA = new InicioJPA();
         listaQ = inicioJPA.obtenerRevistaPorLetra("Q");
         inicioJPA = null;
-        
+
         System.out.println("letra R");
         inicioJPA = new InicioJPA();
         listaR = inicioJPA.obtenerRevistaPorLetra("R");
         inicioJPA = null;
-        
+
         System.out.println("letra S");
         inicioJPA = new InicioJPA();
         listaS = inicioJPA.obtenerRevistaPorLetra("S");
         inicioJPA = null;
-        
+
         System.out.println("letra T");
         inicioJPA = new InicioJPA();
         listaT = inicioJPA.obtenerRevistaPorLetra("T");
         inicioJPA = null;
-        
+
         System.out.println("letra U");
         inicioJPA = new InicioJPA();
         listaU = inicioJPA.obtenerRevistaPorLetra("U");
         inicioJPA = null;
-        
+
         System.out.println("letra V");
         inicioJPA = new InicioJPA();
         listaV = inicioJPA.obtenerRevistaPorLetra("V");
         inicioJPA = null;
-        
+
         System.out.println("letra W");
         inicioJPA = new InicioJPA();
         listaW = inicioJPA.obtenerRevistaPorLetra("W");
         inicioJPA = null;
-        
+
         System.out.println("letra X");
         inicioJPA = new InicioJPA();
         listaX = inicioJPA.obtenerRevistaPorLetra("X");
         inicioJPA = null;
-        
+
         System.out.println("letra Y");
         inicioJPA = new InicioJPA();
         listaY = inicioJPA.obtenerRevistaPorLetra("Y");
         inicioJPA = null;
-        
+
         System.out.println("letra Z");
         inicioJPA = new InicioJPA();
         listaZ = inicioJPA.obtenerRevistaPorLetra("Z");
         inicioJPA = null;
-        
 
-        
         System.out.println("Todas");
         inicioJPA = new InicioJPA();
         listaTodos = inicioJPA.obtenerTodasRevistas();
         inicioJPA = null;
     }
-  
 
-    
-    public boolean verExistencias(List<Revista> revista){
+    public boolean verExistencias(List<Revista> revista) {
         System.out.println("verificando existencia");
         boolean valor = false;
         valor = revista.size() > 0;
         System.out.println(valor);
         return valor;
     }
-    
+
     public String login() {
         inicioJPA = new InicioJPA();
         System.out.println("Inicio sesion");
@@ -389,7 +400,7 @@ public class InicioBean implements Serializable {
                 context = FacesContext.getCurrentInstance();
                 context.getExternalContext().getSessionMap().put("logueado", user.get(0));
                 //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("logueado", user.get(0));
-                            
+
                 userLogged = user.get(0);
                 this.setUserLogueado(user.get(0));
                 System.out.println("this is the nick: ----------------------");
@@ -400,12 +411,12 @@ public class InicioBean implements Serializable {
                 this.setUsuarioContra("");
                 this.setUsuarioNombre("");
                 RequestContext.getCurrentInstance().update("form-login");
-               //Usuario fecha que ingreso de visita
+                //Usuario fecha que ingreso de visita
                 UsuarioJPA usuarioJPA = new UsuarioJPA();
                 Calendar calendar = GregorianCalendar.getInstance();
                 userLogged.setFechavisita(calendar.getTime());
                 usuarioJPA.updateUsuario(userLogged);
-                
+
                 redirigir();
                 return "index?facesRedirect=true";
             } else {
@@ -611,7 +622,6 @@ public class InicioBean implements Serializable {
     public void setListaRevista(List<Revista> listaRevista) {
         this.listaRevista = listaRevista;
     }
-
 
     public boolean isInicioSesion() {
         return inicioSesion;

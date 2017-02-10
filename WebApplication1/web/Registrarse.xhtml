@@ -123,8 +123,8 @@
                                                 <label for="exampleInputEmail1">
                                                     Correo Electronico
                                                 </label>
-                                                <p:inputText  id="email" value="#{registroBean.newUser.correou}" class="form-control" placeholder="e-mail" required="true" requiredMessage="Ingrese Correo Electrónico" validatorMessage="Formato de email incorrecto.">
-                                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                <p:inputText  id="email" value="#{registroBean.newUser.correou}" class="form-control" placeholder="e-mail" required="true" requiredMessage="Ingrese Correo Electrónico" >
+                                                    <f:validator validatorId="javaUtil.UrlValidator" />
                                                 </p:inputText>
                                                 <p:messages for="email" />
                                             </div>
@@ -149,7 +149,21 @@
                                                 <p:messages for="pwd2" />
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> 
+                                                <label for="envios">
+                                                    Desea recibir correos de los eventos:  
+                                                </label></div>
+                                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"> 
+                                                        <p:selectBooleanCheckbox id="envios" value="#{registroBean.newUser.envio}"   /></div>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">

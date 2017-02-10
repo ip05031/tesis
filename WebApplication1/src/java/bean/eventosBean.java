@@ -331,7 +331,7 @@ public class eventosBean implements Serializable {
 
         //Seteando destinatarios
         UsuarioJPA usuJpa = new UsuarioJPA();
-        List<Usuario> listUsuario = usuJpa.getUsuarios(1);
+        List<Usuario> listUsuario = usuJpa.getUsuarios(5);
         try {
              for (Usuario us : listUsuario) {
                 if (us.getCorreou() != null) {
