@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Inventario.findMinIdDisp", query = "SELECT MIN(i.idInventario) FROM Inventario i  where i.idRevista.idRevista = :idRevista AND i.existenciai = '1' and i.idEstado.idEstado = '1'"),
     @NamedQuery(name = "Inventario.findMinIdDisp2", query = "SELECT i2 FROM Inventario i2 WHERE i2.idInventario = (SELECT MIN(i.idInventario) FROM Inventario i  where i.idRevista.idRevista = :idRevista AND i.existenciai = '1' and i.idEstado.idEstado = '1')"),
     @NamedQuery(name = "Inventario.findByIdInventario", query = "SELECT i FROM Inventario i WHERE i.idInventario = :idInventario"),
+    @NamedQuery(name = "Inventario.findByCodigoRevista", query = "SELECT i FROM Inventario i WHERE i.codigoRevista = :codigoRevista"),
     @NamedQuery(name = "Inventario.findByExistenciai", query = "SELECT i FROM Inventario i WHERE i.existenciai = :existenciai")})
 public class Inventario implements Serializable {
 
@@ -54,6 +55,9 @@ public class Inventario implements Serializable {
     @JoinColumn(name = "id_estado", referencedColumnName = "id_estado")
     @ManyToOne
     private Estado idEstado;
+    @Basic(optional = false)    
+    @Column(name = "codigo_revista")
+    private String codigoRevista;
 
     public Inventario() {
     }
@@ -103,6 +107,14 @@ public class Inventario implements Serializable {
         this.idEstado = idEstado;
     }
 
+    public String getCodigoRevista() {
+        return codigoRevista;
+    }
+
+    public void setCodigoRevista(String codigoRevista) {
+        this.codigoRevista = codigoRevista;
+    }  
+    
     @Override
     public int hashCode() {
         int hash = 0;

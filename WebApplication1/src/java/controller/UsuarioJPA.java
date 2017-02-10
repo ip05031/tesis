@@ -37,15 +37,18 @@ public class UsuarioJPA {
             case 3:
                 namedquery = "Usuario.findAll";
                 break;
-             case 4:
+            case 4:
                 namedquery = "Usuario.findVisitor2";
+                break;
+            case 5:
+                namedquery = "Usuario.findVisitorValidos";
                 break;
             default:
                 namedquery = "Usuario.findAll";
                 break;
         }
         try {
-            if (tipo == 1 || tipo == 2 || tipo == 4) {
+            if (tipo == 1 || tipo == 2 || tipo == 4 || tipo == 5) {
                 Integer i = 5;
                 listaUsuario = em.createNamedQuery(namedquery, Usuario.class)
                         .setParameter("idTusuario", i)
@@ -121,11 +124,10 @@ public class UsuarioJPA {
         }
 
     }
-    
-    public List<Usuario>  eliminarUsuario(Date fecha){
+
+    public List<Usuario> eliminarUsuario(Date fecha) {
         try {
-            
-            
+
             listaUsuario = em.createNamedQuery("Usuario.findByEliminar", Usuario.class)
                     .setParameter("fechavisita", fecha)
                     .getResultList();
@@ -136,7 +138,7 @@ public class UsuarioJPA {
             return null;
         }
     }
-    
+
     public boolean eliminarUsuarioJPA(Usuario usuario) {
         try {
             em.remove(em.merge(usuario));
@@ -145,7 +147,7 @@ public class UsuarioJPA {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        } 
+        }
     }
-    
+
 }

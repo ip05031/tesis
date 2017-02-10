@@ -58,6 +58,7 @@ public class RevistaBean implements Serializable {
         this.articulo = new Articulo();
         this.categoria = new Categoria();
         this.revista = new Revista();
+        this.revista.setPaisr("El Salvador");
         this.modiRevista = new Revista();
         this.donacion = new Donaciones();
         this.donanteFecha = "";
@@ -245,6 +246,7 @@ public class RevistaBean implements Serializable {
 
     public void limpiar() {
         revista = new Revista();
+        this.revista.setPaisr("El Salvador");
         idTitulo = new Titulo();
         this.listaArticulos = new ArrayList<>();
         this.categoria = new Categoria();

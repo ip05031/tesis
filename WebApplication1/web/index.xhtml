@@ -655,6 +655,32 @@
 
                     </div>
                 </div>
+                
+                 <p:dialog header="En Construcción" widgetVar="construct2" height="50%" width="50%" modal="true" resizable="false" closable="false">
+                    <h:form id = "contruir2">
+                        <div class="row" >
+                            <h:link outcome="index" title="Regresar a la página principal" >
+                                <img src="resources/img/construc.png" align="center" /> 
+                            </h:link>
+                        </div>
+                        <div class="row" style=" align-content: center" >
+                            <div class="col-md col-md-12" align="center" >
+                                <h:outputText value="Lo sentimos el archivo de revista seleccionado aun no se encuentra disponible en nuestra web pero puede acceder a este si visita nuestras instalaciones muchas gracias" 
+                                              style="font: 150% sans-serif; color: #0086b3" />
+                            </div>
+                        </div>
+                        <div class="row" style=" align-content: center">
+                            <div class="col-md col-md-12" align="center" >
+                                <h:link outcome="Ubicacion"  style="font: 150% sans-serif; color: red"     value="Ubicación" />
+                            </div>
+                        </div>
+                        <div class="row" style=" align-content: center" >
+                            <div class="col-md col-md-12" align="center" >
+                                <p:commandButton value="Cerrar" title="Cerrar Ventana" class="btn-success btn" actionListener="#{inicioBean.cerrarDialog()}" ajax="false" />
+                            </div>
+                        </div>
+                    </h:form>
+                </p:dialog>
 
                 <div class="col-lg-1"></div>
             </ui:define>

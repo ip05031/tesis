@@ -110,12 +110,12 @@ public class usuarioBean implements Serializable {
                 String tabla = "Usuario";
                 new bitacoraBean().guardarbitacora(tabla, accion);
                 limpiarDatosUsuario();
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Registrado Correctamente!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+               // message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Registrado Correctamente!", null);
+               // FacesContext.getCurrentInstance().addMessage(null, message);
               //  FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Registrado Correctamente"));
                  context.execute("PF('nuevoUsuario').hide();");
             } else {
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+               // FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
             }
 
         } catch (Exception e) {
@@ -155,7 +155,6 @@ public class usuarioBean implements Serializable {
             System.out.println("" + this.editUsuario.getEstadoi());
 
             usuarioJPA.updateUsuario(this.editUsuario);
-            System.out.println("se envio...");
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext context = RequestContext.getCurrentInstance();
@@ -173,7 +172,6 @@ public class usuarioBean implements Serializable {
                 System.out.println("" + this.editUsuario.getEstadoi());
 
                 usuarioJPA.updateUsuario(this.editUsuario);
-                System.out.println("se envio...");
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -186,7 +184,7 @@ public class usuarioBean implements Serializable {
 
             } else {
 
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+                //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
             }
 
         }

@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findNickname", query = "SELECT u FROM Usuario u where u.nickname like :nickname "),
     @NamedQuery(name = "Usuario.findEmployee", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario != :idTusuario and u.estadoi = '2' "),
-    @NamedQuery(name = "Usuario.findVisitor", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario = :idTusuario and u.estadoi = '2'"),  
+    @NamedQuery(name = "Usuario.findVisitor", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario = :idTusuario and u.estadoi = '2'"), 
+    @NamedQuery(name = "Usuario.findVisitorValidos", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario = :idTusuario and u.estadoi = '2' and u.envio = TRUE"), 
     @NamedQuery(name = "Usuario.findVisitor2", query = "SELECT u FROM Usuario u WHERE u.idTusuario.idTusuario = :idTusuario and u.estadoi = '1'"),
     @NamedQuery(name = "Usuario.findMaxId", query = "SELECT MAX(u.idUsuario) FROM Usuario u"),
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),

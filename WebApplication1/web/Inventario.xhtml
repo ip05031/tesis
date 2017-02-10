@@ -52,6 +52,9 @@
                                                             <p:inputText id="globalFilter" onkeyup="PF('tabla_inventario').filter()" style="width:150px" placeholder="Busqueda" />
                                                         </p:outputPanel>
                                                     </f:facet>   
+                                                    <p:column headerText="Codigo" filterBy="#{inventario.codigoRevista}" sortBy="#{inventario.codigoRevista}">
+                                                        <h:outputText value="#{inventario.codigoRevista}" />
+                                                    </p:column>
 
 
                                                     <p:column headerText="Revista" filterBy="#{inventario.idRevista.titulor}" sortBy="#{inventario.idRevista.titulor}">
@@ -85,16 +88,21 @@
                                                         </p:confirmDialog>
 
                                                     </p:column>
+                                                    <p:column headerText="Imprimir" style="text-align:center" width="11%">
+                                                        <p:commandButton icon="ui-icon-print" ajax="false" title="Imprimir"
+                                                                         action="#{inventarioBean.imprimirUnaRevista(inventario)}" 
+                                                                          process="@this" class="btn btn-xs"/>
+                                                    </p:column>
                                                 </p:dataTable>
                                             </h:form>
 
 
 
                                             <!-- / Bloque de codigo para insertar dato --> 
-                                            <p:dialog widgetVar="ingresarInventario" header="Inventario" minHeight="40" modal="true" resizable="false">
+                                            <p:dialog widgetVar="ingresarInventario" header="Inventario" minHeight="40" width="50%" modal="true" resizable="false">
                                                 <h:form id="newInventario" >
                                                     <p:panel id="panel1" header="Ingresar Inventario" >
-                                                        
+
 
                                                         <div class="form-group">
                                                             <label for="revista">
@@ -104,7 +112,7 @@
                                                             <p:selectOneMenu id="revista" value="#{inventarioBean.idRevista}" effect="fold" 
                                                                              style="width:100%; vertical-align: 15px;" filter="true" filterMatchMode="startsWith" 
                                                                              required="true" class=" col-md-6 " requiredMessage="Seleccione un de las revistas">
-                                                                <f:selectItems value="#{revistaBean.obtener() }" var="revista" itemLabel="#{revista.idTitulo.tituloRevista} #{revista.titulor}  " itemValue="#{revista.idRevista}"/>
+                                                                <f:selectItems value="#{inventarioBean.listaRevista }" var="revista" itemLabel="#{revista.idTitulo.tituloRevista} #{revista.titulor}  " itemValue="#{revista.idRevista}"/>
                                                             </p:selectOneMenu>
                                                             <p:message for="revista"   />
                                                         </div>
@@ -140,7 +148,7 @@
                                                                 Revista
                                                             </label>
                                                             <!-- <p:outputLabel value="Nombre Palabra"/>  -->
-                                                            <p:outputLabel value="#{inventarioBean.inventario.idRevista.titulor}"/>                                                        
+                                                            <p:outputLabel value="#{inventarioBean.inventario.idRevista.idTitulo.tituloRevista}  #{inventarioBean.inventario.idRevista.titulor}"/>                                                        
                                                         </div>
 
                                                         <br/>
@@ -162,6 +170,30 @@
                                                     </p:panel>
                                                 </h:form>    
                                             </p:dialog>
+
+                                            <p:dialog widgetVar="ImprimirTodo" header="Inventario Codigo" width="30%"  modal="true" resizable="false" closable="false">
+                                                <h:form id="newInventario3" >
+
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label >
+                                                                Revista
+                                                            </label>
+                                                            <!-- <p:outputLabel value="Nombre Palabra"/>  -->
+                                                            <p:outputLabel value="#{inventarioBean.inventario.idRevista.idTitulo.tituloRevista}  #{inventarioBean.inventario.idRevista.titulor}"/>                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <p:outputLabel value="Se generaran nuevos códigos para las revistas que se acaban de ingresar al inventario desea imprimir los códigos ahora.  " ></p:outputLabel>
+                                                        </div>
+                                                    </div>
+                                                    <p:commandButton class="btn btn-success pull-right" value="Si" action="#{inventarioBean.guardando()  }"  />
+                                                    <p:commandButton class="btn btn-danger btn-xs" value="No"  onclick="PF('ImprimirTodo').hide();" immediate="true"/>
+
+                                                </h:form>    
+                                            </p:dialog>
+
                                         </div>
                                     </div>
                                 </div>
