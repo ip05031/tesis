@@ -50,7 +50,7 @@ public class UrlValidator implements Validator, ClientValidator {
                     String validado = comprovarServidor(partir[1]);
                     if (validado == null) {
                         primer = false;
-                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese un servidor de correo valido",
+                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese un correo valido",
                                 partir[1] + " El servidor es inadecuado;"));
                     }
 
@@ -60,7 +60,7 @@ public class UrlValidator implements Validator, ClientValidator {
 
                         boolean dato = validacion(partir[1]);
                         if (!dato) {
-                            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "El dominio de su correo no es el adecuado por favor ingrese un correo distinto",
+                            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Por favor ingrese un correo valido",
                                     " Error en el correo;"));
                         }
 
