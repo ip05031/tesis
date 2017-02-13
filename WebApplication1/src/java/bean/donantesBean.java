@@ -104,7 +104,7 @@ public class donantesBean implements Serializable {
         nomd.setIdDonante(donantesJPA.aumentarIddonante() + 1);
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Registro de nuevo Donante por el usuario = " + user.getIdUsuario();
+        String accion = "Registro de nuevo Donante por el usuario = " + user.getNombreu();
         String tabla = "Donante";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -129,7 +129,7 @@ public class donantesBean implements Serializable {
         donantesJPA = new DonantesJPA();
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Modificacion de datos en Donante por el usuario = " + user.getIdUsuario();
+        String accion = "Modificacion de datos en Donante por el usuario = " + user.getNombreu();
         String tabla = "Donante";
         new bitacoraBean().guardarbitacora(tabla, accion);
         donantesJPA.editdonanteJPA(editardon);

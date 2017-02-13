@@ -294,7 +294,7 @@ public class RevistaBean implements Serializable {
         revista.setArticuloList(listaArticulos);
         FacesContext context4 = FacesContext.getCurrentInstance();
         Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Registró de nueva Revista por el usuario = " + user4.getIdUsuario();
+        String accion = "Registró de nueva Revista por el usuario = " + user4.getNombreu();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -479,7 +479,7 @@ public class RevistaBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage("msgs5", message);
         FacesContext context4 = FacesContext.getCurrentInstance();
         Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Se Modifico la Revista: " + revista.getIdTitulo().getTituloRevista() + " " + revista.getTitulor() + " por el usuario = " + user4.getIdUsuario();
+        String accion = "Se Modifico la Revista: " + revista.getIdTitulo().getTituloRevista() + " " + revista.getTitulor() + " por el usuario = " + user4.getNombreu();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -507,7 +507,7 @@ public class RevistaBean implements Serializable {
         jpaRevista = new RevistasJPA();
         FacesContext context4 = FacesContext.getCurrentInstance();
         Usuario user4 = (Usuario) context4.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Eliminó la Revista: " + revis.getIdTitulo().getTituloRevista() + " " + revis.getTitulor() + " por el usuario = " + user4.getIdUsuario();
+        String accion = "Eliminó la Revista: " + revis.getIdTitulo().getTituloRevista() + " " + revis.getTitulor() + " por el usuario = " + user4.getNombreu();
         String tabla = "Revista";
         new bitacoraBean().guardarbitacora(tabla, accion);
         jpaRevista.deleteTipoUsuario(revis);

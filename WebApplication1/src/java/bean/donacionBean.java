@@ -243,7 +243,7 @@ public class donacionBean implements Serializable {
         donaciones.setArchivod(ruta_archivo);
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Registro de nueva Donacion realizada por el usuario = " + user.getIdUsuario();
+        String accion = "Registro de nueva Donacion realizada por el usuario = " + user.getNombreu();
         String tabla = "Donaciones";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -268,7 +268,7 @@ public class donacionBean implements Serializable {
         donacionJPA = new DonacionJPA();
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Modificacion de datos en Donacion realizada por el usuario = " + user.getIdUsuario();
+        String accion = "Modificacion de datos en Donacion realizada por el usuario = " + user.getNombreu();
         String tabla = "Donaciones";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
@@ -290,7 +290,7 @@ public class donacionBean implements Serializable {
         donacionJPA = new DonacionJPA();
         FacesContext context = FacesContext.getCurrentInstance();
         Usuario user = (Usuario) context.getExternalContext().getSessionMap().get("logueado");
-        String accion = "Datos de Donacion Borrados realizada por el usuario = "+user.getIdUsuario();
+        String accion = "Datos de Donacion Borrados realizada por el usuario = "+user.getNombreu();
         String tabla = "Donaciones";
         new bitacoraBean().guardarbitacora(tabla, accion);
 
