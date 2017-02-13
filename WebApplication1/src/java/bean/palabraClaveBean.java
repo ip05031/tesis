@@ -158,7 +158,7 @@ public class palabraClaveBean implements Serializable {
         if(this.getNombrepalabra()==null){
             palabra = editarpc.getNombrep();
         }
-        else palabra = this.getNombrepalabra();
+        else palabra = this.getNombrepalabra().toLowerCase();
         if (palabra.length() > 0) {
             System.out.println("comineza la validacion de palabra clave");
             if (palabraJPA.searchPalabra(palabra)) {
