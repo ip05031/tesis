@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./boot.xhtml">
+
+            <ui:define name="content">
+                <c:set var="nombre" value="Ocupacion" />
+                  <c:if test="#{inicioBean.verificarPagina(nombre)}">                   
+                      <div class="row" >
+                        <div class="col-md-12" >
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <i class="fa fa-bar-chart-o fa-fw"></i> Ocupacion
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <h:form>
+                                                <p:commandButton value="Nueva Ocupación" class="btn btn-success btn-xs " type="button" onclick="PF('nuevaOcupacion').show();"/>
+                                            </h:form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="row" >
+                                        <div class="col-md-12" > 
+                                            <h4> Listado de Ocupaciones </h4>
+                                            <h:form id="frm_table">
+                                                <p:growl id="msj" autoUpdate="true"></p:growl>
+
+
+
+
+                                                <p:dataTable value="#{ocupacionBean.getir()}" var="ocupacion" paginator="true" id="detailTable" widgetVar="ocupacion" emptyMessage="No se encontraron registros" rows="8">
+
+                                                    <f:facet name="header" >
+                                                        <p:outputPanel style="text-align:right">
+                                                            <h:outputText value="Buscar:" />
+                                                            <p:inputText id="globalFilter" onkeyup="PF('ocupacion').filter()" style="width:150px" placeholder="Busqueda" />
+                                                        </p:outputPanel>
+                                                    </f:facet>  
+
+                                                    <p:column headerText="Nombre Ocupacion" sortBy="#{ocupacion.nombreOcupacion}" filterBy="#{ocupacion.nombreOcupacion}">
+                                                        <h:outputText value="#{ocupacion.nombreOcupacion}" />
+                                                    </p:column>
+                                                    <p:column headerText="Editar"  style="text-align: center" width="11%">
+                                                        <p:commandButton  icon="ui-icon-pencil" title="Editar Ocupacion"   actionListener="#{ocupacionBean.LeerId(ocupacion)}" oncomplete="PF('modOcupacion').show();"  update=":mCat"/>
+                                                    </p:column>
+                                                    <p:column headerText="Eliminar" style="text-align: center" width="11%">
+
+                                                        <p:commandButton icon="ui-icon-trash"  title="Eliminar Ocupacion" 
+                                                                         actionListener="#{ocupacionBean.dltOcupacion(ocupacion)}"
+                                                                         update="@form"  process="@this" class="btn btn-danger">
+                                                            <p:confirm message="¿Desea eliminar la ocupación?" header="Aviso" icon="ui-icon-alert"/>
+                                                        </p:commandButton>
+                                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" 
+                                                                             styleClass="ui-confirmdialog-yes"/>
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" 
+                                                                             class="ui-confirmdialog-no btn-danger pull-right"/>
+                                                        </p:confirmDialog>
+
+                                                    </p:column>
+
+
+                                                </p:dataTable>
+                                            </h:form>
+
+
+                                            <!-- /.insertar categoria -->
+                                            <p:dialog header="Nueva Ocupacion" widgetVar="nuevaOcupacion" minHeight="40" modal="true" resizable="false">
+                                                <h:form id="newOcupacion">
+
+                                                    <div class="form-group">
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">
+                                                            Nombre de la Ocupacion
+                                                        </label>
+                                                        <p:inputText id="name_ocupacion_n"  value="#{ocupacionBean.nombreocupacion}" 
+                                                                     class="form-control"  required="true" 
+                                                                     requiredMessage="Debe ingresar una Ocupación" 
+                                                                     onkeypress="return soloLetras(event)" >
+                                                            <f:ajax event="change" listener="#{ocupacionBean.validarOcupacion()}" /> 
+                                                            <f:ajax event="keyup" listener="#{ocupacionBean.validarOcupacion()}" /> 
+                                                        </p:inputText>
+
+                                                        <p:messages for="name_ocupacion_n" />   
+                                                    </div>
+
+                                                    <p:commandButton class="btn btn-success pull-right" value="Guardar" 
+                                                                     actionListener="#{ocupacionBean.saveOcupacion()}" 
+                                                                     update=":frm_table:detailTable, newOcupacion" validateClient="true"/>
+                                                    <p:commandButton class="btn btn-danger pull-right" value="Cancelar" onclick="PF('nuevaOcupacion').hide();" />
+                                                </h:form>
+                                            </p:dialog>
+
+                                            <p:dialog header="ModificarOcupacion" widgetVar="modOcupacion" id="mCat" minHeight="40" modal="true" showEffect="explode" hideEffect="fade" resizable="false">
+                                                <legend>Modificar</legend>
+                                                <h:form id="cat">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">
+                                                            Nombre de Ocupacion
+                                                        </label>
+                                                        <p:column headerText="Nombre Ocupacion"/>
+
+                                                        <p:inputText id="name_ocupacion"  class="form-control" 
+                                                                     value="#{ocupacionBean.modOcupacion.nombreOcupacion}" 
+                                                                     required="true" 
+                                                                     requiredMessage="Debe ingresar una Ocupación"
+                                                                     onkeypress="return soloLetras(event)">
+                                                        </p:inputText>
+                                                        <p:messages for="name_ocupacion" /> 
+
+                                                    </div>
+                                                    <p:commandButton class="btn btn-success" value="Editar" 
+                                                                     actionListener="#{ocupacionBean.updOcupacion()}" 
+                                                                     update=":frm_table:detailTable, cat" />
+                                                    <p:commandButton  class="btn btn-danger pull-right" value="Cancelar" oncomplete="PF('modOcupacion').hide();"/>
+                                                </h:form>
+
+                                            </p:dialog>
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

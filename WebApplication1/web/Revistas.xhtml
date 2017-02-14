@@ -100,7 +100,7 @@
                                                                              panelStyle="width:150px"
                                                                              effect="fade" 
                                                                              style="width:90%" filter="true" required="true" 
-                                                                             filterMatchMode="startsWith"  >
+                                                                             filterMatchMode="startsWith"  requiredMessage="El titulo es obligatorio" >
                                                                 <f:selectItems value="#{revistaBean.listaTitulos()}" 
                                                                                var="themesas" 
                                                                                itemLabel="#{themesas.tituloRevista}" 
@@ -116,7 +116,7 @@
                                                             <label for="nombreIt">
                                                                 Volumen de Revista:
                                                             </label>
-                                                            <p:inputText id="nombreIt"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="Requerido" />
+                                                            <p:inputText id="nombreIt"  value="#{revistaBean.revista.titulor}" class="form-control" required="true" requiredMessage="Este campo es obligatorio" />
                                                             <p:message for="nombreIt" />
                                                         </div>
                                                         <div class="form-group">
@@ -675,7 +675,7 @@
                                                                              style="width:100%"
                                                                              filter="true" 
                                                                              filterMatchMode="startsWith" >
-                                                                <f:selectItem itemLabel="Seleccione" itemValue="" noSelectionOption="false" />
+                                                                <f:selectItem itemLabel="Propia" itemValue="" noSelectionOption="false" />
                                                                 <f:selectItems value="#{donacionBean.getir()}" 
                                                                                var="themea" 
                                                                                itemLabel="#{themea.idDonante.nombred.concat(' Fecha donación ').concat(themea.fechadonacion.day).concat('-').concat(themea.fechadonacion.month).concat('-').concat(themea.fechadonacion.year) }" 

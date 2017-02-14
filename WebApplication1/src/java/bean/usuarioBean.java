@@ -110,12 +110,12 @@ public class usuarioBean implements Serializable {
                 String tabla = "Usuario";
                 new bitacoraBean().guardarbitacora(tabla, accion);
                 limpiarDatosUsuario();
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Registrado Correctamente!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+               // message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Registrado Correctamente!", null);
+               // FacesContext.getCurrentInstance().addMessage(null, message);
               //  FacesContext.getCurrentInstance().addMessage("Message4", new FacesMessage(FacesMessage.SEVERITY_INFO, "!", "Usuario Registrado Correctamente"));
                  context.execute("PF('nuevoUsuario').hide();");
             } else {
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+               // FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
             }
 
         } catch (Exception e) {
@@ -142,18 +142,19 @@ public class usuarioBean implements Serializable {
 
         System.out.println("-" + contraUsuario.compareTo(""));
         if (contraUsuario.compareTo("") != 0) {
-            this.editUsuario.setPassword(contraUsuario);
+            String contra1 = sha256(contraUsuario);
+            this.editUsuario.setPassword(contra1);
         }
         /* if (paisUsuario.compareTo(paisUsuario) != 0) {
             this.editUsuario.setPaisu(paisUsuario);
         }*/
+        
         if (validarNombre.contentEquals(editUsuario.getNickname())) {
             this.editUsuario.setPaisu(paisUsuario);
             this.editUsuario.setIdTusuario(new TipoUsuario(idTipoUsuario));
             System.out.println("" + this.editUsuario.getEstadoi());
 
             usuarioJPA.updateUsuario(this.editUsuario);
-            System.out.println("se envio...");
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext context = RequestContext.getCurrentInstance();
@@ -171,7 +172,6 @@ public class usuarioBean implements Serializable {
                 System.out.println("" + this.editUsuario.getEstadoi());
 
                 usuarioJPA.updateUsuario(this.editUsuario);
-                System.out.println("se envio...");
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Usuario Modificado exitosamente!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -184,7 +184,7 @@ public class usuarioBean implements Serializable {
 
             } else {
 
-                FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
+                //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Nombre de usuario no disponible"));
             }
 
         }

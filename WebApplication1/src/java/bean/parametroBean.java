@@ -113,11 +113,11 @@ public class parametroBean implements Serializable {
             ParametroJPA parametroJPA = new ParametroJPA();
             parametroJPA.saveParametroJPA(parametro);
             parametro = new Parametro();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡El registro asido guardo exitosamente!", null);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡El registro a sido guardo exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext.getCurrentInstance().execute("PF('ingresarParametro').hide();");
         } else {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa Identificador de parametro ya existe!", null);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡El Identificador de parametro ya existe!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
 
         }
@@ -136,7 +136,7 @@ public class parametroBean implements Serializable {
             parametroJPA.saveParametroJPA(parametro);
             parametro = new Parametro();
             RequestContext.getCurrentInstance().execute("PF('modificarParametro').hide();");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡El registro asido guardo exitosamente!", null);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Registro almacenado exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
 
         } else {
@@ -146,11 +146,11 @@ public class parametroBean implements Serializable {
                 parametroJPA.saveParametroJPA(parametro);
                 parametro = new Parametro();
                 RequestContext.getCurrentInstance().execute("PF('modificarParametro').hide();");
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡El registro asido guardo exitosamente!", null);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Registro almacenado exitosamente!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
 
             } else {
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa Identificador de parametro ya existe!", null);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡El Identificador de parametro ya existe!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
         }
@@ -164,7 +164,7 @@ public class parametroBean implements Serializable {
         if (parametros.length() > 0) {
             if (parametroJPA.leerParametro(parametros)) {
                 this.validar = false;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa Identificador de parametro ya existe!", null);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡El Identificador de parametro ya existe!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
         }

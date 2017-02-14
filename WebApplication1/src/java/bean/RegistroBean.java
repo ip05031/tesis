@@ -76,7 +76,8 @@ public class RegistroBean implements Serializable {
         pa =  ps.leerIdParametroString("MCV");
         this.cuerpo2 = pa.getValorParametro();
         
-        
+        this.newUser.setPaisu("El Salvador");
+        this.newUser.setEnvio(true);
         
 
     }

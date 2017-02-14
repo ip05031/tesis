@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "palabra_clave")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PalabraClave.findPalabra", query = "SELECT p FROM PalabraClave p where p.nombrep like :palabra "),
+    @NamedQuery(name = "PalabraClave.findPalabra", query = "SELECT p FROM PalabraClave p where LOWER(p.nombrep) like :palabra "),
     @NamedQuery(name = "PalabraClave.finlistaNombre", query = "SELECT p.nombrep FROM PalabraClave p order by p.idPalabra"),
     @NamedQuery(name = "PalabraClave.findArticulo", query = "SELECT p.nombrep FROM PalabraClave p INNER JOIN p.articuloList a  Where a.idArticulo=:idArticulo order by p.idPalabra"),
-    @NamedQuery(name = "PalabraClave.findAll", query = "SELECT p FROM PalabraClave p order by p.idPalabra"),
+    @NamedQuery(name = "PalabraClave.findAll", query = "SELECT p FROM PalabraClave p order by p.nombrep"),
     @NamedQuery(name = "PalabraClave.aumentarId", query = "SELECT MAX(p.idPalabra) FROM PalabraClave p"),
     @NamedQuery(name = "PalabraClave.findByIdPalabra", query = "SELECT p FROM PalabraClave p WHERE p.idPalabra = :idPalabra"),
     @NamedQuery(name = "PalabraClave.findByNombrep", query = "SELECT p FROM PalabraClave p WHERE p.nombrep = :nombrep")})
