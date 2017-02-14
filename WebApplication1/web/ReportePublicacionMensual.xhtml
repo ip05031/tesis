@@ -107,11 +107,16 @@
                                                             <p:growl id="msj" autoUpdate="true"></p:growl>
                                                             
                                                             <h:outputText value="Detalle de reporte: " />
-                                                            <p:selectOneButton value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                            <p:selectOneMenu value ="#{reporteBean.seleccionAnio}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                                <f:selectItems value="#{reporteBean.añoss}" var="anio" itemLabel="#{anio}" itemValue="#{anio}"/>
+                                                                <f:ajax event="change" listener="#{reporteBean.validarOpcionesPeriodos()}" render="periodo"/>
+                                                            
+                                                            </p:selectOneMenu>
+                                                            <p:selectOneButton id="periodo" value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte" validatorMessage="Para el año seleccionado este periodo no esta disponible">
                                                                 <f:selectItem itemLabel="Primer Trimestre" itemValue="1" />
-                                                                <f:selectItem itemLabel="Segundo Trimestre" itemValue="4" />
-                                                                <f:selectItem itemLabel="Tercero Trimestre" itemValue="7" />
-                                                                <f:selectItem itemLabel="Cuarto Trimestre" itemValue="10" />
+                                                                <f:selectItem itemLabel="Segundo Trimestre" itemValue="4" noSelectionOption="#{reporteBean.fechaActiva2Tri}" />
+                                                                <f:selectItem itemLabel="Tercero Trimestre" itemValue="7" noSelectionOption="#{reporteBean.fechaActiva3Tri}"/>
+                                                                <f:selectItem itemLabel="Cuarto Trimestre" itemValue="10" noSelectionOption="#{reporteBean.fechaActiva4Tri}"/>
                                                             </p:selectOneButton>
                                                             <br/>
                                                             <br/>
