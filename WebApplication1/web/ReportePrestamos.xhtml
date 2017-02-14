@@ -51,7 +51,7 @@
                                                                     pattern="dd/MM/yyyy"   locale="es"     required="true" 
                                                                     onkeypress="return permite(event, 'none')" 
                                                                     requiredMessage="Fecha Inicial Requerida" navigator="true" 
-                                                                    effect="fadeIn" effectDuration="100">
+                                                                    effect="fadeIn" effectDuration="100" maxdate="today">
                                                             <p:ajax event="dateSelect" update="ffinal" oncomplete="#{reporteBean.setDesde(desde)}"/>
                                                         </p:calendar>     
                                                     </div>
@@ -62,7 +62,7 @@
                                                                     mindate="#{reporteBean.desde}" pattern="dd/MM/yyyy" 
                                                                     locale="es" required="true" onkeypress="return permite(event, 'none')" 
                                                                     requiredMessage="Fecha Final Requerida" navigator="true" effect="fadeIn" 
-                                                                    effectDuration="100">
+                                                                    effectDuration="100" maxdate="today">
                                                             <f:attribute name="finicial" value="#{reporteBean.desde}"/>
                                                             <p:ajax event="dateSelect" oncomplete="#{reporteBean.setHasta(hasta)}" />
                                                         </p:calendar>

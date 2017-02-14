@@ -24,10 +24,10 @@
                                 <div class="panel-heading">
                                     <i class="fa fa-bar-chart-o fa-fw"></i> Reporte
                                     <div class="pull-right">
-                                    <h:form >
-                                         
-                                         <h:link outcome="Reporte" value="Regresar a Reportes" class="btn btn-success btn-xs "/>
-                                    </h:form>
+                                        <h:form >
+
+                                            <h:link outcome="Reporte" value="Regresar a Reportes" class="btn btn-success btn-xs "/>
+                                        </h:form>
                                         <div class="btn-group">
                                         </div>
                                     </div>
@@ -38,37 +38,117 @@
                                         <div class="col-md-12" > 
                                             <h4 align="Center"> MUSEO NACIONAL DE ANTROPOLOGIA Dr. DAVID J. GUZMAN </h4>
                                             <h5 align="Center"> Reporte de Revistas Publicadas </h5>
-                                            
-                                              <div class="form-group" align="center">
-                                                <h:form id="frm_table">
-                                                    <p:growl id="msj" autoUpdate="true"></p:growl>
+
+                                            <div class="form-group" align="center">
+
+                                                <p:tabView scrollable="true">
+                                                    <p:tab title="Rango de fechas">
+                                                        <h:form id="frm_table">
+                                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            <h:outputText value="Detalle de reporte: " />
+
+                                                            <h:outputLabel value="Fecha Inicial" for="finicial" />
+                                                            <div class="form-group">
+
+                                                                <p:calendar id="finicial" value="#{reporteBean.desde}" 
+                                                                            pattern="dd/MM/yyyy"   locale="es"     required="true" 
+                                                                            onkeypress="return permite(event, 'none')" 
+                                                                            requiredMessage="Fecha Inicial Requerida" navigator="true" 
+                                                                            effect="fadeIn" effectDuration="100" maxdate="today" >
+                                                                    <p:ajax event="dateSelect" update="ffinal" oncomplete="#{reporteBean.setDesde(desde)}"/>
+                                                                </p:calendar>     
+                                                            </div>
+
+                                                            <h:outputLabel value="Fecha Final" for="ffinal" />
+                                                            <div class="form-group">
+                                                                <p:calendar id="ffinal" value="#{reporteBean.hasta}" mode="popup"
+                                                                            mindate="#{reporteBean.desde}" pattern="dd/MM/yyyy" 
+                                                                            locale="es" required="true" onkeypress="return permite(event, 'none')" 
+                                                                            requiredMessage="Fecha Final Requerida" navigator="true" effect="fadeIn" 
+                                                                            effectDuration="100" maxdate="today" >
+                                                                    <f:attribute name="finicial" value="#{reporteBean.desde}"/>
+                                                                    <p:ajax event="dateSelect" oncomplete="#{reporteBean.setHasta(hasta)}" />
+
+                                                                </p:calendar>
+                                                            </div>
+                                                            <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportPublicaciones()}" />
+                                                        </h:form>
 
 
-                                                    <h:outputLabel value="Fecha Inicial" for="finicial"/>
-                                                    <div class="form-group">
 
-                                                        <p:calendar id="finicial" value="#{reporteBean.desde}" 
-                                                                    pattern="dd/MM/yyyy"   locale="es"     required="true" 
-                                                                    onkeypress="return permite(event, 'none')" 
-                                                                    requiredMessage="Fecha Inicial Requerida" navigator="true" 
-                                                                    effect="fadeIn" effectDuration="100">
-                                                            <p:ajax event="dateSelect" update="ffinal" oncomplete="#{reporteBean.setDesde(desde)}"/>
-                                                        </p:calendar>     
-                                                    </div>
 
-                                                    <h:outputLabel value="Fecha Final" for="ffinal"/>
-                                                    <div class="form-group">
-                                                        <p:calendar id="ffinal" value="#{reporteBean.hasta}" mode="popup"
-                                                                    mindate="#{reporteBean.desde}" pattern="dd/MM/yyyy" 
-                                                                    locale="es" required="true" onkeypress="return permite(event, 'none')" 
-                                                                    requiredMessage="Fecha Final Requerida" navigator="true" effect="fadeIn" 
-                                                                    effectDuration="100">
-                                                            <f:attribute name="finicial" value="#{reporteBean.desde}"/>
-                                                            <p:ajax event="dateSelect" oncomplete="#{reporteBean.setHasta(hasta)}" />
-                                                        </p:calendar>
-                                                    </div>
-                                                    <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportPublicaciones()}" />
-                                                </h:form>
+                                                    </p:tab>
+                                                    <p:tab title="Mensual">
+                                                        <h:form id="frm_table2">
+                                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            <h:outputText value="Detalle de reporte: " />
+                                                            <div class="form-group">
+                                                                <p:calendar id="ffinal" value="#{reporteBean.desde}" mode="popup"
+                                                                            mindate="#{reporteBean.desde}" pattern="MM/yyyy" 
+                                                                            locale="es" required="true" onkeypress="return permite(event, 'none')" 
+                                                                            requiredMessage="Fecha Final Requerida" navigator="true" effect="fadeIn" 
+                                                                            effectDuration="100" maxdate="today" >
+                                                                    <f:attribute name="finicial" value="#{reporteBean.desde}"/>
+                                                                    <p:ajax event="dateSelect" oncomplete="#{reporteBean.setDesde(desde)}" />
+
+                                                                </p:calendar>
+                                                            </div>
+
+
+                                                            
+                                                            <br/>
+                                                            <br/>
+                                                            <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportPublicacionesxMes()}" />
+                                                        </h:form>
+
+                                                    </p:tab>
+                                                    <p:tab title="Trimestral">
+                                                        <h:form id="frm_table3">
+                                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            
+                                                            <h:outputText value="Detalle de reporte: " />
+                                                            <p:selectOneButton value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                                <f:selectItem itemLabel="Primer Trimestre" itemValue="1" />
+                                                                <f:selectItem itemLabel="Segundo Trimestre" itemValue="4" />
+                                                                <f:selectItem itemLabel="Tercero Trimestre" itemValue="7" />
+                                                                <f:selectItem itemLabel="Cuarto Trimestre" itemValue="10" />
+                                                            </p:selectOneButton>
+                                                            <br/>
+                                                            <br/>
+                                                            <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportPublicacionesx3M()}" />
+                                                        </h:form>
+
+                                                    </p:tab>
+                                                    <p:tab title="Semestral">
+
+                                                        <h:form id="frm_table4">
+                                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            <h:outputText value="Detalle de reporte: " />
+                                                            <p:selectOneButton value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                                <f:selectItem itemLabel="Primer Semestre" itemValue="1" />
+                                                                <f:selectItem itemLabel="Segundo Semestre" itemValue="7" />
+                                                                
+                                                            </p:selectOneButton>
+                                                            <br/>
+                                                            <br/>
+
+                                                            <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportPublicacionesx6M()}" />
+                                                        
+                                                        </h:form>
+
+                                                    </p:tab>
+                                                    <p:tab title="Anual">
+                                                        <h:form id="frm_table5">
+                                                            <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            
+                                                            <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportPublicacionesx12M()}" />
+
+                                                        </h:form>
+                                                    </p:tab>
+
+                                                </p:tabView>
+
+
                                             </div>
                                         </div>
                                     </div>
