@@ -61,7 +61,7 @@ public class ReporteBean implements Serializable {
     private Boolean fechaActiva4Tri;
     private Boolean fechaActiva2Sem;
     private String seleccionAnio;
-    
+
     private Date selectedDate;
 
     public String getSeleccionAnio() {
@@ -71,9 +71,6 @@ public class ReporteBean implements Serializable {
     public void setSeleccionAnio(String seleccionAnio) {
         this.seleccionAnio = seleccionAnio;
     }
-    
-    
-    
 
     public Boolean getFechaActiva2Tri() {
         return fechaActiva2Tri;
@@ -107,8 +104,6 @@ public class ReporteBean implements Serializable {
         this.fechaActiva2Sem = fechaActiva2Sem;
     }
 
-    
-    
     public List<String> getAñoss() {
         return añoss;
     }
@@ -117,7 +112,6 @@ public class ReporteBean implements Serializable {
         this.añoss = añoss;
     }
 
-    
     public int getOpcion() {
         return opcion;
     }
@@ -152,10 +146,10 @@ public class ReporteBean implements Serializable {
         String annio = Integer.toString(c1.get(Calendar.YEAR));
         int ayoo = Integer.parseInt(annio);
         System.out.println(ayoo);
-        for(int i = 2016;i<=ayoo;i++){
-        añoss.add(i+"");
+        for (int i = 2016; i <= ayoo; i++) {
+            añoss.add(i + "");
         }
-        this.seleccionAnio = ayoo+"";
+        this.seleccionAnio = ayoo + "";
         this.validarOpcionesPeriodos();
 
     }
@@ -421,7 +415,6 @@ public class ReporteBean implements Serializable {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date date1 = null;
         Date date2 = null;
-       
 
         if (Integer.parseInt(this.estado) == 1) {
             periodo = "primer trimestre";
@@ -432,7 +425,7 @@ public class ReporteBean implements Serializable {
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            
+
             System.out.println(annio);
             System.out.println(date1 + "  caso1");
             System.out.println(date2 + "  caso1");
@@ -544,7 +537,7 @@ public class ReporteBean implements Serializable {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date date1 = null;
         Date date2 = null;
-        
+
         String periodo = "";
 
         if (Integer.parseInt(this.estado) == 1) {
@@ -1387,20 +1380,19 @@ public class ReporteBean implements Serializable {
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
-    
-    public Date cambioDeFecha (Date comparar)
-    {
-        
-      Date hoy = new Date ();
-      if(comparar.before(hoy))
-          return hoy;
-      else 
-         return comparar; 
+
+    public Date cambioDeFecha(Date comparar) {
+
+        Date hoy = new Date();
+        if (comparar.before(hoy)) {
+            return hoy;
+        } else {
+            return comparar;
+        }
     }
-    
-    public void validarOpcionesPeriodos()
-    {
-        Date hoy =new Date();
+
+    public void validarOpcionesPeriodos() {
+        Date hoy = new Date();
         Calendar c1 = Calendar.getInstance();
         String annio = Integer.toString(c1.get(Calendar.YEAR));
         this.fechaActiva2Tri = true;
@@ -1409,29 +1401,28 @@ public class ReporteBean implements Serializable {
         this.fechaActiva2Sem = true;
         int uno = Integer.parseInt(this.seleccionAnio);
         int dos = Integer.parseInt(annio);
-        System.out.println(uno +" >="+ dos);
-        if(uno >= dos)
-        {
-          if(hoy.getMonth() > 3 && hoy.getMonth() <=6 )
-          {
-            this.fechaActiva2Tri = false;  
-          }
-          if(hoy.getMonth() > 6 && hoy.getMonth() <=9 )
-          {
+        System.out.println(uno + " >=" + dos);
+        if (uno >= dos) {
+            if (hoy.getMonth() > 3 && hoy.getMonth() <= 6) {
+                this.fechaActiva2Tri = false;
+            }
+            if (hoy.getMonth() > 6 && hoy.getMonth() <= 9) {
+                this.fechaActiva3Tri = false;
+                this.fechaActiva2Sem = false;
+            }
+            if (hoy.getMonth() > 9 && hoy.getMonth() <= 12) {
+                this.fechaActiva4Tri = false;
+
+            }
+
+        } else {
+            this.fechaActiva2Tri = false;
             this.fechaActiva3Tri = false;
-            this.fechaActiva2Sem = false;
-          }
-          if(hoy.getMonth() > 9 && hoy.getMonth() <=12 )
-          {
             this.fechaActiva4Tri = false;
-            
-          }
-          
-          
+            this.fechaActiva2Sem = false;
+
         }
-        
+
     }
-    
-    
 
 }

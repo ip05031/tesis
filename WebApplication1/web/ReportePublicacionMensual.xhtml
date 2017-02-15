@@ -102,21 +102,24 @@
                                                         </h:form>
 
                                                     </p:tab>
-                                                    <p:tab title="Trimestral">
-                                                        <h:form id="frm_table3">
+                                                    <p:tab title="Trimestral">                                                        
+                                                        <h:form id="frm_table3" >
                                                             <p:growl id="msj" autoUpdate="true"></p:growl>
-                                                            
-                                                            <h:outputText value="Detalle de reporte: " />
-                                                            <p:selectOneMenu value ="#{reporteBean.seleccionAnio}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                            <div class="row" >                                                            
+                                                            <h:outputText value="Detalle de reporte: "  />
+                                                            </div>
+                                                            <div class="row">
+                                                                <p:selectOneMenu class="col-md-2 col-md-offset-5"  value ="#{reporteBean.seleccionAnio}" required="true" requiredMessage="Seleccione un detalle para el reporte">
                                                                 <f:selectItems value="#{reporteBean.añoss}" var="anio" itemLabel="#{anio}" itemValue="#{anio}"/>
-                                                                <f:ajax event="change" listener="#{reporteBean.validarOpcionesPeriodos()}" render="periodo"/>
-                                                            
+                                                                <p:ajax event="change" listener="#{reporteBean.validarOpcionesPeriodos()}" update="@form:periodo" />
+                                                                                                                           
                                                             </p:selectOneMenu>
+                                                            </div>
                                                             <p:selectOneButton id="periodo" value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte" validatorMessage="Para el año seleccionado este periodo no esta disponible">
-                                                                <f:selectItem itemLabel="Primer Trimestre" itemValue="1" />
-                                                                <f:selectItem itemLabel="Segundo Trimestre" itemValue="4" noSelectionOption="#{reporteBean.fechaActiva2Tri}" />
-                                                                <f:selectItem itemLabel="Tercero Trimestre" itemValue="7" noSelectionOption="#{reporteBean.fechaActiva3Tri}"/>
-                                                                <f:selectItem itemLabel="Cuarto Trimestre" itemValue="10" noSelectionOption="#{reporteBean.fechaActiva4Tri}"/>
+                                                                <f:selectItem id="PrimerTrimestre" itemLabel="Primer Trimestre" itemValue="1" />
+                                                                <f:selectItem id="SegundoTrimestre" itemDisabled="#{reporteBean.fechaActiva2Tri}" itemLabel="Segundo Trimestre" itemValue="4"   />
+                                                                <f:selectItem  id="TerserTrimestre" itemDisabled="#{reporteBean.fechaActiva3Tri}" itemLabel="Tercero Trimestre" itemValue="7" />
+                                                                <f:selectItem id="CuartoTrimestre" itemDisabled="#{reporteBean.fechaActiva4Tri}" itemLabel="Cuarto Trimestre" itemValue="10" />
                                                             </p:selectOneButton>
                                                             <br/>
                                                             <br/>
