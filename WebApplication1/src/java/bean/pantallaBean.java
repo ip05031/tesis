@@ -130,7 +130,7 @@ public class pantallaBean implements Serializable {
                     this.setIdPantalla(0);
                     this.setNombrePantalla("");
                     this.setUrlPantalla("");
-                    this.setLpantalla(null);                    
+                    this.setLpantalla(null);
                     //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Pantalla creada con éxito."));
                     FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Pantalla registrada exitosamente!", null);
                     FacesContext.getCurrentInstance().addMessage(null, message);
@@ -192,50 +192,56 @@ public class pantallaBean implements Serializable {
     }
 
     public void validarNombrePantalla(int tipo) {
-        pantallaJPA = new PantallaJPA();
-        String nombrepantalla = this.getNombrePantalla();
-        if (nombrepantalla.length() > 0) {
-            if (pantallaJPA.searchPantalla(1, nombrepantalla)) {
-                if (tipo == 1) {
-                    RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "!Nombre de pantalla ya existe!", null);
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Nombre de pantalla ya existe"));
-                } else {
-                    RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "!Nombre de pantalla ya existe!", null);
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    // FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Nombre de pantalla ya existe"));
-                }
+        try {
+            pantallaJPA = new PantallaJPA();
+            String nombrepantalla = this.getNombrePantalla();
+            if (nombrepantalla.length() > 0) {
+                if (pantallaJPA.searchPantalla(1, nombrepantalla)) {
+                    if (tipo == 1) {
+                        RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "!Nombre de pantalla ya existe!", null);
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Nombre de pantalla ya existe"));
+                    } else {
+                        RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "!Nombre de pantalla ya existe!", null);
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        // FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Nombre de pantalla ya existe"));
+                    }
 
-            } else {
-                RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", false);");
+                } else {
+                    RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", false);");
+                }
             }
+        } catch (Exception e) {
         }
     }
 
     public void validarAccesoPa(int tipo) {
-        this.verdad = true;
-        pantallaJPA = new PantallaJPA();
-        String acceso = this.getUrlPantalla();
-        if (acceso.length() > 0) {
-            if (pantallaJPA.searchPantalla(2, acceso)) {
-                this.verdad = false;
-                if (tipo == 1) {
-                    RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Url de pantalla ya existe!", null);
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Url de pantalla ya existe"));
-                } else {
-                    RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
-                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Url de pantalla ya existe!", null);
-                    FacesContext.getCurrentInstance().addMessage(null, message);
-                    //FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Url de pantalla ya existe"));
-                }
+        try {
+            this.verdad = true;
+            pantallaJPA = new PantallaJPA();
+            String acceso = this.getUrlPantalla();
+            if (acceso.length() > 0) {
+                if (pantallaJPA.searchPantalla(2, acceso)) {
+                    this.verdad = false;
+                    if (tipo == 1) {
+                        RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Url de pantalla ya existe!", null);
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Url de pantalla ya existe"));
+                    } else {
+                        RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", true);");
+                        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "!Url de pantalla ya existe!", null);
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                        //FacesContext.getCurrentInstance().addMessage("Message3", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Url de pantalla ya existe"));
+                    }
 
-            } else {
-                RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", false);");
+                } else {
+                    RequestContext.getCurrentInstance().execute("$(\".btn\" ).prop(\"disabled\", false);");
+                }
             }
+        } catch (Exception e) {
         }
     }
 }

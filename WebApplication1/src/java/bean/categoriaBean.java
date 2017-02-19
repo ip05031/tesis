@@ -125,7 +125,7 @@ public class categoriaBean implements Serializable {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Categoria modificada exitosamente!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 RequestContext.getCurrentInstance().execute("PF('modCategoria').hide();");
-            } 
+            }
 
         }
     }
@@ -158,20 +158,24 @@ public class categoriaBean implements Serializable {
     }
 
     public void validarCategoria() {
-        validar = true;
-        categoriaJPA = new CategoriaJPA();
-        String categoria="";
-        if(this.getNombreCategoria()==null){
-           categoria = this.modCategoria.getNombrec();
-        }
-        else categoria = this.getNombreCategoria();
-        if (categoria.length() > 0) {
-            System.out.println("comineza la validacion de categoria");
-            if (categoriaJPA.searchCategora(categoria)) {
-                validar = false;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa categoría ya existe!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            validar = true;
+            categoriaJPA = new CategoriaJPA();
+            String categoria = "";
+            if (this.getNombreCategoria() == null) {
+                categoria = this.modCategoria.getNombrec();
+            } else {
+                categoria = this.getNombreCategoria();
             }
+            if (categoria.length() > 0) {
+                System.out.println("comineza la validacion de categoria");
+                if (categoriaJPA.searchCategora(categoria)) {
+                    validar = false;
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa categoría ya existe!", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
+            }
+        } catch (Exception e) {
         }
     }
 

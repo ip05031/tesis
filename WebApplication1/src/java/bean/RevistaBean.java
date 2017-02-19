@@ -384,34 +384,40 @@ public class RevistaBean implements Serializable {
     }
 
     public void validarPalabra() {
-        this.exite2 = true;
-        PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
-        String palabra = this.getNombrepalabra();
-        if (palabra.length() > 0) {
+        try {
+            this.exite2 = true;
+            PalabrasClavesJPA palabraJPA = new PalabrasClavesJPA();
+            String palabra = this.getNombrepalabra();
+            if (palabra.length() > 0) {
 
-            if (palabraJPA.searchPalabra(palabra)) {
-                this.exite2 = false;
-                //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Esa palabra ya está registrada"));
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esa palabra ya está registrada", null);
-                // FacesContext.getCurrentInstance().addMessage(null, message);
-                FacesContext.getCurrentInstance().addMessage("nombre", message);
+                if (palabraJPA.searchPalabra(palabra)) {
+                    this.exite2 = false;
+                    //FacesContext.getCurrentInstance().addMessage("Message2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Esa palabra ya está registrada"));
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esa palabra ya está registrada", null);
+                    // FacesContext.getCurrentInstance().addMessage(null, message);
+                    FacesContext.getCurrentInstance().addMessage("nombre", message);
+                }
             }
+        } catch (Exception e) {
         }
     }
 
     public void validarTitulo() {
-        exitencia = true;
-        TituloJPA tituloJPA = new TituloJPA();
-        String titulo = this.idTitulo.getTituloRevista();
-        System.out.println("titulo:");
-        if (titulo.length() > 0) {
-            if (tituloJPA.searchTitulo(titulo)) {
-                exitencia = false;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El titulo ya está registrada", null);
-                // FacesContext.getCurrentInstance().addMessage(null, message);
-                FacesContext.getCurrentInstance().addMessage("nombreTitulossa", message);
+        try {
+            exitencia = true;
+            TituloJPA tituloJPA = new TituloJPA();
+            String titulo = this.idTitulo.getTituloRevista();
+            System.out.println("titulo:");
+            if (titulo.length() > 0) {
+                if (tituloJPA.searchTitulo(titulo)) {
+                    exitencia = false;
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "El titulo ya está registrada", null);
+                    // FacesContext.getCurrentInstance().addMessage(null, message);
+                    FacesContext.getCurrentInstance().addMessage("nombreTitulossa", message);
 
+                }
             }
+        } catch (Exception e) {
         }
     }
 
@@ -550,18 +556,21 @@ public class RevistaBean implements Serializable {
     }
 
     public void validaraAutor() {
-        this.verdad5 = true;
-        AutorJPA autorJPA = new AutorJPA();
-        String autor = "";
-        if (this.getNombreautor() != null) {
-            autor = this.getNombreautor();
-        }
-        if (autor.length() > 0) {
-            if (autorJPA.searchCategora(autor)) {
-                verdad5 = false;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡EL nombre del autor esta asignado!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            this.verdad5 = true;
+            AutorJPA autorJPA = new AutorJPA();
+            String autor = "";
+            if (this.getNombreautor() != null) {
+                autor = this.getNombreautor();
             }
+            if (autor.length() > 0) {
+                if (autorJPA.searchCategora(autor)) {
+                    verdad5 = false;
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡EL nombre del autor esta asignado!", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
+            }
+        } catch (Exception e) {
         }
     }
 

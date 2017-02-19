@@ -204,10 +204,7 @@
                                                                                 Ocupación
                                                                             </label><br/>
                                                                             <p:selectOneMenu id="ocupacion" value="#{usuarioBean.ocupacionUsuario}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
-                                                                                <f:selectItem   itemValue="Arqueologo"      itemLabel=" Arqueologo"  />
-                                                                                <f:selectItem   itemValue="Paleontologo"    itemLabel=" Paleontologo"  />
-                                                                                <f:selectItem   itemValue="Filosofo"        itemLabel=" Filosofo"  />
-                                                                                <f:selectItem   itemValue="Estudiante"      itemLabel=" Estudiante" />
+                                                                                 <f:selectItems value="#{ocupacionBean.getir()}" var="ocupac"  itemLabel="#{ocupac.nombreOcupacion}" itemValue="#{ocupac.nombreOcupacion}" /> 
                                                                             </p:selectOneMenu>
                                                                         </div>
                                                                     </div>
@@ -374,10 +371,7 @@
                                                                             Ocupación
                                                                         </label><br/>
                                                                         <p:selectOneMenu   id="ocupacion" value="#{usuarioBean.editUsuario.ocupacion}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
-                                                                            <f:selectItem  itemValue="Arqueologo" itemLabel=" Arqueologo"  />
-                                                                            <f:selectItem  itemValue="Paleontologo" itemLabel=" Paleontologo"  />
-                                                                            <f:selectItem  itemValue="Filosofo" itemLabel=" Filosofo"  />
-                                                                            <f:selectItem  itemValue="Estudiante" itemLabel=" Estudiante" />
+                                                                            <f:selectItems value="#{ocupacionBean.getir()}" var="ocupac"  itemLabel="#{ocupac.nombreOcupacion}" itemValue="#{ocupac.nombreOcupacion}" /> 
                                                                         </p:selectOneMenu>
                                                                     </div>
                                                                 </div>

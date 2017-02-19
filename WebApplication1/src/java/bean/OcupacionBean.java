@@ -1,4 +1,3 @@
-
 package bean;
 
 import controller.OcupacionJPA;
@@ -56,17 +55,16 @@ public class OcupacionBean implements Serializable {
     public void setModOcupacion(Ocupacion modOcupacion) {
         this.modOcupacion = modOcupacion;
     }
-    
+
     public OcupacionBean() {
     }
-    
- 
+
     public List<Ocupacion> getir() {
         ocupacionJPA = new OcupacionJPA();
         locupacion = ocupacionJPA.getOcupacion();
         return locupacion;
     }
-    
+
     public List<Ocupacion> getLocupacion() {
         return locupacion;
     }
@@ -74,13 +72,13 @@ public class OcupacionBean implements Serializable {
     public void setLocupacion(List<Ocupacion> locupacion) {
         this.locupacion = locupacion;
     }
-    
-     public void saveOcupacion() {
+
+    public void saveOcupacion() {
         ocupacionJPA = new OcupacionJPA();
         ocupacion = new Ocupacion();
         ocupacion.setIdOcupacion(ocupacionJPA.aumentarIdOcupacion() + 1);
         ocupacion.setNombreOcupacion(nombreocupacion);
-       if (ocupacionJPA.searchOcupacion(nombreocupacion)) {
+        if (ocupacionJPA.searchOcupacion(nombreocupacion)) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡La Ocupación ya existe!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
@@ -93,9 +91,9 @@ public class OcupacionBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext.getCurrentInstance().execute("PF('nuevaOcupacion').hide();");
         }
-       }
-       
-        public void updOcupacion() {
+    }
+
+    public void updOcupacion() {
         if (nombreTemOcupacion.contentEquals(modOcupacion.getNombreOcupacion())) {
             ocupacionJPA = new OcupacionJPA();
 
@@ -118,12 +116,12 @@ public class OcupacionBean implements Serializable {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Ocupación modificada exitosamente!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 RequestContext.getCurrentInstance().execute("PF('modOcupacion').hide();");
-            } 
+            }
 
         }
     }
-        
-        public void dltOcupacion(Ocupacion ocup) {
+
+    public void dltOcupacion(Ocupacion ocup) {
         ocupacionJPA = new OcupacionJPA();
         ocupacionJPA.deleteOcupacion(ocup);
 
@@ -133,9 +131,8 @@ public class OcupacionBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
 
     }
-        
-        
-     public void LeerId(Ocupacion ocup) {
+
+    public void LeerId(Ocupacion ocup) {
         OcupacionJPA jpa;
         Ocupacion temp;
         try {
@@ -149,26 +146,28 @@ public class OcupacionBean implements Serializable {
 
         } catch (Exception e) {
         }
-    }   
-
-     public void validarOcupacion() {
-        validarOcupacion = true;
-        ocupacionJPA = new OcupacionJPA();
-        String ocupacion="";
-        if(this.getNombreocupacion()==null){
-           ocupacion = this.modOcupacion.getNombreOcupacion();
-        }
-        else ocupacion = this.getNombreocupacion();
-        if (ocupacion.length() > 0) {
-            System.out.println("comineza la validacion de Ocupación");
-            if (ocupacionJPA.searchOcupacion(ocupacion)) {
-                validarOcupacion = false;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡La Ocupación ya existe!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-        }
-    }    
-        
     }
-    
 
+    public void validarOcupacion() {
+        try {
+            validarOcupacion = true;
+            ocupacionJPA = new OcupacionJPA();
+            String ocupacion = "";
+            if (this.getNombreocupacion() == null) {
+                ocupacion = this.modOcupacion.getNombreOcupacion();
+            } else {
+                ocupacion = this.getNombreocupacion();
+            }
+            if (ocupacion.length() > 0) {
+                System.out.println("comineza la validacion de Ocupación");
+                if (ocupacionJPA.searchOcupacion(ocupacion)) {
+                    validarOcupacion = false;
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡La Ocupación ya existe!", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
+}

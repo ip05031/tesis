@@ -93,8 +93,8 @@ public class estadosBean implements Serializable {
         lEstado = estadoJPA.getEstado();
         return lEstado;
     }
-    
-     public List<Estado> Getir2() {
+
+    public List<Estado> Getir2() {
         estadoJPA = new EstadoJPA();
         lEstado = estadoJPA.getEstado2();
         return lEstado;
@@ -136,21 +136,24 @@ public class estadosBean implements Serializable {
     }
 
     public void validarEstado() {
-        verdad = true;
-        estadoJPA = new EstadoJPA();
-        String esta = "";
-        if (nombrestado.isEmpty()) {
-            esta = editarestado.getNombreEstado();
-        } else {
-            esta = nombrestado;
-        }
-
-        if (esta.length() > 0) {
-            if (estadoJPA.searchEstado(esta)) {
-                verdad = false;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa Estado ya existe!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            verdad = true;
+            estadoJPA = new EstadoJPA();
+            String esta = "";
+            if (nombrestado.isEmpty()) {
+                esta = editarestado.getNombreEstado();
+            } else {
+                esta = nombrestado;
             }
+
+            if (esta.length() > 0) {
+                if (estadoJPA.searchEstado(esta)) {
+                    verdad = false;
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Esa Estado ya existe!", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
+            }
+        } catch (Exception e) {
         }
     }
 

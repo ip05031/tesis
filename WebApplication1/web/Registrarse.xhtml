@@ -42,11 +42,8 @@
                                                 <label for="exampleInputEmail1">
                                                     Ocupación
                                                 </label><br/>
-                                                <p:selectOneMenu id="ocupacion" value="#{registroBean.newUser.ocupacion}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
-                                                    <f:selectItem   itemValue="Arqueologo"      itemLabel=" Arqueologo"  />
-                                                    <f:selectItem   itemValue="Paleontologo"    itemLabel=" Paleontologo"  />
-                                                    <f:selectItem   itemValue="Filosofo"        itemLabel=" Filosofo"  />
-                                                    <f:selectItem   itemValue="Estudiante"      itemLabel=" Estudiante" />
+                                                 <p:selectOneMenu id="ocupacion" value="#{registroBean.newUser.ocupacion}" style="width:250px" required="true" requiredMessage="Seleccione una Ocupación">
+                                                     <f:selectItems value="#{ocupacionBean.getir()}" var="ocupac"  itemLabel="#{ocupac.nombreOcupacion}" itemValue="#{ocupac.nombreOcupacion}" /> 
                                                 </p:selectOneMenu>
                                             </div>
                                         </div>

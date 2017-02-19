@@ -152,6 +152,7 @@ public class palabraClaveBean implements Serializable {
     }
 
     public void validarPalabra() {
+        try{
         this.existe = true;
         palabraJPA = new PalabrasClavesJPA();
         String palabra ="";
@@ -168,6 +169,7 @@ public class palabraClaveBean implements Serializable {
                 // FacesContext.getCurrentInstance().addMessage(null, message);
                 FacesContext.getCurrentInstance().addMessage("Message2", message);
             }
-        }
+        }}
+        catch(Exception e){}
     }
 }

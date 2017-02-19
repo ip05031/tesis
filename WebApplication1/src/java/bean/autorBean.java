@@ -85,7 +85,7 @@ public class autorBean implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor Almacenado exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext.getCurrentInstance().execute("PF('ingresarAutor').hide();");
-        } 
+        }
 
     }
 
@@ -114,7 +114,7 @@ public class autorBean implements Serializable {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Autor modificado Exitosamente!", null);
                 FacesContext.getCurrentInstance().addMessage(null, message);
                 RequestContext.getCurrentInstance().execute("PF('modificarautor').hide();");
-            } 
+            }
         }
     }
 
@@ -133,19 +133,23 @@ public class autorBean implements Serializable {
     }
 
     public void validarCategoria() {
-        this.verdad = true;
-        autorJPA = new AutorJPA();
-        String autor="";
-        if(this.getNombreautor()!=null)
-        autor = this.getNombreautor();
-        else
-          autor=this.editarautor.getNombreAutor();
-        if (autor.length() > 0) {
-            if (autorJPA.searchCategora(autor)) {
-                verdad = false;
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡EL nombre del autor esta asignado!", null);
-                FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            this.verdad = true;
+            autorJPA = new AutorJPA();
+            String autor = "";
+            if (this.getNombreautor() != null) {
+                autor = this.getNombreautor();
+            } else {
+                autor = this.editarautor.getNombreAutor();
             }
+            if (autor.length() > 0) {
+                if (autorJPA.searchCategora(autor)) {
+                    verdad = false;
+                    FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡EL nombre del autor esta asignado!", null);
+                    FacesContext.getCurrentInstance().addMessage(null, message);
+                }
+            }
+        } catch (Exception e) {
         }
     }
 }
