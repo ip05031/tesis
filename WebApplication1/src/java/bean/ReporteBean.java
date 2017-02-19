@@ -405,8 +405,7 @@ public class ReporteBean implements Serializable {
 
         String usuario = nombreUsuario;
         int contador = 0;
-        Calendar c1 = Calendar.getInstance();
-        String annio = Integer.toString(c1.get(Calendar.YEAR));
+        
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //int annio = 2016;
         String periodo = "";
@@ -420,25 +419,25 @@ public class ReporteBean implements Serializable {
             periodo = "primer trimestre";
             contador = Integer.parseInt(this.estado) + 2;
 
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "31/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "31/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
 
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso1");
             System.out.println(date2 + "  caso1");
         }
         if (Integer.parseInt(this.estado) == 4) {
             periodo = "segundo trimestre";
             contador = Integer.parseInt(this.estado) + 2;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "30/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "30/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso2");
             System.out.println(date2 + "  caso2");
 
@@ -446,12 +445,12 @@ public class ReporteBean implements Serializable {
         if (Integer.parseInt(this.estado) == 7) {
             periodo = "tercer trimestre";
             contador = Integer.parseInt(this.estado) + 2;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "30/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "30/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso3");
             System.out.println(date2 + "  caso3");
 
@@ -459,12 +458,12 @@ public class ReporteBean implements Serializable {
         if (Integer.parseInt(this.estado) == 10) {
             periodo = "cuarto trimestre";
             contador = Integer.parseInt(this.estado) + 2;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "31/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "31/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso4");
             System.out.println(date2 + "  caso4");
         }
@@ -510,6 +509,7 @@ public class ReporteBean implements Serializable {
             System.out.println("fin error 1");
             this.setDesde(null);
             this.setHasta(null);
+            this.setSeleccionAnio(null);
             this.setNombreUsuario("");
         }
 
@@ -528,8 +528,7 @@ public class ReporteBean implements Serializable {
 
         String usuario = nombreUsuario;
         int contador = 0;
-        Calendar c1 = Calendar.getInstance();
-        String annio = Integer.toString(c1.get(Calendar.YEAR));
+        
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //int annio = 2016;
         String fecha1 = "";
@@ -544,24 +543,24 @@ public class ReporteBean implements Serializable {
             periodo = "primer semestre";
             contador = Integer.parseInt(this.estado) + 5;
 
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "30/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "30/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso1");
             System.out.println(date2 + "  caso1");
         }
         if (Integer.parseInt(this.estado) == 7) {
             periodo = "segundo semestre";
             contador = Integer.parseInt(this.estado) + 5;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "31/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "31/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso2");
             System.out.println(date2 + "  caso2");
 
@@ -608,6 +607,7 @@ public class ReporteBean implements Serializable {
             System.out.println("fin error 1");
             this.setDesde(null);
             this.setHasta(null);
+            this.setSeleccionAnio(null);
             this.setNombreUsuario("");
         }
 
@@ -623,12 +623,12 @@ public class ReporteBean implements Serializable {
         Connection conect;
 
         Map<String, Object> parametros = new HashMap<String, Object>();
-        Calendar calendario = GregorianCalendar.getInstance();
+        
 
         String usuario = nombreUsuario;
         int contador = 0;
-        Calendar c1 = Calendar.getInstance();
-        String annio = Integer.toString(c1.get(Calendar.YEAR));
+        Date fechaActual = new Date();
+        
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //int annio = 2016;
         String periodo = "";
@@ -638,12 +638,12 @@ public class ReporteBean implements Serializable {
         Date date1 = null;
         Date date2 = null;
         periodo = "periodo anual";
-        fecha1 = "01/01/" + annio;
-        fecha2 = "31/12/" + annio;
+        fecha1 = "01/01/" + seleccionAnio;
+        fecha2 = "31/12/" + seleccionAnio;
         date1 = formato.parse(fecha1);
         date2 = formato.parse(fecha2);
         date2 = cambioDeFecha(date2);
-        System.out.println(annio);
+        System.out.println(seleccionAnio);
         System.out.println(date1 + "  caso1");
         System.out.println(date2 + "  caso1");
 
@@ -688,6 +688,7 @@ public class ReporteBean implements Serializable {
             System.out.println("fin error 1");
             this.setDesde(null);
             this.setHasta(null);
+            this.setSeleccionAnio(null);
             this.setNombreUsuario("");
         }
 
@@ -1013,8 +1014,7 @@ public class ReporteBean implements Serializable {
 
         String usuario = nombreUsuario;
         int contador = 0;
-        Calendar c1 = Calendar.getInstance();
-        String annio = Integer.toString(c1.get(Calendar.YEAR));
+        
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //int annio = 2016;
         String periodo = "";
@@ -1028,24 +1028,24 @@ public class ReporteBean implements Serializable {
             periodo = "primer trimestre";
             contador = Integer.parseInt(this.estado) + 2;
 
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "31/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "31/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso1");
             System.out.println(date2 + "  caso1");
         }
         if (Integer.parseInt(this.estado) == 4) {
             periodo = "segundo trimestre";
             contador = Integer.parseInt(this.estado) + 2;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "30/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "30/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso2");
             System.out.println(date2 + "  caso2");
 
@@ -1053,12 +1053,12 @@ public class ReporteBean implements Serializable {
         if (Integer.parseInt(this.estado) == 7) {
             periodo = "tercer trimestre";
             contador = Integer.parseInt(this.estado) + 2;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "30/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "30/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso3");
             System.out.println(date2 + "  caso3");
 
@@ -1066,11 +1066,11 @@ public class ReporteBean implements Serializable {
         if (Integer.parseInt(this.estado) == 10) {
             periodo = "cuarto trimestre";
             contador = Integer.parseInt(this.estado) + 2;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "31/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "31/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso4");
             System.out.println(date2 + "  caso4");
         }
@@ -1118,6 +1118,7 @@ public class ReporteBean implements Serializable {
             System.out.println("fin error 1");
             this.setDesde(null);
             this.setHasta(null);
+            this.setSeleccionAnio(null);
             this.setNombreUsuario("");
         }
 
@@ -1135,8 +1136,7 @@ public class ReporteBean implements Serializable {
 
         String usuario = nombreUsuario;
         int contador = 0;
-        Calendar c1 = Calendar.getInstance();
-        String annio = Integer.toString(c1.get(Calendar.YEAR));
+       
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //int annio = 2016;
         String fecha1 = "";
@@ -1150,24 +1150,24 @@ public class ReporteBean implements Serializable {
             periodo = "primer semestre";
             contador = Integer.parseInt(this.estado) + 5;
 
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "30/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "30/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso1");
             System.out.println(date2 + "  caso1");
         }
         if (Integer.parseInt(this.estado) == 7) {
             periodo = "segundo semestre";
             contador = Integer.parseInt(this.estado) + 5;
-            fecha1 = "01/" + this.estado + "/" + annio;
-            fecha2 = "31/" + contador + "/" + annio;
+            fecha1 = "01/" + this.estado + "/" + seleccionAnio;
+            fecha2 = "31/" + contador + "/" + seleccionAnio;
             date1 = formato.parse(fecha1);
             date2 = formato.parse(fecha2);
             date2 = cambioDeFecha(date2);
-            System.out.println(annio);
+            System.out.println(seleccionAnio);
             System.out.println(date1 + "  caso2");
             System.out.println(date2 + "  caso2");
 
@@ -1216,6 +1216,7 @@ public class ReporteBean implements Serializable {
             System.out.println("fin error 1");
             this.setDesde(null);
             this.setHasta(null);
+            this.setSeleccionAnio(null);
             this.setNombreUsuario("");
         }
 
@@ -1233,8 +1234,7 @@ public class ReporteBean implements Serializable {
 
         String usuario = nombreUsuario;
         int contador = 0;
-        Calendar c1 = Calendar.getInstance();
-        String annio = Integer.toString(c1.get(Calendar.YEAR));
+        
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //int annio = 2016;
         String periodo = "";
@@ -1244,12 +1244,12 @@ public class ReporteBean implements Serializable {
         Date date1 = null;
         Date date2 = null;
         periodo = "periodo anual";
-        fecha1 = "01/01/" + annio;
-        fecha2 = "31/12/" + annio;
+        fecha1 = "01/01/" + seleccionAnio;
+        fecha2 = "31/12/" + seleccionAnio;
         date1 = formato.parse(fecha1);
         date2 = formato.parse(fecha2);
         date2 = cambioDeFecha(date2);
-        System.out.println(annio);
+        System.out.println(seleccionAnio);
         System.out.println(date1 + "  caso1");
         System.out.println(date2 + "  caso1");
 
@@ -1296,6 +1296,7 @@ public class ReporteBean implements Serializable {
             System.out.println("fin error 1");
             this.setDesde(null);
             this.setHasta(null);
+            this.setSeleccionAnio(null);
             this.setNombreUsuario("");
         }
 
@@ -1384,10 +1385,11 @@ public class ReporteBean implements Serializable {
     public Date cambioDeFecha(Date comparar) {
 
         Date hoy = new Date();
+        
         if (comparar.before(hoy)) {
-            return hoy;
-        } else {
             return comparar;
+        } else {
+            return hoy;
         }
     }
 

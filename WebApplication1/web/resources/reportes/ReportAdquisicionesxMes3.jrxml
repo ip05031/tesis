@@ -50,7 +50,7 @@ WHERE  donaciones."fechadonacion"  BETWEEN $P{date_desde} and $P{date_hasta}]]>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="139" y="46" width="93" height="20" uuid="a18c4faf-3cc6-4ed2-8b29-11b36a9d4931"/>
+				<reportElement x="129" y="46" width="93" height="20" uuid="a18c4faf-3cc6-4ed2-8b29-11b36a9d4931"/>
 				<text><![CDATA[Correspondiente al]]></text>
 			</staticText>
 			<staticText>
@@ -68,7 +68,7 @@ WHERE  donaciones."fechadonacion"  BETWEEN $P{date_desde} and $P{date_hasta}]]>
 				<text><![CDATA[Reporte de Adquisiciones]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="332" y="46" width="48" height="20" uuid="f41eee18-312f-4b56-a029-03c31b2bbffb"/>
+				<reportElement x="341" y="46" width="64" height="20" uuid="f41eee18-312f-4b56-a029-03c31b2bbffb"/>
 				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
 			</textField>
 			<image>
@@ -76,19 +76,19 @@ WHERE  donaciones."fechadonacion"  BETWEEN $P{date_desde} and $P{date_hasta}]]>
 				<imageExpression><![CDATA["logo_muna.jpg"]]></imageExpression>
 			</image>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="416" y="46" width="56" height="20" uuid="fd5d44d1-c96c-4c27-a354-3a37e89383ef"/>
-				<textFieldExpression><![CDATA[$P{date_desde}]]></textFieldExpression>
+				<reportElement x="441" y="46" width="56" height="20" uuid="fd5d44d1-c96c-4c27-a354-3a37e89383ef"/>
+				<textFieldExpression><![CDATA[$P{date_hasta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="232" y="46" width="64" height="20" uuid="7dae8807-86cd-4ed7-b01e-6c269ed42eb3"/>
+				<reportElement x="223" y="46" width="81" height="20" uuid="7dae8807-86cd-4ed7-b01e-6c269ed42eb3"/>
 				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="296" y="46" width="36" height="20" uuid="4c6f11a9-9e26-4edb-82ba-48b55a262d80"/>
+				<reportElement x="304" y="46" width="36" height="20" uuid="4c6f11a9-9e26-4edb-82ba-48b55a262d80"/>
 				<text><![CDATA[Desde:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="46" width="36" height="20" uuid="8f5b3dbd-9bc4-40b1-8781-b8a5ee5059ac"/>
+				<reportElement x="405" y="46" width="36" height="20" uuid="8f5b3dbd-9bc4-40b1-8781-b8a5ee5059ac"/>
 				<text><![CDATA[Hasta:]]></text>
 			</staticText>
 		</band>

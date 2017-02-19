@@ -101,13 +101,21 @@
                                                     <p:tab title="Trimestral">
                                                         <h:form id="frm_table3">
                                                             <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            <div class="row" >                                                            
+                                                                <h:outputText value="Detalle de reporte: "  />
+                                                            </div>
+                                                            <div class="row">
+                                                                <p:selectOneMenu class="col-md-2 col-md-offset-5"  value ="#{reporteBean.seleccionAnio}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                                    <f:selectItems value="#{reporteBean.añoss}" var="anio" itemLabel="#{anio}" itemValue="#{anio}"/>
+                                                                    <p:ajax event="change" listener="#{reporteBean.validarOpcionesPeriodos()}" update="@form:periodo" />
 
-                                                            <h:outputText value="Detalle de reporte: " />
-                                                            <p:selectOneButton value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte">
-                                                                <f:selectItem itemLabel="Primer Trimestre" itemValue="1" />
-                                                                <f:selectItem itemLabel="Segundo Trimestre" itemValue="4" />
-                                                                <f:selectItem itemLabel="Tercero Trimestre" itemValue="7" />
-                                                                <f:selectItem itemLabel="Cuarto Trimestre" itemValue="10" />
+                                                                </p:selectOneMenu>
+                                                            </div>
+                                                            <p:selectOneButton id="periodo" value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte" validatorMessage="Para el año seleccionado este periodo no esta disponible">
+                                                                <f:selectItem id="PrimerTrimestre" itemLabel="Primer Trimestre" itemValue="1" />
+                                                                <f:selectItem id="SegundoTrimestre" itemDisabled="#{reporteBean.fechaActiva2Tri}" itemLabel="Segundo Trimestre" itemValue="4"   />
+                                                                <f:selectItem  id="TerserTrimestre" itemDisabled="#{reporteBean.fechaActiva3Tri}" itemLabel="Tercero Trimestre" itemValue="7" />
+                                                                <f:selectItem id="CuartoTrimestre" itemDisabled="#{reporteBean.fechaActiva4Tri}" itemLabel="Cuarto Trimestre" itemValue="10" />
                                                             </p:selectOneButton>
                                                             <br/>
                                                             <br/>
@@ -119,10 +127,19 @@
 
                                                         <h:form id="frm_table4">
                                                             <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            <div class="row">
                                                             <h:outputText value="Detalle de reporte: " />
-                                                            <p:selectOneButton value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte">
-                                                                <f:selectItem itemLabel="Primer Semestre" itemValue="1" />
-                                                                <f:selectItem itemLabel="Segundo Semestre" itemValue="7" />
+                                                            </div>
+                                                            <div class="row">
+                                                                <p:selectOneMenu class="col-md-2 col-md-offset-5"  value ="#{reporteBean.seleccionAnio}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                                    <f:selectItems value="#{reporteBean.añoss}" var="anio" itemLabel="#{anio}" itemValue="#{anio}"/>
+                                                                    <p:ajax event="change" listener="#{reporteBean.validarOpcionesPeriodos()}" update="@form:periodo2" />
+
+                                                                </p:selectOneMenu>
+                                                            </div>
+                                                            <p:selectOneButton id="periodo2" value="#{reporteBean.estado}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                                <f:selectItem id="PrimerSemestre" itemLabel="Primer Semestre" itemValue="1" />
+                                                                <f:selectItem id="SegundoSemestre" itemDisabled="#{reporteBean.fechaActiva2Sem}" itemLabel="Segundo Semestre" itemValue="7" />
 
                                                             </p:selectOneButton>
                                                             <br/>
@@ -136,7 +153,14 @@
                                                     <p:tab title="Anual">
                                                         <h:form id="frm_table5">
                                                             <p:growl id="msj" autoUpdate="true"></p:growl>
+                                                            
+                                                             <div class="row">
+                                                                <p:selectOneMenu class="col-md-2 col-md-offset-5"  value ="#{reporteBean.seleccionAnio}" required="true" requiredMessage="Seleccione un detalle para el reporte">
+                                                                    <f:selectItems value="#{reporteBean.añoss}" var="anio" itemLabel="#{anio}" itemValue="#{anio}"/>
+                                                                    <p:ajax event="change" listener="#{reporteBean.validarOpcionesPeriodos()}" />
 
+                                                                </p:selectOneMenu>
+                                                            </div>
                                                             <h:commandButton value="Exportar Reporte" class="btn btn-success btn-xs " actionListener="#{reporteBean.reportAdquisicionesx12M()}" />
 
                                                         </h:form>
