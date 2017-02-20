@@ -111,5 +111,15 @@ label {
 */
 
 .ui-selectonemenu .ui-selectonemenu-trigger{
-        width: 25px;
+    width: 25px;
 }
+
+.ui-selectonemenu-trigger{
+    width : 25px !important;
+}
+
+.ui-icon-triangle-1-s{
+    margin-top:  6px !important;
+}
+
+
