@@ -90,7 +90,7 @@ public class InventarioBean implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Inventario Almacenado exitosamente!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             RequestContext.getCurrentInstance().execute("PF('ingresarInventario').hide();");
-            RequestContext.getCurrentInstance().execute("PF('ImprimirTodo').show();");
+           // RequestContext.getCurrentInstance().execute("PF('ImprimirTodo').show();");
         } else {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Debe ingresar almenos una cantidad de revistas!", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
